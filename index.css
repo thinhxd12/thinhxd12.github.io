@@ -86,10 +86,7 @@ body {
 }
 
 .imgBtn {
-  position: absolute;
-  bottom: 6px;
-  right: 6px;
-  z-index: 4;
+
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -103,6 +100,21 @@ body {
 
 .imgBtn:hover {
   background: #4e423c;
+}
+
+.imgBtnLeft{
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  z-index: 4;
+  transform: scaleX(-1);
+}
+
+.imgBtnRight{
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  z-index: 4;
 }
 
 #imgDesc {

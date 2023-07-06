@@ -21,6 +21,8 @@ function checkShortcuts(event) {
 }
 document.onkeydown = checkShortcuts;
 
+
+let historyImgArr = [];
 const fetchImgBackground = () => {
   fetch(urlCors + mainPageUrl).then((res) => {
     if (res.ok) {
@@ -36,7 +38,10 @@ const fetchImgBackground = () => {
     }).then(rep => {
       let imgSrc = extractUrlImg('<div class="main-image">\n*<img srcset="', '"', rep)[1];
       let imgDesc = extractUrlImg('<div class="main-description__wrapper">', "</footer>\n*</div>", rep)[0];
-
+      historyImgArr.unshift({ img: imgSrc, desc: imgDesc });
+      if (historyImgArr.length > 4) {
+        historyImgArr.pop();
+      }
       document.getElementById("imgSrc").srcset = imgSrc;
       document.getElementById("imgSrcBlurred").srcset = imgSrc;
       document.getElementById("imgDesc").innerHTML = imgDesc;
@@ -44,7 +49,33 @@ const fetchImgBackground = () => {
   });
 }
 
-fetchImgBackground();
+let slideIndex = 0;
+const showImage = (n) => {
+  document.getElementById("imgSrc").srcset = historyImgArr[n].img;
+  document.getElementById("imgSrcBlurred").srcset = historyImgArr[n].img;
+  document.getElementById("imgDesc").innerHTML = historyImgArr[n].desc;
+}
+
+const showNextSlice = () => {
+  if (slideIndex == 0) { fetchImgBackground() }
+  if (slideIndex > 0) {
+    slideIndex--
+    showImage(slideIndex)
+  }
+}
+showNextSlice();
+
+const showPreviousSlice = () => {
+  if (historyImgArr.length > 1) {
+    slideIndex++;
+    if (slideIndex < historyImgArr.length) {
+      showImage(slideIndex);
+    }
+    else slideIndex = historyImgArr.length - 1;
+  }
+}
+
+
 const autocomplete = (inp) => {
   var currentFocus;
   inp.addEventListener("input", function (e) {
@@ -244,7 +275,7 @@ const showDesktopNotification = () => {
   const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
   const notification = new Notification(bodyText, {
     icon: img,
-    requireInteraction : true
+    requireInteraction: true
   })
   notification.onclick = (e) => {
     startHandler();

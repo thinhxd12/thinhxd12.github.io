@@ -469,7 +469,6 @@ const handleCheckWithRow = (numRow) => {
 }
 
 
-let timeoutRender = null;
 const playTTSwithValue = (val, render = true) => {
     const audioEl = document.getElementById("tts-audio");
     const urlCors = "https://mycorspass.up.railway.app/";
@@ -494,10 +493,6 @@ const playTTSwithValue = (val, render = true) => {
             if (render) {
                 renderExplain(headword, meaning, nearby);
             }
-            if (timeoutRender !== null) {
-                clearTimeout(timeoutRender);
-            }
-            timeoutRender = setTimeout(handleDelete, 18000);
         })
         .catch((err) => {
             console.log("err", err);

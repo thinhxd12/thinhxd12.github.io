@@ -81,7 +81,7 @@ body {
   transform: translate(-50%, -50%);
   object-fit: cover;
   position: absolute;
-  z-index: 1;
+  z-index: -1;
   filter: blur(150px);
 }
 
@@ -125,7 +125,7 @@ body {
 #imgDesc .main-description__wrapper {
   max-height: 60vh;
   overflow-y: scroll;
-  animation: append-animate 2s ease;
+  animation: append-animate 1.5s ease;
 }
 
 #imgDesc .main-description__wrapper::-webkit-scrollbar {
@@ -254,7 +254,7 @@ body {
 
 /* ////flip card---------------------*/
 #flashCardContent {
-  min-height: 160px;
+  min-height: 156px;
 }
 .flip-card {
   background-color: transparent;
@@ -1219,18 +1219,44 @@ body {
 
 .zoom_image {
   overflow: hidden;
-  max-width: 620px;
   margin: 0 auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 1000px 10px black;
   cursor: zoom-in;
 }
 .zoom_image.zoom_mode_active {
   cursor: zoom-out;
 }
 .zoom_image img {
-  max-width: 100%;
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   height: auto;
   transition: transform 200ms ease-out;
+}
+
+/* -------------Login------------ */
+.loginForm {
+  display: flex;
+  height: 60%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.myInputPass {
+  box-sizing: inherit;
+  background: #fff;
+  width: 60%;
+  padding: 3px 9px;
+  height: 25px;
+  font-size: 11px;
+  border: 0;
+  outline: 0;
+  transition: all 0.3s ease;
+  font-family: "basier", sans-serif;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.myInputPassErr {
+  border-left: 3px solid red;
+  background: #e5bcbc;
 }

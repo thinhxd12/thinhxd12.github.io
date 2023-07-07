@@ -1,8 +1,12 @@
-//copy
-// const ggsUrl = 'https://script.google.com/macros/s/AKfycbxpHIY19rs_CgD9UKkvfVWmQsA08oLEr-KSPjKfDAhuacJ8iy5yJ7v_BknmjTkJcWxh/exec'
-// hoctuvung2
-const ggsUrl = 'https://script.google.com/macros/s/AKfycbzHiQUZq-gcK_-HlZ-JvvAjW5Wmr97ia9xkGm5NIz_EIo7r-k43sYMsehPPdsSPEc_FDA/exec'
-
+function checkShortcuts(event) {
+    if (event.keyCode == 27) {
+        handleDelete();
+        const text_input = document.getElementById("searchInput");
+        text_input.focus();
+        return false;
+    }
+}
+document.onkeydown = checkShortcuts;
 
 const openCity = (evt, cityName) => {
     let i, x, tablinks;
@@ -469,7 +473,7 @@ const handleCheckWithRow = (numRow) => {
 }
 
 
-const playTTSwithValue = (val, render = true) => {
+const playTTSwithValu1e = (val, render = true) => {
     const audioEl = document.getElementById("tts-audio");
     const urlCors = "https://mycorspass.up.railway.app/";
     // const urlCors = 'https://cors-proxy.fringe.zone/';
@@ -499,6 +503,21 @@ const playTTSwithValue = (val, render = true) => {
         });
 };
 
+
+const playTTSwithValue = (val, render = true) => {
+    let newUrl = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+
+    $.get(newUrl, function (html) {
+        let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
+        $('#tts-audio').attr('src', mp3Link);
+        document.getElementById('tts-audio').play();
+
+        let headword = $(html).find('.webtop-g').html();
+        let meaning = $(html).find('#entryContent').html();
+        let nearby = $(html).find('.nearby ul').html();
+        renderExplain(headword, meaning, nearby);
+    });
+};
 
 const extractUrlOxford = (start, end, res) => {
     let re = new RegExp(`${start}((.|\n)+?)${end}`);
@@ -603,6 +622,11 @@ const handleDelete = () => {
     if (element) {
         element.value = "";
     }
+    const element1 = document.getElementById("passInput");
+    if (element1) {
+        element1.value = "";
+    }
+
     document.getElementById("searchInput").value = "";
     document.getElementById("contentBody").innerHTML = "";
 };
@@ -959,6 +983,8 @@ const handlePlayRandom = async () => {
     randomArrGet = randomArr.map(item => dataSheets[item - 1]);
     playRandom()
 }
+
+
 
 
 const mangMau1 = [{

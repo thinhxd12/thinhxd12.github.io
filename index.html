@@ -13,6 +13,9 @@
     @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap");
     @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
   </style>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+    </script>
 
 </head>
 
@@ -22,7 +25,7 @@
   <div class="main">
     <div class="imageContent">
       <div class="imageContainer" id="imageContainer">
-        <div class="zoom_image" id="zoomImage" style="z-index: 29;">
+        <div class="zoom_image" style="z-index: 29;">
           <img id="imgSrc" class="mainImage" referrerpolicy="no-referrer" />
         </div>
         <img id="imgSrcBlurred" class="mainImageBlurred" referrerpolicy="no-referrer" />
@@ -41,8 +44,7 @@
     </div>
     <div class="mainContent">
       <div id="London" class="city">
-        <div id="flashCardContent">
-        </div>
+        <div id="flashCardContent"></div>
         <div class="myInputContainer">
           <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
             onmouseover="this.focus()" onmouseout="this.blur();" />
@@ -126,10 +128,17 @@
         </div>
       </div>
     </div>
- 
+
   </div>
-  <script src="./indexGlobal.js"></script>
   <script src="./index.js"></script>
+  <script src="./indexGlobal.js"></script>
+
+  <script>
+    let loginItem = sessionStorage.getItem("loginItem");
+    if (loginItem == null) {
+      window.location.href = './login.html';
+    }
+  </script>
 </body>
 
 </html>

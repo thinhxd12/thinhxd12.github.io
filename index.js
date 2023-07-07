@@ -1,65 +1,49 @@
 
 const urlCors = "https://mycorspass.up.railway.app/";
+// const urlCors = 'https://cors-proxy.fringe.zone/';
+// const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 
-const extractUrlImg = (start, end, res) => {
-  let re = new RegExp(`${start}((.|\n)+?)${end}`);
-  let result = re.exec(res);
-  if (result !== null) {
-    return result;
-  }
-  return "";
-};
+//copy
+// const ggsUrl = 'https://script.google.com/macros/s/AKfycbxpHIY19rs_CgD9UKkvfVWmQsA08oLEr-KSPjKfDAhuacJ8iy5yJ7v_BknmjTkJcWxh/exec'
+// hoctuvung2
+const ggsUrl = 'https://script.google.com/macros/s/AKfycbweV5BPrQzcLMBYPvB0Xu4NqAMC5KKicGvFgWlMo2l6InlsrIWdyCGSltr4HCAsBA3snw/exec'
 
-function checkShortcuts(event) {
-  if (event.keyCode == 27) {
-    handleDelete();
-    const text_input = document.getElementById("searchInput");
-    text_input.focus();
-    return false;
-  }
-}
-document.onkeydown = checkShortcuts;
+
 
 
 let historyImgArr = [];
-const fetchImgBackground = () => {
-  fetch(urlCors + mainPageUrl).then((res) => {
-    if (res.ok) {
-      return res.text();
-    }
-  }).then((data) => {
-    let regex = new RegExp('<ul class="also__list">(\n|.)+<a href="(.+)">');
-    let newUrl = data.match(regex)[2];
-    fetch(urlCors + newUrl).then(res => {
-      if (res.ok) {
-        return res.text();
-      }
-    }).then(rep => {
-      let imgSrc = extractUrlImg('<div class="main-image">\n*<img srcset="', '"', rep)[1];
-      let imgDesc = extractUrlImg('<div class="main-description__wrapper">', "</footer>\n*</div>", rep)[0];
-      historyImgArr.unshift({ img: imgSrc, desc: imgDesc });
+const fetchRenderImgBackground = () => {
+  $.get(urlCors + mainPageUrl, function (html) {
+    let newLink = $(html).find('.also__list li:first a').attr('href');
+    $.get(urlCors + newLink, function (html) {
+      let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
+      let imgDescGet = $(html).find(".main-description__wrapper")[0]
+
+      historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
       if (historyImgArr.length > 4) {
         historyImgArr.pop();
       }
-      document.getElementById("imgSrc").srcset = imgSrc;
-      document.getElementById("imgSrcBlurred").srcset = imgSrc;
-      document.getElementById("imgDesc").innerHTML = imgDesc;
-    })
+
+      $('#imgSrc').attr('srcset', imgSrcGet);
+      $('#imgSrcBlurred').attr('srcset', imgSrcGet);
+      $('#imgDesc').html(imgDescGet);
+    });
   });
+
 }
 
 let slideIndex = 0;
 const showImage = (n) => {
-  document.getElementById("imgSrc").srcset = historyImgArr[n].img;
-  document.getElementById("imgSrcBlurred").srcset = historyImgArr[n].img;
-  document.getElementById("imgDesc").innerHTML = historyImgArr[n].desc;
+  $('#imgSrc').attr('srcset', historyImgArr[n].img);
+  $('#imgSrcBlurred').attr('srcset', historyImgArr[n].img);
+  $('#imgDesc').html(historyImgArr[n].desc);
 }
 
 const showNextSlice = () => {
-  if (slideIndex == 0) { fetchImgBackground() }
+  if (slideIndex == 0) { fetchRenderImgBackground() }
   if (slideIndex > 0) {
-    slideIndex--
+    slideIndex--;
     showImage(slideIndex)
   }
 }
@@ -275,7 +259,7 @@ const showDesktopNotification = () => {
   const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
   const notification = new Notification(bodyText, {
     icon: img,
-    requireInteraction: true
+    requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
   })
   notification.onclick = (e) => {
     startHandler();
@@ -292,21 +276,28 @@ if (Notification.permission !== "granted") {
 
 // -------Zoomimage----------
 
-var isActiveMode = false;
-const zoomImgDiv = document.getElementById('zoomImage');
-let zoomImg = document.getElementById('imgSrc');
+let isActiveMode = false;
 
-zoomImgDiv.addEventListener("click", () => {
-  (isActiveMode = !isActiveMode)
-    ? (zoomImgDiv.classList.add("zoom_mode_active"),
-      window.innerWidth > 767
-        ? zoomImg.style.transform = "scale(3.5)"
-        : zoomImg.style.transform = "scale(5)")
-    : (zoomImgDiv.classList.remove("zoom_mode_active"),
-      zoomImg.style.transform = "scale(1)");
-});
-zoomImgDiv.addEventListener("mousemove", (e) => {
-  let corX = ((e.pageX - zoomImgDiv.offsetLeft) / zoomImgDiv.offsetWidth) * 100 + '%';
-  let corY = ((e.pageY - zoomImgDiv.offsetTop) / zoomImgDiv.offsetHeight) * 100 + '%';
-  zoomImg.style.transformOrigin = `${corX} ${corY}`;
-});
+$(".zoom_image")
+  .on("click", function () {
+    (isActiveMode = !isActiveMode)
+      ? ($(this).addClass("zoom_mode_active"),
+        $(window).width() > 767
+          ? $(this).children("img").css({ transform: "scale(3.5)" })
+          : $(this).children("img").css({ transform: "scale(5)" }))
+      : ($(this).removeClass("zoom_mode_active"),
+        $(this).children("img").css({ transform: "scale(1)" }));
+  })
+  .on("mousemove", function (e) {
+    $(this)
+      .children("img")
+      .css({
+        "transform-origin":
+          ((e.pageX - $(this).offset().left) / $(this).width()) * 100 +
+          "% " +
+          ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +
+          "%"
+      });
+  });
+
+

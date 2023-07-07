@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2617/2617511.png">
+
+    <link rel="stylesheet" href="/index.css">
+    <link href="https://fonts.cdnfonts.com/css/roslindale" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+        </script>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="imageContent">
+            <div class="imageContainer" id="imageContainer">
+                <div class="zoom_image" style="z-index: 29;">
+                    <img id="imgSrc" class="mainImage" referrerpolicy="no-referrer" />
+                </div>
+                <img id="imgSrcBlurred" class="mainImageBlurred" referrerpolicy="no-referrer" />
+            </div>
+            <div id="imgDesc"></div>
+            <button class="imgBtn imgBtnLeft" onclick="showPreviousSlice()">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+            <button class="imgBtn imgBtnRight" onclick="showNextSlice()">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="mainContent">
+            <form class="loginForm" id="loginForm" onsubmit="return false">
+                <input type="password" maxlength="6" class="myInputPass" id="passInput" autocomplete="off">
+            </form>
+        </div>
+
+    </div>
+    <!-- <script src="./indexGlobal.js"></script> -->
+    <script src="./index.js"></script>
+    <script src="./login.js"></script>
+
+</body>
+
+</html>

@@ -275,7 +275,7 @@ const showDesktopNotification = () => {
   const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
   const notification = new Notification(bodyText, {
     icon: img,
-    requireInteraction: true
+    // requireInteraction: true
   })
   notification.onclick = (e) => {
     startHandler();

@@ -3,7 +3,6 @@ const urlCors = "https://mycorspass.up.railway.app/";
 // const urlCors = 'https://cors-proxy.fringe.zone/';
 // const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
-
 //copy
 // const ggsUrl = 'https://script.google.com/macros/s/AKfycbxpHIY19rs_CgD9UKkvfVWmQsA08oLEr-KSPjKfDAhuacJ8iy5yJ7v_BknmjTkJcWxh/exec'
 // hoctuvung2

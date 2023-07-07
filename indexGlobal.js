@@ -36,12 +36,12 @@ const getAllDataSheet = () => {
     fetch(ggsUrl + '?action=getAllData', { method: 'GET' })
         .then(res => res.json())
         .then(data => {
-            localStorage.setItem('sheetData', JSON.stringify(data));
+            sessionStorage.setItem('sheetData', JSON.stringify(data));
         }).catch(err => {
             console.log(err);
         })
     getAllDataTimeout = setTimeout(() => {
-        let item = localStorage.getItem("sheetData")
+        let item = sessionStorage.getItem("sheetData")
         if (item !== null) {
             dataSheets = JSON.parse(item);
         }
@@ -59,7 +59,6 @@ const getTotalDoneWord = () => {
             console.log(err);
         })
 }
-
 getTotalDoneWord();
 
 
@@ -67,7 +66,7 @@ const fetchAndRenderCalendarData = () => {
     fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' })
         .then(res => res.json())
         .then(data => {
-            localStorage.setItem('calendarData', JSON.stringify(data));
+            sessionStorage.setItem('calendarData', JSON.stringify(data));
             renderCalendar(data);
         }).catch(err => {
             console.log(err);
@@ -348,7 +347,7 @@ const setWordList = (row) => {
     wordList = [];
     autorunTime = 0;
 
-    let item = localStorage.getItem("sheetData")
+    let item = sessionStorage.getItem("sheetData")
     if (item !== null) {
         dataSheets = JSON.parse(item);
     }
@@ -358,7 +357,7 @@ const setWordList = (row) => {
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
     let calData;
-    let itemP = localStorage.getItem("calendarData");
+    let itemP = sessionStorage.getItem("calendarData");
     if (itemP !== null) {
         calData = JSON.parse(itemP);
     }
@@ -439,7 +438,7 @@ const prepareForNext = () => {
     fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' })
         .then(res => res.json())
         .then(data => {
-            localStorage.setItem('calendarData', JSON.stringify(data));
+            sessionStorage.setItem('calendarData', JSON.stringify(data));
         }).catch(err => {
             console.log(err);
         })

@@ -257,6 +257,7 @@ const showDesktopNotification = () => {
   })
   notification.onclick = (e) => {
     startHandler();
+    notification.close();
   }
 }
 

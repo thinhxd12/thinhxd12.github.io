@@ -149,58 +149,12 @@ const autocomplete = (inp) => {
 
 autocomplete(document.getElementById("searchInput"));
 
-
-let START_MINUTES = "06";
-let START_SECOND = "00";
-let notifyMessageFlag = false;
-
-let currentMinutes = START_MINUTES;
-let currentSeconds = START_SECOND;
-let isStop = false;
-let duration = 0;
-let isRunning = false;
-let controller;
-
-const startHandler = () => {
-  duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
-  isRunning = true;
-  const audioEl = document.getElementById("tts-audio");
-  audioEl.pause();
-  audioEl.src = '';
-  controller = new AbortController();
-  animationInterval(1000, controller.signal, renderTimer)
-};
-
-const stopHandler = () => {
-  isStop = true;
-  isRunning = false;
-  controller.abort();
-  document.getElementById("tomatoText").innerHTML = '-';
-};
-
-const resetHandler = () => {
-  isStop = false;
-  isRunning = false;
-  controller.abort();
-  setTimeout(() => {
-    document.getElementById("tomatoText").style.display = 'none';
-  }, 0);
- 
-};
-
-const resumeHandler = () => {
-  isRunning = true;
-  isStop = false;
-  controller = new AbortController();
-  animationInterval(1000, controller.signal, renderTimer);
-};
-
-function animationInterval(ms, signal, callback) {
+function animationInterval(ms, callback) {
   const start = document?.timeline?.currentTime || performance.now()
   function frame(time) {
-    if (signal.aborted) return
-    callback(time)
-    scheduleFrame(time)
+    if (!runned) return
+    callback(time - start);
+    scheduleFrame(time);
   }
   function scheduleFrame(time) {
     const elapsed = time - start;
@@ -212,46 +166,51 @@ function animationInterval(ms, signal, callback) {
   scheduleFrame(start)
 }
 
-const renderTimer = () => {
-  let timer = duration += -1;
-  let minutes, seconds;
-  if (timer == 0) {
-    resetHandler();
-    document.getElementById("tomatoText").classList.toggle("tomatoFocus");
-    notifyMessageFlag = !notifyMessageFlag;
-    const audioEl = document.getElementById("tts-audio");
-    audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
-    audioEl.play();
-    showDesktopNotification();
-  }
-  else {
-    minutes = parseInt(timer / 60, 10);
-    seconds = parseInt(timer % 60, 10);
-    currentMinutes = minutes;
-    currentSeconds = seconds;
-  }
-  document.getElementById("tomatoText").style.display = 'block';
-  // document.getElementById("tomatoText").innerHTML = `${currentSeconds}s`;
-  document.getElementById("tomatoText").innerHTML = `${currentMinutes + 1}m`;
+$('#wordNum').click(function (e) {
+  resetHandler();
+});
+
+$('#tomatoButton').click(function (e) {
+  startHandler();
+});
+
+let START_MINUTES = "06";
+let START_SECOND = "00";
+let duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
+let runned = false;
+let notifyMessageFlag = false;
+
+
+const startHandler = () => {
+  runned = true;
+  animationInterval(1000, renderTimer);
+  const audioEl = document.getElementById("tts-audio");
+  audioEl.pause();
 }
 
+const resetHandler = () => {
+  $('#tomatoText').hide();
+  runned = false;
+  const audioEl = document.getElementById("tts-audio");
+  audioEl.pause();
+}
 
-document.getElementById('tomatoButton').addEventListener("click", () => {
-  if (isStop) {
-    resumeHandler();
-    return
+const renderTimer = (time) => {
+  let minutes, seconds;
+  let innerTime = Math.floor(time / 1000);
+  if (innerTime > duration) {
+    resetHandler();
+    $('#tomatoText').toggleClass('tomatoFocus');
+    notifyMessageFlag = !notifyMessageFlag;
+    $('#tts-audio').attr('src', 'https://mobcup.net/va/66kjwO3ODzg');
+    document.getElementById("tts-audio").play();
+    showDesktopNotification();
   }
-  if (isRunning) {
-    stopHandler();
-    return
-  }
-  if (!isRunning && !isStop) {
-    startHandler();
-    return
-  }
-})
-
-
+  minutes = parseInt(innerTime / 60, 10);
+  seconds = parseInt(innerTime % 60, 10);
+  $('#tomatoText').show();
+  $('#tomatoText').text((minutes + 1) * 1 + 'm');
+}
 
 const showDesktopNotification = () => {
   let bodyText = notifyMessageFlag ? "Start Focusing" : "Take a Short Break";
@@ -262,7 +221,11 @@ const showDesktopNotification = () => {
   })
   notification.onclick = (e) => {
     startHandler();
-    notification.close();
+    // notification.close();
+  }
+  notification.onclose = (e) => {
+    resetHandler();
+    // notification.close();
   }
 }
 

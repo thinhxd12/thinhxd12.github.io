@@ -159,69 +159,81 @@ let currentSeconds = START_SECOND;
 let isStop = false;
 let duration = 0;
 let isRunning = false;
-let timerInterval = null;
+let controller;
 
 const startHandler = () => {
   duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
   isRunning = true;
-  startTimer();
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
   audioEl.src = '';
+  controller = new AbortController();
+  animationInterval(1000, controller.signal, renderTimer)
 };
 
 const stopHandler = () => {
   isStop = true;
   isRunning = false;
-  clearInterval(timerInterval);
+  controller.abort();
   document.getElementById("tomatoText").innerHTML = '-';
 };
 
 const resetHandler = () => {
   isStop = false;
   isRunning = false;
-  clearInterval(timerInterval);
+  controller.abort();
   setTimeout(() => {
     document.getElementById("tomatoText").style.display = 'none';
   }, 0);
-  const audioEl = document.getElementById("tts-audio");
-  audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
-  audioEl.play();
-  showDesktopNotification();
+ 
 };
 
 const resumeHandler = () => {
-  let newDuration = parseInt(currentMinutes, 10) * 60 + parseInt(currentSeconds, 10);
-  duration = newDuration;
   isRunning = true;
   isStop = false;
-  startTimer();
+  controller = new AbortController();
+  animationInterval(1000, controller.signal, renderTimer);
 };
 
-const startTimer = () => {
-  if (isRunning == true) {
-    let timer = duration;
-    var minutes, seconds;
-    timerInterval = setInterval(() => {
-      if (--timer == 0) {
-        resetHandler();
-        document.getElementById("tomatoText").classList.toggle("tomatoFocus");
-        notifyMessageFlag = !notifyMessageFlag;
-      } else {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-        // minutes = minutes < 10 ? "0" + minutes : minutes;
-        // seconds = seconds < 10 ? "0" + seconds : seconds;
-        currentMinutes = minutes;
-        currentSeconds = seconds;
-      }
-      document.getElementById("tomatoText").style.display = 'block';
-      // document.getElementById("tomatoText").innerHTML = `${currentSeconds}s`;
-      document.getElementById("tomatoText").innerHTML = `${currentMinutes + 1}m`;
-    }, 1000);
-  } else clearInterval(timerInterval);
+function animationInterval(ms, signal, callback) {
+  const start = document?.timeline?.currentTime || performance.now()
+  function frame(time) {
+    if (signal.aborted) return
+    callback(time)
+    scheduleFrame(time)
+  }
+  function scheduleFrame(time) {
+    const elapsed = time - start;
+    const roundedElapsed = Math.round(elapsed / ms) * ms;
+    const targetNext = start + roundedElapsed + ms;
+    const delay = targetNext - performance.now();
+    setTimeout(() => requestAnimationFrame(frame), delay)
+  }
+  scheduleFrame(start)
 }
 
+const renderTimer = () => {
+  let timer = duration += -1;
+  let minutes, seconds;
+  if (timer == 0) {
+    resetHandler();
+    document.getElementById("tomatoText").classList.toggle("tomatoFocus");
+    notifyMessageFlag = !notifyMessageFlag;
+    const audioEl = document.getElementById("tts-audio");
+    audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
+    audioEl.play();
+    showDesktopNotification();
+  }
+  else {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+    currentMinutes = minutes;
+    currentSeconds = seconds;
+  }
+  document.getElementById("tomatoText").style.display = 'block';
+  // document.getElementById("tomatoText").innerHTML = `${currentSeconds}s`;
+  document.getElementById("tomatoText").innerHTML = `${currentMinutes + 1}m`;
+}
 
 
 document.getElementById('tomatoButton').addEventListener("click", () => {
@@ -239,14 +251,7 @@ document.getElementById('tomatoButton').addEventListener("click", () => {
   }
 })
 
-const resetTomatoTimer = () => {
-  isStop = false;
-  isRunning = false;
-  clearInterval(timerInterval);
-  setTimeout(() => {
-    document.getElementById("tomatoText").style.display = 'none';
-  }, 0);
-}
+
 
 const showDesktopNotification = () => {
   let bodyText = notifyMessageFlag ? "Start Focusing" : "Take a Short Break";

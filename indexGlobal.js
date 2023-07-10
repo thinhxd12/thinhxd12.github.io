@@ -472,45 +472,15 @@ const handleCheckWithRow = (numRow) => {
 }
 
 
-const playTTSwithValu1e = (val, render = true) => {
-    const audioEl = document.getElementById("tts-audio");
-    const urlCors = "https://mycorspass.up.railway.app/";
-    // const urlCors = 'https://cors-proxy.fringe.zone/';
-    // const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
-
-    let newUrl = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
-
-    fetch(newUrl)
-        .then((res) => {
-            if (res.ok) {
-                return res.text();
-            }
-        })
-        .then((data) => {
-            let mp3 = extractUrlOxford('<div class="sound audio_play_button pron-usonly icon-audio" data-src-mp3="', '"', data)[1];
-            audioEl.src = mp3;
-            audioEl.play();
-            let headword = extractUrlOxford('<div class="webtop-g">', "</div>", data)[1];
-            let meaning = extractUrlOxfordClassName("entryContent", data)[0];
-            let nearby = extractUrlOxford('<div class="responsive_row nearby">', "</div>", data)[1];
-            if (render) {
-                renderExplain(headword, meaning, nearby);
-            }
-        })
-        .catch((err) => {
-            console.log("err", err);
-        });
-};
-
-
 const playTTSwithValue = (val, render = true) => {
     let newUrl = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
 
     $.get(newUrl, function (html) {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
-        $('#tts-audio').attr('src', mp3Link);
-        document.getElementById('tts-audio').play();
-
+        if (mp3Link) {
+            $('#tts-audio').attr('src', mp3Link);
+            document.getElementById('tts-audio').play();
+        }
         let headword = $(html).find('.webtop-g').html();
         let meaning = $(html).find('#entryContent').html();
         let nearby = $(html).find('.nearby ul').html();
@@ -518,23 +488,6 @@ const playTTSwithValue = (val, render = true) => {
     });
 };
 
-const extractUrlOxford = (start, end, res) => {
-    let re = new RegExp(`${start}((.|\n)+?)${end}`);
-    let result = re.exec(res);
-    if (result !== null) {
-        return result;
-    }
-    return "";
-};
-
-const extractUrlOxfordClassName = (clasN, res) => {
-    let re = new RegExp(`<div id="${clasN}".*>((.|\n)+)</div></div>`);
-    let result = re.exec(res);
-    if (result !== null) {
-        return result;
-    }
-    return "";
-};
 
 let flipTimer1;
 let flipTimer2;
@@ -616,7 +569,6 @@ const renderExplain = (headword, meaning, nearby) => {
 
 const handleDelete = () => {
     document.getElementById("transInput").value = "";
-
     const element = document.getElementById("addNewW");
     if (element) {
         element.value = "";
@@ -625,7 +577,6 @@ const handleDelete = () => {
     if (element1) {
         element1.value = "";
     }
-
     document.getElementById("searchInput").value = "";
     document.getElementById("contentBody").innerHTML = "";
 };

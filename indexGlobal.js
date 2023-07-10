@@ -8,19 +8,19 @@ function checkShortcuts(event) {
 }
 document.onkeydown = checkShortcuts;
 
-const openCity = (evt, cityName) => {
-    let i, x, tablinks;
-    x = document.getElementsByClassName("city");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("footerBtn");
-    for (i = 0; i < x.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" footerBtnActive", "");
-    }
-    document.getElementById(cityName).style.display = "table-row-group";
-    evt.currentTarget.className += " footerBtnActive";
-};
+// const openCity = (evt, cityName) => {
+//     let i, x, tablinks;
+//     x = document.getElementsByClassName("city");
+//     for (i = 0; i < x.length; i++) {
+//         x[i].style.display = "none";
+//     }
+//     tablinks = document.getElementsByClassName("footerBtn");
+//     for (i = 0; i < x.length; i++) {
+//         tablinks[i].className = tablinks[i].className.replace(" footerBtnActive", "");
+//     }
+//     document.getElementById(cityName).style.display = "table-row-group";
+//     evt.currentTarget.className += " footerBtnActive";
+// };
 
 const chunk = (array, size) =>
     array.reduce((acc, _, i) => {
@@ -143,9 +143,7 @@ const renderCalendar = (data) => {
     }
 
     monthDateArr.map((item) => {
-        if (item.month == date.getMonth()) {
-            item["class"] = "normalDay";
-        }
+        item.month == date.getMonth() ? item["class"] = "normalDay" : item["class"] = '';
 
         if (item.date === date.getDate() && item.month === date.getMonth()) {
             item["class"] += " todayDay";
@@ -175,7 +173,7 @@ const renderCalendar = (data) => {
         ${monthDateArr[i]
                 .map((item, index) => {
                     return `
-              <td><span ${item.month == date.getMonth() && index == 0 ? `class="${item.class} sundayDay"` : `${item.class ? `class=${item.class}` : ''}`} onclick="setNewStartDate('${new Date().getFullYear()}/${item.month + 1}/${item.date}')">${item.date}</span></td>
+              <td><span class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" onclick="setNewStartDate('${new Date().getFullYear()}/${item.month + 1}/${item.date}')">${item.date}</span></td>
             `;
                 })
                 .join("")}

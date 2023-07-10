@@ -226,44 +226,43 @@ body {
   justify-content: space-between;
 }
 
-.contentFooter {
+.footerBtnContainer {
   border-top: 1px solid #282828;
-  margin-top: 6px;
-  padding-top: 6px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
 .footerBtn {
-  height: 30px;
+  height: 35px;
+  width: 100%;
   border: 0;
   font-family: "Roslindale";
   font-weight: 700;
   font-size: 11px;
   background: 0;
-  color: #fff;
   cursor: pointer;
-}
-
-.footerBtnActive .footerBtnIcon {
-  opacity: 0;
-}
-
-.footerBtnIcon {
-  color: #fff;
-  fill: #fff;
-  height: 1em;
-  vertical-align: middle;
-  opacity: 1;
+  color: #636363;
   transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
-.footerBtn:hover .iconLeft {
-  transform: scaleX(-1) translateX(3px);
+.footerBtnActive {
+  color: #fff;
 }
 
-.footerBtn:hover .iconRight {
-  transform: translateX(3px);
+.footerBtn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.footerPlusContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.btnComplex {
+  position: relative;
 }
 
 /* ////flip card---------------------*/
@@ -450,6 +449,7 @@ body {
   display: flex;
   align-items: center;
   transition: 0.7s;
+  justify-content: center;
 }
 
 .toggle-switch .round-button {
@@ -457,11 +457,8 @@ body {
   background: 0;
   border: 0;
   outline: 0;
-  width: 100%;
   position: relative;
-  transform: translateX(-5%);
   height: 100%;
-  aspect-ratio: 1;
   display: grid;
   place-items: center;
   transition: 0.5s;
@@ -545,17 +542,15 @@ body {
   font-size: 10px !important;
   padding: 1px;
   line-height: 14px;
-  top: -3px;
-  right: -7px;
+  top: -6px;
+  right: 0;
   width: 32px;
-  padding: 0;
   height: 12px;
   background: #f6f6f6;
   text-align: center;
   outline: 0;
   border: 0;
   border-radius: 3px;
-  font-size: 11px;
   font-weight: bold;
   z-index: 3;
   opacity: 0;
@@ -573,12 +568,12 @@ body {
   cursor: pointer;
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 #tomatoButton {
   position: relative;
-  margin-top: -3px;
+  margin-right: 15px;
 }
 
 .tomatoText {
@@ -1279,4 +1274,25 @@ body {
 .myInputPassErr {
   border-left: 3px solid red;
   background: #e5bcbc;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes slide-in {
+  0% {
+    transform: translateY(-9%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.city {
+  animation: fade-in 1.5s ease, slide-in 1.2s ease;
 }

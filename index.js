@@ -52,6 +52,26 @@ const showPreviousSlice = () => {
   }
 }
 
+$('#LondonBtn').click(function (e) {
+  $('#London').show();
+  $('#Paris').hide();
+
+});
+
+$('#ParisBtn').click(function (e) {
+  fetchAndRenderCalendarData();
+  $('#Paris').show();
+  $('#London').hide();
+});
+
+$('.footerBtn').click(function (e) {
+  $('.footerBtn').removeClass("footerBtnActive");
+  $(this).addClass("footerBtnActive");
+});
+
+$('.footerBtnToggle').click(function (e) {
+  $('.footerPlusContent').slideToggle('fast');
+});
 
 const autocomplete = (inp) => {
   var currentFocus;

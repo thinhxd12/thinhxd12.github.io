@@ -101,42 +101,47 @@
         </table>
         <div id="calendarContent"></div>
       </div>
+
+
       <div class="contentFooter">
-        <div class="buttonSwitch">
-          <div class="toggle-switch">
-            <button class="round-button" id="autoPlayBtn">
-              <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
-              <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
-              <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
-              <div class="roundBtnBody" id="roundBtnBody"></div>
-            </button>
-            <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
-              onchange="setWordList(this.value)">
+
+        <div class="footerPlusContent" style="display: none;">
+          <div class="buttonSwitch">
+            <div class="toggle-switch">
+              <button class="round-button" id="autoPlayBtn">
+                <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
+                <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
+                <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
+                <div class="roundBtnBody" id="roundBtnBody"></div>
+              </button>
+              <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
+                onchange="setWordList(this.value)">
+            </div>
+          </div>
+          <span></span>
+          <span></span>
+          <div class="tomatoContent" id="tomatoContent">
+            <div id="tomatoButton">
+              <img src="https://cdn-icons-png.flaticon.com/512/1790/1790418.png" width="28">
+              <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
+            </div>
+            <div class="wordNum" id="wordNum">123</div>
           </div>
         </div>
-        <button class="footerBtn footerBtnActive" onclick="openCity(event,'London')">
-          <svg class="footerBtnIcon iconLeft" width="16" height="14" viewBox="0 0 16 14"
-            xmlns="http://www.w3.org/2000/svg" transform="scale(-1 1)">
-            <path
-              d="m8.996-.003 7.001 7.001-.707.707L9 14.001l-.707-.707 5.789-5.797L0 7.498v-1h14.082L8.289.703l.707-.707z" />
-          </svg>
-          Amor fati
-        </button>
-        <button class="footerBtn" onclick="openCity(event,'Paris');fetchAndRenderCalendarData();">Par
-          excellence
-          <svg class="footerBtnIcon iconRight" width="16" height="14" viewBox="0 0 16 14"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="m8.996-.003 7.001 7.001-.707.707L9 14.001l-.707-.707 5.789-5.797L0 7.498v-1h14.082L8.289.703l.707-.707z" />
-          </svg>
-        </button>
-        <div class="tomatoContent" id="tomatoContent">
-          <div></div>
-          <div id="tomatoButton">
-            <img src="https://cdn-icons-png.flaticon.com/512/1790/1790418.png" width="28">
-            <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
-          </div>
-          <div class="wordNum" id="wordNum">123</div>
+
+        <div class="footerBtnContainer">
+          <button class="footerBtn footerBtnToggle">
+            Solis
+          </button>
+          <button class="footerBtn" id="LondonBtn">
+            Amor
+          </button>
+          <button class="footerBtn" id="ParisBtn">
+            Excellence
+          </button>
+          <button class="footerBtn footerBtnToggle">
+            Pomodoro
+          </button>
         </div>
       </div>
     </div>

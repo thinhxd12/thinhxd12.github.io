@@ -175,7 +175,7 @@ const renderCalendar = (data) => {
         ${monthDateArr[i]
                 .map((item, index) => {
                     return `
-              <td><span class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : item.class}" onclick="setNewStartDate('${new Date().getFullYear()}/${item.month + 1}/${item.date}')">${item.date}</span></td>
+              <td><span ${item.month == date.getMonth() && index == 0 ? `class="${item.class} sundayDay"` : `${item.class ? `class=${item.class}` : ''}`} onclick="setNewStartDate('${new Date().getFullYear()}/${item.month + 1}/${item.date}')">${item.date}</span></td>
             `;
                 })
                 .join("")}

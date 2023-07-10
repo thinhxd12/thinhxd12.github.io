@@ -240,16 +240,30 @@ body {
   font-family: "Roslindale";
   font-weight: 700;
   font-size: 11px;
-  font-style: italic;
   background: 0;
   color: #fff;
   cursor: pointer;
 }
 
-.footerBtnActive {
-  font-style: normal;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.footerBtnActive .footerBtnIcon {
+  opacity: 0;
+}
+
+.footerBtnIcon {
+  color: #fff;
+  fill: #fff;
+  height: 1em;
+  vertical-align: middle;
+  opacity: 1;
+  transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.footerBtn:hover .iconLeft {
+  transform: scaleX(-1) translateX(3px);
+}
+
+.footerBtn:hover .iconRight {
+  transform: translateX(3px);
 }
 
 /* ////flip card---------------------*/
@@ -300,11 +314,11 @@ body {
 }
 
 .flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 
 .flipMyCard {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 
 .flip-card-front,
@@ -336,7 +350,7 @@ body {
 }
 
 .flip-card-back {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
   background: #fff;
 }
 
@@ -397,11 +411,13 @@ body {
   position: relative;
   transition: all 0.5s ease;
   display: flex;
+  border-bottom: 1px solid #3b3735;
 }
 
 .myInputContainer .myInput {
   box-sizing: inherit;
-  background: #fff;
+  background: #000;
+  color: #fff;
   width: 100%;
   padding: 3px 9px;
   height: 25px;
@@ -413,12 +429,12 @@ body {
 }
 
 .myInputContainer .myInput:first-child {
-  border-right: 1px solid #3b3735;
-  border-radius: 3px 0 0 3px;
+  border-right: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.myInputContainer .myInput:last-child {
-  border-radius: 0 3px 3px 0;
+.myInputContainer:hover .myInput:first-child {
+  border-right: 1px solid #3b3735;
 }
 
 /* ---------------buttonSwitch--------- */
@@ -612,8 +628,7 @@ body {
 }
 
 .calendarHeader {
-  height: 140px;
-  background-image: url("http://sellsidehandbook.com/wp-content/uploads/2018/08/pier-569314_960_720.jpg");
+  height: 150px;
   background-size: cover;
   background-position: center;
 }
@@ -641,6 +656,11 @@ body {
   color: #fff;
 }
 
+.weekTitle td:first-of-type span {
+  color: #ac0000;
+  font-weight: bold;
+}
+
 .calendarFooter {
   max-height: 260px;
   border-bottom: 1px solid #282828;
@@ -648,7 +668,7 @@ body {
 }
 
 .calendarFooter table {
-  height: 200px;
+  height: 185px;
   border-collapse: collapse;
   width: 100%;
   text-align: center;
@@ -657,6 +677,12 @@ body {
 .dateContent {
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.dateContent:hover,
+.dateContent:hover #calendarDate {
+  color: #fff;
 }
 
 #calendarDate {
@@ -664,11 +690,6 @@ body {
   margin-right: 5px;
   cursor: pointer;
   color: #9f9f9f;
-  transition: 0.6 color ease-in-out;
-}
-
-#calendarDate:hover {
-  color: white;
 }
 
 #calendarDay {
@@ -682,7 +703,7 @@ body {
 .dateProgressContent {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin: 3px 0 3px;
   cursor: pointer;
 }
@@ -704,6 +725,8 @@ body {
 .weekDay td span {
   cursor: pointer;
   z-index: 1;
+  display: block;
+  width: 55px;
 }
 
 .sundayDay {
@@ -721,8 +744,8 @@ body {
 .weekDay .endDay::after {
   content: "";
   position: absolute;
-  top: -5px;
-  left: -7px;
+  top: -6px;
+  left: 15px;
   display: block;
   width: 21px;
   height: 21px;
@@ -734,10 +757,10 @@ body {
   content: "";
   background: #c17070;
   position: absolute;
-  top: -5px;
-  left: -6px;
+  top: -6px;
+  left: 16px;
   width: 23px;
-  height: 23px;
+  height: 24px;
   z-index: -1;
   border-radius: 50%;
 }
@@ -798,7 +821,6 @@ body {
   display: flex;
   align-items: center;
   padding: 3px 6px;
-  /* background-color: #232227; */
   color: white;
   position: relative;
   border: 1px solid #282828;
@@ -809,7 +831,6 @@ body {
   width: 6px;
   height: 10px;
   position: absolute;
-  /* background-color: #232227; */
   background: #000;
   left: 100%;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
@@ -820,11 +841,10 @@ body {
   background-color: #fff;
   display: flex;
   align-items: center;
-  padding: 3px 3px 3px 21px;
+  padding: 3px 3px 3px 15px;
 }
 
 #calendarContent {
-  /* max-height: 50px; */
   padding: 3px;
 }
 
@@ -850,7 +870,7 @@ body {
   transition: all 0.5s ease;
   cursor: pointer;
   margin-bottom: 2px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(9px);
 }
 

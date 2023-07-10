@@ -16,7 +16,7 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
     </script>
-
+  <script src="./jquery.fadeInAmate.js"></script>
 </head>
 
 <body>
@@ -58,8 +58,8 @@
           <div class="calendarHeader" id="calendarHeader"></div>
           <div class="calendarFooter">
             <div class="calendarContent">
-              <div class="dateContent">
-                <div id="calendarDate" onclick="setTodayWork()">28</div>
+              <div class="dateContent" onclick="setTodayWork()">
+                <div id="calendarDate">28</div>
                 <div>
                   <div id="calendarDay">Wednesday</div>
                   <div id="calendarMonth">June/2023</div>
@@ -115,9 +115,14 @@
               onchange="setWordList(this.value)">
           </div>
         </div>
-        <button class="footerBtn footerBtnActive" onclick="openCity(event,'London')">Amor fati</button>
+        <button class="footerBtn footerBtnActive" onclick="openCity(event,'London')">
+          <svg class="footerBtnIcon iconLeft" width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg" transform="scale(-1 1)"><path d="m8.996-.003 7.001 7.001-.707.707L9 14.001l-.707-.707 5.789-5.797L0 7.498v-1h14.082L8.289.703l.707-.707z"/></svg>
+          Amor fati
+        </button>
         <button class="footerBtn" onclick="openCity(event,'Paris');fetchAndRenderCalendarData();">Par
-          excellence</button>
+          excellence
+          <svg class="footerBtnIcon iconRight" width="16" height="14" viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="m8.996-.003 7.001 7.001-.707.707L9 14.001l-.707-.707 5.789-5.797L0 7.498v-1h14.082L8.289.703l.707-.707z"/></svg>
+        </button>
         <div class="tomatoContent" id="tomatoContent">
           <div></div>
           <div id="tomatoButton">

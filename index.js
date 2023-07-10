@@ -5,7 +5,6 @@ const urlCors = "https://mycorspass.up.railway.app/";
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
 
-
 let historyImgArr = [];
 const fetchRenderImgBackground = () => {
   $.get(urlCors + mainPageUrl, function (html) {

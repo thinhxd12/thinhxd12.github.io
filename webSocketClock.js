@@ -22,7 +22,6 @@ function webSocketClock(server_url, config_dict) {
   let ws_lastcheck = 0;
   var ws_timeout;
 
-
   // send rquest to the server
   // Note: The request includes the actual local time of the client's
   //       clock to measure the roundtrip time
@@ -109,17 +108,11 @@ function webSocketClock(server_url, config_dict) {
         sendPTB("", false);
       }
       else {
-
         // get PTB UTC time
         let ts = performance.now() - time_delta;
         ts = Math.round(ts / 1000.0) % 86400;
 
         console.log('UTC time', ts);
-        //play sound prevent Chrome throttle
-        audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-        audioEl.volume = 0.01;
-        audioEl.play();
-
         checkTimeup(ts);
 
         ws_active = false;
@@ -177,6 +170,10 @@ const resetHandler = () => {
 function checkTimeup(time) {
   let res = time - firstTimestamp;
   if (firstTimestamp > 0) {
+    //play sound prevent Chrome throttle
+    audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+    audioEl.volume = 0.01;
+    audioEl.play();
     // render Tomato timer
     let minutes = parseInt((duration - res) / 60, 10);
     // let seconds = parseInt((duration - res) % 60, 10);

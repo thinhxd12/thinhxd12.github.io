@@ -173,6 +173,7 @@ const resetHandler = () => {
   $('#tomatoText').hide();
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
+  console.log('close');
 };
 
 function checkTimeup(time) {
@@ -223,14 +224,16 @@ const showDesktopNotification = () => {
     icon: img,
     requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
   })
-  notification.onclick = (e) => {
+
+  notification.onclick = (event) => {
+    event.preventDefault();
     startHandler();
-    setTimeout(notification.close(), 1000);
-  }
-  notification.onclose = (e) => {
+  };
+
+  notification.onclose = (event) => {
+    event.preventDefault();
     resetHandler();
-    // notification.close();
-  }
+  };
 }
 
 if (Notification.permission !== "granted") {

@@ -40,10 +40,11 @@ function webSocketClock(server_url, config_dict) {
     time_ws.onopen = function (event) {
       ws_connected = true;
       console.log('connected');
-      if (!ws_active) {
-        results_array = Array();
-      }
-      // sendPTB("opened", true);
+      setTimeout(() => {
+        if (!ws_active) {
+          sendPTB("opened", true);
+        }
+      }, 1500);
     }
 
     // callback if socket is closed

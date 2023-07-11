@@ -1,7 +1,6 @@
 const server_url = 'uhr.ptb.de/time';
 var time_ws;
 var start_connectionTimeout;
-var audioEl = document.getElementById("tts-audio");
 
 let START_MINUTES = "06";
 let START_SECOND = "00";
@@ -157,6 +156,7 @@ const startHandler = () => {
   firstTimestamp = Math.round(ts / 1000.0) % 86400;
   console.log('start', firstTimestamp);
   webSocketClock(server_url);
+  let audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 };
 
@@ -164,6 +164,7 @@ const resetHandler = () => {
   time_ws.close();
   clearTimeout(start_connectionTimeout);
   $('#tomatoText').hide();
+  let audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 };
 
@@ -171,6 +172,7 @@ function checkTimeup(time) {
   let res = time - firstTimestamp;
   if (firstTimestamp > 0) {
     //play sound prevent Chrome throttle
+    let audioEl = document.getElementById("tts-audio");
     audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
     audioEl.volume = 0.01;
     audioEl.play();

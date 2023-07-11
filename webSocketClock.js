@@ -1,10 +1,13 @@
 const server_url = 'uhr.ptb.de/time';
 var time_ws;
 var start_connectionTimeout;
+var audioEl = document.getElementById("tts-audio");
+
 let START_MINUTES = "06";
 let START_SECOND = "00";
 let duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
 let notifyMessageFlag = false;
+
 
 function webSocketClock(server_url, config_dict) {
   var results_array = Array();
@@ -112,6 +115,11 @@ function webSocketClock(server_url, config_dict) {
         ts = Math.round(ts / 1000.0) % 86400;
 
         console.log('UTC time', ts);
+        //play sound prevent Chrome throttle
+        audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+        audioEl.volume = 0.01;
+        audioEl.play();
+
         checkTimeup(ts);
 
         ws_active = false;
@@ -156,7 +164,6 @@ const startHandler = () => {
   firstTimestamp = Math.round(ts / 1000.0) % 86400;
   console.log('start', firstTimestamp);
   webSocketClock(server_url);
-  const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 };
 
@@ -164,7 +171,6 @@ const resetHandler = () => {
   time_ws.close();
   clearTimeout(start_connectionTimeout);
   $('#tomatoText').hide();
-  const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 };
 
@@ -181,8 +187,8 @@ function checkTimeup(time) {
     if (res > duration) {
       firstTimestamp = 0;
       $('#tomatoText').hide();
-      const audioEl = document.getElementById("tts-audio");
       audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
+      audioEl.volume = 1;
       audioEl.play();
       $('#tomatoText').toggleClass('tomatoFocus');
       notifyMessageFlag = !notifyMessageFlag;

@@ -224,6 +224,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: scroll;
 }
 
 .footerBtnContainer {
@@ -253,7 +254,6 @@ body {
 
 .footerBtn:hover {
   color: #fff;
-  transform: translateY(-1px);
 }
 
 .footerPlusContent {
@@ -266,9 +266,31 @@ body {
 }
 
 /* ////flip card---------------------*/
-#flashCardContent {
-  min-height: 156px;
+.contentHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 190px;
 }
+
+#flashCardContent {
+  width: 100%;
+  /* background-color: #3e8ed0; */
+  position: relative;
+}
+
+#flashCardContent:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-top: 1px solid #3b3735;
+  /* background: black; */
+  width: 100%;
+  /* transform: translateY(-50%); */
+}
+
 .flip-card {
   background-color: transparent;
   width: 270px;
@@ -405,35 +427,39 @@ body {
 
 .myInputContainer {
   width: 100%;
-  padding: 0 9px;
-  border-radius: 6px 6px 0 0;
-  position: relative;
   transition: all 0.5s ease;
   display: flex;
   border-bottom: 1px solid #3b3735;
+  align-items: flex-end;
+  justify-content: space-around;
 }
 
 .myInputContainer .myInput {
   box-sizing: inherit;
   background: #000;
   color: #fff;
-  width: 100%;
-  padding: 3px 9px;
+  padding: 3px 15px 0px;
   height: 25px;
   font-size: 11px;
   border: 0;
   outline: 0;
   transition: all 0.3s ease;
   font-family: "basier", sans-serif;
+  width: 45%;
 }
 
-.myInputContainer .myInput:first-child {
-  border-right: 1px solid transparent;
-  transition: all 0.3s ease;
+.myInputDot {
+  height: 9px;
+  width: 9px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: block;
 }
 
-.myInputContainer:hover .myInput:first-child {
-  border-right: 1px solid #3b3735;
+.myInputIcon {
+  fill: #3b3735;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
 }
 
 /* ---------------buttonSwitch--------- */
@@ -617,7 +643,6 @@ body {
 .calendarCard {
   font-family: "Rubik", sans-serif;
   font-size: 12px;
-  max-height: 500px;
   color: #636363;
   margin-bottom: 3px;
 }
@@ -721,7 +746,7 @@ body {
   cursor: pointer;
   z-index: 1;
   display: block;
-  width: 55px;
+  width: 52px;
 }
 
 .sundayDay {
@@ -846,7 +871,7 @@ body {
 /* ------------searchInput------------ */
 .contentBody {
   padding: 9px;
-  max-height: calc(100vh - 250px);
+  max-height: calc(100vh - 270px);
   overflow-y: scroll;
 }
 

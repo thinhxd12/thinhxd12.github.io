@@ -477,7 +477,9 @@ const playTTSwithValue = (val, render = true) => {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
             $('#tts-audio').attr('src', mp3Link);
-            document.getElementById('tts-audio').play();
+            const audioEl = document.getElementById("tts-audio");
+            audioEl.volume = 1;
+            audioEl.play();
         }
         let headword = $(html).find('.webtop-g').html();
         let meaning = $(html).find('#entryContent').html();

@@ -28,7 +28,9 @@ function webSocketClock(server_url, config_dict) {
     if (reset_array) results_array = Array();
     if (text != "") console.log("websocket clock " + text);
     ws_active = true;
-    time_ws.send(JSON.stringify({ c: performance.now() }));
+
+    const currentTime = document?.timeline?.currentTime || performance.now();
+    time_ws.send(JSON.stringify({ c: currentTime }));
   }
 
   function connect_server() {
@@ -38,9 +40,11 @@ function webSocketClock(server_url, config_dict) {
     time_ws.onopen = function (event) {
       ws_connected = true;
       console.log('connected');
-      if (!ws_active) {
-        sendPTB("opened", true);
-      }
+      setTimeout(() => {
+        if (!ws_active) {
+          sendPTB("opened", true);
+        }
+      }, 300);
     }
 
     // callback if socket is closed
@@ -69,11 +73,12 @@ function webSocketClock(server_url, config_dict) {
       // console.log(data);
 
       // roundtrip time from client to server and back
-      let roundtrip_time = performance.now() - data.c;
+      const currentTime = document?.timeline?.currentTime || performance.now();
+      let roundtrip_time = currentTime - data.c;
 
       // calculate time difference between local and server clock
       // (assuming that both directions are similar fast)
-      let delta = performance.now() - data.s - roundtrip_time / 2.0;
+      let delta = currentTime - data.s - roundtrip_time / 2.0;
 
       // leap second announced?
       let leap = data.l || 0;
@@ -108,7 +113,8 @@ function webSocketClock(server_url, config_dict) {
       }
       else {
         // get PTB UTC time
-        let ts = performance.now() - time_delta;
+        const currentTime = document?.timeline?.currentTime || performance.now();
+        let ts = currentTime - time_delta;
         ts = Math.round(ts / 1000.0) % 86400;
 
         console.log('UTC time', ts);
@@ -129,10 +135,11 @@ function webSocketClock(server_url, config_dict) {
   function start_connection() {
     // check again in 1s
     start_connectionTimeout = setTimeout(start_connection, 1000);
+    const currentTime = document?.timeline?.currentTime || performance.now();
     // check connection
     if (ws_connected) {
       // connected --> check whether the window was sleeping
-      if (performance.now() - ws_lastcheck > 3200) {
+      if (currentTime - ws_lastcheck > 3200) {
         // slept --> wake up
         clearTimeout(ws_timeout);
         sendPTB("restart after sleep", true);
@@ -143,7 +150,7 @@ function webSocketClock(server_url, config_dict) {
       connect_server();
     }
     // remember last check
-    ws_lastcheck = performance.now();
+    ws_lastcheck = currentTime;
   }
   start_connection();
 }

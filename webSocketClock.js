@@ -40,7 +40,10 @@ function webSocketClock(server_url, config_dict) {
     time_ws.onopen = function (event) {
       ws_connected = true;
       console.log('connected');
-      sendPTB("opened", false);
+      if (!ws_active) {
+        results_array = Array();
+      }
+      // sendPTB("opened", true);
     }
 
     // callback if socket is closed
@@ -221,7 +224,7 @@ const showDesktopNotification = () => {
   })
   notification.onclick = (e) => {
     startHandler();
-    notification.close();
+    setTimeout(notification.close(), 1000);
   }
   notification.onclose = (e) => {
     resetHandler();

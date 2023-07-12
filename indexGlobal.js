@@ -8,19 +8,6 @@ function checkShortcuts(event) {
 }
 document.onkeydown = checkShortcuts;
 
-// const openCity = (evt, cityName) => {
-//     let i, x, tablinks;
-//     x = document.getElementsByClassName("city");
-//     for (i = 0; i < x.length; i++) {
-//         x[i].style.display = "none";
-//     }
-//     tablinks = document.getElementsByClassName("footerBtn");
-//     for (i = 0; i < x.length; i++) {
-//         tablinks[i].className = tablinks[i].className.replace(" footerBtnActive", "");
-//     }
-//     document.getElementById(cityName).style.display = "table-row-group";
-//     evt.currentTarget.className += " footerBtnActive";
-// };
 
 const chunk = (array, size) =>
     array.reduce((acc, _, i) => {
@@ -611,10 +598,8 @@ const handleTranslate = async () => {
             let textFindWord = textFind.val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
             let textFindVal = textFind.val;
             let textFindNumb = textFind.numb;
-            let textFindRow = textFind.row;
             playTTSwithValue(textFindWord);
             renderFlashcard(textFindVal, textFindNumb);
-            handleCheckWithRow(textFindRow);
         }
     } else {
         let obj = { text: transInput.value, fromL: 'en', toL: 'vi' };

@@ -5,6 +5,89 @@ const urlCors = "https://mycorspass.up.railway.app/";
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
 
+const START_MINUTES = "06";
+const START_SECOND = "00";
+let duration;
+let notifyMessageFlag = false;
+let timerTimeout = null;
+let tickTimeout = null;
+
+const renderTomatoTick = () => {
+  function tick() {
+    let t = 60;
+    if (duration > 0) {
+      tickTimeout = setTimeout(tick, t * 1000);
+      $('#tomatoText').show();
+      $('#tomatoText').text(duration / 60 + 'm');
+      duration = duration - t;
+    }
+  }
+  tick();
+}
+
+
+const startHandler = () => {
+  $('#tomatoText').show();
+  const audioEl = document.getElementById("tts-audio");
+  audioEl.pause();
+
+  duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
+  clearTimeout(timerTimeout);
+  clearTimeout(tickTimeout);
+  renderTomatoTick();
+
+  timerTimeout = setTimeout(() => {
+    $('#tomatoText').hide();
+    $('#tomatoText').toggleClass('tomatoFocus');
+    const audioEl = document.getElementById("tts-audio");
+    audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
+    audioEl.volume = 1;
+    audioEl.play();
+    showDesktopNotification();
+  }, 360000);
+}
+
+const resetHandler = () => {
+  duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
+  clearTimeout(timerTimeout);
+  $('#tomatoText').hide();
+  const audioEl = document.getElementById("tts-audio");
+  audioEl.pause();
+}
+
+const showDesktopNotification = () => {
+  let bodyText = notifyMessageFlag ? "Start Focusing" : "Take a Short Break";
+  const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
+  const notification = new Notification(bodyText, {
+    icon: img,
+    requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
+  })
+
+  notification.onclick = (event) => {
+    startHandler();
+  };
+
+  notification.onclose = (event) => {
+    resetHandler();
+  };
+}
+
+if (Notification.permission !== "granted") {
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      showDesktopNotification();
+    }
+  })
+}
+
+$('#tomatoButton').click(function (e) {
+  startHandler();
+});
+
+$('#wordNum').click(function (e) {
+  resetHandler();
+});
+
 let historyImgArr = [];
 const fetchRenderImgBackground = () => {
   $.get(urlCors + mainPageUrl, function (html) {
@@ -69,8 +152,12 @@ $('.footerBtn').click(function (e) {
   $(this).addClass("footerBtnActive");
 });
 
-$('.footerBtnToggle').click(function (e) {
-  $('.footerPlusContent').slideToggle('fast');
+$('.footerBtnToggleLeft').click(function (e) {
+  $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
+});
+
+$('.footerBtnToggleRight').click(function (e) {
+  $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
 const autocomplete = (inp) => {

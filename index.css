@@ -246,7 +246,7 @@ body {
 .footerBtnContainer {
   border-top: 1px solid #282828;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
   position: relative;

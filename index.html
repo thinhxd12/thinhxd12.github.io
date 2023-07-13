@@ -2,164 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Take a small step every day.</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2617/2617511.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2617/2617511.png">
 
-  <link rel="stylesheet" href="/index.css">
-  <link href="https://fonts.cdnfonts.com/css/roslindale" rel="stylesheet">
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap");
-    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-  </style>
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
-    </script>
+    <link rel="stylesheet" href="/index.css">
+    <link href="https://fonts.cdnfonts.com/css/roslindale" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+        </script>
+
 </head>
 
 <body>
-  <audio id="tts-audio" hidden="" src="https://example123.com/"></audio>
-
-  <div class="main">
-    <div class="imageContent">
-      <div class="imageContainer" id="imageContainer">
-        <div class="zoom_image" style="z-index: 29;">
-          <img id="imgSrc" class="mainImage" referrerpolicy="no-referrer" />
+    <div class="main loginPage">
+        <div class="mainContent">
+            <form class="loginForm" id="loginForm" onsubmit="return false">
+                <input type="password" maxlength="6" class="myInputPass" id="passInput" autocomplete="off">
+            </form>
         </div>
-        <img id="imgSrcBlurred" class="mainImageBlurred" referrerpolicy="no-referrer" />
-      </div>
-      <div id="imgDesc"></div>
-      <button class="imgBtn imgBtnLeft" onclick="showPreviousSlice()">
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
-        </svg>
-      </button>
-      <button class="imgBtn imgBtnRight" onclick="showNextSlice()">
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
-        </svg>
-      </button>
+
     </div>
-    <div class="mainContent">
-      <div id="London" class="city">
-        <div class="contentHeader">
-          <div id="flashCardContent"></div>
-          <div class="myInputContainer">
-            <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
-              onmouseover="this.focus()" onmouseout="this.blur();" />
-            <div class="myInputIcon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
-              onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur();" />
-          </div>
-        </div>
-        <div class="contentBody" id="contentBody"></div>
-      </div>
-      <div id="Paris" class="city" style="display: none;">
-        <div class="calendarCard">
-          <div class="calendarHeader" id="calendarHeader"></div>
-          <div class="calendarFooter">
-            <div class="calendarContent">
-              <div class="dateContent" onclick="setTodayWork()">
-                <div id="calendarDate">28</div>
-                <div>
-                  <div id="calendarDay">Wednesday</div>
-                  <div id="calendarMonth">June/2023</div>
-                </div>
-              </div>
-              <div class="dateProgress" id="dateProgress"></div>
-            </div>
-            <table id="dayNumber">
-              <thead>
-                <tr class="weekTitle">
-                  <td>
-                    <div class="weekDate"><span>Sun</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Mon</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Tue</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Wed</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Thu</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Fri</span></div>
-                  </td>
-                  <td>
-                    <div class="weekDate"><span>Sat</span></div>
-                  </td>
-                </tr>
-              </thead>
-              <tbody id="htmlDate"></tbody>
-            </table>
-          </div>
-        </div>
-        <table class="table">
-          <tr id="historyTable"></tr>
-        </table>
-        <div id="calendarContent"></div>
-      </div>
-
-
-      <div class="contentFooter">
-        <div class="footerBtnContainer">
-          <div class="buttonSwitch toogleItemLeft">
-            <div class="toggle-switch">
-              <button class="round-button" id="autoPlayBtn">
-                <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
-                <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
-                <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
-                <div class="roundBtnBody" id="roundBtnBody"></div>
-              </button>
-              <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
-                onchange="setWordList(this.value)">
-            </div>
-          </div>
-          <button class="footerBtn footerBtnToggleLeft">
-            Amor Fati
-          </button>
-          <button class="footerBtn footerBtnActive" id="LondonBtn">
-            Veritas
-          </button>
-          <button class="footerBtn" id="ParisBtn">
-            Par Excellence
-          </button>
-          <button class="footerBtn footerBtnToggleRight">
-            Felix Culpa
-          </button>
-          <div class="toogleItemRight">
-            <div class="tomatoContent" id="tomatoContent">
-              <div id="tomatoButton">
-                <img src="https://cdn-icons-png.flaticon.com/512/1790/1790418.png" width="28">
-                <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
-              </div>
-              <div class="wordNum" id="wordNum">123</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <script src="./index.js"></script>
-  <script src="./indexGlobal.js"></script>
-
-  <script>
-    let loginItem = sessionStorage.getItem("loginItem");
-    if (loginItem == null) {
-      window.location.href = './login.html';
-    }
-  </script>
+    <script src="./login.js"></script>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
-// ------------login----------
+const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
 
 $(document).ready(function () {
     let loginItem = sessionStorage.getItem("loginItem");
     if (loginItem == 'success') {
-        window.location.href = './index.html';
+        window.location.href = './main.html';
     }
 });
 

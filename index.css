@@ -136,8 +136,8 @@ body {
   font-family: "basier", sans-serif;
   display: block;
   font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 0.8vw;
+  line-height: 1vw;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #000;
@@ -147,16 +147,16 @@ body {
   font-family: "Roslindale";
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 1.2vw;
+  line-height: 1.3vw;
   letter-spacing: 0.02em;
   color: #fff;
 }
 
 #imgDesc .main-description__attr {
   letter-spacing: -0.25px;
-  font-size: 12px;
-  color: #989da7;
+  font-size: 0.8vw;
+  color: #515151;
   font-family: "basier", sans-serif;
   margin-bottom: 5px;
 }

@@ -537,6 +537,7 @@ const flipFlashCard = () => {
 };
 
 const renderExplain = (headword, meaning, nearby) => {
+    $('#contentImg').addClass('contentImgBlurred');
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
     <div class="explainContainer">
@@ -555,6 +556,7 @@ const renderExplain = (headword, meaning, nearby) => {
 };
 
 const handleDelete = () => {
+    $('#contentImg').removeClass('contentImgBlurred');
     document.getElementById("transInput").value = "";
     const element = document.getElementById("addNewW");
     if (element) {

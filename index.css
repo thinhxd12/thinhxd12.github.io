@@ -19,6 +19,13 @@
   font-weight: 400;
 }
 
+@font-face {
+  src: url("./font/noto-sans.bold.ttf");
+  font-family: "NotoSans";
+  font-style: normal;
+  font-weight: 400;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -318,8 +325,8 @@ body {
   margin: 6px auto;
   perspective: 1000px;
   border: 1px solid #3b3735;
-  font-family: "Signika", sans-serif;
   border-radius: 3px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .flip-card-front .heading {
@@ -399,7 +406,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 0.8em;
+  font-size: 0.78em;
   font-weight: 600;
   text-align: left;
   padding-left: 2em;
@@ -916,6 +923,12 @@ body {
   filter: brightness(0.8);
 }
 
+.contentImgBlurred {
+  object-fit: cover;
+  object-position: center center;
+  filter: blur(60px);
+}
+
 .contentBody > div#contentBody {
   position: absolute;
   top: 9px;
@@ -1287,7 +1300,7 @@ body {
     border: 1px solid #282828;
     border-radius: 3px;
   }
-  .contentImg{
+  .contentImg {
     display: block;
   }
 }

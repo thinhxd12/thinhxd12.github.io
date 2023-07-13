@@ -147,8 +147,7 @@ body {
   font-family: "Roslindale";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.2vw;
-  line-height: 1.3vw;
+  font-size: 1.5vw;
   letter-spacing: 0.02em;
   color: #fff;
 }
@@ -156,7 +155,7 @@ body {
 #imgDesc .main-description__attr {
   letter-spacing: -0.25px;
   font-size: 0.8vw;
-  color: #515151;
+  color: #262626;
   font-family: "basier", sans-serif;
   margin-bottom: 5px;
 }
@@ -899,13 +898,30 @@ body {
 
 /* ------------searchInput------------ */
 .contentBody {
-  padding: 9px;
-  max-height: calc(100vh - 270px);
+  height: calc(100vh - 227px);
   overflow-y: scroll;
+  position: relative;
 }
 
 .contentBody::-webkit-scrollbar {
   display: none;
+}
+
+.contentImg {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  filter: brightness(0.8);
+}
+
+.contentBody > div#contentBody {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  width: calc(100% - 18px);
+  margin: 0 auto;
 }
 
 .my-item {
@@ -1270,6 +1286,9 @@ body {
   .mainContent {
     border: 1px solid #282828;
     border-radius: 3px;
+  }
+  .contentImg{
+    display: block;
   }
 }
 

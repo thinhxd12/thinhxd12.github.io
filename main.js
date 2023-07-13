@@ -1,5 +1,6 @@
 
 const urlCors = "https://mycorspass.up.railway.app/";
+// const urlCors ="https://mywebapp.abcworker.workers.dev/";
 // const urlCors = 'https://cors-proxy.fringe.zone/';
 // const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
@@ -44,6 +45,7 @@ const startHandler = () => {
     audioEl.volume = 1;
     audioEl.play();
     showDesktopNotification();
+    clearTimeout(timerTimeout);
   }, 360000);
 }
 
@@ -85,6 +87,7 @@ $('#tomatoButton').click(function (e) {
 });
 
 $('#wordNum').click(function (e) {
+  e.preventDefault();
   resetHandler();
 });
 
@@ -104,6 +107,7 @@ const fetchRenderImgBackground = () => {
       $('#imgSrc').attr('srcset', imgSrcGet);
       $('#imgSrcBlurred').attr('srcset', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
+      $('#contentImg').attr('srcset', imgSrcGet);
     });
   });
 

@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <audio id="tts-audio" hidden="" src="https://example123.com/"></audio>
+  <audio id="tts-audio" hidden="" src=""></audio>
 
   <div class="main">
     <div class="imageContent">
@@ -57,7 +57,10 @@
               onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur();" />
           </div>
         </div>
-        <div class="contentBody" id="contentBody"></div>
+        <div class="contentBody">
+          <img id="contentImg" class="contentImg" referrerpolicy="no-referrer">
+          <div id="contentBody"></div>
+        </div>
       </div>
       <div id="Paris" class="city" style="display: none;">
         <div class="calendarCard">

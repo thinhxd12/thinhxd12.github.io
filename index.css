@@ -216,6 +216,12 @@ body {
 }
 
 /* =============================== */
+.loginPage {
+  background: #000;
+  display: flex;
+  justify-content: center;
+}
+
 .mainContent {
   width: 400px;
   height: 100%;

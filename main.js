@@ -62,11 +62,12 @@ const showDesktopNotification = () => {
   const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
   const notification = new Notification(bodyText, {
     icon: img,
-    requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
+    // requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
   })
-
+  
   notification.onclick = (event) => {
     startHandler();
+    notification.close();
   };
 
   notification.onclose = (event) => {

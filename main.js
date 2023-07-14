@@ -73,11 +73,6 @@ const showDesktopNotification = () => {
     startHandler();
   })
 
-  // notification.onclick = (event) => {
-  //   startHandler();
-  //   notification.close();
-  // };
-
   notification.onclose = (event) => {
     resetHandler();
   };
@@ -103,7 +98,7 @@ $('#wordNum').click(function (e) {
 let historyImgArr = [];
 const fetchRenderImgBackground = () => {
   $.get(urlCors + mainPageUrl, function (html) {
-    let newLink = $(html).find('.also__list li:first a').attr('href');
+    let newLink = $(html).find('.also__list li:nth-child(2) a').attr('href');
     $.get(urlCors + newLink, function (html) {
       let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
       let imgDescGet = $(html).find(".main-description__wrapper")[0]

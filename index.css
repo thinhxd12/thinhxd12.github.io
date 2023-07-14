@@ -160,7 +160,7 @@ body {
 }
 
 #imgDesc .main-description__authors {
-  font-size: 12px;
+  font-size: .8vw;
   letter-spacing: -0.15px;
   color: #fff;
   list-style: none;
@@ -187,8 +187,8 @@ body {
   margin-right: 5px;
 }
 #imgDesc .main-description__authors img {
-  width: 28px;
-  height: 28px;
+  width: 1.5vw;
+  height: 1.5vw;
   border-radius: 100%;
   object-fit: fill;
   margin-right: 5px;

@@ -470,8 +470,7 @@ const playTTSwithValue = (val, render = true) => {
         }
         let headword = $(html).find('.webtop-g').html();
         let meaning = $(html).find('#entryContent').html();
-        let nearby = $(html).find('.nearby ul').html();
-        renderExplain(headword, meaning, nearby);
+        renderExplain(headword, meaning);
     });
 };
 
@@ -538,7 +537,7 @@ const flipFlashCard = () => {
     flipCardInner.classList.toggle("flipMyCard");
 };
 
-const renderExplain = (headword, meaning, nearby) => {
+const renderExplain = (headword, meaning) => {
     $('#contentImg').addClass('contentImgBlurred');
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
@@ -551,7 +550,6 @@ const renderExplain = (headword, meaning, nearby) => {
       <div class="explainBody">
         <div class="wordType"><span class="preWord">Definitions of</span>${headword}</div>
         ${meaning ? `<div class="wordMeaning">${meaning}</div>` : ""}
-        ${nearby ? `<div class="wordNearby">${nearby}</div>` : ""}
       </div>
     </div>  
       `;

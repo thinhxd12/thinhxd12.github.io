@@ -14,13 +14,21 @@ let timerTimeout = null;
 let tickTimeout = null;
 
 const renderTomatoTick = () => {
+  let timeCount = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
+
   function tick() {
     let t = 60;
-    if (duration > 0) {
+    if (timeCount > 0) {
       tickTimeout = setTimeout(tick, t * 1000);
       $('#tomatoText').show();
-      $('#tomatoText').text(duration / 60 + 'm');
-      duration = duration - t;
+      $('#tomatoText').text(timeCount / 60 + 'm');
+      timeCount = timeCount - t;
+    }
+    else {
+      $('#tomatoText').text('');
+      $('#tomatoText').hide();
+      clearTimeout(tickTimeout);
+      return;
     }
   }
   tick();
@@ -32,25 +40,21 @@ const startHandler = () => {
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 
-  duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
+
   renderTomatoTick();
 
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
     $('#tomatoText').toggleClass('tomatoFocus');
-    const audioEl = document.getElementById("tts-audio");
     audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
-    audioEl.volume = 1;
     audioEl.play();
     showDesktopNotification();
-    clearTimeout(timerTimeout);
   }, 360000);
 }
 
 const resetHandler = () => {
-  duration = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
   clearTimeout(timerTimeout);
   $('#tomatoText').hide();
   const audioEl = document.getElementById("tts-audio");
@@ -62,13 +66,17 @@ const showDesktopNotification = () => {
   const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
   const notification = new Notification(bodyText, {
     icon: img,
-    // requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
+    requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
   })
-  
-  notification.onclick = (event) => {
+
+  notification.addEventListener('click', (e) => {
     startHandler();
-    notification.close();
-  };
+  })
+
+  // notification.onclick = (event) => {
+  //   startHandler();
+  //   notification.close();
+  // };
 
   notification.onclose = (event) => {
     resetHandler();

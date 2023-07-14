@@ -485,7 +485,8 @@ const renderFlashcard = (val, numb, row, index, progress) => {
 
     let newNumb = numb - 1 > 0 ? numb - 1 : 0;
     let wordOrig = val.replace(/(.+?)\s\-(.+)/, "$1");
-    let word = wordOrig.replace(" | ", "\n| ");
+    let word = wordOrig.replace(/(\w+)\s.+/, "$1")
+    let phonetic = wordOrig.replace(/\w+\s(\|.+\|)/, '$1')
     let meaning = val.replace(wordOrig, "");
     meaning = meaning.replace(/\s\-(.+?)\-/g, "\n【 $1 】\n&nbsp;🍀&nbsp;");
     meaning = meaning.replace(/\-/g, "\n&nbsp;🍀&nbsp;").substring(1);
@@ -504,7 +505,8 @@ const renderFlashcard = (val, numb, row, index, progress) => {
           </svg>
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
           ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
-          <h1>${word}</h1>
+                    <h1>${word}</h1>
+                    <p>${phonetic}</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
                 ${numb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : numb}
                     </span>

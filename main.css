@@ -936,6 +936,7 @@ body {
   width: 100%;
   background-color: #070707;
   display: none;
+  overflow: hidden;
 }
 
 .contentImgWrapper:hover .contentImg {

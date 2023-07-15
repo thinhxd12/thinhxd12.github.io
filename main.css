@@ -76,7 +76,7 @@ body {
 }
 
 .imageDesc {
-  background-color: #070707;
+  background-color: #07070799;
   padding: 1.5vw;
 }
 
@@ -103,7 +103,7 @@ body {
   line-height: 1vw;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #000;
+  color: #989da7;
 }
 
 #imgDesc .main-description__title {
@@ -231,7 +231,7 @@ body {
 
 /* -----------Login------------ */
 .loginPage {
-  background: #000;
+  background: #070707;
   display: flex;
   justify-content: center;
 }
@@ -936,6 +936,9 @@ body {
 }
 
 .contentImgWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background-color: #070707;
@@ -947,12 +950,11 @@ body {
 }
 
 .contentImg {
-  width: 100%;
-  height: 99%;
-  object-fit: cover;
-  object-position: center center;
+  position: absolute;
+  bottom: 0;
+  height: 100%;
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.4s ease-in-out;
 }
 
 .contentBody > div#contentBody {
@@ -1317,7 +1319,9 @@ body {
     background: #070707;
   }
   .contentImgWrapper {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .imgContn,
   .mainImageBlurred {

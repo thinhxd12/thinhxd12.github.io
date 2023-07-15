@@ -948,6 +948,8 @@ body {
   height: 100%;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
+  box-shadow: 0 0 99px black inset;
+  -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
 }
 
 .contentBody > div#contentBody {
@@ -1077,7 +1079,8 @@ body {
 .wordMeaning .pron-link,
 .wordMeaning span.dr-g,
 .wordMeaning span.reg,
-.wordMeaning span.ox-enlarge-label {
+.wordOrigin span.ox-enlarge-label,
+.wordOrigin span.box_title {
   display: none;
 }
 
@@ -1107,6 +1110,7 @@ body {
   font-weight: bold;
 }
 
+.wordOrigin,
 .wordType,
 .wordMeaning li.sn-g:not(:last-child) {
   margin-bottom: 2px;
@@ -1177,6 +1181,11 @@ body {
 
 .wordMeaning span.sn-g > span.def {
   display: block;
+}
+
+.wordOrigin span.p span {
+  font-style: italic;
+  font-weight: bold;
 }
 
 .wordNearby a {
@@ -1311,7 +1320,7 @@ body {
     justify-content: center;
     background: #070707;
   }
-  
+
   .contentImgWrapper {
     display: flex;
     justify-content: center;

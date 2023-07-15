@@ -458,9 +458,10 @@ const handleCheckWithRow = (numRow) => {
 
 
 const playTTSwithValue = (val, render = true) => {
-    let newUrl = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let urlEng = urlCors + `https://www.oxfordlearnersdictionaries.com/search/english/direct/?q=${val}`;
 
-    $.get(newUrl, function (html) {
+    $.get(urlEngAmerica, function (html) {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
             $('#tts-audio').attr('src', mp3Link);
@@ -470,22 +471,24 @@ const playTTSwithValue = (val, render = true) => {
         }
         let headword = $(html).find('.webtop-g').html();
         let meaning = $(html).find('#entryContent').html();
-        renderExplain(headword, meaning);
+        $.get(urlEng, function (html) {
+            let origin = $(html).find('[unbox="wordorigin"]').html();
+            renderExplain(headword, meaning, origin);
+        });
     });
 };
-
 
 let flipTimer1;
 let flipTimer2;
 
-const renderFlashcard = (val, numb, row, index, progress) => {
+const renderFlashcard = (val, numb, index, progress) => {
     clearTimeout(flipTimer1);
     clearTimeout(flipTimer2);
 
     let newNumb = numb - 1 > 0 ? numb - 1 : 0;
     let wordOrig = val.replace(/(.+?)\s\-(.+)/, "$1");
-    let word = wordOrig.replace(/(\w+)\s.+/, "$1")
-    let phonetic = wordOrig.replace(/\w+\s(\|.+\|)/, '$1')
+    let word = wordOrig.replace(/(.+)\s\|.+/, "$1");
+    let phonetic = wordOrig.replace(/.+\s(\|.+\|)/, '$1');
     let meaning = val.replace(wordOrig, "");
     meaning = meaning.replace(/\s\-(.+?)\-/g, "\n【 $1 】\n&nbsp;🍀&nbsp;");
     meaning = meaning.replace(/\-/g, "\n&nbsp;🍀&nbsp;").substring(1);
@@ -537,7 +540,7 @@ const flipFlashCard = () => {
     flipCardInner.classList.toggle("flipMyCard");
 };
 
-const renderExplain = (headword, meaning) => {
+const renderExplain = (headword, meaning, origin) => {
     $('#contentImg').addClass('contentImgBlurred');
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
@@ -549,6 +552,7 @@ const renderExplain = (headword, meaning) => {
       </div>
       <div class="explainBody">
         <div class="wordType"><span class="preWord">Definitions of</span>${headword}</div>
+        ${origin ? `<div class="wordOrigin">${origin}</div>` : ""}
         ${meaning ? `<div class="wordMeaning">${meaning}</div>` : ""}
       </div>
     </div>  

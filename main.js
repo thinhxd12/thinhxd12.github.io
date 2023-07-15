@@ -6,6 +6,7 @@ const urlCors = "https://mycorspass.up.railway.app/";
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
 
+
 const START_MINUTES = "06";
 const START_SECOND = "00";
 let duration;
@@ -176,100 +177,7 @@ $('.footerBtnToggleRight').click(function (e) {
   $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
-const autocomplete = (inp) => {
-  var currentFocus;
-  inp.addEventListener("input", function (e) {
-    var a,
-      b,
-      i,
-      val = this.value;
 
-    closeAllLists();
-    if (!val) {
-      return false;
-    }
-    currentFocus = -1;
-
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    document.getElementById('contentBody').innerHTML = '';
-    document.getElementById('contentBody').appendChild(a);
-
-    if (val.length > 2) {
-      let arrFilter = dataSheets.filter(item => item.val.search(`^${val}.*$`) > -1);
-      if (arrFilter.length == 0) {
-        document.getElementById("transInput").value = val;
-      }
-      for (i = 0; i < arrFilter.length; i++) {
-        let currentText = arrFilter[i].val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-        let currentVal = arrFilter[i].val;
-        let currentNumb = arrFilter[i].numb;
-        let currentRow = arrFilter[i].row;
-
-        b = document.createElement("a");
-        b.setAttribute("class", "my-item");
-        b.innerHTML = currentText;
-        b.addEventListener("click", function (e) {
-          inp.value = '';
-          playTTSwithValue(currentText);
-          renderFlashcard(currentVal, currentNumb, false);
-          handleCheckWithRow(currentRow);
-          getAllDataSheet();
-          closeAllLists();
-        });
-        a.appendChild(b);
-      }
-    }
-
-  });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
-    if (x) x = x.getElementsByTagName("a");
-    if (e.keyCode == 40) {
-      currentFocus++;
-      addActive(x);
-    } else if (e.keyCode == 38) {
-      currentFocus--;
-      addActive(x);
-    } else if (e.keyCode == 13) {
-      e.preventDefault();
-      if (currentFocus > -1) {
-        if (x) x[currentFocus].click();
-      }
-    }
-  });
-
-
-  function addActive(x) {
-    if (!x) return false;
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = x.length - 1;
-    x[currentFocus].classList.add("my-item-active");
-  }
-
-  function removeActive(x) {
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("my-item-active");
-    }
-  }
-
-  function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-        x[i].parentNode.removeChild(x[i]);
-      }
-    }
-  }
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
-}
-
-autocomplete(document.getElementById("searchInput"));
 
 // -------Zoomimage----------
 

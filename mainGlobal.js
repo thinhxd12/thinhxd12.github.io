@@ -8,34 +8,145 @@ function checkShortcuts(event) {
 }
 document.onkeydown = checkShortcuts;
 
-
 const chunk = (array, size) =>
     array.reduce((acc, _, i) => {
         if (i % size === 0) acc.push(array.slice(i, i + size))
         return acc
     }, []);
 
-
 let dataSheets = [];
-let getAllDataTimeout;
-const getAllDataSheet = () => {
-    clearTimeout(getAllDataTimeout);
-    fetch(ggsUrl + '?action=getAllData', { method: 'GET' })
-        .then(res => res.json())
-        .then(data => {
-            sessionStorage.setItem('sheetData', JSON.stringify(data));
-        }).catch(err => {
-            console.log(err);
-        })
-    getAllDataTimeout = setTimeout(() => {
-        let item = sessionStorage.getItem("sheetData")
-        if (item !== null) {
-            dataSheets = JSON.parse(item);
-        }
+let dataCalendar = [];
+const getLocalData = () => {
+    let item = sessionStorage.getItem("sheetData")
+    if (item !== null) {
+        dataSheets = JSON.parse(item);
+    }
+    let itemP = sessionStorage.getItem("calendarData");
+    if (itemP !== null) {
+        dataCalendar = JSON.parse(itemP);
+    }
+}
+
+const getSheetData = async () => {
+    const res = await fetch(ggsUrl + '?action=getAllData', { method: 'GET' });
+    return res.json();
+}
+
+const getCalendarData = async () => {
+    const res = await fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' });
+    return res.json();
+}
+
+const fetchAllData = () => {
+    getSheetData().then(data => {
+        sessionStorage.setItem('sheetData', JSON.stringify(data));
+    })
+
+    getCalendarData().then(data => {
+        sessionStorage.setItem('calendarData', JSON.stringify(data));
+    })
+    setTimeout(() => {
+        getLocalData();
     }, 3000);
 }
 
-getAllDataSheet();
+fetchAllData();
+
+const autocomplete = (inp) => {
+    var currentFocus;
+    inp.addEventListener("input", function (e) {
+        var a,
+            b,
+            i,
+            val = this.value;
+
+        closeAllLists();
+        if (!val) {
+            return false;
+        }
+        currentFocus = -1;
+
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        document.getElementById('contentBody').innerHTML = '';
+        document.getElementById('contentBody').appendChild(a);
+
+        if (val.length > 2) {
+            let arrFilter = dataSheets.filter(item => item.val.search(`^${val}.*$`) > -1);
+            if (arrFilter.length == 0) {
+                document.getElementById("transInput").value = val;
+            }
+            for (i = 0; i < arrFilter.length; i++) {
+                let currentText = arrFilter[i].val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
+                let currentVal = arrFilter[i].val;
+                let currentNumb = arrFilter[i].numb;
+                let currentRow = arrFilter[i].row;
+
+                b = document.createElement("a");
+                b.setAttribute("class", "my-item");
+                b.innerHTML = currentText;
+                b.addEventListener("click", function (e) {
+                    inp.value = '';
+                    playTTSwithValue(currentText);
+                    renderFlashcard(currentVal, currentNumb, false);
+                    handleCheckWithRow(currentRow);
+                    fetchAllData();
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("a");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = x.length - 1;
+        x[currentFocus].classList.add("my-item-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("my-item-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+
+autocomplete(document.getElementById("searchInput"));
+
 
 const getTotalDoneWord = () => {
     fetch(ggsUrl + '?action=getTotalDoneWord', { method: 'GET' })
@@ -332,24 +443,17 @@ const setWordList = (row) => {
     wordList = [];
     autorunTime = 0;
 
-    let item = sessionStorage.getItem("sheetData")
-    if (item !== null) {
-        dataSheets = JSON.parse(item);
-    }
+    getLocalData();
     wordList = dataSheets.filter(item => item.row >= row && item.row < row + 50);
     wordRow.value = row;
     wordRow.blur();
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    let calData;
-    let itemP = sessionStorage.getItem("calendarData");
-    if (itemP !== null) {
-        calData = JSON.parse(itemP);
+
+    if (wordRow.value == dataCalendar.row1[0]) {
+        progressFlipNum = 9 - dataCalendar.row1[1] + 1;
     }
-    if (wordRow.value == calData.row1[0]) {
-        progressFlipNum = 9 - calData.row1[1] + 1;
-    }
-    else progressFlipNum = 9 - calData.row2[1] + 1;
+    else progressFlipNum = 9 - dataCalendar.row2[1] + 1;
 }
 
 const handleToggleSwitchMoon = () => {
@@ -420,16 +524,7 @@ function stop() {
 const prepareForNext = () => {
     const wordRow = document.getElementById("wordRow");
     let rowNum = wordRow.value * 1;
-    fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' })
-        .then(res => res.json())
-        .then(data => {
-            sessionStorage.setItem('calendarData', JSON.stringify(data));
-        }).catch(err => {
-            console.log(err);
-        })
-    setTimeout(() => {
-        getAllDataSheet();
-    }, 3000);
+    fetchAllData();
     setTimeout(() => {
         setWordList(rowNum);
     }, 6000);
@@ -587,6 +682,8 @@ $('#transBtn').click(function (e) {
 
 const handleTranslate = async () => {
     const transInput = document.getElementById("transInput");
+    getLocalData();
+
     if (transInput.value === 'random') {
         renderRandomCheck();
         return;
@@ -755,6 +852,7 @@ const renderDeleteWord = () => {
 let editRowWord;
 const handleChangeEditInput = (e) => {
     const editContentDiv = document.getElementById("editContentDiv");
+    getLocalData();
 
     let arrFilter = dataSheets.filter(item => item.val.search(`^${e.target.value}.*$`) > -1);
     editContentDiv.innerHTML = `
@@ -769,7 +867,6 @@ const handleChangeEditInput = (e) => {
     }).join('')
         }
     `;
-
 }
 
 const setInputEditWordResult = (text, row) => {
@@ -788,7 +885,7 @@ const setEditWord = () => {
         .then(data => {
             inputEditWord.value = '';
             inputEditWordResult.value = '';
-            getAllDataSheet();
+            fetchAllData();
         }).catch(err => {
             console.log(err);
         })
@@ -803,7 +900,7 @@ const setArchivedWord = () => {
         .then(data => {
             inputEditWord.value = '';
             inputEditWordResult.value = '';
-            getAllDataSheet();
+            fetchAllData();
         }).catch(err => {
             console.log(err);
         })
@@ -818,7 +915,7 @@ const setDeleteWord = () => {
         .then(data => {
             inputEditWord.value = '';
             inputEditWordResult.value = '';
-            getAllDataSheet();
+            fetchAllData();
         }).catch(err => {
             console.log(err);
         })
@@ -891,7 +988,7 @@ const handleAddTextEnd = () => {
             .then(res => res.text())
             .then(data => {
                 addNewW.value = '';
-                getAllDataSheet();
+                fetchAllData();
             }).catch(err => {
                 console.log(err);
             })
@@ -923,6 +1020,7 @@ const playRandom = () => {
 }
 
 const handlePlayRandom = async () => {
+    getLocalData();
     let inputRandom = document.getElementById("inputRandom");
     let randomArr = randomArray(10, 49).map(item => item + inputRandom.value * 1);
     randomArrGet = randomArr.map(item => dataSheets[item - 1]);

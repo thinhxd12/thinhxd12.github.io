@@ -475,17 +475,20 @@ body {
   justify-content: space-around;
 }
 
-.myInputContainer .myInput {
+.myInput {
   box-sizing: inherit;
   background: #070707;
   color: #fff;
-  padding: 3px 15px 0px;
   height: 25px;
   font-size: 11px;
   border: 0;
   outline: 0;
   transition: all 0.3s ease;
   font-family: "basier", sans-serif;
+}
+
+.myInputContainer > .myInput,
+.transInputContent {
   width: 45%;
 }
 
@@ -509,6 +512,26 @@ body {
   background: #17181a;
   border-radius: 50%;
   margin: 2px 0;
+}
+
+.transInputContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.transBtn {
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.transBtn svg {
+  fill: #17181a;
+}
+
+.transInputContent:hover .transBtn {
+  opacity: 1;
 }
 
 /* ---------------buttonSwitch--------- */

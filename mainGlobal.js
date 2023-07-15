@@ -581,6 +581,10 @@ const handleChangeTransInput = (e) => {
     return;
 };
 
+$('#transBtn').click(function (e) {
+    handleTranslate();
+});
+
 const handleTranslate = async () => {
     const transInput = document.getElementById("transInput");
     if (transInput.value === 'random') {

@@ -481,7 +481,7 @@ const playTTSwithValue = (val, render = true) => {
 let flipTimer1;
 let flipTimer2;
 
-const renderFlashcard = (val, numb, index, progress) => {
+const renderFlashcard = (val, numb, row, index, progress) => {
     clearTimeout(flipTimer1);
     clearTimeout(flipTimer2);
 

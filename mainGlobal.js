@@ -661,13 +661,6 @@ const setWordList = async (item, num) => {
     $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    //update value in datasheet
-    // console.log('update');
-    // for (let i = 0; i < wordList.length; i++) {
-    //     let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
-    //     dataSheets[objIndex].numb = wordList[i].numb
-    // }
-    // sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 
@@ -684,12 +677,6 @@ const setWordListHandy = async () => {
     $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    //update value in datasheet
-    // for (let i = 0; i < wordList.length; i++) {
-    //     let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
-    //     dataSheets[objIndex].numb = wordList[i].numb
-    // }
-    // sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 const handleToggleSwitchMoon = () => {
@@ -791,16 +778,39 @@ const handleCheckItem = (id) => {
         .catch(err => console.log(err))
 }
 
-const handleArchivedItem = (id) => {
-    // console.log('archive');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?id=${id}`)
+const handleArchivedItem = async (id) => {
+    // console.log('archive', id);
+    await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?id=${id}`)
         .then(res => res.json())
-        .then(data => {
+
+    //find min value after 2000 update to archive word
+    let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
+    const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
+    const minXId = minX._id;
+    // console.log('minXId', minXId);
+    delete minX._id
+
+    let urledit = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${id}`;
+    await fetch(urledit, {
+        method: 'POST',
+        body: JSON.stringify(minX)
+    })
+
+    //delete min value
+    await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${minXId}`)
+        .then(res => res.json()).then(data => {
             getTotalDoneWord('passed');
-            dataSheets = dataSheets.filter(obj => obj._id !== id);
-            sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
+
+    getAllData('hoctuvung').then(data => {
+        sessionStorage.setItem('sheetData', JSON.stringify(data));
+        let item = sessionStorage.getItem("sheetData")
+        if (item !== null) {
+            dataSheets = JSON.parse(item);
+        }
+    })
 }
+
 
 
 const playTTSwithValue = (val, render = true) => {

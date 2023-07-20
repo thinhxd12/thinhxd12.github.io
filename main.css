@@ -25,15 +25,6 @@
   margin: 0;
 }
 
-@keyframes append-animate {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 body {
   height: 100vh;
 }
@@ -297,6 +288,8 @@ body {
   top: 0;
   right: 0;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  height: 10px;
+  overflow: hidden;
 }
 
 .toogleItemShowLeft {
@@ -305,8 +298,48 @@ body {
 }
 
 .toogleItemShowRight {
-  transform: translateY(-33px);
+  transform: translateY(-108px);
   opacity: 1;
+  height: 120px;
+}
+
+.itemRightBtn {
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
+  border-radius: 18px;
+  margin-bottom: 3px;
+  background: #ad1313;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toogleBtnContent {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+}
+
+.toogleBtnContent span {
+  color: #fff;
+  font-family: "Roslindale";
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 23px;
+  letter-spacing: 0.3px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: -1;
+  transition: transform 1s ease;
+}
+
+.toogleBtnContent:hover > span {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* -------------flip card---------------------*/
@@ -527,7 +560,7 @@ body {
 }
 
 .transBtn svg {
-  fill: #17181a;
+  fill: #636363;
 }
 
 .transInputContent:hover .transBtn {
@@ -671,7 +704,8 @@ body {
 
 #tomatoButton {
   position: relative;
-  margin-right: 9px;
+  margin-right: 8px;
+  margin-bottom: -2px;
 }
 
 .tomatoText {
@@ -777,7 +811,7 @@ body {
 }
 
 #calendarDate {
-  font-size: 45px;
+  font-size: 55px;
   margin-right: 5px;
   cursor: pointer;
   color: #9f9f9f;
@@ -789,6 +823,13 @@ body {
 
 #calendarMonth {
   font-size: 10px;
+}
+
+.dateProgressDiv{
+  font-size: 10px;
+  text-align: left;
+  padding-top: 1px;
+  margin-top: 1px;
 }
 
 .dateProgressContent {
@@ -814,10 +855,10 @@ body {
 }
 
 .weekDay td span {
-  cursor: pointer;
   z-index: 1;
   display: block;
   width: 52px;
+  cursor: default;
 }
 
 .sundayDay {
@@ -835,26 +876,30 @@ body {
 .weekDay .startDay::after,
 .weekDay .endDay::after {
   content: "";
-  background: #363636;
+  display: block;
+  width: 11px;
+  height: 3px;
+  background-color: #ac0000;
   position: absolute;
-  top: -4px;
-  left: 15px;
-  width: 23px;
-  height: 22px;
-  z-index: -1;
-  border-radius: 50%;
+  bottom: -1.5px;
+  left: 21px;
+  border-radius: 2px;
 }
 
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  top: -5px;
-  left: 15px;
+  top: -6px;
+  left: 13.5px;
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 2px solid #df0000;
+  border: 2px solid #ac0000;
+}
+
+#todayReset {
+  cursor: pointer;
 }
 
 .calendarItem {
@@ -889,11 +934,24 @@ body {
   width: 50%;
 }
 
+.calendarInputCheck {
+  cursor: pointer;
+}
+
+.calendarItemContent label {
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.calendarItemContent label:first-of-type {
+  margin: 0 45px 0 6px;
+}
+
 .calendarItemInput:focus {
   outline: 0;
 }
 
-.calendarItemInput:first-child {
+.calendarItemInput:not(:last-child) {
   margin-right: 5px;
 }
 /* ------------historytable----------- */
@@ -901,11 +959,27 @@ body {
   width: 100%;
   font-size: 12px;
   font-family: "Rubik", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.table td {
+.table button {
+  background: none;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 20px;
+  height: 100px;
+}
+
+.tableItem {
+  min-width: 360px;
   display: flex;
   margin-bottom: 2px;
+  justify-content: center;
 }
 
 .term {
@@ -916,6 +990,7 @@ body {
   color: white;
   position: relative;
   border: 1px solid #17181a;
+  cursor: default;
 }
 
 .term::after {

@@ -15,35 +15,34 @@ const chunk = (array, size) =>
     }, []);
 
 let dataSheets = [];
-let dataCalendar = [];
+let dataHistory = [];
+
 const getLocalData = () => {
     let item = sessionStorage.getItem("sheetData")
     if (item !== null) {
         dataSheets = JSON.parse(item);
     }
-    let itemP = sessionStorage.getItem("calendarData");
-    if (itemP !== null) {
-        dataCalendar = JSON.parse(itemP);
+    let itemH = sessionStorage.getItem("historyData");
+    if (itemH !== null) {
+        dataHistory = JSON.parse(itemH);
+        renderHistoryTable(dataHistory.length - 1);
     }
 }
 
-const getSheetData = async () => {
-    const res = await fetch(ggsUrl + '?action=getAllData', { method: 'GET' });
-    return res.json();
-}
-
-const getCalendarData = async () => {
-    const res = await fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' });
+const getAllData = async (text) => {
+    // console.log('getAll data');
+    const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`)
     return res.json();
 }
 
 const fetchAllData = () => {
-    getSheetData().then(data => {
+    // console.log('fetch all data');
+    getAllData('hoctuvung').then(data => {
         sessionStorage.setItem('sheetData', JSON.stringify(data));
     })
 
-    getCalendarData().then(data => {
-        sessionStorage.setItem('calendarData', JSON.stringify(data));
+    getAllData('history').then(data => {
+        sessionStorage.setItem('historyData', JSON.stringify(data));
     })
     setTimeout(() => {
         getLocalData();
@@ -73,25 +72,29 @@ const autocomplete = (inp) => {
         document.getElementById('contentBody').appendChild(a);
 
         if (val.length > 2) {
-            let arrFilter = dataSheets.filter(item => item.val.search(`^${val}.*$`) > -1);
+            let arrFilter = dataSheets.filter(item => item.text.search(`^${val}.*$`) > -1);
             if (arrFilter.length == 0) {
                 document.getElementById("transInput").value = val;
             }
             for (i = 0; i < arrFilter.length; i++) {
-                let currentText = arrFilter[i].val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-                let currentVal = arrFilter[i].val;
-                let currentNumb = arrFilter[i].numb;
-                let currentRow = arrFilter[i].row;
+                let item = arrFilter[i]
 
                 b = document.createElement("a");
                 b.setAttribute("class", "my-item");
-                b.innerHTML = currentText;
+                b.innerHTML = item.text;
                 b.addEventListener("click", function (e) {
                     inp.value = '';
-                    playTTSwithValue(currentText);
-                    renderFlashcard(currentVal, currentNumb, false);
-                    handleCheckWithRow(currentRow);
-                    fetchAllData();
+                    playTTSwithValue(item.text);
+                    renderFlashcard(item);
+                    if (item.numb > 1) {
+                        handleCheckItem(item._id);
+                        let objIndex = dataSheets.findIndex((obj => obj._id == item._id));
+                        dataSheets[objIndex].numb += -1;
+                        sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+                    }
+                    else {
+                        handleArchivedItem(item._id);
+                    }
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -148,30 +151,30 @@ const autocomplete = (inp) => {
 autocomplete(document.getElementById("searchInput"));
 
 
-const getTotalDoneWord = () => {
-    fetch(ggsUrl + '?action=getTotalDoneWord', { method: 'GET' })
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("wordNum").innerHTML = data;
-        }).catch(err => {
-            console.log(err);
+const getTotalDoneWord = (text) => {
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`)
+        .then(res => res.json()).then(data => {
+            $('#wordNum').html(data);
         })
 }
-getTotalDoneWord();
 
+getTotalDoneWord('passed');
+
+let dataCalendar = [];
 
 const fetchAndRenderCalendarData = () => {
-    fetch(ggsUrl + '?action=getCalProgress', { method: 'GET' })
-        .then(res => res.json())
-        .then(data => {
-            sessionStorage.setItem('calendarData', JSON.stringify(data));
-            renderCalendar(data);
-        }).catch(err => {
-            console.log(err);
-        })
+    getAllData('schedule').then(data => {
+        renderCalendar(data);
+        sessionStorage.setItem('calendarData', JSON.stringify(data));
+        let itemP = sessionStorage.getItem("calendarData");
+        if (itemP !== null) {
+            dataCalendar = JSON.parse(itemP);
+        }
+    })
 };
 
 fetchAndRenderCalendarData();
+
 
 const renderCalendar = (data) => {
     let date = new Date();
@@ -180,13 +183,12 @@ const renderCalendar = (data) => {
     const todaysWeekDay = date.getDay();
     const todaysYear = date.getFullYear();
 
-    const startDay = new Date(`${data.startD}`);
-    let endDay = new Date();
-    endDay.setTime(startDay.getTime() + 5 * 86400000);
-
     // const startDay = new Date("2023/06/29");
     // const endDay = new Date("2021/07/09");
-
+    const startDay = new Date(data[0].date);
+    const endDay = new Date(data[data.length - 1].date);
+    let todayData = data.find(item => item.date === formatDate(date))
+    // console.log('todayData', data);
     const weekDays = [
         "Sunday",
         "Monday",
@@ -213,6 +215,8 @@ const renderCalendar = (data) => {
     document.getElementById("calendarDate").innerHTML = todaysDay;
     document.getElementById("calendarDay").innerHTML = weekDays[todaysWeekDay];
     document.getElementById("calendarMonth").innerHTML = monthDays[todaysMonth] + " " + todaysYear;
+    $('.dateProgressDiv').html(`${data[0].startIndex1 + 1} <span>&#8226;</span> ${data[1].startIndex2 + 50}`);
+
     monthImg(todaysMonth + 1);
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
@@ -271,7 +275,7 @@ const renderCalendar = (data) => {
         ${monthDateArr[i]
                 .map((item, index) => {
                     return `
-              <td><span class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" onclick="setNewStartDate('${new Date().getFullYear()}/${item.month + 1}/${item.date}')">${item.date}</span></td>
+              <td><span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" >${item.date}</span></td>
             `;
                 })
                 .join("")}
@@ -279,36 +283,203 @@ const renderCalendar = (data) => {
       `;
     }
 
-    // renderHistoryTable---------------
+    // renderCalendarProgress---------------
+
+    let diffDay = (date.getTime() - endDay.getTime()) / 86400000;
+    if (Math.floor(diffDay) > 0) {
+        document.getElementById('dateProgress').innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">';
+    } else document.getElementById('dateProgress').innerHTML = `
+                      <div class="dateProgressContent">
+                        ${todayData.time1 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
+                        <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
+                        <span class="dateProgressFraction">${todayData.time1}/9</span>
+                      </div>
+                      <div class="dateProgressContent">
+                        ${todayData.time2 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
+                        <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
+                        <span class="dateProgressFraction">${todayData.time2}/9</span>
+                      </div>
+            `;
+}
+
+const renderHistoryTable = (numb) => {
     const historyTable = document.getElementById('historyTable');
+    let historyTableData = dataHistory[numb];
+    historyTableData = Object.values(historyTableData)[1];
+    historyTableData = Object.values(historyTableData);
     historyTable.innerHTML = `
-        ${data.table.map((item, index) => {
+        ${historyTableData.map((item, index) => {
         return `
-                <td>
-                  <span class="term">${item[0]}</span>
-                  ${item[1] ? `<span class="desc">${item[1]} - ${item[2]}</span>` : '<span class="desc"></span>'}
-                </td>
+                <div class="tableItem">
+                  <span class="term" ${item.fromD ? "" : `onclick="commitNewWork('${item.row}',${index})" style="cursor: pointer;"`}>${item.row}</span>
+                  ${item.fromD ? `<span class="desc">
+                    <span style="width: 90px;">${item.fromD}</span>
+                    <span>${item.toD}</span>
+                  </span>` : '<span class="desc"></span>'}
+                </div>
             `
     }).join('')
         }
         `;
-
-    // renderCalendarProgress---------------
-    if (data.row1[0] == 0 && data.row2[0] == 0) {
-        document.getElementById('dateProgress').innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">';
-    } else document.getElementById('dateProgress').innerHTML = `
-                      <div class="dateProgressContent">
-                        ${data.row1[1] <= 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
-                        <span onclick="setWordList(${data.row1[0]})">${data.row1[0]} - ${data.row1[0] + 49}</span>
-                        <span class="dateProgressFraction">${9 - data.row1[1]}/9</span>
-                      </div>
-                      <div class="dateProgressContent">
-                        ${data.row2[1] <= 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
-                        <span onclick="setWordList(${data.row2[0]})">${data.row2[0]} - ${data.row2[0] + 49}</span>
-                        <span class="dateProgressFraction">${9 - data.row2[1]}/9</span>
-                      </div>
-            `;
 }
+
+let btnIndex;
+setTimeout(() => {
+    btnIndex = dataHistory.length - 1;
+}, 3000);
+
+$('#historyTableBtnLeft').click(function (e) {
+    if (btnIndex > 0) {
+        btnIndex--;
+        renderHistoryTable(btnIndex)
+    }
+    if (btnIndex == 0) {
+        renderHistoryTable(0)
+        btnIndex = 0;
+        $('#historyTableBtnLeft').html('');
+    }
+});
+
+$('#historyTableBtnRight').click(function (e) {
+    if (btnIndex >= 0 && btnIndex < dataHistory.length - 1) {
+        btnIndex++;
+        renderHistoryTable(btnIndex);
+    }
+    if (btnIndex == dataHistory.length - 1) {
+        setNextMonthTable();
+    }
+});
+
+
+const setNextMonthTable = () => {
+    const calendarContent = document.getElementById("calendarContent");
+    calendarContent.innerHTML = `
+    <div class="calendarItem" style="height: 23px;">
+        <div class="calendarItemHeader">
+        <span style="width: 45px;"></span>
+        <div class="calendarItemContent">
+        <input onchange="handleThis(this)" class="calendarInputCheck" type="checkbox" id="checkbox1" value="item1">
+        <label for="checkbox1"> 1-1000</label>
+        <input onchange="handleThis(this)" class="calendarInputCheck" type="checkbox" id="checkbox2" value="item2">
+        <label for="checkbox2"> 1001-2000</label>
+        </div>
+        <div style="display: flex;">
+            <button class="close-btn" onclick="setNewHistoryItem()">
+            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            </button>
+            <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+            </button>
+        </div>
+        </div>
+    </div>`;
+};
+
+const handleThis = (e) => {
+    $('.calendarInputCheck').not(e).prop('checked', false);
+}
+
+const setNewHistoryItem = () => {
+    let val = document.querySelector('.calendarInputCheck:checked').value;
+
+    let res = []
+    if (val == 'item1') {
+        for (let i = 0; i < 5; i++) {
+            res.push({
+                row: `${200 * (i) + 1} - ${(i + 1) * 200}`,
+                fromD: '',
+                toD: ''
+            })
+        }
+    }
+    else {
+        for (let i = 0; i < 5; i++) {
+            res.push({
+                row: `${200 * (i) + 1 + 1000} - ${(i + 1) * 200 + 1000}`,
+                fromD: '',
+                toD: ''
+            })
+        }
+    }
+    let resultArr = val == 'item1' ? { item1: { ...res } } : { item2: { ...res } }
+
+    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem';
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(resultArr)
+    }).then(res => res.json()).then(data => {
+        $('#calendarContent').html('');
+
+        getAllData('history').then(data => {
+            sessionStorage.setItem('historyData', JSON.stringify(data));
+        })
+        setTimeout(() => {
+            let itemH = sessionStorage.getItem("historyData");
+            if (itemH !== null) {
+                dataHistory = JSON.parse(itemH);
+            }
+            renderHistoryTable(dataHistory.length - 1)
+        }, 3000);
+    })
+}
+
+const commitNewWork = (row, index) => {
+    const calendarContent = document.getElementById("calendarContent");
+    calendarContent.innerHTML = `
+    <div class="calendarItem">
+    <div class="calendarItemHeader">
+        <span></span>
+        <div style="display: flex;">
+        <button class="close-btn" onclick="commitHistoryItem(${index})">
+            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+        </button>
+        <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+        </button>
+        </div>
+    </div>
+    <div class="calendarItemContent">
+        <input class="calendarItemInput" value="${row}" autocomplete="off" id="commitHistoryItemRow"
+        onmouseover="this.focus()" onmouseout="this.blur()">
+        <input class="calendarItemInput" value="2023/07/18" placeholder="From Day" id="commitHistoryItemFromD" autocomplete="off"
+        onmouseover="this.focus()" onmouseout="this.blur()">
+        <input class="calendarItemInput" value="2023/07/18" placeholder="To Day" id="commitHistoryItemToD" autocomplete="off"
+        onmouseover="this.focus()" onmouseout="this.blur()">
+    </div>
+    </div>`;
+}
+
+const commitHistoryItem = (index) => {
+    let data = {
+        row: $('#commitHistoryItemRow').val(),
+        fromD: $('#commitHistoryItemFromD').val(),
+        toD: $('#commitHistoryItemToD').val(),
+    }
+    let id = dataHistory[btnIndex]._id;
+    let newdata = dataHistory[btnIndex];
+    newdata[Object.keys(newdata)[1]][index] = data;
+    delete newdata._id;
+
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}`;
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(newdata)
+    }).then(res => res.json()).then(data => {
+        $('#calendarContent').html('');
+
+        getAllData('history').then(data => {
+            sessionStorage.setItem('historyData', JSON.stringify(data));
+        })
+        setTimeout(() => {
+            let itemH = sessionStorage.getItem("historyData");
+            if (itemH !== null) {
+                dataHistory = JSON.parse(itemH);
+            }
+            renderHistoryTable(dataHistory.length - 1)
+        }, 3000);
+    })
+}
+
 
 const monthImg = (monthImg) => {
     const htmlText = document.getElementById("calendarHeader");
@@ -364,6 +535,22 @@ const monthImg = (monthImg) => {
     }
 };
 
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('/');
+}
+
+
 const setTodayWork = () => {
     const calendarContent = document.getElementById("calendarContent");
     calendarContent.innerHTML = `
@@ -371,89 +558,130 @@ const setTodayWork = () => {
         <div class="calendarItemHeader">
             <span></span>
             <div style="display: flex;">
-            <button class="close-btn" onclick="handleAddSchedule()">
-                <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <button class="close-btn" onclick="importSchedule()">
+            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
                 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
             </button>
             </div>
         </div>
-        <div class="calendarItemContent">
-        <p>Set today word by schedule!</p>
-        </div>
+                     <div class="calendarItemContent">
+                         <input class="calendarItemInput" value="${formatDate(new Date())}" id="newStartDay"
+                             autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+                         <input class="calendarItemInput" placeholder="Set new start row!" id="newStartRow"
+                             autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+                     </div>
     </div>`;
 };
 
-const handleAddSchedule = () => {
-    fetch(ggsUrl + '?action=setTodayWork', { method: 'GET' })
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('calendarContent').innerHTML = '';
-            fetchAndRenderCalendarData();
-        }).catch(err => {
-            console.log(err);
+const importSchedule = (reset = false) => {
+    if ($('#newStartRow').val() == '' && !reset) return;
+    let startDay = $('#newStartDay').val();
+    let startIndex = $('#newStartRow').val() - 1;
+    if (reset) {
+        startDay = dataCalendar[0].date;
+        startIndex = dataCalendar[0].startIndex1;
+    }
+    let data = [];
+    for (let i = 0; i < 6; i++) {
+        data.push({
+            date: formatDate(new Date(new Date(startDay).getTime() + i * 86400000)),
+            startIndex1: i % 2 == 0 ? startIndex : startIndex + 50,
+            startIndex2: i % 2 == 0 ? startIndex + 100 : startIndex + 150,
+            time1: 0,
+            time2: 0
         })
+    }
+    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule'
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(res => res.json()).then(data => {
+        $('#calendarContent').html('');
+        fetchAndRenderCalendarData();
+    })
 }
 
-const setNewStartDate = (date) => {
-    const calendarContent = document.getElementById('calendarContent');
+//reset word schedule today
+const resetTodaySchedule = () => {
+    const calendarContent = document.getElementById("calendarContent");
     calendarContent.innerHTML = `
-        <div class="calendarItem">
-            <div class="calendarItemHeader">
-                <span>Set new schedule!</span>
-                <div style="display: flex;">
-                    <button class="close-btn" onclick="handleAddNewStartDay()">
-                        <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
-                    </button>
-                    <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
-                    </button>
-                </div>
+    <div class="calendarItem" style="height: 23px;">
+        <div class="calendarItemHeader">
+            <span>Reset today schedule!</span>
+            <div style="display: flex;">
+            <button class="close-btn" onclick="importSchedule(true)">
+            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            </button>
+            <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+            </button>
             </div>
-            <div class="calendarItemContent">
-                <input class="calendarItemInput" value="${date}" id="newStartDay"
-                    autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-                <input class="calendarItemInput" placeholder="Set new start row!" id="newStartRow"
-                    autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-            </div>
-        </div>`;
+        </div>
+    </div>`;
 }
 
-
-const handleAddNewStartDay = () => {
-    const newStartDay = document.getElementById('newStartDay');
-    const newStartRow = document.getElementById('newStartRow');
-    let obj = { day: newStartDay.value, row: newStartRow.value };
-    fetch(ggsUrl + '?action=setNewStartDay', { method: 'POST', body: JSON.stringify(obj) })
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('calendarContent').innerHTML = '';
-            fetchAndRenderCalendarData();
-        }).catch(err => {
-            console.log(err);
-        })
-}
 
 let wordList = [];
-let progressFlipNum = 0;
 let autorunTime = 0;
-const setWordList = (row) => {
+let todayScheduleData;
+const setWordList = async (item, num) => {
+    // console.log('setWordList');
+    if (num == 1) {
+        todayScheduleData = {
+            _id: item._id,
+            startIndex: item.startIndex1,
+            time: 'time1'
+        };
+    }
+    else {
+        todayScheduleData = {
+            _id: item._id,
+            startIndex: item.startIndex2,
+            time: 'time2'
+        };
+    }
     const wordRow = document.getElementById("wordRow");
     wordList = [];
     autorunTime = 0;
-
-    getLocalData();
-    wordList = dataSheets.filter(item => item.row >= row && item.row < row + 50);
-    wordRow.value = row;
+    let index = num == 1 ? item.startIndex1 : item.startIndex2;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
+    await fetch(url).then(res => res.json()).then(data => wordList = data);
+    wordRow.value = index;
     wordRow.blur();
+    $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-
-    if (wordRow.value == dataCalendar.row1[0]) {
-        progressFlipNum = 9 - dataCalendar.row1[1] + 1;
+    //update value in datasheet
+    // console.log('update');
+    for (let i = 0; i < wordList.length; i++) {
+        let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
+        dataSheets[objIndex].numb = wordList[i].numb
     }
-    else progressFlipNum = 9 - dataCalendar.row2[1] + 1;
+    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+}
+
+
+
+const setWordListHandy = async () => {
+    // console.log('setWordListHandy');
+    const wordRow = document.getElementById("wordRow");
+    wordList = [];
+    autorunTime = 0;
+    let index = wordRow.value;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
+    await fetch(url).then(res => res.json()).then(data => wordList = data);
+    wordRow.blur();
+    $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
+    handleToggleSwitchSun();
+    handleToggleSwitchMoon();
+    //update value in datasheet
+    for (let i = 0; i < wordList.length; i++) {
+        let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
+        dataSheets[objIndex].numb = wordList[i].numb
+    }
+    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 const handleToggleSwitchMoon = () => {
@@ -515,47 +743,59 @@ function pause() {
 }
 
 function stop() {
-    prepareForNext();
     handleToggleSwitchMoon();
     autorunTime = 0;
     pause();
+    //update progress
+    setWordListHandy();
+    getAllData('hoctuvung').then(data => {
+        sessionStorage.setItem('sheetData', JSON.stringify(data));
+    })
+    setTimeout(() => {
+        getLocalData();
+    }, 3000);
 }
 
-const prepareForNext = () => {
-    const wordRow = document.getElementById("wordRow");
-    let rowNum = wordRow.value * 1;
-    fetchAllData();
-    setTimeout(() => {
-        setWordList(rowNum);
-    }, 6000);
 
+const updateScheduleProgress = (id, val) => {
+    // console.log('updateScheduleProgress');
+    const url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleProgress?id=${id}&val=${val}`
+    fetch(url).then(res => res.json())
 }
 
 
 const handleNextWord = () => {
-    let currentWord = wordList[autorunTime];
-    let currentText = currentWord.val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-    playTTSwithValue(currentText);
-    renderFlashcard(currentWord.val, currentWord.numb, false, autorunTime + 1, progressFlipNum);
-    handleCheckWithRow(currentWord.row);
+    let item = wordList[autorunTime];
+    if (autorunTime == 0 && $('#wordRow').val() == todayScheduleData?.startIndex) {
+        updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
+    }
+    playTTSwithValue(item.text);
+    renderFlashcard(item, 0, autorunTime + 1);
+    item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
 };
 
 
-const handleCheckWithRow = (numRow) => {
-    fetch(ggsUrl + '?action=checkWithRow', { method: 'POST', body: JSON.stringify({ row: numRow }) })
-        .then(res => res.text())
-        .then(data => {
+const handleCheckItem = (id) => {
+    // console.log('check');
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}`)
+        .then(res => res.json())
+        .catch(err => console.log(err))
+}
 
-        }).catch(err => {
-            console.log(err);
+const handleArchivedItem = (id) => {
+    // console.log('archive');
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?id=${id}`)
+        .then(res => res.json())
+        .then(data => {
+            getTotalDoneWord('passed');
+            dataSheets = dataSheets.filter(obj => obj._id !== id);
+            sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
 }
 
 
 const playTTSwithValue = (val, render = true) => {
     let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
-    let urlEng = urlCors + `https://www.oxfordlearnersdictionaries.com/search/english/direct/?q=${val}`;
-
     $.get(urlEngAmerica, function (html) {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
@@ -564,29 +804,24 @@ const playTTSwithValue = (val, render = true) => {
             audioEl.volume = 1;
             audioEl.play();
         }
-        let headword = $(html).find('.webtop-g').html();
-        let meaning = $(html).find('#entryContent').html();
-        $.get(urlEng, function (html) {
-            let origin = $(html).find('[unbox="wordorigin"]').html();
-            renderExplain(headword, meaning, origin);
-        });
+        if (render) {
+            let headword = $(html).find('.webtop-g').html();
+            let meaning = $(html).find('#entryContent').html();
+            renderExplain(headword, meaning);
+        }
     });
 };
 
 let flipTimer1;
 let flipTimer2;
 
-const renderFlashcard = (val, numb, row, index, progress) => {
+const renderFlashcard = (item, progress, index) => {
     clearTimeout(flipTimer1);
     clearTimeout(flipTimer2);
 
-    let newNumb = numb - 1 > 0 ? numb - 1 : 0;
-    let wordOrig = val.replace(/(.+?)\s\-(.+)/, "$1");
-    let word = wordOrig.replace(/(.+)\s\|.+/, "$1");
-    let phonetic = wordOrig.replace(/.+\s(\|.+\|)/, '$1');
-    let meaning = val.replace(wordOrig, "");
-    meaning = meaning.replace(/\s\-(.+?)\-/g, "\n【 $1 】\n&nbsp;🍀&nbsp;");
-    meaning = meaning.replace(/\-/g, "\n&nbsp;🍀&nbsp;").substring(1);
+    let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
+    let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, "\n【 $1 】\n&nbsp;🍀&nbsp;");
+    cardMeaning = cardMeaning.replace(/\-/g, "\n&nbsp;🍀&nbsp;").substring(1);
     const flashCardContent = document.getElementById("flashCardContent");
     flashCardContent.innerHTML = `
       <div class="flip-card">
@@ -602,28 +837,28 @@ const renderFlashcard = (val, numb, row, index, progress) => {
           </svg>
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
           ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
-                    <h1>${word}</h1>
-                    <p>${phonetic}</p>
+                    <h1>${item.text}</h1>
+                    <p>| ${item.phonetic} |</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
-                ${numb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : numb}
+                ${item.numb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : item.numb}
                     </span>
           <p class="cardName">05/07/22</p>
         </div>
         <div class="flip-card-back">
           <div class="flip-card-back-content">
-            <p>${meaning}</p>
+            <p>${cardMeaning}</p>
           </div>
         </div>
       </div>
     </div>
     `;
 
-    if (numb > 0) {
+    if (item.numb > 0) {
         setTimeout(() => {
             document.getElementById("indicateFlip").innerHTML = `
       ${newNumb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : newNumb}
       `;
-        }, 900)
+        }, 1000)
     }
 
     flipTimer1 = setTimeout(flipFlashCard, 3500);
@@ -682,33 +917,8 @@ $('#transBtn').click(function (e) {
 
 const handleTranslate = async () => {
     const transInput = document.getElementById("transInput");
-    getLocalData();
 
-    if (transInput.value === 'random') {
-        renderRandomCheck();
-        return;
-    }
-
-    if (transInput.value === 'edit') {
-        renderEditWord();
-        return;
-    }
-
-    if (transInput.value === 'del') {
-        renderDeleteWord();
-        return;
-    }
-    if (/[1-9]\d*/.test(transInput.value)) {
-        let textFindArr = dataSheets.filter(item => item.row == transInput.value);
-        if (textFindArr.length == 1) {
-            let textFind = textFindArr[0];
-            let textFindWord = textFind.val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-            let textFindVal = textFind.val;
-            let textFindNumb = textFind.numb;
-            playTTSwithValue(textFindWord);
-            renderFlashcard(textFindVal, textFindNumb);
-        }
-    } else {
+    if (/\w*/.test(transInput.value)) {
         let obj = { text: transInput.value, fromL: 'en', toL: 'vi' };
         fetch(ggsUrl + '?action=getTranslateInfo', { method: 'POST', body: JSON.stringify(obj) })
             .then(res => res.json())
@@ -747,7 +957,7 @@ const renderTranslate = (arr) => {
         <p class="transItemTranslation" onclick="addTextToCell('-${arr.translation}')">${arr.translation}</p>
         <p>Translation of <b id="tlword">${arr.word}</b></p>
         <div class="transItemPhonetic">
-          <p id="tlTranscript">| ${arr.wordTranscription} |</p>
+          <p>| <span id="tlTranscript">${arr.wordTranscription}</span> |</p>
           <button class="sound-btn" onclick="playTTSwithValue('${arr.word}',false)">
             <img src="https://cdn-icons-png.flaticon.com/512/6707/6707083.png" width="18" height="18">
           </button>
@@ -790,7 +1000,7 @@ const renderRandomCheck = () => {
            </div>
        </div>
        <div class="transItemContent">
-            <input class="transItemInput" placeholder="Range from" id="inputRandom" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <input class="transItemInput" placeholder="random start index" id="inputRandom" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
        </div>
        </div>
       `;
@@ -812,10 +1022,16 @@ const renderEditWord = () => {
             </div>
         </div>
         <div class="transItemContent">
-            <input class="transItemInput" placeholder="Find word" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+            <input class="transItemInput" placeholder="edit text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
         <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordResult" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="transItemContent">
+            <input class="transItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="transItemContent">
+            <input class="transItemInput" placeholder="" id="inputEditWordMeaning" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         </div>
         <div id="editContentDiv"></div>`;
@@ -831,95 +1047,79 @@ const renderDeleteWord = () => {
                 <button class="close-btn" onclick="setDeleteWord()">
                   <img src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" width="13">
                 </button>
-                <button class="close-btn" onclick="setArchivedWord()">
-                  <img src="https://cdn-icons-png.flaticon.com/512/263/263122.png" width="13">
-                </button>
                 <button class="close-btn" onclick="handleDelete();">
                   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
                 </button>
             </div>
         </div>
         <div class="transItemContent">
-          <input class="transItemInput" placeholder="Archived word" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+          <input class="transItemInput" placeholder="delete text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
         <div class="transItemContent">
-          <input class="transItemInput" placeholder="" id="inputEditWordResult" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+          <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         </div>
         <div id="editContentDiv"></div>`;
 };
 
-let editRowWord;
+let editId;
 const handleChangeEditInput = (e) => {
     const editContentDiv = document.getElementById("editContentDiv");
-    getLocalData();
-
-    let arrFilter = dataSheets.filter(item => item.val.search(`^${e.target.value}.*$`) > -1);
+    let arrFilter = dataSheets.filter(item => item.text.search(`^${e.target.value}.*$`) > -1);
     editContentDiv.innerHTML = `
       ${arrFilter.map((item, index) => {
-        let currentText = item.val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-        let currentVal = item.val;
-        let currentNumb = item.numb;
-        let currentRow = item.row;
         return `
-          <a class="my-item" onclick="setInputEditWordResult('${currentVal}',${currentRow});">${currentText}</a>
+          <a class="my-item" onclick="setInputEditWordResult(${JSON.stringify(item).split('"').join("&quot;")});">${item.text}</a>
           `
     }).join('')
         }
     `;
 }
 
-const setInputEditWordResult = (text, row) => {
-    const inputEditWordResult = document.getElementById("inputEditWordResult");
-    inputEditWordResult.value = text;
+const setInputEditWordResult = (item) => {
     document.getElementById("editContentDiv").innerHTML = '';
-    editRowWord = row;
+    editId = item._id;
+    $('#inputEditWordText').val(item.text);
+    $('#inputEditWordPhonetic').val(item.phonetic);
+    $('#inputEditWordMeaning').val(item.meaning);
 }
 
 const setEditWord = () => {
-    const inputEditWord = document.getElementById("inputEditWord");
-    const inputEditWordResult = document.getElementById("inputEditWordResult");
-    let obj = { text: inputEditWordResult.value, row: editRowWord };
-    fetch(ggsUrl + '?action=setEditWord', { method: 'POST', body: JSON.stringify(obj) })
-        .then(res => res.text())
-        .then(data => {
-            inputEditWord.value = '';
-            inputEditWordResult.value = '';
-            fetchAllData();
-        }).catch(err => {
-            console.log(err);
-        })
-}
+    let newdata = {
+        text: $('#inputEditWordText').val(),
+        phonetic: $('#inputEditWordPhonetic').val(),
+        meaning: $('#inputEditWordMeaning').val()
+    }
+    let objIndex = dataSheets.findIndex((obj => obj._id == editId));
+    dataSheets[objIndex].text = newdata.text;
+    dataSheets[objIndex].phonetic = newdata.phonetic;
+    dataSheets[objIndex].meaning = newdata.meaning;
+    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
-const setArchivedWord = () => {
-    const inputEditWord = document.getElementById("inputEditWord");
-    const inputEditWordResult = document.getElementById("inputEditWordResult");
-    let obj = { text: inputEditWordResult.value, row: editRowWord };
-    fetch(ggsUrl + '?action=setArchivedWord', { method: 'POST', body: JSON.stringify(obj) })
-        .then(res => res.text())
-        .then(data => {
-            inputEditWord.value = '';
-            inputEditWordResult.value = '';
-            fetchAllData();
-        }).catch(err => {
-            console.log(err);
-        })
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}`;
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(newdata)
+    }).then(res => res.json()).then(data => {
+        $('#inputEditWordText').val('');
+        $('#inputEditWordPhonetic').val('');
+        $('#inputEditWordMeaning').val('');
+    });
 }
 
 const setDeleteWord = () => {
-    const inputEditWord = document.getElementById("inputEditWord");
-    const inputEditWordResult = document.getElementById("inputEditWordResult");
-    let obj = { text: inputEditWordResult.value, row: editRowWord };
-    fetch(ggsUrl + '?action=setDeleteWord', { method: 'POST', body: JSON.stringify(obj) })
-        .then(res => res.text())
+    // console.log('delete');
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}`)
+        .then(res => res.json())
         .then(data => {
-            inputEditWord.value = '';
-            inputEditWordResult.value = '';
-            fetchAllData();
-        }).catch(err => {
-            console.log(err);
+            $('#inputEditWord').val('');
+            $('#inputEditWordText').val('');
+            dataSheets = dataSheets.filter(obj => obj._id !== editId);
+            sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
 }
+
+
 
 const addTextToCell = (text) => {
     const addNewW = document.getElementById("addNewW");
@@ -970,28 +1170,29 @@ const renderFrequency = (num) => {
 };
 
 const handleAddNewText = () => {
-    let tlword = document.getElementById("tlword");
-    let tlTranscript = document.getElementById("tlTranscript");
     let addNewW = document.getElementById("addNewW");
     let newText = document.getElementById("newText");
-
-    addNewW.value = tlword.innerText + " " + tlTranscript.innerText;
     addNewW.style.height = "25px";
     newText.style.opacity = "1";
     newText.style.height = "auto";
 };
 
 const handleAddTextEnd = () => {
-    let addNewW = document.getElementById("addNewW");
+    let data = {};
     if (addNewW.value.length > 0) {
-        fetch(ggsUrl + '?action=setNewText', { method: 'POST', body: JSON.stringify({ text: addNewW.value }) })
-            .then(res => res.text())
-            .then(data => {
-                addNewW.value = '';
-                fetchAllData();
-            }).catch(err => {
-                console.log(err);
-            })
+        data.text = $('#tlword').text();
+        data.phonetic = $('#tlTranscript').text();
+        data.meaning = $('#addNewW').val();
+        data.numb = 210;
+        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText';
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+        getAllData('hoctuvung').then(data => {
+            sessionStorage.setItem('sheetData', JSON.stringify(data));
+            $('#addNewW').val('');
+        })
     }
 };
 
@@ -1005,10 +1206,10 @@ function randomArray(length, max) {
 let randomRunTime = 1;
 let randomArrGet = [];
 const playRandom = () => {
-    let currentText = randomArrGet[randomRunTime - 1].val.replace(/(.+?)\s(\||\-)(.+)/, "$1");
-    playTTSwithValue(currentText);
-    renderFlashcard(randomArrGet[randomRunTime - 1].val, randomArrGet[randomRunTime - 1].numb, false, randomRunTime);
-    handleCheckWithRow(randomArrGet[randomRunTime - 1].row);
+    let item = randomArrGet[randomRunTime - 1];
+    playTTSwithValue(item.text);
+    renderFlashcard(item);
+    handleCheckItem(item._id);
 
     if (randomRunTime < 10) {
         randomTimeout = setTimeout(playRandom, 7000)
@@ -1020,14 +1221,11 @@ const playRandom = () => {
 }
 
 const handlePlayRandom = async () => {
-    getLocalData();
     let inputRandom = document.getElementById("inputRandom");
     let randomArr = randomArray(10, 49).map(item => item + inputRandom.value * 1);
     randomArrGet = randomArr.map(item => dataSheets[item - 1]);
-    playRandom()
+    playRandom();
 }
-
-
 
 
 const mangMau1 = [{
@@ -1875,3 +2073,5 @@ const mangMau1 = [{
     color: '#f90000'
 }
 ]
+
+

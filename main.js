@@ -3,8 +3,9 @@ const urlCors = "https://mycorspass.up.railway.app/";
 // const urlCors ="https://mywebapp.abcworker.workers.dev/";
 // const urlCors = 'https://cors-proxy.fringe.zone/';
 // const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
+// const urlTransWorker = "https://ggtrans.abcworker.workers.dev/";
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
-const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
+const ggsUrl = 'https://script.google.com/macros/s/AKfycbwuXpnXjeJS4eM-6eUYNRpwn2-Ko0UIFpjAaW7jAS4Rph_HWHm-k8aj7pshjpQ-VEWnBQ/exec'
 
 
 const START_MINUTES = "06";
@@ -204,5 +205,4 @@ $(".zoom_image")
           "%"
       });
   });
-
 

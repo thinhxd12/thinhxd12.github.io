@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Take a small step every day.</title>
+  <title>hoctuvung3</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2617/2617511.png">
 
   <link rel="stylesheet" href="/main.css">
@@ -75,11 +75,14 @@
             <div class="calendarHeader" id="calendarHeader"></div>
             <div class="calendarFooter">
               <div class="calendarContent">
-                <div class="dateContent" onclick="setTodayWork()">
-                  <div id="calendarDate">28</div>
-                  <div>
-                    <div id="calendarDay">Wednesday</div>
-                    <div id="calendarMonth">June/2023</div>
+                <div>
+                  <div class="dateContent" onclick="setTodayWork()">
+                    <div id="calendarDate">28</div>
+                    <div>
+                      <div id="calendarDay">Wednesday</div>
+                      <div id="calendarMonth">June/2023</div>
+                      <div class="dateProgressDiv"></div>
+                    </div>
                   </div>
                 </div>
                 <div class="dateProgress" id="dateProgress"></div>
@@ -114,9 +117,11 @@
               </table>
             </div>
           </div>
-          <table class="table">
-            <tr id="historyTable"></tr>
-          </table>
+          <div class="table">
+            <button id="historyTableBtnLeft"> &#8249; </button>
+            <div id="historyTable"></div>
+            <button id="historyTableBtnRight">&#8250;</button>
+          </div>
           <div id="calendarContent"></div>
         </div>
 
@@ -132,7 +137,7 @@
                   <div class="roundBtnBody" id="roundBtnBody"></div>
                 </button>
                 <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
-                  onchange="setWordList(this.value)">
+                  onchange="setWordListHandy(this.value)">
               </div>
             </div>
             <button class="footerBtn footerBtnToggleLeft">
@@ -151,6 +156,45 @@
               Imperium
             </button>
             <div class="toogleItemRight">
+              <div class="toogleBtnContent">
+                <span>delete</span>
+                <div class="itemRightBtn" onclick="renderDeleteWord()">
+                  <svg width="16" height="16" viewBox="0 0 0.36 0.36" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    style="margin-right: 2px;">
+                    <g fill="#000">
+                      <path
+                        d="M.265.117a.017.017 0 0 1 0 .024L.226.18l.039.039a.017.017 0 1 1-.024.024L.202.204.164.243A.017.017 0 1 1 .14.219L.178.18.14.141A.017.017 0 0 1 .164.117l.039.039.039-.039a.017.017 0 0 1 .024 0z">
+                      </path>
+                      <path fill-rule="evenodd"
+                        d="M.099.059a.039.039 0 0 1 .03-.014H.31a.051.051 0 0 1 .051.051v.169a.051.051 0 0 1-.051.05H.129a.039.039 0 0 1-.03-.014L.004.191a.017.017 0 0 1 0-.022l.094-.11zm.03.02a.006.006 0 0 0-.004.002L.039.18l.086.099a.006.006 0 0 0 .004.002H.31A.017.017 0 0 0 .327.264V.095A.017.017 0 0 0 .31.078H.129z"
+                        clip-rule="evenodd"></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="toogleBtnContent">
+                <span>random</span>
+                <div class="itemRightBtn" onclick="renderRandomCheck()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0.792 22.5 20.918"
+                    xml:space="preserve">
+                    <path
+                      d="M17.548.792V4.28h-3.224c-1.02 0-2.147.498-3.088 1.45S9.27 8.093 7.645 10.416c-1.633 2.333-2.542 3.742-3.109 4.375-.567.633-.476.579-1.301.579H0v2.772h3.234A4.529 4.529 0 0 0 6.6 16.64c.881-.984 1.713-2.347 3.314-4.635 1.609-2.299 2.632-3.659 3.291-4.325.658-.666.687-.628 1.119-.628h3.224v3.64L22.5 5.743 17.548.792zM0 4.28v2.772h3.234c.825 0 .734-.056 1.301.578.365.408.966 1.272 1.716 2.361l.257-.37c.408-.583.779-1.11 1.122-1.59.119-.167.219-.299.333-.455-.507-.732-.928-1.313-1.362-1.797a4.527 4.527 0 0 0-3.366-1.5H0zm17.548 7.527v3.563h-3.224c-.432 0-.46.036-1.119-.629-.436-.44-1.052-1.221-1.872-2.339l-.283.4c-.573.819-.968 1.41-1.383 2.022.588.78 1.09 1.385 1.568 1.868.942.952 2.068 1.451 3.088 1.451h3.224v3.567l4.953-4.951-4.952-4.952z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="toogleBtnContent">
+                <span>edit</span>
+                <div class="itemRightBtn" onclick="renderEditWord()">
+                  <svg width="16" height="16" viewBox="0 0 1.28 1.28" xmlns="http://www.w3.org/2000/svg"
+                    xml:space="preserve"
+                    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+                    <path style="fill:none" d="M-20.48 0h25.6v16h-25.6V0z" />
+                    <path
+                      d="M1.119 1.035v.084l-.673-.001.093-.084h.58ZM.967.16c.033 0 .05.002.095.041.046.038.054.068.057.101a.149.149 0 0 1-.044.114l-.639.639c-.011.01-.013.008-.02.011l-.204.052a.044.044 0 0 1-.052-.052L.212.86C.214.854.214.85.223.842.437.628.646.41.865.199A.16.16 0 0 1 .967.16ZM.32.864l-.03.03-.03.124.124-.031.03-.029L.32.864ZM.924.452.828.356l-.45.45L.472.9C.623.751.775.603.923.452ZM.981.393l.037-.04C1.051.317 1.026.245.972.241H.969a.068.068 0 0 0-.046.02L.886.298l.095.095Z"
+                      style="fill-rule:nonzero" />
+                  </svg>
+                </div>
+              </div>
               <div class="tomatoContent" id="tomatoContent">
                 <div id="tomatoButton">
                   <img src="https://cdn-icons-png.flaticon.com/512/1790/1790418.png" width="28">
@@ -170,7 +214,7 @@
   </div>
   <script src="./main.js"></script>
   <script src="./mainGlobal.js"></script>
-
+  <!-- <script src="./abc.js"></script> -->
   <script>
     let loginItem = sessionStorage.getItem("loginItem");
     if (loginItem == null) {

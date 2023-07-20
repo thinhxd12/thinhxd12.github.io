@@ -176,6 +176,8 @@ const fetchAndRenderCalendarData = () => {
 fetchAndRenderCalendarData();
 
 
+let todayData;
+
 const renderCalendar = (data) => {
     let date = new Date();
     const todaysDay = date.getDate();
@@ -187,7 +189,7 @@ const renderCalendar = (data) => {
     // const endDay = new Date("2021/07/09");
     const startDay = new Date(data[0].date);
     const endDay = new Date(data[data.length - 1].date);
-    let todayData = data.find(item => item.date === formatDate(date))
+    todayData = data.find(item => item.date === formatDate(date))
     // console.log('todayData', data);
     const weekDays = [
         "Sunday",
@@ -632,14 +634,16 @@ const setWordList = async (item, num) => {
         todayScheduleData = {
             _id: item._id,
             startIndex: item.startIndex1,
-            time: 'time1'
+            time: 'time1',
+            startNum: item.time1
         };
     }
     else {
         todayScheduleData = {
             _id: item._id,
             startIndex: item.startIndex2,
-            time: 'time2'
+            time: 'time2',
+            startNum: item.time2
         };
     }
     const wordRow = document.getElementById("wordRow");
@@ -655,11 +659,11 @@ const setWordList = async (item, num) => {
     handleToggleSwitchMoon();
     //update value in datasheet
     // console.log('update');
-    for (let i = 0; i < wordList.length; i++) {
-        let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
-        dataSheets[objIndex].numb = wordList[i].numb
-    }
-    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    // for (let i = 0; i < wordList.length; i++) {
+    //     let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
+    //     dataSheets[objIndex].numb = wordList[i].numb
+    // }
+    // sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 
@@ -677,11 +681,11 @@ const setWordListHandy = async () => {
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
     //update value in datasheet
-    for (let i = 0; i < wordList.length; i++) {
-        let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
-        dataSheets[objIndex].numb = wordList[i].numb
-    }
-    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    // for (let i = 0; i < wordList.length; i++) {
+    //     let objIndex = dataSheets.findIndex((obj => obj._id == wordList[i]._id));
+    //     dataSheets[objIndex].numb = wordList[i].numb
+    // }
+    // sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 const handleToggleSwitchMoon = () => {
@@ -769,8 +773,9 @@ const handleNextWord = () => {
     if (autorunTime == 0 && $('#wordRow').val() == todayScheduleData?.startIndex) {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
+    const progress = todayScheduleData ? todayScheduleData.startNum + 1 : 0;
     playTTSwithValue(item.text);
-    renderFlashcard(item, 0, autorunTime + 1);
+    renderFlashcard(item, progress, autorunTime + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
 };
 

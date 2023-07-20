@@ -825,7 +825,7 @@ body {
   font-size: 10px;
 }
 
-.dateProgressDiv{
+.dateProgressDiv {
   font-size: 10px;
   text-align: left;
   padding-top: 1px;
@@ -835,7 +835,7 @@ body {
 .dateProgressContent {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin: 3px 0 3px;
   cursor: pointer;
 }
@@ -876,18 +876,6 @@ body {
 .weekDay .startDay::after,
 .weekDay .endDay::after {
   content: "";
-  display: block;
-  width: 11px;
-  height: 3px;
-  background-color: #ac0000;
-  position: absolute;
-  bottom: -1.5px;
-  left: 21px;
-  border-radius: 2px;
-}
-
-.weekDay .todayDay::before {
-  content: "";
   position: absolute;
   top: -6px;
   left: 13.5px;
@@ -897,6 +885,24 @@ body {
   border-radius: 50%;
   border: 2px solid #ac0000;
 }
+
+.weekDay .todayDay::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 14px;
+  display: block;
+  background-image: linear-gradient(to bottom right, #ac0000, #000);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  z-index: -1;
+}
+.weekDay .todayDay{
+  color: #fff;
+}
+
 
 #todayReset {
   cursor: pointer;

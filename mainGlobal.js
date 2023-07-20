@@ -170,6 +170,9 @@ const fetchAndRenderCalendarData = () => {
         if (itemP !== null) {
             dataCalendar = JSON.parse(itemP);
         }
+        if (dataHistory.length > 0) {
+            renderHistoryTable(dataHistory.length - 1);
+        }
     })
 };
 
@@ -346,6 +349,7 @@ $('#historyTableBtnRight').click(function (e) {
     if (btnIndex >= 0 && btnIndex < dataHistory.length - 1) {
         btnIndex++;
         renderHistoryTable(btnIndex);
+        $('#historyTableBtnLeft').html('&#8249;');
     }
     if (btnIndex == dataHistory.length - 1) {
         setNextMonthTable();

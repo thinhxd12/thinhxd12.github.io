@@ -768,6 +768,7 @@ const handleCheckItem = (id) => {
         .catch(err => console.log(err))
 }
 
+let minXId;
 const handleArchivedItem = async (id) => {
     // console.log('archive', id);
     await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?id=${id}`)
@@ -776,7 +777,7 @@ const handleArchivedItem = async (id) => {
     //find min value after 2000 update to archive word
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    const minXId = minX._id;
+    minXId = minX._id;
     // console.log('minXId', minXId);
     delete minX._id
 

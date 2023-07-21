@@ -829,8 +829,8 @@ const renderFlashcard = (item, progress, index) => {
     clearTimeout(flipTimer2);
 
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
-    let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, "\n【 $1 】\n&nbsp;🍀&nbsp;");
-    cardMeaning = cardMeaning.replace(/\-/g, "\n&nbsp;🍀&nbsp;").substring(1);
+    let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15" style="transform: rotate(33deg);">&nbsp;`);
+    cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15" style="transform: rotate(33deg);">&nbsp;`).substring(1);
     const flashCardContent = document.getElementById("flashCardContent");
     flashCardContent.innerHTML = `
       <div class="flip-card">

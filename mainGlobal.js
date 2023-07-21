@@ -652,6 +652,10 @@ const setWordList = async (item, num) => {
     $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
+    setTimeout(() => {
+        $('#London').show();
+        $('#Paris').hide();
+    }, 500);
 }
 
 
@@ -768,38 +772,13 @@ const handleCheckItem = (id) => {
         .catch(err => console.log(err))
 }
 
-let minXId;
-const handleArchivedItem = async (id) => {
-    // console.log('archive', id);
-    await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?id=${id}`)
-        .then(res => res.json())
-
-    //find min value after 2000 update to archive word
+const handleArchivedItem = (id) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    minXId = minX._id;
-    // console.log('minXId', minXId);
-    delete minX._id
-
-    let urledit = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${id}`;
-    await fetch(urledit, {
-        method: 'POST',
-        body: JSON.stringify(minX)
-    })
-
-    //delete min value
-    await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${minXId}`)
-        .then(res => res.json()).then(data => {
-            getTotalDoneWord('passed');
-        })
-
-    getAllData('hoctuvung').then(data => {
-        sessionStorage.setItem('sheetData', JSON.stringify(data));
-        let item = sessionStorage.getItem("sheetData")
-        if (item !== null) {
-            dataSheets = JSON.parse(item);
-        }
-    })
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`)
+        .then(res => res.json()).then(data => console.log(data))
+    dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
+    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 

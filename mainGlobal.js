@@ -21,6 +21,9 @@ const getLocalData = () => {
     let item = sessionStorage.getItem("sheetData")
     if (item !== null) {
         dataSheets = JSON.parse(item);
+        // let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
+        // const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
+        // console.log(minX);
     }
     let itemH = sessionStorage.getItem("historyData");
     if (itemH !== null) {
@@ -289,15 +292,15 @@ const renderCalendar = (data) => {
 
     let diffDay = (date.getTime() - endDay.getTime()) / 86400000;
     if (Math.floor(diffDay) > 0) {
-        document.getElementById('dateProgress').innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">';
+        document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="20px">';
     } else document.getElementById('dateProgress').innerHTML = `
                       <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
-                        ${todayData.time1 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
+                        ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time1}/9</span>
                       </div>
                       <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
-                        ${todayData.time2 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
+                        ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time2}/9</span>
                       </div>
@@ -373,10 +376,10 @@ const setNextMonthTable = () => {
         </div>
         <div style="display: flex;">
             <button class="close-btn" onclick="setNewHistoryItem()">
-            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+            <img src="./img/close.png" width="10" height="10">
             </button>
         </div>
         </div>
@@ -439,10 +442,10 @@ const commitNewWork = (row, index) => {
         <span></span>
         <div style="display: flex;">
         <button class="close-btn" onclick="commitHistoryItem(${index})">
-            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <img src="./img/complete.png" width="13" height="13">
         </button>
         <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+            <img src="./img/close.png" width="10" height="10">
         </button>
         </div>
     </div>
@@ -488,57 +491,43 @@ const commitHistoryItem = (index) => {
     })
 }
 
-
 const monthImg = (monthImg) => {
-    const htmlText = document.getElementById("calendarHeader");
     switch (monthImg) {
         case 1:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2019/12/15/18/24/winter-4697776_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/1.jpg")');
             break;
         case 2:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2016/11/12/22/42/santa-claus-1819933_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/2.jpg")');
             break;
         case 3:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2014/02/27/16/10/spring-276014_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/3.jpg")');
             break;
         case 4:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2017/05/08/13/15/spring-bird-2295436_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/4.jpg")');
             break;
         case 5:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2014/12/17/21/30/wild-flowers-571940_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/5.jpg")');
             break;
         case 6:
-            htmlText.style.backgroundImage =
-                'url("http://sellsidehandbook.com/wp-content/uploads/2018/08/pier-569314_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/6.jpg")');
             break;
         case 7:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/7.jpg")');
             break;
         case 8:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2016/08/30/12/13/beach-1630540_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/8.jpg")');
             break;
         case 9:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2016/09/06/15/16/autumn-1649362_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/9.jpg")');
             break;
         case 10:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2015/12/01/20/28/fall-1072821_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/10.jpg")');
             break;
         case 11:
-            htmlText.style.backgroundImage =
-                'url("https://cdn.pixabay.com/photo/2019/10/31/06/58/avenue-4591121_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/11.jpg")');
             break;
         case 12:
-            htmlText.style.backgroundImage =
-                'url("https://media.galwaydaily.com/wp-content/uploads/2018/11/23125638/snowflake-1245748_960_720.jpg")';
+            $('#calendarHeader').css('background-image', 'url("./img/12.jpg")');
             break;
     }
 };
@@ -567,10 +556,10 @@ const setTodayWork = () => {
             <span></span>
             <div style="display: flex;">
             <button class="close-btn" onclick="importSchedule()">
-            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+                <img src="./img/close.png" width="10" height="10">
             </button>
             </div>
         </div>
@@ -620,10 +609,10 @@ const resetTodaySchedule = () => {
             <span>Reset today schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="importSchedule(true)">
-            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+                <img src="./img/close.png" width="10" height="10">
             </button>
             </div>
         </div>
@@ -853,7 +842,7 @@ const renderFlashcard = (item, progress, index) => {
                     <h1>${item.text}</h1>
                     <p>| ${item.phonetic} |</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
-                ${item.numb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : item.numb}
+                ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
                     </span>
           <p class="cardName">05/07/22</p>
         </div>
@@ -869,7 +858,7 @@ const renderFlashcard = (item, progress, index) => {
     if (item.numb > 0) {
         setTimeout(() => {
             document.getElementById("indicateFlip").innerHTML = `
-      ${newNumb == 0 ? '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">' : newNumb}
+      ${newNumb == 0 ? '<img src="./img/cup.png" width="20px">' : newNumb}
       `;
         }, 1000)
     }
@@ -890,7 +879,7 @@ const renderExplain = (headword, meaning, origin) => {
     <div class="explainContainer">
       <div class="explainHeader">
       <button class="closeBtn" onclick="handleDelete()">
-         <img src="https://cdn-icons-png.flaticon.com/512/2734/2734822.png" width="15" height="15">
+         <img src="./img/close_circle.png" width="15" height="15">
       </button>
       </div>
       <div class="explainBody">
@@ -953,13 +942,13 @@ const renderTranslate = (arr) => {
           <span></span>
           <div style="display: flex;">
             <button class="close-btn" onclick="handleAddTextEnd()">
-              <img src="https://cdn-icons-png.flaticon.com/512/3471/3471653.png" width="14" height="14">
+              <img src="./img/send.png" width="14" height="14">
             </button>
             <button class="close-btn" onclick="handleAddNewText()">
-              <img src="https://cdn-icons-png.flaticon.com/512/1848/1848841.png" width="11" height="11">
+              <img src="./img/chain.png" width="11" height="11">
             </button>
             <button class="close-btn" onclick="handleDelete();">
-              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+              <img src="./img/close.png" width="10" height="10">
             </button>
           </div>
         </div>
@@ -972,7 +961,7 @@ const renderTranslate = (arr) => {
         <div class="transItemPhonetic">
           <p>| <span id="tlTranscript">${arr.wordTranscription}</span> |</p>
           <button class="sound-btn" onclick="playTTSwithValue('${arr.word}',false)">
-            <img src="https://cdn-icons-png.flaticon.com/512/6707/6707083.png" width="18" height="18">
+            <img src="./img/volume.png" width="18" height="18">
           </button>
         </div>
         <div>
@@ -1005,10 +994,10 @@ const renderRandomCheck = () => {
            <span></span>
            <div style="display: flex;">
            <button class="close-btn" onclick="handlePlayRandom()">
-            <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+            <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="handleDelete();">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+            <img src="./img/close.png" width="10" height="10">
             </button>
            </div>
        </div>
@@ -1027,10 +1016,10 @@ const renderEditWord = () => {
             <span></span>
             <div style="display: flex;">
             <button class="close-btn" onclick="setEditWord()">
-                <img src="https://cdn-icons-png.flaticon.com/512/9778/9778606.png" width="13" height="13">
+                <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="handleDelete();">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+                <img src="./img/close.png" width="10" height="10">
             </button>
             </div>
         </div>
@@ -1058,10 +1047,10 @@ const renderDeleteWord = () => {
             <span></span>
             <div style="display: flex;">
                 <button class="close-btn" onclick="setDeleteWord()">
-                  <img src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" width="13">
+                  <img src="./img/bin.png" width="13">
                 </button>
                 <button class="close-btn" onclick="handleDelete();">
-                  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828665.png" width="10" height="10">
+                  <img src="./img/close.png" width="10" height="10">
                 </button>
             </div>
         </div>

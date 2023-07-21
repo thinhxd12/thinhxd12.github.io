@@ -1199,7 +1199,8 @@ body {
 .wordMeaning span.dr-g,
 .wordMeaning span.reg,
 .wordOrigin span.ox-enlarge-label,
-.wordOrigin span.box_title .ox-enlarge-label {
+.wordOrigin span.box_title,
+.wordMeaning span.ox-enlarge-label {
   display: none;
 }
 

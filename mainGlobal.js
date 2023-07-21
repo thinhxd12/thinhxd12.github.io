@@ -331,8 +331,8 @@ setTimeout(() => {
 }, 3000);
 
 $('#historyTableBtnLeft').click(function (e) {
+    btnIndex--;
     if (btnIndex > 0) {
-        btnIndex--;
         renderHistoryTable(btnIndex)
     }
     if (btnIndex == 0) {
@@ -343,8 +343,8 @@ $('#historyTableBtnLeft').click(function (e) {
 });
 
 $('#historyTableBtnRight').click(function (e) {
-    if (btnIndex >= 0 && btnIndex < dataHistory.length - 1) {
-        btnIndex++;
+    btnIndex++;
+    if (btnIndex >= 0 && btnIndex <= dataHistory.length - 1) {
         renderHistoryTable(btnIndex);
         $('#historyTableBtnLeft').html(`
         <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(-1 1)">
@@ -352,8 +352,9 @@ $('#historyTableBtnRight').click(function (e) {
         </svg>
         `);
     }
-    if (btnIndex == dataHistory.length - 1) {
+    if (btnIndex > dataHistory.length - 1) {
         setNextMonthTable();
+        btnIndex = dataHistory.length - 1;
     }
 });
 

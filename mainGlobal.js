@@ -296,7 +296,7 @@ const renderCalendar = (data) => {
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time1}/9</span>
                       </div>
-                      <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
+                      <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
                         ${todayData.time2 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time2}/9</span>

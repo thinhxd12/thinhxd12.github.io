@@ -43,10 +43,7 @@ const fetchAllData = () => {
 
     getAllData('history').then(data => {
         sessionStorage.setItem('historyData', JSON.stringify(data));
-    })
-    setTimeout(() => {
-        getLocalData();
-    }, 3000);
+    }).then(() => getLocalData())
 }
 
 fetchAllData();
@@ -294,12 +291,12 @@ const renderCalendar = (data) => {
     if (Math.floor(diffDay) > 0) {
         document.getElementById('dateProgress').innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/7937/7937726.png" width="20px">';
     } else document.getElementById('dateProgress').innerHTML = `
-                      <div class="dateProgressContent">
+                      <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
                         ${todayData.time1 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time1}/9</span>
                       </div>
-                      <div class="dateProgressContent">
+                      <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
                         ${todayData.time2 >= 9 ? '<img src="https://cdn-icons-png.flaticon.com/512/7595/7595571.png" width="18">' : ''}
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time2}/9</span>
@@ -316,7 +313,7 @@ const renderHistoryTable = (numb) => {
         ${historyTableData.map((item, index) => {
         return `
                 <div class="tableItem">
-                  <span class="term" ${item.fromD ? "" : `onclick="commitNewWork('${item.row}',${index})" style="cursor: pointer;"`}>${item.row}</span>
+                  <span  ${item.fromD ? 'class="term"' : `onclick="commitNewWork('${item.row}',${index})" class="term_not_complete"`}>${item.row}</span>
                   ${item.fromD ? `<span class="desc">
                     <span style="width: 90px;">${item.fromD}</span>
                     <span>${item.toD}</span>
@@ -349,7 +346,11 @@ $('#historyTableBtnRight').click(function (e) {
     if (btnIndex >= 0 && btnIndex < dataHistory.length - 1) {
         btnIndex++;
         renderHistoryTable(btnIndex);
-        $('#historyTableBtnLeft').html('&#8249;');
+        $('#historyTableBtnLeft').html(`
+        <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(-1 1)">
+        <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.125"/>
+        </svg>
+        `);
     }
     if (btnIndex == dataHistory.length - 1) {
         setNextMonthTable();
@@ -742,13 +743,12 @@ function stop() {
     autorunTime = 0;
     pause();
     //update progress
-    setWordListHandy();
-    getAllData('hoctuvung').then(data => {
-        sessionStorage.setItem('sheetData', JSON.stringify(data));
-    })
     setTimeout(() => {
-        getLocalData();
-    }, 3000);
+        setWordListHandy();
+        getAllData('hoctuvung').then(data => {
+            sessionStorage.setItem('sheetData', JSON.stringify(data));
+        }).then(() => getLocalData())
+    }, 2000);
 }
 
 
@@ -847,13 +847,6 @@ const renderFlashcard = (item, progress, index) => {
       <div class="flip-card-inner" id="flipCardInner">
         <div class="flip-card-front">
           <p class="heading">FLASHCARD</p>
-          <svg width="21" height="27" id="Layer_1" class="cardLogo" viewBox="0 0 1.2 1.2"
-            xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g></g>
-            <path
-              d="M1 .42a.4.4 0 1 0-.642.318.109.109 0 0 1 .006.004.206.206 0 0 1 .076.157v.281h.32V.899c0-.08.046-.138.08-.16A.399.399 0 0 0 1 .42zm-.52.721V1.02h.24v.121H.48zM.6.46a.04.04 0 0 1 0-.08.04.04 0 0 1 0 .08zm.216.247L.814.708A.237.237 0 0 0 .72.899v.08h-.1V.497A.08.08 0 0 0 .599.34a.08.08 0 0 0-.08.08.08.08 0 0 0 .06.077V.98h-.1V.9a.25.25 0 0 0-.09-.188L.388.711A.551.551 0 0 0 .382.707.361.361 0 1 1 .96.421a.356.356 0 0 1-.144.288z">
-            </path>
-          </svg>
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
           ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
                     <h1>${item.text}</h1>

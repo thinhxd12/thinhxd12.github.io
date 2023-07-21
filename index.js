@@ -1,5 +1,3 @@
-const ggsUrl = 'https://script.google.com/macros/s/AKfycbzhnbLXUrN8pwJ6F7osVhCSUQSOvAw4C3F6qFODuzRJ_0XRv6Me7Uojm8R-b26k1HmvkA/exec'
-
 $(document).ready(function () {
     let loginItem = sessionStorage.getItem("loginItem");
     if (loginItem == 'success') {
@@ -8,12 +6,13 @@ $(document).ready(function () {
 });
 
 $('#loginForm').on('submit', function (e) {
-    fetch(ggsUrl + '?action=setLogin', { method: 'POST', body: JSON.stringify({ string: $('#passInput').val() }) })
-        .then(res => res.text())
+    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/login'
+    fetch(url, { method: 'POST', body: JSON.stringify({ string: $('#passInput').val() }) })
+        .then(res => res.json())
         .then(data => {
             if (data == 'success') {
                 sessionStorage.setItem('loginItem', 'success');
-                window.location.href = './index.html';
+                window.location.href = './main.html';
             }
             else {
                 $('#passInput').addClass('myInputPassErr');
@@ -27,7 +26,6 @@ $('#passInput').focus(function (e) {
     $(this).removeClass('myInputPassErr');
 });
 
-
 function checkShortcuts(event) {
     if (event.keyCode == 27) {
         $('#passInput').val('').focus();
@@ -35,3 +33,5 @@ function checkShortcuts(event) {
     }
 }
 document.onkeydown = checkShortcuts;
+
+

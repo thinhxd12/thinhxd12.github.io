@@ -150,10 +150,6 @@ const showPreviousSlice = () => {
   }
 }
 
-$('#NewYorkBtn').click(function (e) {
-  fetchRenderImgBackground();
-});
-
 $('#LondonBtn').click(function (e) {
   $('#London').show();
   $('#Paris').hide();

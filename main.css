@@ -240,7 +240,7 @@ body {
 .footerBtnContainer {
   border-top: 1px solid #17181a;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
   position: relative;
@@ -298,9 +298,9 @@ body {
 }
 
 .toogleItemShowRight {
-  transform: translateY(-108px);
+  transform: translateY(-135px);
   opacity: 1;
-  height: 120px;
+  height: 135px;
 }
 
 .itemRightBtn {
@@ -320,6 +320,14 @@ body {
   justify-content: flex-end;
   align-items: center;
   margin-left: auto;
+  opacity: 0;
+  padding-top: 1em;
+}
+
+.toogleItemShowRight .toogleBtnContent {
+  opacity: 1;
+  padding-top: 0;
+  transition: all 1s ease;
 }
 
 .toogleBtnContent span {
@@ -370,22 +378,14 @@ body {
 .flip-card-front .heading {
   position: absolute;
   letter-spacing: 0.2em;
-  font-size: 0.2em;
+  font-size: 6px;
   top: 0;
   right: 0;
 }
 
-.flip-card-front .cardLogo {
-  position: absolute;
-  top: 7.5em;
-  right: 0.5rem;
-  transform: rotate(18deg);
-  opacity: 0.45;
-}
-
 .flip-card-front .cardName {
   position: absolute;
-  font-size: 0.1em;
+  font-size: 6px;
   bottom: 0;
   left: 3px;
 }
@@ -481,11 +481,10 @@ body {
 
 .indexFlip {
   position: absolute;
-  bottom: 1em;
-  right: 3.5em;
-  transform: rotate(-21deg);
+  bottom: 3px;
+  right: 3px;
   opacity: 0.45;
-  font-size: 0.5em;
+  font-size: 11px;
 }
 
 .progressFlip {
@@ -779,6 +778,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #fff;
+  cursor: default;
 }
 
 .weekTitle td:first-of-type span {
@@ -893,16 +893,15 @@ body {
   top: -5px;
   left: 14px;
   display: block;
-  background-image: linear-gradient(to bottom right, #ac0000, #000);
+  background-image: linear-gradient(to top left, #ac0000, #000);
   width: 24px;
   height: 24px;
   border-radius: 50%;
   z-index: -1;
 }
-.weekDay .todayDay{
+.weekDay .todayDay {
   color: #fff;
 }
-
 
 #todayReset {
   cursor: pointer;
@@ -974,8 +973,6 @@ body {
   background: none;
   outline: none;
   border: none;
-  color: #fff;
-  font-size: 2rem;
   cursor: pointer;
   width: 20px;
   height: 100px;
@@ -993,10 +990,25 @@ body {
   display: flex;
   align-items: center;
   padding: 3px 6px;
-  color: white;
+  color: #fff;
   position: relative;
   border: 1px solid #17181a;
   cursor: default;
+}
+
+.term_not_complete {
+  width: 27%;
+  display: flex;
+  align-items: center;
+  padding: 3px 6px;
+  color: #636363;
+  position: relative;
+  border: 1px solid #17181a;
+  cursor: pointer;
+}
+
+.term_not_complete:hover {
+  color: #fff;
 }
 
 .term::after {
@@ -1015,6 +1027,7 @@ body {
   display: flex;
   align-items: center;
   padding: 3px 3px 3px 15px;
+  cursor: default;
 }
 
 #calendarContent {
@@ -1237,12 +1250,12 @@ body {
   margin-right: 2px;
   font-weight: 600;
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 11px;
   border-radius: 50%;
   text-align: center;
-  font-size: 9px;
-  line-height: 7px;
+  font-size: 7.5px;
+  margin-bottom: 1px;
+  line-height: 9px;
   vertical-align: middle;
   border: 1px solid rgb(112, 112, 112);
 }

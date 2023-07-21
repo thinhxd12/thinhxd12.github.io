@@ -1067,6 +1067,7 @@ body {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   box-shadow: 0 0 99px black inset;
+  mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
   -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
 }
 

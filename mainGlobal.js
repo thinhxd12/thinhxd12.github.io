@@ -753,14 +753,16 @@ const updateScheduleProgress = (id, val) => {
 }
 
 
+let progress;
 const handleNextWord = () => {
     let item = wordList[autorunTime];
     if (autorunTime == 0 && $('#wordRow').val() == todayScheduleData?.startIndex) {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
+        let todayData = dataCalendar.find(item => item.date === formatDate(new Date()))
+        progress = $('#wordRow').val() == todayData.time1 ? todayData.time1 : todayData.time2;
     }
-    const progress = todayScheduleData ? todayScheduleData.startNum + 1 : 0;
     playTTSwithValue(item.text);
-    renderFlashcard(item, progress, autorunTime + 1);
+    renderFlashcard(item, progress + 1, autorunTime + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
 };
 

@@ -18,14 +18,14 @@ let dataSheets = [];
 let dataHistory = [];
 
 const getLocalData = () => {
-    let item = sessionStorage.getItem("sheetData")
+    let item = localStorage.getItem("sheetData")
     if (item !== null) {
         dataSheets = JSON.parse(item);
         // let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
         // const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
         // console.log(minX);
     }
-    let itemH = sessionStorage.getItem("historyData");
+    let itemH = localStorage.getItem("historyData");
     if (itemH !== null) {
         dataHistory = JSON.parse(itemH);
         renderHistoryTable(dataHistory.length - 1);
@@ -41,11 +41,11 @@ const getAllData = async (text) => {
 const fetchAllData = () => {
     // console.log('fetch all data');
     getAllData('hoctuvung').then(data => {
-        sessionStorage.setItem('sheetData', JSON.stringify(data));
+        localStorage.setItem('sheetData', JSON.stringify(data));
     })
 
     getAllData('history').then(data => {
-        sessionStorage.setItem('historyData', JSON.stringify(data));
+        localStorage.setItem('historyData', JSON.stringify(data));
     }).then(() => getLocalData())
 }
 
@@ -90,7 +90,7 @@ const autocomplete = (inp) => {
                         handleCheckItem(item._id);
                         let objIndex = dataSheets.findIndex((obj => obj._id == item._id));
                         dataSheets[objIndex].numb += -1;
-                        sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+                        localStorage.setItem('sheetData', JSON.stringify(dataSheets));
                     }
                     else {
                         handleArchivedItem(item._id);
@@ -165,8 +165,8 @@ let dataCalendar = [];
 const fetchAndRenderCalendarData = () => {
     getAllData('schedule').then(data => {
         renderCalendar(data);
-        sessionStorage.setItem('calendarData', JSON.stringify(data));
-        let itemP = sessionStorage.getItem("calendarData");
+        localStorage.setItem('calendarData', JSON.stringify(data));
+        let itemP = localStorage.getItem("calendarData");
         if (itemP !== null) {
             dataCalendar = JSON.parse(itemP);
         }
@@ -422,10 +422,10 @@ const setNewHistoryItem = () => {
         $('#calendarContent').html('');
 
         getAllData('history').then(data => {
-            sessionStorage.setItem('historyData', JSON.stringify(data));
+            localStorage.setItem('historyData', JSON.stringify(data));
         })
         setTimeout(() => {
-            let itemH = sessionStorage.getItem("historyData");
+            let itemH = localStorage.getItem("historyData");
             if (itemH !== null) {
                 dataHistory = JSON.parse(itemH);
             }
@@ -479,10 +479,10 @@ const commitHistoryItem = (index) => {
         $('#calendarContent').html('');
 
         getAllData('history').then(data => {
-            sessionStorage.setItem('historyData', JSON.stringify(data));
+            localStorage.setItem('historyData', JSON.stringify(data));
         })
         setTimeout(() => {
-            let itemH = sessionStorage.getItem("historyData");
+            let itemH = localStorage.getItem("historyData");
             if (itemH !== null) {
                 dataHistory = JSON.parse(itemH);
             }
@@ -740,7 +740,7 @@ function stop() {
     setTimeout(() => {
         setWordListHandy();
         getAllData('hoctuvung').then(data => {
-            sessionStorage.setItem('sheetData', JSON.stringify(data));
+            localStorage.setItem('sheetData', JSON.stringify(data));
         }).then(() => getLocalData())
     }, 2000);
 }
@@ -778,7 +778,7 @@ const handleArchivedItem = (id) => {
     fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`)
         .then(res => res.json()).then(data => console.log(data))
     dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
-    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 
@@ -1076,7 +1076,7 @@ const setEditWord = () => {
     dataSheets[objIndex].text = newdata.text;
     dataSheets[objIndex].phonetic = newdata.phonetic;
     dataSheets[objIndex].meaning = newdata.meaning;
-    sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}`;
     fetch(url, {
@@ -1097,7 +1097,7 @@ const setDeleteWord = () => {
             $('#inputEditWord').val('');
             $('#inputEditWordText').val('');
             dataSheets = dataSheets.filter(obj => obj._id !== editId);
-            sessionStorage.setItem('sheetData', JSON.stringify(dataSheets));
+            localStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
 }
 
@@ -1172,7 +1172,7 @@ const handleAddTextEnd = () => {
             body: JSON.stringify(data)
         }).then(res => res.json())
         getAllData('hoctuvung').then(data => {
-            sessionStorage.setItem('sheetData', JSON.stringify(data));
+            localStorage.setItem('sheetData', JSON.stringify(data));
             $('#addNewW').val('');
         })
     }

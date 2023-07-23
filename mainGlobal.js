@@ -776,10 +776,12 @@ const handleArchivedItem = (id) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
     fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`)
-        .then(res => res.json()).then(data => console.log(data))
-    dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
-    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
-    getTotalDoneWord('passed');
+        .then(res => res.json()).then(data => {
+            console.log(data)
+            getTotalDoneWord('passed');
+            dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
+            localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+        })
 }
 
 

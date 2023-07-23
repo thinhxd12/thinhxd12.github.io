@@ -756,7 +756,7 @@ const updateScheduleProgress = (id, val) => {
 const handleNextWord = () => {
     let item = wordList[autorunTime];
     if (autorunTime == 0 && $('#wordRow').val() == todayScheduleData?.startIndex) {
-        todayScheduleData.startNum++
+        todayScheduleData.startNum++;
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
     playTTSwithValue(item.text);

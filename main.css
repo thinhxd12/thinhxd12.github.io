@@ -298,9 +298,9 @@ body {
 }
 
 .toogleItemShowRight {
-  transform: translateY(-161px);
+  transform: translateY(-135px);
   opacity: 1;
-  height: 160px;
+  height: 150px;
 }
 
 .itemRightBtn {

@@ -753,16 +753,13 @@ const updateScheduleProgress = (id, val) => {
 }
 
 
-let progress;
 const handleNextWord = () => {
     let item = wordList[autorunTime];
     if (autorunTime == 0 && $('#wordRow').val() == todayScheduleData?.startIndex) {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
-        let todayData = dataCalendar.find(item => item.date === formatDate(new Date()))
-        progress = $('#wordRow').val() == todayData.time1 ? todayData.time1 : todayData.time2;
     }
     playTTSwithValue(item.text);
-    renderFlashcard(item, progress + 1, autorunTime + 1);
+    renderFlashcard(item, todayScheduleData.startNum + 1, autorunTime + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
 };
 
@@ -967,29 +964,6 @@ const renderTranslate = (arr) => {
     }
 };
 
-
-const renderRandomCheck = () => {
-    let contentBody = document.getElementById("contentBody");
-    contentBody.innerHTML = `
-    <div class="transItem">
-      <div class="transItemHeader">
-           <span></span>
-           <div style="display: flex;">
-           <button class="close-btn" onclick="handlePlayRandom()">
-            <img src="./img/complete.png" width="13" height="13">
-            </button>
-            <button class="close-btn" onclick="handleDelete();">
-            <img src="./img/close.png" width="10" height="10">
-            </button>
-           </div>
-       </div>
-       <div class="transItemContent">
-            <input class="transItemInput" placeholder="random start index" id="inputRandom" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-       </div>
-       </div>
-      `;
-};
-
 const renderEditWord = () => {
     let contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
@@ -1179,38 +1153,6 @@ const handleAddTextEnd = () => {
         })
     }
 };
-
-function randomArray(length, max) {
-    return Array.apply(null, Array(length)).map(function () {
-        return Math.round(Math.random() * max);
-    });
-}
-
-
-let randomRunTime = 1;
-let randomArrGet = [];
-const playRandom = () => {
-    let item = randomArrGet[randomRunTime - 1];
-    playTTSwithValue(item.text);
-    renderFlashcard(item);
-    handleCheckItem(item._id);
-
-    if (randomRunTime < 10) {
-        randomTimeout = setTimeout(playRandom, 7000)
-    } else {
-        randomRunTime = 0;
-        clearTimeout(randomTimeout);
-    }
-    randomRunTime++;
-}
-
-const handlePlayRandom = async () => {
-    let inputRandom = document.getElementById("inputRandom");
-    let randomArr = randomArray(10, 49).map(item => item + inputRandom.value * 1);
-    randomArrGet = randomArr.map(item => dataSheets[item - 1]);
-    playRandom();
-}
-
 
 const mangMau1 = [{
     val: 0,

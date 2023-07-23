@@ -759,7 +759,7 @@ const handleNextWord = () => {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
     playTTSwithValue(item.text);
-    renderFlashcard(item, todayScheduleData.startNum + 1, autorunTime + 1);
+    renderFlashcard(item, todayScheduleData.startNum++, autorunTime + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
 };
 
@@ -778,6 +778,7 @@ const handleArchivedItem = (id) => {
         .then(res => res.json()).then(data => console.log(data))
     dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    getTotalDoneWord('passed');
 }
 
 

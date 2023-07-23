@@ -49,7 +49,7 @@ const fetchAllData = () => {
     }).then(() => getLocalData())
 }
 
-fetchAllData();
+// fetchAllData();
 
 const autocomplete = (inp) => {
     var currentFocus;

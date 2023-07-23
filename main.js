@@ -174,6 +174,11 @@ $('.footerBtnToggleRight').click(function (e) {
   $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
+$('.itemRightBtn').click(function (e) {
+  setTimeout(() => {
+    $('.toogleItemRight').toggleClass('toogleItemShowRight');
+  }, 1000);
+});
 
 
 // -------Zoomimage----------
@@ -202,3 +207,54 @@ $(".zoom_image")
       });
   });
 
+//get quote from sheets
+
+const ggquote = 'https://script.google.com/macros/s/AKfycbwoQdwSwrevYk3Ml_61iehDX0NBqsbG5VBQqWoFZcLPPFfWMCed2rgd-JBitqXaymak/exec';
+
+const fetchGetQuote = (num) => {
+  fetch(ggquote + `?action=getBookmark&num=${num}`).then(res => res.json())
+    .then(data => {
+      let body = `
+      <div class="explainContainer" style="font-size: 13px;line-height: 1rem;${data.check ? 'background: #FBF0D9;' : ''}">
+        <div class="explainHeader">
+        <button class="closeBtn" onclick="handleDelete()">
+           <img src="./img/close_circle.png" width="15" height="15">
+        </button>
+        </div>
+        <div class="explainBody">
+          <div class="wordType">
+          <button class="quoteBtn" onclick="fetchGetQuote(-1)">
+            <img src="./img/left.png" width="16">
+          </button>
+          <button class="quoteBtn" onclick="checkQuote(${!data.check})">
+            ${data.check ? '<img src="./img/star.png" width="15">' : '<img src="./img/star-outline.png" width="15">'}
+          </button>
+          <button class="quoteBtn" onclick="fetchGetQuote(1)">
+            <img src="./img/right.png" width="16">
+          </button>
+          <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
+            <img src="./img/clipboard-none.png" width="16">
+          </button>
+          </div>
+          <div id="quoteContent">${data.value}</div>
+        </div>
+      </div>  
+        `
+      $('#contentBody').html(body);
+    })
+}
+
+const checkQuote = (check) => {
+  fetch(ggquote + `?action=setBookmark&check=${check}`).then(res => res.text())
+    .then(data => {
+      console.log(data)
+      fetchGetQuote(0)
+    })
+}
+
+const copyQuote = () => {
+  let textToCopy = $('#quoteContent').text();
+  navigator.clipboard.writeText(textToCopy).then((res) => {
+    $('#clipboardBtn').html('<img src="./img/clipboard.png" width="16">')
+  })
+}

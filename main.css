@@ -298,9 +298,9 @@ body {
 }
 
 .toogleItemShowRight {
-  transform: translateY(-135px);
+  transform: translateY(-161px);
   opacity: 1;
-  height: 135px;
+  height: 160px;
 }
 
 .itemRightBtn {
@@ -1333,6 +1333,24 @@ body {
   font-style: italic;
   font-weight: normal;
   font-size: 9px;
+}
+
+.quoteBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  margin-right: 3px;
+  vertical-align: middle;
+  width: 25px;
+  height: 23px;
+}
+
+.quoteBtn img {
+  vertical-align: middle;
 }
 
 /* ------------translate----- */

@@ -41,10 +41,12 @@ const getAllData = async (text) => {
 const fetchAllData = () => {
     // console.log('fetch all data');
     getAllData('hoctuvung').then(data => {
+        localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(data));
     })
 
     getAllData('history').then(data => {
+        localStorage.removeItem('historyData');
         localStorage.setItem('historyData', JSON.stringify(data));
     }).then(() => getLocalData())
 }

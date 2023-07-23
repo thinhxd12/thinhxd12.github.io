@@ -305,14 +305,23 @@ body {
 
 .itemRightBtn {
   cursor: pointer;
-  width: 23px;
-  height: 23px;
+  width: 21px;
+  height: 21px;
   border-radius: 18px;
-  margin-bottom: 3px;
-  background: #ad1313;
+  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease;
+}
+
+.itemRightBtn svg {
+  transform: scale(0.9);
+  transition: all 1s ease;
+}
+
+.itemRightBtn:hover svg{
+  transform: scale(1.1);
 }
 
 .toogleBtnContent {
@@ -539,8 +548,8 @@ body {
 
 .myInputIcon span {
   display: block;
-  width: 2px;
-  height: 2px;
+  width: 3px;
+  height: 3px;
   background: #17181a;
   border-radius: 50%;
   margin: 2px 0;
@@ -752,13 +761,13 @@ body {
 }
 
 .calendarHeader {
-  height: 150px;
+  height: 170px;
   background-size: cover;
   background-position: center;
 }
 
 .calendarContent {
-  height: 60px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -771,7 +780,7 @@ body {
 }
 
 .weekDate {
-  height: 27px;
+  height: 23px;
   font-size: 13px;
   text-align: center;
   display: flex;
@@ -822,7 +831,7 @@ body {
 }
 
 #calendarMonth {
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .dateProgressDiv {

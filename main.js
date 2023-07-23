@@ -247,7 +247,6 @@ const fetchGetQuote = (num) => {
 const checkQuote = (check) => {
   fetch(ggquote + `?action=setBookmark&check=${check}`).then(res => res.text())
     .then(data => {
-      console.log(data)
       fetchGetQuote(0)
     })
 }

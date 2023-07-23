@@ -779,9 +779,9 @@ const handleArchivedItem = (id) => {
         .then(res => res.json()).then(data => {
             console.log(data)
             getTotalDoneWord('passed');
-            dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
-            localStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
+        dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
+        localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 

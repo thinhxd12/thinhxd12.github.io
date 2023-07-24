@@ -1152,10 +1152,11 @@ const handleAddTextEnd = () => {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data)
-        }).then(res => res.json())
-        getAllData('hoctuvung').then(data => {
-            localStorage.setItem('sheetData', JSON.stringify(data));
-            $('#addNewW').val('');
+        }).then(res => res.json()).then(data=>{
+            getAllData('hoctuvung').then(data => {
+                localStorage.setItem('sheetData', JSON.stringify(data));
+                $('#addNewW').val('');
+            })
         })
     }
 };

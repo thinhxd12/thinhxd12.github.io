@@ -13,9 +13,17 @@
 }
 
 @font-face {
-  src: url("./font/Roslindale-TextItalic-Testing.woff2") format("woff2");
+  src: url("./font/Roslindale-DisplayCondensedExtraLightItalic-Testing.woff2")
+    format("woff2");
   font-family: "Roslindale";
   font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  src: url("./font/Roslindale-TextItalic-Testing.woff2") format("woff2");
+  font-family: "Roslindale";
+  font-weight: bold;
   font-style: italic;
 }
 
@@ -460,6 +468,11 @@ body {
   padding-left: 2em;
   padding-top: 1em;
   white-space: break-spaces;
+}
+
+.flip-card-back-content img {
+  transform: rotate(18deg);
+  vertical-align: sub;
 }
 
 .indicateFlip {
@@ -1276,6 +1289,7 @@ body {
   font-family: "Roslindale";
   font-weight: normal;
   font-style: italic;
+  letter-spacing: 0.7px;
 }
 
 .wordMeaning span.x::before {
@@ -1287,11 +1301,12 @@ body {
   background: url("./img/clover.png");
   background-size: contain;
   vertical-align: bottom;
-  transform: rotate(33deg);
+  transform: rotate(18deg);
 }
 
 .wordMeaning span.cl {
   font-weight: bold;
+  letter-spacing: normal;
 }
 
 .wordMeaning span.prefix {

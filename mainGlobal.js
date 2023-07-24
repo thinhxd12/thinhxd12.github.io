@@ -657,6 +657,8 @@ const setWordList = async (item, num) => {
     setTimeout(() => {
         $('#London').show();
         $('#Paris').hide();
+        $('.footerBtn').removeClass("footerBtnActive");
+        $('#LondonBtn').addClass("footerBtnActive");
     }, 500);
 }
 

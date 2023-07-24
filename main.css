@@ -370,7 +370,6 @@ body {
 }
 
 .flip-card {
-  background-color: transparent;
   width: 270px;
   height: 150px;
   margin: 6px auto;
@@ -415,6 +414,7 @@ body {
 
 .flip-card-front,
 .flip-card-back {
+  background-color: #f0e9ce;
   box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
   position: absolute;
   display: flex;
@@ -443,13 +443,8 @@ body {
   font-size: 1.2em;
 }
 
-.flip-card-front {
-  background: white;
-}
-
 .flip-card-back {
   transform: rotateX(180deg);
-  background: #fff;
 }
 
 .flip-card-back-content p {
@@ -481,8 +476,8 @@ body {
   z-index: 3;
   padding: 5px;
   background-color: #d39e9e7a;
-  border-right: 2px dotted #b7b49d;
-  border-left: 2px dotted #b7b49d;
+  border-right: 2px dotted #a3a086;
+  border-left: 2px dotted #a3a086;
 }
 
 .indexFlip {
@@ -1155,7 +1150,7 @@ body {
 
 /* ----------------explaincontent---------- */
 .explainContainer {
-  background: #fff;
+  background: #f0e9ce;
   font-family: "basier";
   font-size: 10px;
   border-radius: 3px;

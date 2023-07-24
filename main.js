@@ -215,7 +215,7 @@ const fetchGetQuote = (num) => {
   fetch(ggquote + `?action=getBookmark&num=${num}`).then(res => res.json())
     .then(data => {
       let body = `
-      <div class="explainContainer" style="font-size: 12px;line-height: 1rem;${data.check ? 'background: #FBF0D9;' : ''}">
+      <div class="explainContainer" style="font-size: 12px;line-height: 1rem;${data.check ? 'background: #f0e9ce;' : ''}">
         <div class="explainHeader">
         <button class="closeBtn" onclick="handleDelete()">
            <img src="./img/close_circle.png" width="15" height="15">

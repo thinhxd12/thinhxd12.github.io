@@ -673,14 +673,15 @@ const setWordList = async (item, num) => {
     await fetch(url).then(res => res.json()).then(data => wordList = data);
     wordRow.value = index;
     wordRow.blur();
-    $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
+    $('#London').show();
+    $('#Paris').hide();
+    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+    $('.footerBtn').removeClass("footerBtnActive");
     setTimeout(() => {
-        $('#London').show();
-        $('#Paris').hide();
-        $('.footerBtn').removeClass("footerBtnActive");
-        $('#LondonBtn').addClass("footerBtnActive");
+        $('.toogleItemLeft').addClass('toogleItemShowLeft');
+        $('.footerBtnToggleLeft').addClass("footerBtnActive");
     }, 500);
 }
 

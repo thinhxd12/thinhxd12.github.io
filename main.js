@@ -57,8 +57,14 @@ const startHandler = () => {
     audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
     audioEl.volume = 1;
     audioEl.play();
+    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+    $('.footerBtn').removeClass("footerBtnActive");
+    setTimeout(() => {
+      $('.toogleItemLeft').addClass('toogleItemShowLeft');
+      $('.footerBtnToggleLeft').addClass("footerBtnActive");
+    }, 500);
     showDesktopNotification();
-  }, 360000);
+  }, 5000);
 }
 
 const resetHandler = () => {

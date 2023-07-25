@@ -1251,6 +1251,10 @@ body {
   font-weight: bold;
 }
 
+.wordMeaning span.heading{
+  margin-right: 3px;
+}
+
 .wordOrigin,
 .wordType,
 .wordMeaning li.sn-g:not(:last-child) {

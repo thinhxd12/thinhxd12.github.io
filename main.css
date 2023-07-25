@@ -1168,6 +1168,7 @@ body {
   font-family: "basier";
   font-size: 10px;
   border-radius: 3px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .explainHeader {

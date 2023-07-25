@@ -286,8 +286,8 @@ body {
 
 .toogleItemLeft {
   position: absolute;
-  top: 10px;
-  left: 36px;
+  top: -10px;
+  left: 27px;
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
@@ -299,6 +299,10 @@ body {
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   height: 10px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .toogleItemShowLeft {
@@ -306,8 +310,12 @@ body {
   opacity: 1;
 }
 
+.toogleItemShowLeft .round-button {
+  transform: rotate(-120deg);
+}
+
 .toogleItemShowRight {
-  transform: translateY(-133px);
+  transform: translateY(-142px);
   opacity: 1;
   height: 150px;
 }
@@ -316,6 +324,7 @@ body {
   cursor: pointer;
   width: 22px;
   height: 22px;
+  margin: 0 3px 3px 0;
   border-radius: 18px;
   background: #ffffff;
   display: flex;
@@ -324,45 +333,8 @@ body {
   transition: all 1s ease;
 }
 
-.toogleBtnContent:hover {
-  transform: translateX(-4px);
-}
-
-.toogleBtnContent {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-left: auto;
-  opacity: 0;
-  padding-top: 1em;
-}
-
-.toogleItemShowRight .toogleBtnContent {
-  width: 100px;
-  opacity: 1;
-  padding-top: 0;
-  transition: all 1s ease;
-  margin-right: 1px;
-}
-
-.toogleBtnContent span {
-  color: #fff;
-  font-family: "Roslindale";
-  font-weight: normal;
-  font-size: 11px;
-  line-height: 23px;
-  letter-spacing: 0.3px;
-  margin-right: 3px;
-  margin-bottom: 3px;
-  transform: translateX(100%);
-  opacity: 0;
-  z-index: -1;
-  transition: transform 1s ease;
-}
-
-.toogleBtnContent:hover > span {
-  opacity: 1;
-  transform: translateX(0);
+.itemRightBtn:hover {
+  transform: translateX(-5px);
 }
 
 /* -------------flip card---------------------*/
@@ -1408,11 +1380,14 @@ body {
   align-items: center;
   font-size: 12px;
 }
-.transItemInput:first-child {
-  margin-bottom: 3px;
+
+#inputEditWord {
+  border: 0;
+  margin-bottom: 6px;
 }
 
 .transItemInput {
+  margin-bottom: 3px;
   border: 0.5px solid #17181a;
   padding: 1px 9px;
   font-size: 12px;

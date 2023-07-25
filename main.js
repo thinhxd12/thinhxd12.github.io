@@ -180,10 +180,8 @@ $('.footerBtnToggleRight').click(function (e) {
   $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
-$('.itemRightBtn').click(function (e) {
-  setTimeout(() => {
-    $('.toogleItemRight').toggleClass('toogleItemShowRight');
-  }, 1000);
+$('.itemRightBtn:not(:nth-of-type(2))').click(function (e) {
+  $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
 

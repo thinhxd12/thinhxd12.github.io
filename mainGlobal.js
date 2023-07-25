@@ -337,6 +337,9 @@ setTimeout(() => {
 
 $('#historyTableBtnLeft').click(function (e) {
     btnIndex--;
+    if (btnIndex == dataHistory.length - 1) {
+        $('#calendarContent').html('');
+    }
     if (btnIndex > 0) {
         renderHistoryTable(btnIndex)
     }
@@ -359,7 +362,7 @@ $('#historyTableBtnRight').click(function (e) {
     }
     if (btnIndex > dataHistory.length - 1) {
         setNextMonthTable();
-        btnIndex = dataHistory.length - 1;
+        btnIndex = dataHistory.length;
     }
 });
 

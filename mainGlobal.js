@@ -565,12 +565,12 @@ const setTodayWork = () => {
             </button>
             </div>
         </div>
-                     <div class="calendarItemContent">
-                         <input class="calendarItemInput" value="${formatDate(new Date())}" id="newStartDay"
-                             autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-                         <input class="calendarItemInput" placeholder="Set new start row!" id="newStartRow"
-                             autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-                     </div>
+            <div class="calendarItemContent">
+                <input class="calendarItemInput" value="${formatDate(new Date())}" id="newStartDay"
+                    autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+                <input class="calendarItemInput" placeholder="Set new start row!" id="newStartRow"
+                    autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            </div>
     </div>`;
 };
 
@@ -606,11 +606,11 @@ const importSchedule = (reset = false) => {
 const resetTodaySchedule = () => {
     const calendarContent = document.getElementById("calendarContent");
     calendarContent.innerHTML = `
-    <div class="calendarItem" style="height: 23px;">
+    <div class="calendarItem">
         <div class="calendarItemHeader">
             <span>Reset today schedule!</span>
             <div style="display: flex;">
-            <button class="close-btn" onclick="importSchedule(true)">
+            <button class="close-btn" onclick="updateScheduleItem()">
             <img src="./img/complete.png" width="13" height="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
@@ -618,7 +618,29 @@ const resetTodaySchedule = () => {
             </button>
             </div>
         </div>
+        <div class="calendarItemContent">
+            <input class="calendarItemInput" placeholder="${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}" id="firstRowReset" autocomplete="off" onmouseover="this.focus()">
+            <input class="calendarItemInput" placeholder="${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}" id="secondRowReset" autocomplete="off" onmouseover="this.focus()">
+        </div>
     </div>`;
+}
+
+const updateScheduleItem = () => {
+    let data = {
+        date: todayData.date,
+        startIndex1: todayData.startIndex1,
+        startIndex2: todayData.startIndex2,
+        time1: $('#firstRowReset').val() * 1 || 0,
+        time2: $('#secondRowReset').val() * 1 || 0
+    }
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleItem?id=${todayData._id}`;
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(res => res.text()).then(data => {
+        $('#calendarContent').html('');
+        fetchAndRenderCalendarData();
+    })
 }
 
 
@@ -784,8 +806,8 @@ const handleArchivedItem = (id) => {
             console.log(data)
             getTotalDoneWord('passed');
         })
-        dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
-        localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
+    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 }
 
 
@@ -1154,7 +1176,7 @@ const handleAddTextEnd = () => {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data)
-        }).then(res => res.json()).then(data=>{
+        }).then(res => res.json()).then(data => {
             getAllData('hoctuvung').then(data => {
                 localStorage.setItem('sheetData', JSON.stringify(data));
                 $('#addNewW').val('');

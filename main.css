@@ -294,10 +294,10 @@ body {
 
 .toogleItemRight {
   position: absolute;
-  top: 0;
+  bottom: -125px;
   right: 0;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  height: 10px;
+  height: 0;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -315,8 +315,8 @@ body {
 }
 
 .toogleItemShowRight {
-  transform: translateY(-142px);
   opacity: 1;
+  bottom: 25px;
   height: 150px;
 }
 

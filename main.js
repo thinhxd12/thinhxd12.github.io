@@ -64,7 +64,7 @@ const startHandler = () => {
       $('.footerBtnToggleLeft').addClass("footerBtnActive");
     }, 500);
     showDesktopNotification();
-  }, 5000);
+  }, 360000);
 }
 
 const resetHandler = () => {

@@ -1090,9 +1090,12 @@ const setEditWord = () => {
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
-        $('#inputEditWordText').val('');
-        $('#inputEditWordPhonetic').val('');
-        $('#inputEditWordMeaning').val('');
+        getAllData('hoctuvung').then(data => {
+            localStorage.setItem('sheetData', JSON.stringify(data));
+            $('#inputEditWordText').val('');
+            $('#inputEditWordPhonetic').val('');
+            $('#inputEditWordMeaning').val('');
+        }).then(() => getLocalData());
     });
 }
 
@@ -1181,7 +1184,7 @@ const handleAddTextEnd = () => {
             getAllData('hoctuvung').then(data => {
                 localStorage.setItem('sheetData', JSON.stringify(data));
                 $('#addNewW').val('');
-            })
+            }).then(() => getLocalData());
         })
     }
 };

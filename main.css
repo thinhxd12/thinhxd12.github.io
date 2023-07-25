@@ -31,7 +31,6 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -454,6 +453,7 @@ body {
 
 .flip-card-back {
   transform: rotateX(180deg);
+  -webkit-font-smoothing: antialiased;
 }
 
 .flip-card-back-content p {

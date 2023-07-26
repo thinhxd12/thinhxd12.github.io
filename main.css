@@ -311,7 +311,7 @@ body {
 }
 
 .toogleItemShowLeft .round-button {
-  transform: rotate(-120deg);
+  transform: rotate(-90deg);
 }
 
 .toogleItemShowRight {
@@ -586,7 +586,7 @@ body {
 .roundBtnBody {
   position: absolute;
   z-index: 0;
-  height: 100%;
+  height: 98%;
   aspect-ratio: 1;
   border-radius: 50%;
   background-image: radial-gradient(#ffcc33 30%, #fc9601);
@@ -594,7 +594,7 @@ body {
 }
 
 .roundBtnDiv1 {
-  height: 90%;
+  height: 91%;
   aspect-ratio: 1;
   position: absolute;
   z-index: 1;
@@ -604,7 +604,7 @@ body {
 }
 
 .roundBtnDiv2 {
-  height: 90%;
+  height: 91%;
   aspect-ratio: 1;
   position: absolute;
   z-index: 1;
@@ -614,7 +614,7 @@ body {
 }
 
 .roundBtnDiv3 {
-  height: 90%;
+  height: 93%;
   aspect-ratio: 1;
   position: absolute;
   z-index: 1;

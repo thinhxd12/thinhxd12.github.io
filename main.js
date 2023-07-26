@@ -104,7 +104,6 @@ $('#tomatoButton').click(function (e) {
 });
 
 $('#wordNum').click(function (e) {
-  e.preventDefault();
   resetHandler();
 });
 

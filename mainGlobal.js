@@ -829,16 +829,12 @@ const playTTSwithValue = (val, render = true) => {
             const audioEl = document.getElementById("tts-audio");
             audioEl.volume = 1;
             audioEl.play();
+            let headword = $(html).find('.webtop-g').html();
+            let meaning = $(html).find('#entryContent').html();
+            renderExplain(headword, meaning);
         }
         else {
             collinsDicSearchAndPlay(val);
-        }
-        if (render) {
-            let headword = $(html).find('.webtop-g').html();
-            let meaning = $(html).find('#entryContent').html();
-            if (meaning) {
-                renderExplain(headword, meaning);
-            }
         }
     });
 };
@@ -852,9 +848,13 @@ const collinsDicSearchAndPlay = (text) => {
             const audioEl = document.getElementById("tts-audio");
             audioEl.volume = 1;
             audioEl.play();
+            let headword = $(html).find('.orth').html();
+            let meaning = $(html).find('.content.definitions.american').html();
+            renderExplain(headword, meaning);
         }
     })
 }
+
 
 let flipTimer1;
 let flipTimer2;
@@ -1047,6 +1047,9 @@ const renderEditWord = () => {
         <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordMeaning" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
+        <div class="transItemContent">
+            <input class="transItemInput" placeholder="" id="inputEditWordNumb" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
         </div>
         <div id="editContentDiv"></div>`;
 };
@@ -1096,18 +1099,21 @@ const setInputEditWordResult = (item) => {
     $('#inputEditWordText').val(item.text);
     $('#inputEditWordPhonetic').val(item.phonetic);
     $('#inputEditWordMeaning').val(item.meaning);
+    $('#inputEditWordNumb').val(item.numb);
 }
 
 const setEditWord = () => {
     let newdata = {
         text: $('#inputEditWordText').val(),
         phonetic: $('#inputEditWordPhonetic').val(),
-        meaning: $('#inputEditWordMeaning').val()
+        meaning: $('#inputEditWordMeaning').val(),
+        numb: $('#inputEditWordNumb').val()*1
     }
     let objIndex = dataSheets.findIndex((obj => obj._id == editId));
     dataSheets[objIndex].text = newdata.text;
     dataSheets[objIndex].phonetic = newdata.phonetic;
     dataSheets[objIndex].meaning = newdata.meaning;
+    dataSheets[objIndex].numb = newdata.numb;
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}`;
@@ -1120,6 +1126,7 @@ const setEditWord = () => {
             $('#inputEditWordText').val('');
             $('#inputEditWordPhonetic').val('');
             $('#inputEditWordMeaning').val('');
+            $('#inputEditWordNumb').val('');
         }).then(() => getLocalData());
     });
 }

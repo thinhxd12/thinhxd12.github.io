@@ -1,19 +1,19 @@
 @font-face {
   font-family: "basier";
-  src: url("./font/basiersquare-regular-webfont.woff2") format("woff2");
+  src: url("./fonts/basiersquare-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./font/Roslindale-DisplayRegular-Testing.woff2") format("woff2");
+  src: url("./fonts/Roslindale-DisplayRegular-Testing.woff2") format("woff2");
   font-family: "Roslindale";
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./font/Roslindale-DisplayCondensedLightItalic-Testing.woff2")
+  src: url("./fonts/Roslindale-DisplayCondensedLightItalic-Testing.woff2")
     format("woff2");
   font-family: "Roslindale";
   font-weight: normal;
@@ -21,11 +21,59 @@
 }
 
 @font-face {
-  src: url("./font/Roslindale-TextItalic-Testing.woff2") format("woff2");
+  src: url("./fonts/Roslindale-TextItalic-Testing.woff2") format("woff2");
   font-family: "Roslindale";
   font-weight: bold;
   font-style: italic;
 }
+
+@font-face {
+  src: url("./fonts/family/imperial/imperial-normal-400.6131cd77b6e216c7693ed925f4309ffc.woff2")
+    format("woff2");
+  font-family: "nyt-imperial";
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  src: url("./fonts/family/cheltenham-small/cheltenham-small-normal-400.108ce298d451197b23fefceb3e36959f.woff2")
+    format("woff2");
+  font-family: "nyt-cheltenham-small";
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  src: url("./fonts/family/cheltenham/cheltenham-normal-300.7ea91ebd036309e1fe756ee3aab272da.woff2")
+    format("woff2");
+  font-family: "nyt-cheltenham";
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  src: url("./fonts/family/cheltenham/cheltenham-normal-400.a3ed7afe3eaa0a873f3fbd379f8c491b.woff2")
+    format("woff2");
+  font-family: "nyt-cheltenham";
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  src: url("./fonts/family/cheltenham/cheltenham-normal-700.530cfb72378419eedb60da7e266ad5f1.woff2")
+    format("woff2");
+  font-family: "nyt-cheltenham";
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  src: url("./fonts/family/cheltenham/cheltenham-italic-700.f99a0459024509f157a3352e5de4f873.woff2")
+    format("woff2");
+  font-family: "nyt-cheltenham";
+  font-weight: 700;
+  font-style: italic;
+}
+
 
 * {
   box-sizing: border-box;
@@ -434,10 +482,9 @@ body {
   top: 0;
   left: 0;
   font-family: "Roslindale";
-  letter-spacing: 0.9px;
-  font-size: 12px;
+  letter-spacing: 1px;
+  font-size: 12.5px;
   line-height: 18px;
-  font-weight: bolder;
   text-align: left;
   padding-left: 2em;
   padding-top: 1em;
@@ -1142,8 +1189,10 @@ body {
 /* ----------------explaincontent---------- */
 .explainContainer {
   background: #f0e9ce;
-  font-family: sans-serif;
-  font-size: 10px;
+  font-family: "nyt-imperial";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 11px;
   border-radius: 3px;
   -webkit-font-smoothing: antialiased;
 }
@@ -1205,7 +1254,7 @@ body {
 .wordType .h {
   display: inline-block;
   margin: 0 3px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .wordType .pos {
@@ -1267,12 +1316,11 @@ body {
 .wordMeaning span.x {
   display: block;
   font-size: 12px;
+  font-family: "nyt-cheltenham-small";
+  font-weight: 400;
   line-height: 12px;
   margin: 2px 0;
-  font-family: "Roslindale";
-  font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.7px;
 }
 
 .wordMeaning span.x::before {
@@ -1288,8 +1336,10 @@ body {
 }
 
 .wordMeaning span.cl {
-  font-weight: bold;
-  letter-spacing: normal;
+  font-family: "nyt-cheltenham";
+  font-weight: 700;
+  font-style: italic;
+  font-size: 13.5px;
 }
 
 .wordMeaning span.prefix {

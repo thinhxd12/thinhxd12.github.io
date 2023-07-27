@@ -200,7 +200,7 @@ body {
 #imgDesc .main-description__text a {
   letter-spacing: -0.25px;
   font-size: 12px;
-  color: #363636;
+  color: #989da7;
   font-family: "basier", sans-serif;
   mix-blend-mode: difference;
 }
@@ -209,7 +209,7 @@ body {
   margin: 3px 0;
   line-height: 14px;
   letter-spacing: 0.1px;
-  color: #363636;
+  color: #989da7;
 }
 
 #imgDesc .main-description__share-toolbar,

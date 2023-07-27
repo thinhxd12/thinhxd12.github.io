@@ -742,6 +742,10 @@ autoPlayBtn.addEventListener("click", () => {
     if (isTimerStarted == false && wordList.length > 0) {
         handleToggleSwitchSun();
         play();
+        $('#London').show();
+        $('#Paris').hide();
+        $('.footerBtn').removeClass("footerBtnActive");
+        $('.footerBtnToggleLeft').addClass("footerBtnActive");
     } else if (isTimerStarted == true && autorunTime > 1) {
         handleToggleSwitchMoon();
         pause();
@@ -826,13 +830,31 @@ const playTTSwithValue = (val, render = true) => {
             audioEl.volume = 1;
             audioEl.play();
         }
+        else {
+            collinsDicSearchAndPlay(val);
+        }
         if (render) {
             let headword = $(html).find('.webtop-g').html();
             let meaning = $(html).find('#entryContent').html();
-            renderExplain(headword, meaning);
+            if (meaning) {
+                renderExplain(headword, meaning);
+            }
         }
     });
 };
+
+const collinsDicSearchAndPlay = (text) => {
+    let url = `https://www.collinsdictionary.com/dictionary/english/${text}`
+    $.get(url, function (html) {
+        let mp3Link = $(html).find('.audio_play_button').last().attr('data-src-mp3');
+        if (mp3Link) {
+            $('#tts-audio').attr('src', mp3Link);
+            const audioEl = document.getElementById("tts-audio");
+            audioEl.volume = 1;
+            audioEl.play();
+        }
+    })
+}
 
 let flipTimer1;
 let flipTimer2;

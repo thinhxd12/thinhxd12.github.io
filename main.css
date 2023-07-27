@@ -489,6 +489,7 @@ body {
   padding-left: 2em;
   padding-top: 1em;
   white-space: break-spaces;
+  font-weight: bold;
 }
 
 .flip-card-back-content img {

@@ -588,6 +588,18 @@ body {
   z-index: 1;
 }
 
+.bottomCenterCorner {
+  width: 120px;
+  height: 11px;
+  background-image: url("./img/bottom.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 205.5px;
+  left: 140px;
+  z-index: 1;
+}
+
 .bottomRightCorner {
   width: 90px;
   height: 90px;
@@ -636,12 +648,19 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
+  margin-bottom: 6px;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
 .transInputContent {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.myInputContainer:hover .myInputIcon {
+  opacity: 1;
 }
 
 /* ---------------buttonSwitch--------- */

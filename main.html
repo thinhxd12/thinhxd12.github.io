@@ -12,7 +12,7 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
-  </script>
+    </script>
 </head>
 
 <body>
@@ -41,25 +41,23 @@
       <div class="mainContent">
         <div id="London" class="city">
           <div class="contentHeader">
-            <div id="flashCardContent"></div>
-            <div class="myInputContainer">
-              <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
-                onmouseover="this.focus()" onmouseout="this.blur();" />
-              <div class="myInputIcon">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="transInputContent">
-                <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
-                  onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur();" />
-                <div class="transBtn" id="transBtn">
-                  <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M3.192.762a2.399 2.399 0 0 0-.133.003 2.423 2.423 0 0 0 .122 4.84h5.683v-.528H5.606V3.183A2.425 2.425 0 0 0 4.111.945a2.417 2.417 0 0 0-.918-.183zm8.658 0a2.417 2.417 0 0 0-.963.183 2.423 2.423 0 0 0-1.495 2.238v5.683h.528v-3.26h1.894a2.425 2.425 0 0 0 2.238-1.495 2.417 2.417 0 0 0 .181-1.05A2.419 2.419 0 0 0 11.85.763zm-8.696.528a1.893 1.893 0 0 1 .753.144 1.893 1.893 0 0 1 1.169 1.751v1.894H3.183A1.893 1.893 0 0 1 1.432 3.91a1.893 1.893 0 0 1 .411-2.065 1.893 1.893 0 0 1 1.313-.555zm8.688 0a1.893 1.893 0 0 1 1.313.555 1.893 1.893 0 0 1 .411 2.065 1.893 1.893 0 0 1-1.75 1.169H9.922V3.183a1.893 1.893 0 0 1 1.169-1.751 1.894 1.894 0 0 1 .753-.144zM5.078 6.133v3.263H3.183a2.425 2.425 0 0 0-2.238 1.495 2.417 2.417 0 0 0-.181 1.05c.03.588.273 1.157.706 1.589a2.423 2.423 0 0 0 4.134-1.713V6.133h-.528zm1.055 3.263v.528h3.262v1.894a2.425 2.425 0 0 0 1.495 2.238 2.417 2.417 0 0 0 1.05.181 2.423 2.423 0 0 0 1.589-.706 2.423 2.423 0 0 0-1.713-4.134H6.133zm-2.949.528h1.894v1.894a1.893 1.893 0 0 1-1.169 1.751 1.893 1.893 0 0 1-2.065-.411 1.893 1.893 0 0 1-.411-2.065 1.893 1.893 0 0 1 1.751-1.169zm6.738 0h1.894a1.893 1.893 0 0 1 1.751 1.169 1.893 1.893 0 0 1-.411 2.065 1.893 1.893 0 0 1-2.065.411 1.893 1.893 0 0 1-1.169-1.751V9.924z" />
-                  </svg>
+            <div class="flashCardContainer">
+              <div class="topLeftCorner"></div>
+              <div class="topRightCorner"></div>
+              <div class="centerCorner">
+                <div id="flashCardContent"></div>
+                <div class="myInputContainer">
+                  <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
+                    onmouseover="this.focus()" />
+                  <div class="myInputIcon" id="transBtn"></div>
+                  <div class="transInputContent">
+                    <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off"
+                      name="transInput" onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()"/>
+                  </div>
                 </div>
               </div>
+              <div class="bottomLeftCorner"></div>
+              <div class="bottomRightCorner"></div>
             </div>
           </div>
           <div class="contentBody">

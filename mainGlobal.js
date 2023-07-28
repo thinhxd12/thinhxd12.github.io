@@ -829,17 +829,19 @@ const playTTSwithValue = (val, render = true) => {
             const audioEl = document.getElementById("tts-audio");
             audioEl.volume = 1;
             audioEl.play();
-            let headword = $(html).find('.webtop-g').html();
-            let meaning = $(html).find('#entryContent').html();
-            renderExplain(headword, meaning);
+            if (render) {
+                let headword = $(html).find('.webtop-g').html();
+                let meaning = $(html).find('#entryContent').html();
+                renderExplain(headword, meaning);
+            }
         }
         else {
-            collinsDicSearchAndPlay(val);
+            collinsDicSearchAndPlay(val, render);
         }
     });
 };
 
-const collinsDicSearchAndPlay = (text) => {
+const collinsDicSearchAndPlay = (text, render) => {
     let url = `https://www.collinsdictionary.com/dictionary/english/${text}`
     $.get(url, function (html) {
         let mp3Link = $(html).find('.audio_play_button').last().attr('data-src-mp3');
@@ -848,9 +850,11 @@ const collinsDicSearchAndPlay = (text) => {
             const audioEl = document.getElementById("tts-audio");
             audioEl.volume = 1;
             audioEl.play();
-            let headword = $(html).find('.orth').html();
-            let meaning = $(html).find('.content.definitions.american').html();
-            renderExplain(headword, meaning);
+            if (render) {
+                let headword = $(html).find('.orth').html();
+                let meaning = $(html).find('.content.definitions.american').html();
+                renderExplain(headword, meaning);
+            }
         }
     })
 }
@@ -977,13 +981,13 @@ const renderTranslate = (arr) => {
           <span></span>
           <div style="display: flex;">
             <button class="close-btn" onclick="handleAddTextEnd()">
-              <img src="./img/send.png" width="14" height="14">
+              <img src="./img/send.png" width="14">
             </button>
             <button class="close-btn" onclick="handleAddNewText()">
-              <img src="./img/chain.png" width="11" height="11">
+              <img src="./img/chain.png" width="15">
             </button>
             <button class="close-btn" onclick="handleDelete();">
-              <img src="./img/close.png" width="10" height="10">
+              <img src="./img/close.png" width="10">
             </button>
           </div>
         </div>
@@ -996,7 +1000,7 @@ const renderTranslate = (arr) => {
         <div class="transItemPhonetic">
           <p>| <span id="tlTranscript">${arr.wordTranscription}</span> |</p>
           <button class="sound-btn" onclick="playTTSwithValue('${arr.word}',false)">
-            <img src="./img/volume.png" width="18" height="18">
+            <img src="./img/volume.png" width="15">
           </button>
         </div>
         <div>
@@ -1036,7 +1040,7 @@ const renderEditWord = () => {
             </div>
         </div>
         <div class="transItemContent">
-            <input class="transItemInput" placeholder="edit text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+            <input class="transItemInput" placeholder="find edit text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
         <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
@@ -1062,7 +1066,7 @@ const renderDeleteWord = () => {
             <span></span>
             <div style="display: flex;">
                 <button class="close-btn" onclick="setDeleteWord()">
-                  <img src="./img/bin.png" width="13">
+                  <img src="./img/bin.png" width="15">
                 </button>
                 <button class="close-btn" onclick="handleDelete();">
                   <img src="./img/close.png" width="10" height="10">
@@ -1070,7 +1074,7 @@ const renderDeleteWord = () => {
             </div>
         </div>
         <div class="transItemContent">
-          <input class="transItemInput" placeholder="delete text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+          <input class="transItemInput" placeholder="find delete text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
         <div class="transItemContent">
           <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
@@ -1107,7 +1111,7 @@ const setEditWord = () => {
         text: $('#inputEditWordText').val(),
         phonetic: $('#inputEditWordPhonetic').val(),
         meaning: $('#inputEditWordMeaning').val(),
-        numb: $('#inputEditWordNumb').val()*1
+        numb: $('#inputEditWordNumb').val() * 1
     }
     let objIndex = dataSheets.findIndex((obj => obj._id == editId));
     dataSheets[objIndex].text = newdata.text;

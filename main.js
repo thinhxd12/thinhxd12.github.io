@@ -183,6 +183,10 @@ $('.itemRightBtn:not(:nth-of-type(2))').click(function (e) {
   $('.toogleItemRight').toggleClass('toogleItemShowRight');
 });
 
+$('.footerBtnToggleRight').mouseover(function () {
+  $('.toogleItemRight').removeClass('toogleItemShowRight');
+  $('.toogleItemRight').addClass('toogleItemShowRight');
+});
 
 // -------Zoomimage----------
 

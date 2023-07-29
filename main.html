@@ -42,22 +42,16 @@
         <div id="London" class="city">
           <div class="contentHeader">
             <div class="flashCardContainer">
-              <div class="topLeftCorner"></div>
-              <div class="topRightCorner"></div>
-              <div class="centerCorner">
-                <div id="flashCardContent"></div>
-                <div class="myInputContainer">
-                  <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
-                    onmouseover="this.focus()" />
+              <div id="flashCardContent"></div>
+              <div class="myInputContainer">
+                <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
+                  onmouseover="this.focus()" />
+                <div class="transInputContent">
+                  <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
+                    onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" />
                   <div class="myInputIcon" id="transBtn"></div>
-                  <div class="transInputContent">
-                    <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off"
-                      name="transInput" onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()"/>
-                  </div>
                 </div>
               </div>
-              <div class="bottomLeftCorner"></div>
-              <div class="bottomRightCorner"></div>
             </div>
           </div>
           <div class="contentBody">

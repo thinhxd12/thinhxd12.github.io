@@ -98,6 +98,15 @@ body {
   grid-template-columns: 2.5fr 1fr 1fr;
 }
 
+#London {
+  background-image: url("./img/top-left-corner.png"),
+    url("./img/top-right-corner.png"), url("./img/bottom-left-corner.png"),
+    url("./img/bottom-right-corner.png");
+  background-position: left top, right top, left bottom, right bottom;
+  background-repeat: no-repeat;
+  background-size: 90px 90px, 90px 90px, 90px 90px, 90px 90px;
+}
+
 .mainImageBlurred {
   display: block;
   width: 150%;
@@ -409,18 +418,9 @@ body {
   width: 300px;
   height: 150px;
   perspective: 1000px;
-  border: 1px solid #17181a;
   border-radius: 3px;
   font-family: sans-serif;
   font-weight: normal;
-}
-
-.flip-card-front-content .heading {
-  position: absolute;
-  letter-spacing: 0.2em;
-  font-size: 6px;
-  top: 4px;
-  right: 61px;
 }
 
 .flip-card-front-content .cardName {
@@ -527,20 +527,22 @@ body {
 
 .indicateFlip {
   position: absolute;
-  top: 2.1em;
-  right: 2.1em;
-  transform: rotate(42deg);
+  top: 0.7rem;
+  right: 2rem;
+  transform: rotate(27deg);
   display: block;
-  width: 3em;
-  font-size: 11px;
+  font-size: .9rem;
   letter-spacing: 1px;
-  font-family: "Roslindale";
+  font-family: "Rubik", sans-serif;
   font-weight: bold;
   z-index: 3;
-  padding: 5px;
-  background-color: #d39e9e7a;
-  border-right: 2px dotted #a3a086;
-  border-left: 2px dotted #a3a086;
+  width: 2.8rem;
+  padding: 0.9rem 0.5rem;
+  height: 3rem;
+  text-align: center;
+  background-image: url("./img/tag.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .indexFlip {
@@ -562,8 +564,8 @@ body {
 }
 
 .flashCardContainer {
-  position: relative;
   width: 100%;
+  padding-top: 20px;
 }
 
 .topLeftCorner {
@@ -589,22 +591,13 @@ body {
   z-index: 1;
 }
 
-.centerCorner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 27px 0 0;
-  z-index: 2;
-}
-
 .bottomLeftCorner {
   width: 90px;
   height: 90px;
   background-image: url("./img/corner.png");
   background-size: contain;
   position: absolute;
-  top: 125px;
+  bottom: 0;
   left: 0;
   transform: scale(1, -1);
   z-index: 1;
@@ -616,7 +609,7 @@ body {
   background-image: url("./img/corner.png");
   background-size: contain;
   position: absolute;
-  top: 125px;
+  bottom: 0;
   right: 0;
   transform: scale(-1, -1);
   z-index: 1;
@@ -629,7 +622,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 6px 0;
+  padding: 3px 0 9px;
+  margin-top: 3px;
+  background-image: url("./img/input-border.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 .myInput {
@@ -648,12 +646,13 @@ body {
 
 .myInputContainer > .myInput,
 .transInputContent {
-  width: 35%;
+  width: 45%;
 }
 
 .myInputIcon {
   width: 18px;
   height: 18px;
+  margin-bottom: 6px;
   background-image: url("./img/center.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -668,7 +667,11 @@ body {
   align-items: flex-end;
 }
 
-.myInputContainer:hover .myInputIcon {
+.transInputContent .myInput {
+  padding-left: 21px;
+}
+
+.transInputContent:hover .myInputIcon {
   opacity: 1;
 }
 
@@ -1193,7 +1196,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 9px;
+  padding: 0 9px 9px;
   width: 100%;
 }
 

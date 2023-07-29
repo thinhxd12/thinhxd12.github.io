@@ -877,7 +877,6 @@ const renderFlashcard = (item, progress, index) => {
       <div class="flip-card-inner" id="flipCardInner">
         <div class="flip-card-front">
         <div class="flip-card-front-content">
-          <p class="heading">FLASHCARD</p>
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
           ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
                     <h1>${item.text}</h1>

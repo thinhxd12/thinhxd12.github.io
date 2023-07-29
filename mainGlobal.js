@@ -831,7 +831,8 @@ const playTTSwithValue = (val, render = true) => {
             audioEl.play();
             if (render) {
                 let headword = $(html).find('.webtop-g').html();
-                let meaning = $(html).find('#entryContent').html();
+                // let meaning = $(html).find('#entryContent').html();
+                let meaning = $(html).find('.sn-gs').html();
                 renderExplain(headword, meaning);
             }
         }
@@ -875,6 +876,7 @@ const renderFlashcard = (item, progress, index) => {
       <div class="flip-card">
       <div class="flip-card-inner" id="flipCardInner">
         <div class="flip-card-front">
+        <div class="flip-card-front-content">
           <p class="heading">FLASHCARD</p>
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
           ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
@@ -884,6 +886,7 @@ const renderFlashcard = (item, progress, index) => {
                 ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
                     </span>
           <p class="cardName">05/07/22</p>
+          </div>
         </div>
         <div class="flip-card-back">
           <div class="flip-card-back-content">

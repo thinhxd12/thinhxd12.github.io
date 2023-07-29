@@ -756,7 +756,7 @@ function play() {
     isTimerStarted = true;
     handleNextWord();
     if (autorunTime < 49) {
-        currentTimeout = setTimeout(play, 7000);
+        currentTimeout = setTimeout(play, 8000);
         autorunTime++;
     } else stop();
 }
@@ -902,8 +902,8 @@ const renderFlashcard = (item, progress, index) => {
         }, 1000)
     }
 
-    flipTimer1 = setTimeout(flipFlashCard, 3500);
-    flipTimer2 = setTimeout(flipFlashCard, 5000);
+    flipTimer1 = setTimeout(flipFlashCard, 4000);
+    flipTimer2 = setTimeout(flipFlashCard, 7000);
 };
 
 const flipFlashCard = () => {

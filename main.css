@@ -111,24 +111,30 @@ body {
 }
 
 .mainFixedContent {
-  width: 400px;
+  width: 100%;
   height: calc(100% - 35px);
-  position: fixed;
-  top: 0;
-  right: 270px;
   background-image: url("./img/top-left-corner.png"),
-    url("./img/top-right-corner.png"), url("./img/bottom-left-corner.png"),
-    url("./img/bottom-right-corner.png");
-  background-position: top left, top right, left bottom, right bottom;
+    url("./img/top-right-corner.png");
+  background-position: top left, top right;
   background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px, 90px 90px, 90px 90px;
+  background-size: 90px 90px, 90px 90px;
 }
 
 .mainFixedBottom {
-  width: 400px;
-  position: fixed;
-  bottom: 0;
-  right: 270px;
+  width: 100%;
+  position: relative;
+}
+
+.mainFixedOrnament {
+  width: 100%;
+  height: 90px;
+  position: absolute;
+  bottom: 35px;
+  background-image: url("./img/bottom-left-corner.png"),
+    url("./img/bottom-right-corner.png");
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat;
+  background-size: 90px 90px, 90px 90px;
 }
 
 .imageContainer {
@@ -385,13 +391,13 @@ body {
   bottom: -70px;
   left: 120px;
   opacity: 0;
-  transition: all 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: all .72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .toogleItemRight {
-  position: fixed;
+  position: absolute;
   bottom: 125px;
-  right: 243px;
+  right: -27px;
   width: 35px;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   overflow: hidden;
@@ -415,7 +421,7 @@ body {
 .toogleItemShowRight {
   opacity: 1;
   bottom: 125px;
-  right: 272px;
+  right: 1px;
 }
 
 .itemRightBtn {
@@ -657,12 +663,12 @@ body {
 /* -----------input search----------- */
 .myInputContainer {
   width: 100%;
+  height: 30px;
   transition: all 0.5s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 3px 0 1px;
-  margin-top: 3px;
   background-image: url("./img/input-border.png");
   background-size: 90%;
   background-repeat: no-repeat;
@@ -895,9 +901,9 @@ body {
   padding: 0.5px 3px;
   text-align: center;
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   bottom: 45px;
-  right: 303px;
+  right: 30px;
 }
 
 /* calendar */
@@ -1244,7 +1250,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 3px 9px 9px;
+  padding: 6px 9px 9px;
   width: 100%;
 }
 
@@ -1672,19 +1678,10 @@ body {
 
 /* ----------responsive------------ */
 @media only screen and (max-width: 618px) {
-
   .imageView,
   .imageDesc {
     display: none;
   }
-
-  .mainFixedContent,
-  .mainFixedBottom{
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-
 }
 
 /* @media only screen and (max-width: 1280px) {

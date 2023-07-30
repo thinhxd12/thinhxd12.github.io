@@ -113,11 +113,11 @@ body {
 }
 
 .bottomOrnament {
-  width: 400px;
+  width: 398px;
   height: 90px;
   position: fixed;
   bottom: 36px;
-  right: 270px;
+  right: 272px;
   background-image: url("./img/bottom-left-corner.png"),
     url("./img/bottom-right-corner.png");
   background-position: left bottom, right bottom;
@@ -309,7 +309,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   border-left: 1px solid #17181a;
   border-right: 1px solid #17181a;
 }
@@ -391,7 +391,7 @@ body {
 .toogleItemShowRight {
   opacity: 1;
   bottom: 125px;
-  right: 270px;
+  right: 272px;
 }
 
 .itemRightBtn {
@@ -1673,7 +1673,7 @@ body {
   }
   .bottomOrnament {
     bottom: 36px;
-    right: 0px;
+    right: 1px;
   }
   .wordNum {
     position: fixed;

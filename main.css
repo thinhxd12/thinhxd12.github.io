@@ -404,7 +404,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 215px;
+  height: 210px;
 }
 
 #flashCardContent {
@@ -531,7 +531,7 @@ body {
   right: 2rem;
   transform: rotate(27deg);
   display: block;
-  font-size: .9rem;
+  font-size: 0.9rem;
   letter-spacing: 1px;
   font-family: "Rubik", sans-serif;
   font-weight: bold;
@@ -622,10 +622,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px 0 9px;
+  padding: 3px 0 6px;
   margin-top: 3px;
   background-image: url("./img/input-border.png");
-  background-size: contain;
+  background-size: 90%;
   background-repeat: no-repeat;
   background-position: bottom;
 }
@@ -1157,7 +1157,7 @@ body {
 
 /* ------------searchInput------------ */
 .contentBody {
-  height: calc(100vh - 252px);
+  height: calc(100vh - 247px);
   overflow-y: scroll;
   position: relative;
 }
@@ -1177,7 +1177,7 @@ body {
   overflow: hidden;
 }
 
-.contentImgWrapper:hover .contentImg {
+.contentBody:hover .contentImg {
   opacity: 0.78;
 }
 
@@ -1634,6 +1634,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("./img/bottom-left-corner.png"),
+      url("./img/bottom-right-corner.png");
+    background-position: left bottom, right bottom;
+    background-repeat: no-repeat;
+    background-size: 90px 90px, 90px 90px;
   }
 
   .imgContn,

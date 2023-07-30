@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hoctuvung3</title>
+  <link rel="icon" href="./img/clover.png">
+  <link rel="stylesheet" href="/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+  </style>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+  <audio id="tts-audio" hidden="" src="" referrerpolicy="no-referrer"></audio>
+
+  <div class="main">
+    <img id="imgSrcBlurred" class="mainImageBlurred" referrerpolicy="no-referrer" />
+    <div class="mainContainer">
+      <div class="imgContn">
+        <div class="imageContainer" id="imageContainer">
+          <div class="zoom_image" style="z-index: 29;">
+            <img id="imgSrc" class="mainImage" referrerpolicy="no-referrer" />
+          </div>
+        </div>
+        <button class="imgBtn imgBtnLeft" onclick="showPreviousSlice()">
+          <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <button class="imgBtn imgBtnRight" onclick="showNextSlice()">
+          <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 1L7.5 7L1.5 13" stroke="white" stroke-linecap="square" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="mainContent">
+        <div id="London" class="city">
+          <div class="contentHeader">
+            <div class="flashCardContainer">
+              <div id="flashCardContent"></div>
+              <div class="myInputContainer">
+                <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
+                  onmouseover="this.focus()" />
+                <div class="transInputContent">
+                  <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
+                    onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" />
+                  <div class="myInputIcon" id="transBtn"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contentBody">
+            <img id="contentImg" class="contentImg" referrerpolicy="no-referrer">
+            <div id="contentBody"></div>
+          </div>
+        </div>
+        <div id="Paris" class="city" style="display: none;">
+          <div class="calendarCard">
+            <div class="calendarHeader" id="calendarHeader">
+              <div class="calendarContent">
+                <div>
+                  <div class="dateContent" onclick="setTodayWork()">
+                    <div id="calendarDate">28</div>
+                    <div>
+                      <div id="calendarDay">Wednesday</div>
+                      <div id="calendarMonth">June/2023</div>
+                      <div class="dateProgressDiv"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dateProgress" id="dateProgress"></div>
+              </div>
+            </div>
+            <div class="calendarFooter">
+              <table id="dayNumber">
+                <thead>
+                  <tr class="weekTitle">
+                    <td>
+                      <div class="weekDate"><span>Sun</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Mon</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Tue</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Wed</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Thu</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Fri</span></div>
+                    </td>
+                    <td>
+                      <div class="weekDate"><span>Sat</span></div>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody id="htmlDate"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="table">
+            <button id="historyTableBtnLeft">
+              <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
+                transform="scale(-1 1)">
+                <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
+                  stroke-linejoin="round" stroke-width="1.125" />
+              </svg>
+            </button>
+            <div id="historyTable"></div>
+            <button id="historyTableBtnRight">
+              <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
+                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
+                  stroke-linejoin="round" stroke-width="1.125" />
+              </svg>
+            </button>
+          </div>
+          <div id="calendarContent"></div>
+        </div>
+
+
+        <div class="contentFooter">
+          <div class="footerBtnContainer">
+            <button class="footerBtn footerBtnToggleLeft">
+              Übermensch
+            </button>
+            <button class="footerBtn footerBtnActive" id="LondonBtn">
+              Amor fati
+            </button>
+            <button class="footerBtn" id="ParisBtn">
+              Excellence
+            </button>
+            <button class="footerBtn footerBtnToggleRight">
+              Imperium
+            </button>
+          </div>
+          <div class="fixed-content">
+            <!-- toggle-btn -->
+            <div class="buttonSwitch toogleItemLeft">
+              <div class="toggle-switch">
+                <button class="round-button" id="autoPlayBtn">
+                  <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
+                  <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
+                  <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
+                  <div class="roundBtnBody" id="roundBtnBody"></div>
+                </button>
+                <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
+                  onchange="setWordListHandy(this.value)">
+              </div>
+            </div>
+            <div class="toogleItemRight">
+              <div class="itemRightBtn" onclick="fetchGetQuote(0)">
+                <svg width="15" height="15" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="none" d="M0 0h16v16H0V0z" />
+                  <path fill="#fff"
+                    d="M7.462 10.504c0-.586-.153-1.079-.46-1.478a1.524 1.524 0 0 0-.885-.541 2.264 2.264 0 0 0-1.027-.019c-.106-.633.067-1.304.506-2.015.44-.71 1.01-1.244 1.705-1.602L6.248 3.334a7.132 7.132 0 0 0-1.507 1.003c-.473.405-.893.87-1.267 1.396s-.653 1.12-.833 1.793-.231 1.36-.145 2.067c.112.934.413 1.68.904 2.233.49.56 1.101.84 1.832.84.644 0 1.177-.193 1.6-.585.419-.384.627-.91.627-1.578l.001.002zm6.083 0c0-.586-.153-1.079-.46-1.478a1.499 1.499 0 0 0-.885-.545 2.315 2.315 0 0 0-1.027-.015c-.106-.627.06-1.3.5-2.013a4.339 4.339 0 0 1 1.704-1.6l-1.05-1.52a7.23 7.23 0 0 0-1.507 1.003 7.527 7.527 0 0 0-1.263 1.396 5.58 5.58 0 0 0-.826 1.793 5.36 5.36 0 0 0-.145 2.067c.11.934.41 1.68.9 2.233.488.555 1.097.833 1.828.833.645 0 1.178-.193 1.601-.584.418-.384.628-.91.628-1.578v.007z" />
+                </svg>
+              </div>
+              <div class="itemRightBtn" onclick="fetchRenderImgBackground()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 1.861 22.5 18.778"
+                  xml:space="preserve">
+                  <path fill="#fff"
+                    d="M0 1.861v18.778h22.5V1.861H0zm1.726 1.755h19.048v15.268H1.726V3.616zM5.652 5.82c-.537 0-.989.183-1.355.549a1.842 1.842 0 0 0-.549 1.355c0 .513.183.952.549 1.318.366.366.818.549 1.355.549.513 0 .952-.183 1.318-.549.366-.366.549-.806.549-1.318 0-.537-.183-.989-.549-1.355a1.798 1.798 0 0 0-1.318-.549zm8.094.928-4.321 6.556L7.13 11.4l-3.382 4.394v1.283h15.005v-5.153l-5.006-5.176z" />
+                </svg>
+              </div>
+              <div class="itemRightBtn" onclick="renderDeleteWord()">
+                <svg width="14" height="14" viewBox="0 0 0.36 0.36" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  style="margin-right: 2px;">
+                  <g fill="#000">
+                    <path fill="#fff"
+                      d="M.265.117a.017.017 0 0 1 0 .024L.226.18l.039.039a.017.017 0 1 1-.024.024L.202.204.164.243A.017.017 0 1 1 .14.219L.178.18.14.141A.017.017 0 0 1 .164.117l.039.039.039-.039a.017.017 0 0 1 .024 0z">
+                    </path>
+                    <path fill="#fff"
+                      d="M.099.059a.039.039 0 0 1 .03-.014H.31a.051.051 0 0 1 .051.051v.169a.051.051 0 0 1-.051.05H.129a.039.039 0 0 1-.03-.014L.004.191a.017.017 0 0 1 0-.022l.094-.11zm.03.02a.006.006 0 0 0-.004.002L.039.18l.086.099a.006.006 0 0 0 .004.002H.31A.017.017 0 0 0 .327.264V.095A.017.017 0 0 0 .31.078H.129z"
+                      clip-rule="evenodd"></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="itemRightBtn" onclick="renderEditWord()">
+                <svg width="15" height="15" viewBox="0 0 1.28 1.28" xmlns="http://www.w3.org/2000/svg"
+                  xml:space="preserve"
+                  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+                  <path style="fill:none" d="M-20.48 0h25.6v16h-25.6V0z" />
+                  <path fill="#fff"
+                    d="M1.119 1.035v.084l-.673-.001.093-.084h.58ZM.967.16c.033 0 .05.002.095.041.046.038.054.068.057.101a.149.149 0 0 1-.044.114l-.639.639c-.011.01-.013.008-.02.011l-.204.052a.044.044 0 0 1-.052-.052L.212.86C.214.854.214.85.223.842.437.628.646.41.865.199A.16.16 0 0 1 .967.16ZM.32.864l-.03.03-.03.124.124-.031.03-.029L.32.864ZM.924.452.828.356l-.45.45L.472.9C.623.751.775.603.923.452ZM.981.393l.037-.04C1.051.317 1.026.245.972.241H.969a.068.068 0 0 0-.046.02L.886.298l.095.095Z"
+                    style="fill-rule:nonzero" />
+                </svg>
+              </div>
+              <div class="tomatoContent" id="tomatoContent">
+                <div id="tomatoButton">
+                  <img src="./img/tomato.png" width="26">
+                  <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
+                </div>
+              </div>
+            </div>
+            <!-- toggle-btn -->
+            <div class="wordNum" id="wordNum">123</div>
+            <div class="bottomOrnament"></div>
+          </div>
+        </div>
+      </div>
+      <div class="imageDesc">
+        <div id="imgDesc"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="./main.js"></script>
+  <script src="./mainGlobal.js"></script>
+  <!-- <script src="./abc.js"></script> -->
+  <script>
+    let loginItem = sessionStorage.getItem("loginItem");
+    if (loginItem == null) {
+      window.location.href = './index.html';
+    }
+  </script>
+</body>
+
+</html>

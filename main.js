@@ -161,12 +161,14 @@ const showPreviousSlice = () => {
 $('#LondonBtn').click(function (e) {
   $('#London').show();
   $('#Paris').hide();
+  $('.mainFixedOrnament, #wordNum').show();
 });
 
 $('#ParisBtn').click(function (e) {
   fetchAndRenderCalendarData();
   $('#Paris').show();
   $('#London').hide();
+  $('.mainFixedOrnament, #wordNum').hide();
 });
 
 $('.footerBtn').click(function (e) {

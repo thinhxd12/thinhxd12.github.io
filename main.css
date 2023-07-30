@@ -183,30 +183,9 @@ body {
   transform: scaleX(-1);
 }
 
-/* #London {
-  background-image: url("./img/top-left-corner.png"),
-    url("./img/top-right-corner.png");
-  background-position: left top, right top;
-  background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px;
-} */
-
 .contentBody {
   position: relative;
 }
-
-/* .bottomOrnament {
-  width: 398px;
-  height: 90px;
-  position: fixed;
-  bottom: 36px;
-  right: 272px;
-  background-image: url("./img/bottom-left-corner.png"),
-    url("./img/bottom-right-corner.png");
-  background-position: left bottom, right bottom;
-  background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px;
-} */
 
 .mainImageBlurred {
   display: block;
@@ -215,7 +194,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: -1;
   object-fit: cover;
   filter: blur(200px) brightness(0.7);
 }
@@ -391,7 +370,7 @@ body {
   bottom: -70px;
   left: 120px;
   opacity: 0;
-  transition: all .72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: all 0.72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .toogleItemRight {
@@ -1139,8 +1118,9 @@ body {
   font-size: 12px;
   font-family: "Rubik", sans-serif;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  margin-top: 6px;
 }
 
 .table button {
@@ -1153,7 +1133,7 @@ body {
 }
 
 .tableItem {
-  min-width: 360px;
+  width: 333px;
   display: flex;
   margin-bottom: 2px;
   justify-content: center;
@@ -1218,16 +1198,6 @@ body {
 .contentBody::-webkit-scrollbar {
   display: none;
 }
-
-/* .contentImgWrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-  background-color: #070707;
-  display: none;
-} */
 
 .contentImg:hover {
   opacity: 0.78;
@@ -1679,36 +1649,27 @@ body {
 /* ----------responsive------------ */
 @media only screen and (max-width: 618px) {
   .imageView,
-  .imageDesc {
+  .imageDesc,
+  .mainImageBlurred {
     display: none;
+  }
+  .main {
+    background: #070707;
+  }
+  .mainFixed {
+    border-left: 1px solid #17181a;
+    border-right: 1px solid #17181a;
   }
 }
-
-/* @media only screen and (max-width: 1280px) {
-  .imgContn {
-    width: calc(100vw - 400px);
-  }
+@media only screen and (max-width: 1280px) {
   .imageDesc {
     display: none;
   }
-  .bottomOrnament {
-    bottom: 36px;
-    right: 1px;
-  }
-  .wordNum {
-    position: fixed;
-    bottom: 45px;
-    right: 33px;
-  }
 
-  .toogleItemRight {
-    right: -27px;
+  .imageView {
+    width: calc(100% - 400px);
   }
-
-  .toogleItemShowRight {
-    right: 0;
-  }
-}  */
+}
 
 /* ----------responsive------------ */
 

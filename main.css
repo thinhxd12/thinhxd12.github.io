@@ -363,7 +363,7 @@ body {
 
 .toogleItemShowLeft {
   transform: rotate(-45deg);
-  transform-origin: -90px 45px;
+  transform-origin: -96px 30px;
   opacity: 1;
 }
 
@@ -646,7 +646,7 @@ body {
 
 .myInputContainer > .myInput,
 .transInputContent {
-  width: 45%;
+  width: 47%;
 }
 
 .myInputIcon {
@@ -1177,7 +1177,7 @@ body {
   overflow: hidden;
 }
 
-.contentBody:hover .contentImg {
+.contentImgWrapper:hover .contentImg {
   opacity: 0.78;
 }
 

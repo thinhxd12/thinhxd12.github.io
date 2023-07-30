@@ -68,6 +68,7 @@ const startHandler = () => {
 }
 
 const resetHandler = () => {
+  clearTimeout(tickTimeout);
   clearTimeout(timerTimeout);
   $('#tomatoText').hide();
   const audioEl = document.getElementById("tts-audio");
@@ -99,12 +100,14 @@ if (Notification.permission !== "granted") {
   })
 }
 
-$('#tomatoButton').click(function (e) {
+$('#tomatoButton img').click(function (e) {
   startHandler();
+  $('#tomatoButton').css('margin-right', '6px');
 });
 
-$('#wordNum').click(function (e) {
+$('#tomatoText').click(function (e) {
   resetHandler();
+  $('#tomatoButton').css('margin-right', '0px');
 });
 
 let historyImgArr = [];

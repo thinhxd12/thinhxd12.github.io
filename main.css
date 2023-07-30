@@ -92,41 +92,56 @@ body {
 }
 
 .mainContainer {
+  position: absolute;
+  top: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1fr;
+  display: flex;
 }
 
 #London {
   background-image: url("./img/top-left-corner.png"),
-    url("./img/top-right-corner.png"), url("./img/bottom-left-corner.png"),
-    url("./img/bottom-right-corner.png");
-  background-position: left top, right top, left bottom, right bottom;
+    url("./img/top-right-corner.png");
+  background-position: left top, right top;
   background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px, 90px 90px, 90px 90px;
+  background-size: 90px 90px, 90px 90px;
+}
+
+.contentBody {
+  position: relative;
+}
+
+.bottomOrnament {
+  width: 400px;
+  height: 90px;
+  position: fixed;
+  bottom: 36px;
+  right: 270px;
+  background-image: url("./img/bottom-left-corner.png"),
+    url("./img/bottom-right-corner.png");
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat;
+  background-size: 90px 90px, 90px 90px;
 }
 
 .mainImageBlurred {
   display: block;
   width: 150%;
   height: 150%;
+  position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   object-fit: cover;
-  position: absolute;
   filter: blur(200px) brightness(0.7);
 }
 
-.mainContainer {
-  position: absolute;
-  top: 1;
-  left: 1;
-}
-
 .imageDesc {
-  background-color: #07070799;
   padding: 1.5vw;
+  width: 270px;
+  height: 100%;
+  background-color: #07070799;
 }
 
 #imgDesc {
@@ -228,6 +243,7 @@ body {
 
 .imgContn {
   position: relative;
+  width: calc(100vw - 670px);
 }
 
 .imageContainer {
@@ -342,28 +358,29 @@ body {
 
 .toogleItemLeft {
   position: absolute;
-  top: -10px;
-  left: 70px;
+  bottom: -70px;
+  left: 120px;
   opacity: 0;
-  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: all 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .toogleItemRight {
-  position: absolute;
-  bottom: -125px;
-  right: 0;
+  position: fixed;
+  bottom: 125px;
+  right: 243px;
+  width: 35px;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  height: 0;
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
   align-items: flex-end;
+  opacity: 0;
 }
 
 .toogleItemShowLeft {
   transform: rotate(-45deg);
-  transform-origin: -96px 30px;
+  transform-origin: -280px 39px;
   opacity: 1;
 }
 
@@ -371,27 +388,25 @@ body {
   transform: rotate(-90deg);
 }
 
-.toogleItemShowLeft .inputWordRow {
-  transform: rotate(45deg);
-}
-
 .toogleItemShowRight {
   opacity: 1;
-  bottom: 25px;
-  height: 150px;
+  bottom: 125px;
+  right: 270px;
 }
 
 .itemRightBtn {
   cursor: pointer;
   width: 22px;
   height: 22px;
-  margin: 0 3px 3px 0;
+  margin: 0 1px 3px 0;
   border-radius: 18px;
-  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
+  border: 1px solid #afa98f;
+  background: #000;
+  box-shadow: 1px 2px 3px #000000d1;
 }
 
 .itemRightBtn:hover {
@@ -416,7 +431,7 @@ body {
 
 .flip-card {
   width: 300px;
-  height: 150px;
+  height: 160px;
   perspective: 1000px;
   border-radius: 3px;
   font-family: sans-serif;
@@ -622,7 +637,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px 0 6px;
+  padding: 3px 0 1px;
   margin-top: 3px;
   background-image: url("./img/input-border.png");
   background-size: 90%;
@@ -778,27 +793,30 @@ body {
 
 .inputWordRow {
   position: absolute;
-  font-size: 10px !important;
-  padding: 1px;
-  line-height: 14px;
-  top: 10px;
-  right: -47px;
-  width: 32px;
-  height: 12px;
-  background: #f6f6f6;
+  top: 15px;
+  right: -50px;
+  transform: rotate(45deg);
+  opacity: 0;
   text-align: center;
   outline: 0;
-  border: 0;
-  border-radius: 3px;
+  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  width: 32px;
+  height: 12px;
+  margin-right: 3px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
+    0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
+  border: 1.5px solid #000;
+  background: #dfddd1;
+  display: inline-block;
+  font-size: 8px;
   font-weight: bold;
-  z-index: 3;
-  opacity: 0;
-  transition: 1s ease;
+  font-family: sans-serif;
+  border-radius: 4px;
+  padding: 0.5px 3px;
 }
 
 .toggle-switch:hover .inputWordRow {
   opacity: 1;
-  transition: 0.4s opacity ease;
 }
 
 /* ------------tomatoclock---------- */
@@ -812,8 +830,10 @@ body {
 
 #tomatoButton {
   position: relative;
-  margin-right: 6px;
-  margin-bottom: -2px;
+}
+
+#tomatoButton img {
+  filter: drop-shadow(1px 1px 2px #000000d1);
 }
 
 .tomatoText {
@@ -839,10 +859,10 @@ body {
 
 .wordNum {
   margin-right: 3px;
-  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.5),
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
     0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
   border: 1.5px solid #000;
-  background: #fff;
+  background: #dfddd1;
   display: inline-block;
   font-size: 8px;
   font-weight: bold;
@@ -851,6 +871,9 @@ body {
   padding: 0.5px 3px;
   text-align: center;
   cursor: pointer;
+  position: fixed;
+  bottom: 45px;
+  right: 303px;
 }
 
 /* calendar */
@@ -1166,25 +1189,26 @@ body {
   display: none;
 }
 
-.contentImgWrapper {
+/* .contentImgWrapper {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
   background-color: #070707;
   display: none;
-  overflow: hidden;
-}
+} */
 
-.contentImgWrapper:hover .contentImg {
+.contentImg:hover {
   opacity: 0.78;
 }
 
 .contentImg {
   position: absolute;
   bottom: 0;
+  z-index: -1;
   height: 100%;
+  width: 100%;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   box-shadow: 0 0 99px black inset;
@@ -1196,7 +1220,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 0 9px 9px;
+  padding: 3px 9px 9px;
   width: 100%;
 }
 
@@ -1509,7 +1533,7 @@ body {
 
 /* ------------translate----- */
 .transItem {
-  background: #ffffff;
+  background: #f0f0f0;
   width: 100%;
   border: 1px solid #17181a;
   border-radius: 3px;
@@ -1630,29 +1654,39 @@ body {
     background: #070707;
   }
 
-  .contentImgWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("./img/bottom-left-corner.png"),
-      url("./img/bottom-right-corner.png");
-    background-position: left bottom, right bottom;
-    background-repeat: no-repeat;
-    background-size: 90px 90px, 90px 90px;
-  }
-
-  .imgContn,
-  .mainImageBlurred {
+  .imgContn {
     display: none;
+  }
+  .wordNum,
+  .toogleItemRight,
+  .bottomOrnament {
+    transform: translateX(calc(200px - 50vw));
   }
 }
 
 @media only screen and (max-width: 1280px) {
-  .mainContainer {
-    grid-template-columns: 2fr 1fr;
+  .imgContn {
+    width: calc(100vw - 400px);
   }
   .imageDesc {
     display: none;
+  }
+  .bottomOrnament {
+    bottom: 36px;
+    right: 0px;
+  }
+  .wordNum {
+    position: fixed;
+    bottom: 45px;
+    right: 33px;
+  }
+
+  .toogleItemRight {
+    right: -27px;
+  }
+
+  .toogleItemShowRight {
+    right: 0;
   }
 }
 /* ----------responsive------------ */

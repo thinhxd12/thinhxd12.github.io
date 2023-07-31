@@ -653,7 +653,7 @@ body {
   transition: all 0.5s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .myInput {
@@ -676,7 +676,16 @@ body {
   transition: all 0.3s ease;
 }
 
-.myInputContainer:hover .myInputIcon {
+.transInputContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.transInputContent input {
+  flex-grow: 1;
+}
+
+.transInputContent:hover .myInputIcon {
   opacity: 1;
 }
 

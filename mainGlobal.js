@@ -845,10 +845,10 @@ const playTTSwithValue = (val, render = true) => {
 const collinsDicSearchAndPlay = (text, render) => {
     let url = `https://www.collinsdictionary.com/dictionary/english/${text}`
     $.get(url, function (html) {
-        let mp3Link = $(html).find('.audio_play_button').last().attr('data-src-mp3');
+        let mp3Link = $(html).find("a[data-src-mp3*='en_us']").attr('data-src-mp3');
         if (mp3Link) {
-            $('#tts-audio').attr('src', mp3Link);
             const audioEl = document.getElementById("tts-audio");
+            audioEl.src = mp3Link;
             audioEl.volume = 1;
             audioEl.play();
             if (render) {
@@ -859,6 +859,7 @@ const collinsDicSearchAndPlay = (text, render) => {
         }
     })
 }
+
 
 
 let flipTimer1;

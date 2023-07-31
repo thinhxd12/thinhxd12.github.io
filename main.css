@@ -103,8 +103,15 @@ body {
   flex-direction: column;
 }
 
-.mainFixed {
+.vocabContainer {
   width: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainFixed {
+  width: 100%;
   height: 100%;
   background: #070707;
   position: relative;
@@ -112,7 +119,7 @@ body {
 
 .mainFixedContent {
   width: 100%;
-  height: calc(100% - 35px);
+  height: 100%;
   background-image: url("./img/top-left-corner.png"),
     url("./img/top-right-corner.png");
   background-position: top left, top right;
@@ -129,7 +136,7 @@ body {
   width: 100%;
   height: 90px;
   position: absolute;
-  bottom: 35px;
+  bottom: 0;
   background-image: url("./img/bottom-left-corner.png"),
     url("./img/bottom-right-corner.png");
   background-position: left bottom, right bottom;
@@ -139,7 +146,7 @@ body {
 
 .imageContainer {
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 42px);
   overflow: hidden;
   display: grid;
   align-items: center;
@@ -147,7 +154,7 @@ body {
 
 .imageButtonContainer {
   width: 100%;
-  height: 60px;
+  height: 42px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -367,7 +374,7 @@ body {
 
 .toogleItemLeft {
   position: absolute;
-  bottom: -70px;
+  bottom: 0;
   left: 110px;
   opacity: 0;
   transition: all 0.72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
@@ -389,7 +396,7 @@ body {
 
 .toogleItemShowLeft {
   transform: rotate(45deg);
-  transform-origin: 198px -198px;
+  transform-origin: 110px -160px;
   opacity: 1;
 }
 
@@ -526,7 +533,7 @@ body {
 }
 
 .flip-card-front-content {
-  padding: 36px;
+  padding: 50px 10px 10px;
 }
 
 .flip-card-front-content::-webkit-scrollbar,
@@ -553,7 +560,7 @@ body {
   position: absolute;
   top: 0.7rem;
   right: 2rem;
-  transform: rotate(27deg);
+  transform: rotate(18deg);
   display: block;
   font-size: 0.9rem;
   letter-spacing: 1px;
@@ -647,11 +654,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px 0 1px;
-  background-image: url("./img/input-border.png");
-  background-size: 90%;
-  background-repeat: no-repeat;
-  background-position: bottom;
 }
 
 .myInput {
@@ -665,37 +667,16 @@ body {
   outline: 0;
   transition: all 0.3s ease;
   font-family: "basier", sans-serif;
-  z-index: 99;
-}
-
-.myInputContainer > .myInput,
-.transInputContent {
-  width: 47%;
+  width: 45%;
 }
 
 .myInputIcon {
-  width: 18px;
-  height: 18px;
-  margin-bottom: 6px;
-  background-image: url("./img/center.png");
-  background-size: contain;
-  background-repeat: no-repeat;
   cursor: pointer;
   opacity: 0;
   transition: all 0.3s ease;
 }
 
-.transInputContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.transInputContent .myInput {
-  padding-left: 21px;
-}
-
-.transInputContent:hover .myInputIcon {
+.myInputContainer:hover .myInputIcon {
   opacity: 1;
 }
 
@@ -802,9 +783,9 @@ body {
 
 .inputWordRow {
   position: absolute;
-  top: 15px;
-  right: -50px;
-  transform: rotate(45deg);
+  top: -25px;
+  right: -25px;
+  transform: rotate(-45deg);
   opacity: 0;
   text-align: center;
   outline: 0;
@@ -881,11 +862,17 @@ body {
   text-align: center;
   cursor: pointer;
   position: absolute;
-  bottom: 45px;
+  bottom: 10px;
   right: 30px;
 }
 
 /* calendar */
+.calendarContainer {
+  width: 100%;
+  height: calc(100vh - 35px);
+  background: #070707;
+}
+
 .calendarCard {
   font-family: "Rubik", sans-serif;
   font-size: 12px;
@@ -1417,8 +1404,12 @@ body {
   border: 0;
 }
 
-.wordMeaning .sense {
-  display: flex;
+.wordMeaning span.sensenum + .def {
+  display: inline;
+}
+
+.wordMeaning .sense .lbl {
+  font-style: italic;
 }
 
 .wordMeaning .sensenum {
@@ -1685,8 +1676,7 @@ body {
 
 .zoom_image img {
   margin: 0 auto;
-  width: 95%;
-  height: calc(100% - 60px);
+  height: 90vh;
   object-fit: contain;
   transition: transform 200ms ease-out;
 }

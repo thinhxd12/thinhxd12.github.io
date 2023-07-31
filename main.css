@@ -368,7 +368,7 @@ body {
 .toogleItemLeft {
   position: absolute;
   bottom: -70px;
-  left: 120px;
+  left: 110px;
   opacity: 0;
   transition: all 0.72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
@@ -388,8 +388,8 @@ body {
 }
 
 .toogleItemShowLeft {
-  transform: rotate(-45deg);
-  transform-origin: -280px 39px;
+  transform: rotate(45deg);
+  transform-origin: 198px -198px;
   opacity: 1;
 }
 
@@ -413,7 +413,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
-  border: 1px solid #afa98f;
+  border: 0.5px solid #afa98f;
   background: #000;
   box-shadow: 1px 2px 3px #000000d1;
 }

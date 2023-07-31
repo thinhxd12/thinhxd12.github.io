@@ -571,7 +571,7 @@ const setTodayWork = () => {
             <div class="calendarItemContent">
                 <input class="calendarItemInput" value="${formatDate(new Date())}" id="newStartDay"
                     autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
-                <input class="calendarItemInput" placeholder="Set new start row!" id="newStartRow"
+                <input class="calendarItemInput" placeholder="101 ..." id="newStartRow"
                     autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
             </div>
     </div>`;

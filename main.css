@@ -707,6 +707,7 @@ body {
   place-items: center;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
+  animation: rotating 18s linear infinite;
 }
 
 .roundBtnBody {
@@ -740,7 +741,7 @@ body {
 }
 
 .roundBtnDiv3 {
-  height: 93%;
+  height: 91%;
   aspect-ratio: 1;
   position: absolute;
   z-index: 1;
@@ -1193,10 +1194,11 @@ body {
 .contentImg {
   position: absolute;
   bottom: 0;
-  z-index: -1;
   height: 100%;
   width: 100%;
   opacity: 0;
+  display: none;
+  object-fit: contain;
   transition: opacity 0.4s ease-in-out;
   box-shadow: 0 0 99px black inset;
   mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
@@ -1644,6 +1646,9 @@ body {
   .mainImageBlurred {
     display: none;
   }
+  .contentImg {
+    display: block;
+  }
   .main {
     background: #070707;
   }
@@ -1724,6 +1729,15 @@ body {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
   }
 }
 

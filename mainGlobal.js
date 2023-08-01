@@ -983,10 +983,10 @@ const handleTranslate = async () => {
 };
 
 const renderTranslate = (arr) => {
-    let contentBody = document.getElementById("contentBody");
-    contentBody.innerHTML = "";
+    let quoteBody = document.getElementById("quoteBody");
+    quoteBody.innerHTML = "";
     if (arr.translation) {
-        contentBody.innerHTML = `
+        quoteBody.innerHTML = `
     <div class="transItem">
         <div class="transItemHeader">
           <span></span>
@@ -997,7 +997,7 @@ const renderTranslate = (arr) => {
             <button class="close-btn" onclick="handleAddNewText()">
               <img src="./img/chain.png" width="15">
             </button>
-            <button class="close-btn" onclick="handleDelete();">
+            <button class="close-btn" onclick="handleDeleteQuote();">
               <img src="./img/close.png" width="10">
             </button>
           </div>

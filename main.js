@@ -126,7 +126,7 @@ const fetchRenderImgBackground = () => {
       $('#imgSrc').attr('srcset', imgSrcGet);
       $('#imgSrcBlurred').attr('srcset', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
-      $('#contentImg').attr('srcset', imgSrcGet);
+      // $('#contentImg').attr('srcset', imgSrcGet);
     });
   });
 

@@ -224,7 +224,8 @@ const renderCalendar = (data) => {
     document.getElementById("calendarMonth").innerHTML = monthDays[todaysMonth] + " " + todaysYear;
     $('.dateProgressDiv').html(`${data[0].startIndex1 + 1} <span>&#8226;</span> ${data[1].startIndex2 + 50}`);
 
-    monthImg(todaysMonth + 1);
+    // monthImg(todaysMonth + 1);
+    fetchAndRenderMonthImg();
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
     let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
@@ -297,12 +298,16 @@ const renderCalendar = (data) => {
         document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="20px">';
     } else document.getElementById('dateProgress').innerHTML = `
                       <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
+                        <span class="dateProgressImg">
                         ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
+                        </span>
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time1}/9</span>
                       </div>
                       <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
+                        <span class="dateProgressImg">
                         ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
+                        </span>
                         <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
                         <span class="dateProgressFraction">${todayData.time2}/9</span>
                       </div>
@@ -493,6 +498,35 @@ const commitHistoryItem = (index) => {
             }
             renderHistoryTable(dataHistory.length - 1)
         }, 3000);
+    })
+}
+
+const fetchAndRenderMonthImg = () => {
+    let batchQuery = {};
+    batchQuery["pid"] = "209567";
+    batchQuery["fmt"] = "json";
+    batchQuery["rafb"] = "0";
+    batchQuery["ua"] = "WindowsShellClient/0";
+    batchQuery["cdm"] = "1";
+    batchQuery["disphorzres"] = "1920";
+    batchQuery["dispvertres"] = "1080";
+    batchQuery["lo"] = "80217";
+    batchQuery["pl"] = "en-US";
+    batchQuery["lc"] = "en-US";
+    batchQuery["ctry"] = "us";
+    const baseUrl = "https://arc.msn.com/v3/Delivery/Placement?" + new URLSearchParams(batchQuery).toString() + '&time=' + new Date().toISOString();
+    fetch(urlCors + baseUrl).then(res => res.json()).then(data => {
+        let itemStr = data["batchrsp"]["items"][0].item;
+        let itemObj = JSON.parse(itemStr)["ad"];
+        let title = itemObj["title_text"]?.tx;
+        let text1 = itemObj["hs2_title_text"]?.tx || '';
+        let text2 = itemObj["hs2_cta_text"]?.tx || '';
+        // let jsImageP = itemObj["image_fullscreen_001_portrait"];
+        let jsImageL = itemObj["image_fullscreen_001_landscape"];
+        $('.topCalendarText').html(title);
+        $('.bottomCalendarText').html(text1 + '\n' + text2);
+        $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
+        $('#contentImg').attr('src', jsImageL.u);
     })
 }
 
@@ -795,7 +829,7 @@ const handleNextWord = () => {
     }
     let indexx = dataSheets.findIndex(n => n._id == item._id);
     playTTSwithValue(item.text);
-    renderFlashcard(item, todayScheduleData?.startNum, autorunTime + 1, indexx + 1);
+    renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
     if ((indexx + 1) % 50 == 0) {
         autorunTime = 50;
@@ -869,11 +903,9 @@ const collinsDicSearchAndPlay = (text, render) => {
 let flipTimer1;
 let flipTimer2;
 
-const renderFlashcard = (item, progress, index, row) => {
+const renderFlashcard = (item, progress, row) => {
     clearTimeout(flipTimer1);
     clearTimeout(flipTimer2);
-    // ${row ? `<p>${row}</p>` : ''}
-
 
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
@@ -885,14 +917,13 @@ const renderFlashcard = (item, progress, index, row) => {
         <div class="flip-card-front">
         <div class="flip-card-front-content">
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
-          ${index ? `<span class="indexFlip"><small>No.</small>${index}</span>` : ''}
                     <h1>${item.text}</h1>
                     <p>| ${item.phonetic} |</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
                 ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
                     </span>
         
-          ${row ? `<p class="cardRow"><small>Ro.</small>${row}</p>` : ''}
+          ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
           <p class="cardName">05/07/22</p>
           </div>
         </div>
@@ -923,7 +954,6 @@ const flipFlashCard = () => {
 };
 
 const renderExplain = (headword, meaning, origin) => {
-    $('#contentImg').addClass('contentImgBlurred');
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
     <div class="explainContainer">
@@ -942,7 +972,6 @@ const renderExplain = (headword, meaning, origin) => {
 };
 
 const handleDelete = () => {
-    $('#contentImg').removeClass('contentImgBlurred');
     document.getElementById("transInput").value = "";
     const element = document.getElementById("addNewW");
     if (element) {

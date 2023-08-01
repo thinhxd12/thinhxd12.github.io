@@ -908,6 +908,7 @@ body {
   height: 210px;
   background-size: cover;
   background-position: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
 }
 
 .calendarContent {
@@ -952,12 +953,35 @@ body {
   text-align: center;
 }
 
+.topCalendarContent,
+.bottomCalendarContent {
+  padding: 9px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottomCalendarContent {
+  align-items: flex-end;
+}
+
+.topCalendarText,
+.bottomCalendarText {
+  font-size: 10px;
+  color: #fff;
+}
+
+.bottomCalendarText {
+  width: 54%;
+  white-space: pre-wrap;
+  padding: 3px;
+  background: rgb(0 0 0 / 27%);
+}
+
 .dateContent {
   display: flex;
   align-items: center;
   cursor: pointer;
   color: #ededed;
-  margin: 12px 0 0 12px;
 }
 
 .dateContent:hover,
@@ -966,8 +990,8 @@ body {
 }
 
 #calendarDate {
-  font-size: 50px;
-  line-height: 50px;
+  font-size: 52px;
+  line-height: 52px;
   margin-right: 5px;
   cursor: pointer;
 }
@@ -977,35 +1001,35 @@ body {
 }
 
 #calendarMonth {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .dateProgressDiv {
   font-size: 10px;
   text-align: left;
-  padding-top: 1px;
-  margin-top: 1px;
 }
 
 .dateProgressContent {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin: 3px 0 3px;
+  justify-content: flex-start;
   cursor: pointer;
+  margin-top: 3px;
   color: #ededed;
 }
 
-.dateProgress {
-  margin-right: 5px;
+.dateProgressContent span {
+  display: flex;
+  align-items: center;
+}
+
+.dateProgressImg {
+  min-width: 18px;
+  margin-right: 1px;
 }
 
 .dateProgressContent:hover {
   color: white;
-}
-
-.dateProgressContent img {
-  margin-right: 3px;
 }
 
 .dateProgressFraction {
@@ -1204,6 +1228,9 @@ body {
   height: calc(100vh - 247px);
   overflow-y: scroll;
   position: relative;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
 }
 
 .contentBody::-webkit-scrollbar {
@@ -1221,8 +1248,8 @@ body {
   width: 100%;
   opacity: 0;
   display: none;
-  object-fit: contain;
-  transition: opacity 0.4s ease-in-out;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
   box-shadow: 0 0 99px black inset;
   mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
   -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);

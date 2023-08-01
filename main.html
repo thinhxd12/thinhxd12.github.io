@@ -53,7 +53,7 @@
                   onmouseover="this.focus()" onmouseout="this.blur()" />
                 <div class="transInputContent">
                   <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
-                  onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur()" />
+                    onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur()" />
                   <img src="./img/center.png" height="18" class="myInputIcon" id="transBtn">
                 </div>
                 <img src="./img/input-right-corner.png" height="21">
@@ -61,12 +61,17 @@
             </div>
             <div class="contentBody">
               <img id="contentImg" class="contentImg" referrerpolicy="no-referrer">
-              <div id="contentBody"></div>
+              <div>
+                <div id="contentBody"></div>
+                <div id="quoteBody"></div>
+              </div>
             </div>
 
           </div>
+          <div class="wordNumContainer">
+            <div class="wordNum" id="wordNum">123</div>
+          </div>
           <div class="mainFixedOrnament"></div>
-          <div class="wordNum" id="wordNum">123</div>
         </div>
       </div>
       <div id="Paris" class="city" style="display: none;">

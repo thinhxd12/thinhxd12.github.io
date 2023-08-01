@@ -229,31 +229,35 @@ const fetchGetQuote = (num) => {
       let body = `
       <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
         <div class="explainHeader">
-        <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDeleteQuote()">
            <img src="./img/close_circle.png" width="15" height="15">
         </button>
         </div>
         <div class="explainBody">
           <div class="wordType">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <img src="./img/left.png" width="16">
+            <img src="./img/left.png" height="16">
           </button>
           <button class="quoteBtn" onclick="checkQuote(${!data.check})">
             ${data.check ? '<img src="./img/star.png" width="15">' : '<img src="./img/star-outline.png" width="15">'}
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <img src="./img/right.png" width="16">
+            <img src="./img/right.png" height="16">
           </button>
           <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
-            <img src="./img/clipboard-none.png" width="16">
+            <img src="./img/clipboard-none.png" height="16">
           </button>
           </div>
           <div id="quoteContent">${data.value}</div>
         </div>
       </div>  
         `
-      $('#contentBody').html(body);
+      $('#quoteBody').html(body);
     })
+}
+
+const handleDeleteQuote = () => {
+  $('#quoteBody').html('');
 }
 
 const checkQuote = (check) => {

@@ -17,14 +17,14 @@ const chunk = (array, size) =>
 let dataSheets = [];
 let dataHistory = [];
 
-const getLocalData = () => {
+const getLocalSheetData = () => {
     let item = localStorage.getItem("sheetData")
     if (item !== null) {
         dataSheets = JSON.parse(item);
-        // let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
-        // const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-        // console.log(minX);
     }
+}
+
+const getLocalHistoryData = () => {
     let itemH = localStorage.getItem("historyData");
     if (itemH !== null) {
         dataHistory = JSON.parse(itemH);
@@ -43,12 +43,12 @@ const fetchAllData = () => {
     getAllData('hoctuvung').then(data => {
         localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(data));
-    })
+    }).then(() => getLocalSheetData())
 
     getAllData('history').then(data => {
         localStorage.removeItem('historyData');
         localStorage.setItem('historyData', JSON.stringify(data));
-    }).then(() => getLocalData())
+    }).then(() => getLocalHistoryData())
 }
 
 fetchAllData();
@@ -775,7 +775,7 @@ function stop() {
         setWordListHandy();
         getAllData('hoctuvung').then(data => {
             localStorage.setItem('sheetData', JSON.stringify(data));
-        }).then(() => getLocalData())
+        }).then(() => getLocalSheetData())
     }, 2000);
 }
 
@@ -793,9 +793,13 @@ const handleNextWord = () => {
         todayScheduleData.startNum++;
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
+    let indexx = dataSheets.findIndex(n => n._id == item._id);
     playTTSwithValue(item.text);
-    renderFlashcard(item, todayScheduleData.startNum, autorunTime + 1);
+    renderFlashcard(item, todayScheduleData?.startNum, autorunTime + 1, indexx + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
+    if ((indexx + 1) % 50 == 0) {
+        autorunTime = 50;
+    }
 };
 
 
@@ -865,9 +869,11 @@ const collinsDicSearchAndPlay = (text, render) => {
 let flipTimer1;
 let flipTimer2;
 
-const renderFlashcard = (item, progress, index) => {
+const renderFlashcard = (item, progress, index, row) => {
     clearTimeout(flipTimer1);
     clearTimeout(flipTimer2);
+    // ${row ? `<p>${row}</p>` : ''}
+
 
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
@@ -885,6 +891,8 @@ const renderFlashcard = (item, progress, index) => {
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
                 ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
                     </span>
+        
+          ${row ? `<p class="cardRow"><small>Ro.</small>${row}</p>` : ''}
           <p class="cardName">05/07/22</p>
           </div>
         </div>
@@ -1134,7 +1142,7 @@ const setEditWord = () => {
             $('#inputEditWordPhonetic').val('');
             $('#inputEditWordMeaning').val('');
             $('#inputEditWordNumb').val('');
-        }).then(() => getLocalData());
+        }).then(() => getLocalSheetData());
     });
 }
 
@@ -1223,7 +1231,7 @@ const handleAddTextEnd = () => {
             getAllData('hoctuvung').then(data => {
                 localStorage.setItem('sheetData', JSON.stringify(data));
                 $('#addNewW').val('');
-            }).then(() => getLocalData());
+            }).then(() => getLocalSheetData());
         })
     }
 };

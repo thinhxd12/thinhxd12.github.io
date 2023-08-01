@@ -458,7 +458,15 @@ body {
   position: absolute;
   font-size: 6px;
   bottom: 3px;
-  left: 66px;
+  left: 63px;
+}
+
+.flip-card-front-content .cardRow {
+  position: absolute;
+  font-size: 11px;
+  bottom: 3px;
+  right: 63px;
+  opacity: 0.45;
 }
 
 .flip-card-front-content h1 {
@@ -579,7 +587,7 @@ body {
 .indexFlip {
   position: absolute;
   bottom: 3px;
-  right: 66px;
+  left: 90px;
   opacity: 0.45;
   font-size: 11px;
 }
@@ -857,8 +865,17 @@ body {
   color: white;
 }
 
+.wordNumContainer {
+  display: flex;
+  position: absolute;
+  bottom: 1px;
+  right: 27px;
+  background: #070707;
+  padding: 0px 9px 9px 0;
+  border-radius: 3px;
+}
+
 .wordNum {
-  margin-right: 3px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
     0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
   border: 1.5px solid #000;
@@ -871,9 +888,6 @@ body {
   padding: 0.5px 3px;
   text-align: center;
   cursor: pointer;
-  position: absolute;
-  bottom: 10px;
-  right: 30px;
 }
 
 /* calendar */
@@ -1214,12 +1228,19 @@ body {
   -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
 }
 
-.contentBody > div#contentBody {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 6px 9px 9px;
+.contentBody > div {
   width: 100%;
+}
+
+div#quoteBody,
+div#contentBody {
+  width: 100%;
+  padding: 6px 9px 9px;
+}
+
+#quoteBody .wordType {
+  display: flex;
+  align-items: center;
 }
 
 .my-item {
@@ -1664,6 +1685,12 @@ body {
   .mainFixed {
     border-left: 1px solid #17181a;
     border-right: 1px solid #17181a;
+  }
+
+  .contentBody > div {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 @media only screen and (max-width: 1280px) {

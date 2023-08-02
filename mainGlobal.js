@@ -519,7 +519,7 @@ const fetchAndRenderMonthImg = () => {
         let title = itemObj["title_text"]?.tx;
         let text1 = itemObj["hs2_title_text"]?.tx;
         // let text2 = itemObj["hs2_cta_text"]?.tx || '';
-        // let jsImageP = itemObj["image_fullscreen_001_portrait"];
+        let jsImageP = itemObj["image_fullscreen_001_portrait"];
         let jsImageL = itemObj["image_fullscreen_001_landscape"];
 
         let contentTextTop = `<div class="topCalendarText">${title}</div>`;
@@ -527,6 +527,7 @@ const fetchAndRenderMonthImg = () => {
         let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
         text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
+        $('.calendarCardImg').css('background-image', `url(${jsImageP.u})`);
         $('#contentImg').attr('src', jsImageL.u);
     })
 }

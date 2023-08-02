@@ -1001,7 +1001,7 @@ const renderExplainGG = (headword, meaning) => {
       </button>
       </div>
       <div class="explainBody">
-        <div class="wordType"><span class="preWord">Definitions of</span><span class="h">${headword}</span></div>
+        <div class="wordType"><span class="preWord">Definitions of</span><h2 class="h">${headword}</h2></div>
         <div class="wordMeaning">
         ${meaning.map(item => {
         return `<span class="x">${item}</span>`

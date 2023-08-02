@@ -883,30 +883,40 @@ const playTTSwithValue = (val, render = true) => {
             }
         }
         else {
-            collinsDicSearchAndPlay(val, render);
+            textToSpeech(val, render);
         }
     });
+    // textToSpeech(val, render);
+
 };
 
-const collinsDicSearchAndPlay = (text, render) => {
-    let url = `https://www.collinsdictionary.com/dictionary/english/${text}`
-    $.get(url, function (html) {
-        let mp3Link = $(html).find("a[data-src-mp3*='en_us']").attr('data-src-mp3');
-        if (mp3Link) {
-            const audioEl = document.getElementById("tts-audio");
-            audioEl.src = mp3Link;
-            audioEl.volume = 1;
-            audioEl.play();
-            if (render) {
-                let headword = $(html).find('.orth').html();
-                let meaning = $(html).find('.content.definitions.american').html();
-                renderExplain(headword, meaning);
-            }
+const textToSpeech = (text, render) => {
+    const voices = window.speechSynthesis.getVoices();
+    let utterance = new SpeechSynthesisUtterance();
+    utterance.lang = "en";
+    utterance.voice = voices[4];
+    utterance.rate = 0.9;
+    utterance.text = text;
+    window.speechSynthesis.speak(utterance);
+    if (render) {
+        const fetchOptions = {
+            returnRawResponse: false,
+            detailedTranslations: false,
+            definitionSynonyms: false,
+            detailedTranslationsSynonyms: false,
+            definitions: false,
+            definitionExamples: false,
+            examples: true,
+            removeStyles: false
         }
-    })
+        let obj = { text: text, fromL: 'en', toL: 'vi', option: fetchOptions };
+        fetch(ggsUrl + '?action=getTranslateInfo', { method: 'POST', body: JSON.stringify(obj) })
+            .then(res => res.json())
+            .then(data => {
+                renderExplainGG(text, data.examples)
+            })
+    }
 }
-
-
 
 let flipTimer1;
 let flipTimer2;
@@ -976,6 +986,28 @@ const renderExplain = (headword, meaning, origin) => {
         <div class="wordType"><span class="preWord">Definitions of</span>${headword}</div>
         ${origin ? `<div class="wordOrigin">${origin}</div>` : ""}
         ${meaning ? `<div class="wordMeaning">${meaning}</div>` : ""}
+      </div>
+    </div>  
+      `;
+};
+
+const renderExplainGG = (headword, meaning) => {
+    const contentBody = document.getElementById("contentBody");
+    contentBody.innerHTML = `
+    <div class="explainContainer">
+      <div class="explainHeader">
+      <button class="closeBtn" onclick="handleDelete()">
+         <img src="./img/close_circle.png" width="15" height="15">
+      </button>
+      </div>
+      <div class="explainBody">
+        <div class="wordType"><span class="preWord">Definitions of</span><span class="h">${headword}</span></div>
+        <div class="wordMeaning">
+        ${meaning.map(item => {
+        return `<span class="x">${item}</span>`
+    }).join('')
+        }
+        </div>
       </div>
     </div>  
       `;

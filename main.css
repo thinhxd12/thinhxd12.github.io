@@ -454,14 +454,14 @@ body {
   font-weight: normal;
 }
 
-.flip-card-front-content .cardName {
+.cardName {
   position: absolute;
   font-size: 6px;
   bottom: 3px;
   left: 63px;
 }
 
-.flip-card-front-content .cardRow {
+.cardRow {
   position: absolute;
   font-size: 11px;
   bottom: 3px;
@@ -476,8 +476,8 @@ body {
   letter-spacing: 1.5px;
 }
 
-.flip-card-front-content p {
-  font-size: 1.2em;
+.cardPhonetic {
+  font-size: 20px;
   margin: 0 auto;
 }
 
@@ -537,11 +537,14 @@ body {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  padding: 25px 30px;
 }
 
 .flip-card-front-content {
   padding: 50px 10px 10px;
+}
+
+.flip-card-back-content {
+  padding: 20px 20px 15px 35px;
 }
 
 .flip-card-front-content::-webkit-scrollbar,
@@ -549,7 +552,7 @@ body {
   display: none;
 }
 
-.flip-card-back-content p {
+.cardMeaning {
   font-family: "Roslindale";
   letter-spacing: 1px;
   font-size: 12.5px;
@@ -605,53 +608,6 @@ body {
 .flashCardContainer {
   width: 100%;
   padding-top: 20px;
-}
-
-.topLeftCorner {
-  width: 90px;
-  height: 90px;
-  background-image: url("./img/corner.png");
-  background-size: contain;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.topRightCorner {
-  width: 90px;
-  height: 90px;
-  background-image: url("./img/corner.png");
-  background-size: contain;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: scale(-1, 1);
-  z-index: 1;
-}
-
-.bottomLeftCorner {
-  width: 90px;
-  height: 90px;
-  background-image: url("./img/corner.png");
-  background-size: contain;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transform: scale(1, -1);
-  z-index: 1;
-}
-
-.bottomRightCorner {
-  width: 90px;
-  height: 90px;
-  background-image: url("./img/corner.png");
-  background-size: contain;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: scale(-1, -1);
-  z-index: 1;
 }
 
 /* -----------input search----------- */
@@ -958,6 +914,7 @@ body {
   padding: 9px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .bottomCalendarContent {
@@ -968,13 +925,13 @@ body {
 .bottomCalendarText {
   font-size: 10px;
   color: #fff;
+  padding: 3px;
+  background: rgb(0 0 0 / 27%);
 }
 
 .bottomCalendarText {
   width: 54%;
   white-space: pre-wrap;
-  padding: 3px;
-  background: rgb(0 0 0 / 27%);
 }
 
 .dateContent {

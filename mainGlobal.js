@@ -180,7 +180,6 @@ const fetchAndRenderCalendarData = () => {
 
 fetchAndRenderCalendarData();
 
-
 let todayData;
 
 const renderCalendar = (data) => {
@@ -225,7 +224,6 @@ const renderCalendar = (data) => {
     $('.dateProgressDiv').html(`${data[0].startIndex1 + 1} <span>&#8226;</span> ${data[1].startIndex2 + 50}`);
 
     // monthImg(todaysMonth + 1);
-    fetchAndRenderMonthImg();
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
     let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
@@ -520,15 +518,22 @@ const fetchAndRenderMonthImg = () => {
         let itemObj = JSON.parse(itemStr)["ad"];
         let title = itemObj["title_text"]?.tx;
         let text1 = itemObj["hs2_title_text"]?.tx || '';
-        let text2 = itemObj["hs2_cta_text"]?.tx || '';
+        // let text2 = itemObj["hs2_cta_text"]?.tx || '';
         // let jsImageP = itemObj["image_fullscreen_001_portrait"];
         let jsImageL = itemObj["image_fullscreen_001_landscape"];
         $('.topCalendarText').html(title);
-        $('.bottomCalendarText').html(text1 + '\n' + text2);
+        $('.bottomCalendarText').html(text1);
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
         $('#contentImg').attr('src', jsImageL.u);
     })
 }
+
+fetchAndRenderMonthImg();
+
+//change monthImg every 30m
+setInterval(() => {
+    fetchAndRenderMonthImg();
+}, 1800000);
 
 const monthImg = (monthImg) => {
     switch (monthImg) {
@@ -918,7 +923,7 @@ const renderFlashcard = (item, progress, row) => {
         <div class="flip-card-front-content">
           ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
                     <h1>${item.text}</h1>
-                    <p>| ${item.phonetic} |</p>
+                    <p class="cardPhonetic">| ${item.phonetic} |</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
                 ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
                     </span>
@@ -929,7 +934,9 @@ const renderFlashcard = (item, progress, row) => {
         </div>
         <div class="flip-card-back">
           <div class="flip-card-back-content">
-            <p>${cardMeaning}</p>
+            <p class="cardMeaning">${cardMeaning}</p>
+            ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
+            <p class="cardName">05/07/22</p>
           </div>
         </div>
       </div>

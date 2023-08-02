@@ -929,7 +929,7 @@ body {
   background: rgb(0 0 0 / 27%);
 }
 
-.bottomCalendarText {
+#bottomCalendarText {
   width: 54%;
   white-space: pre-wrap;
 }

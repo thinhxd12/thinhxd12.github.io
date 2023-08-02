@@ -517,12 +517,15 @@ const fetchAndRenderMonthImg = () => {
         let itemStr = data["batchrsp"]["items"][0].item;
         let itemObj = JSON.parse(itemStr)["ad"];
         let title = itemObj["title_text"]?.tx;
-        let text1 = itemObj["hs2_title_text"]?.tx || '';
+        let text1 = itemObj["hs2_title_text"]?.tx;
         // let text2 = itemObj["hs2_cta_text"]?.tx || '';
         // let jsImageP = itemObj["image_fullscreen_001_portrait"];
         let jsImageL = itemObj["image_fullscreen_001_landscape"];
-        $('.topCalendarText').html(title);
-        $('.bottomCalendarText').html(text1);
+
+        let contentTextTop = `<div class="topCalendarText">${title}</div>`;
+        title ? $('#topCalendarText').html(contentTextTop) : '';
+        let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
+        text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
         $('#contentImg').attr('src', jsImageL.u);
     })

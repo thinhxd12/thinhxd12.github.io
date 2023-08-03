@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="vocabContainer">
-      <div id="London" class="city">
+      <div id="tab1" class="city">
         <div class="mainFixed">
           <div class="mainFixedContent">
             <div class="contentHeader">
@@ -48,7 +48,7 @@
                 <div id="flashCardContent"></div>
               </div>
               <div class="myInputContainer">
-                <img src="./img/input-left-corner.png" height="21">
+                <img src="./img/input-left-corner.png" class="inputOrnamentCorner">
                 <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
                   onmouseover="this.focus()" onmouseout="this.blur()" />
                 <div class="transInputContent">
@@ -56,7 +56,7 @@
                     onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur()" />
                   <img src="./img/center.png" height="18" class="myInputIcon" id="transBtn">
                 </div>
-                <img src="./img/input-right-corner.png" height="21">
+                <img src="./img/input-right-corner.png" class="inputOrnamentCorner">
               </div>
             </div>
             <div class="contentBody">
@@ -74,7 +74,7 @@
           <div class="mainFixedOrnament"></div>
         </div>
       </div>
-      <div id="Paris" class="city" style="display: none;">
+      <div id="tab2" class="city" style="display: none;">
         <div class="calendarContainer">
           <div class="calendarCard">
             <div class="calendarHeader" id="calendarHeader">
@@ -135,24 +135,26 @@
               </div>
             </div>
           </div>
-          <div class="table">
-            <button id="historyTableBtnLeft">
-              <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
-                transform="scale(-1 1)">
-                <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
-                  stroke-linejoin="round" stroke-width="1.125" />
-              </svg>
-            </button>
-            <div id="historyTable"></div>
-            <button id="historyTableBtnRight">
-              <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
-                version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
-                  stroke-linejoin="round" stroke-width="1.125" />
-              </svg>
-            </button>
+          <div class="calendarBottom">
+            <div class="table">
+              <button id="historyTableBtnLeft">
+                <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  transform="scale(-1 1)">
+                  <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
+                    stroke-linejoin="round" stroke-width="1.125" />
+                </svg>
+              </button>
+              <div id="historyTable"></div>
+              <button id="historyTableBtnRight">
+                <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
+                    stroke-linejoin="round" stroke-width="1.125" />
+                </svg>
+              </button>
+            </div>
+            <div id="calendarContent"></div>
           </div>
-          <div id="calendarContent"></div>
         </div>
       </div>
       <div class="mainFixedBottom">
@@ -160,10 +162,10 @@
           <button class="footerBtn footerBtnToggleLeft">
             Übermensch
           </button>
-          <button class="footerBtn footerBtnActive" id="LondonBtn">
+          <button class="footerBtn tabButton footerBtnActive" name="tab1">
             Amor fati
           </button>
-          <button class="footerBtn" id="ParisBtn">
+          <button class="footerBtn tabButton" name="tab2">
             Excellence
           </button>
           <button class="footerBtn footerBtnToggleRight">

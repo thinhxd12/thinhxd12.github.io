@@ -158,15 +158,23 @@ const showPreviousSlice = () => {
   }
 }
 
-$('#LondonBtn').click(function (e) {
-  $('#London').show();
-  $('#Paris').hide();
+// let activeTab = 'tab1';
+
+$('.tabButton').click(function (e) {
+  showTab(this.name)
 });
 
-$('#ParisBtn').click(function (e) {
-  fetchAndRenderCalendarData();
-  $('#Paris').show();
-  $('#London').hide();
+const showTab = (tab) => {
+  $('.city').hide();
+  $(`#${tab}`).show();
+  // tab == 'tab1' ? activeTab = 'tab2' : activeTab = 'tab1';
+  $('.footerBtn').removeClass("footerBtnActive");
+  $(`.tabButton[name="${tab}"]`).addClass("footerBtnActive");
+}
+
+$(document).keydown(function (e) {
+  if (e.keyCode == 37) showTab('tab1');
+  if (e.keyCode == 39) showTab('tab2');
 });
 
 $('.footerBtn').click(function (e) {
@@ -178,18 +186,32 @@ $('.footerBtnToggleLeft').click(function (e) {
   $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
 });
 
+let rightBtnSwitch = false;
+showRightToggleItem = () => {
+  if (rightBtnSwitch) {
+    $('.toogleItemRight').removeClass('toogleItemShowRight');
+    rightBtnSwitch = false;
+  } else {
+    $('.toogleItemRight').addClass('toogleItemShowRight');
+    rightBtnSwitch = true;
+  }
+}
 $('.footerBtnToggleRight').click(function (e) {
-  $('.toogleItemRight').toggleClass('toogleItemShowRight');
-});
-
-$('.itemRightBtn:not(:nth-of-type(2))').click(function (e) {
-  $('.toogleItemRight').toggleClass('toogleItemShowRight');
+  showRightToggleItem();
 });
 
 $('.footerBtnToggleRight').mouseover(function () {
   $('.toogleItemRight').removeClass('toogleItemShowRight');
   $('.toogleItemRight').addClass('toogleItemShowRight');
+  rightBtnSwitch = true;
 });
+
+$('.footerBtnToggleLeft').mouseover(function () {
+  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+  $('.toogleItemLeft').addClass('toogleItemShowLeft');
+});
+
+
 
 // -------Zoomimage----------
 

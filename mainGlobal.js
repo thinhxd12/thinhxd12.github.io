@@ -721,8 +721,8 @@ const setWordList = async (item, num) => {
     wordRow.blur();
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    $('#London').show();
-    $('#Paris').hide();
+    $('#tab1').show();
+    $('#tab2').hide();
     $('.toogleItemLeft').removeClass('toogleItemShowLeft');
     $('.footerBtn').removeClass("footerBtnActive");
     setTimeout(() => {
@@ -785,8 +785,8 @@ autoPlayBtn.addEventListener("click", () => {
     if (isTimerStarted == false && wordList.length > 0) {
         handleToggleSwitchSun();
         play();
-        $('#London').show();
-        $('#Paris').hide();
+        $('#tab1').show();
+        $('#tab2').hide();
         $('.footerBtn').removeClass("footerBtnActive");
         $('.footerBtnToggleLeft').addClass("footerBtnActive");
     } else if (isTimerStarted == true && autorunTime > 1) {
@@ -880,7 +880,7 @@ const playTTSwithValue = (val, render = true) => {
                 let headword = $(html).find('.webtop-g').html();
                 // let meaning = $(html).find('#entryContent').html();
                 let meaning = $(html).find('.sn-gs').html();
-                renderExplain(headword, meaning);
+                renderExplain(val, headword, meaning);
             }
         }
         else {
@@ -974,7 +974,7 @@ const flipFlashCard = () => {
     flipCardInner.classList.toggle("flipMyCard");
 };
 
-const renderExplain = (headword, meaning, origin) => {
+const renderExplain = (text, headword, meaning) => {
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
     <div class="explainContainer">
@@ -985,11 +985,16 @@ const renderExplain = (headword, meaning, origin) => {
       </div>
       <div class="explainBody">
         <div class="wordType"><span class="preWord">Definitions of</span>${headword}</div>
-        ${origin ? `<div class="wordOrigin">${origin}</div>` : ""}
         ${meaning ? `<div class="wordMeaning">${meaning}</div>` : ""}
       </div>
     </div>  
       `;
+      
+    let newText = text.slice(0, -2);
+    const re = new RegExp(`(${newText}\\w*)`, 'g');
+    $("span.x").each(function () {
+        $(this).html($(this).text().replace(re, `<b style="color:#f90000">$1</b>`));
+    });
 };
 
 const renderExplainGG = (headword, meaning) => {

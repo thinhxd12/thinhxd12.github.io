@@ -400,7 +400,7 @@ body {
   opacity: 0;
 }
 
-.toogleItemShowRight{
+.toogleItemShowRight {
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   right: 0;
   opacity: 1;
@@ -460,15 +460,15 @@ body {
 .cardName {
   position: absolute;
   font-size: 6px;
-  bottom: 3px;
-  left: 63px;
+  bottom: 6px;
+  left: 72px;
 }
 
 .cardRow {
   position: absolute;
   font-size: 11px;
-  bottom: 3px;
-  right: 63px;
+  bottom: 6px;
+  right: 72px;
   opacity: 0.45;
 }
 
@@ -505,7 +505,7 @@ body {
 .flip-card-back {
   background-color: #fff;
   background-image: url("./img/frame.png");
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 
@@ -572,8 +572,8 @@ body {
 
 .indicateFlip {
   position: absolute;
-  top: 0.7rem;
-  right: 2rem;
+  top: 18px;
+  right: 30px;
   transform: rotate(18deg);
   display: block;
   font-size: 0.9rem;
@@ -600,8 +600,8 @@ body {
 
 .progressFlip {
   position: absolute;
-  top: 15px;
-  left: 40px;
+  top: 18px;
+  left: 36px;
   opacity: 72%;
   color: #c70000;
   font-size: 1rem;
@@ -622,6 +622,8 @@ body {
   align-items: center;
   justify-content: space-between;
   background: #070707;
+  border-top: 0.1px solid #b5a9941f;
+  border-bottom: 0.1px solid #b5a9941f;
 }
 
 .myInputContainer .inputOrnamentCorner {
@@ -867,6 +869,8 @@ body {
   font-family: "Rubik", sans-serif;
   font-size: 12px;
   color: #636363;
+  display: flex;
+  flex-direction: column;
 }
 
 .calendarHeader {
@@ -883,14 +887,14 @@ body {
   justify-content: space-between;
 }
 
-.calendarFooter .weekTitle {
+.calendarCardContent .weekTitle {
   font-weight: lighter;
   border-top: 1px solid #17181a;
   border-bottom: 1px solid #17181a;
 }
 
 .weekDate {
-  height: 27px;
+  height: 30px;
   font-size: 13px;
   text-align: center;
   display: flex;
@@ -905,16 +909,18 @@ body {
   font-weight: bold;
 }
 
-.calendarCardDiv {
+.calendarBody {
   position: relative;
-  min-height: 190px;
+  height: calc(100vh - 245px);
   overflow: hidden;
+  position: relative;
 }
 
 .calendarCardImg {
-  background-size: cover;
-  background-position: center 90%;
-  filter: blur(6px);
+  background-size: 120%;
+  /* background-position: center 90%; */
+  background-position: bottom center;
+  filter: blur(3px);
   position: absolute;
   top: 0;
   right: 0;
@@ -925,7 +931,6 @@ body {
 
 .calendarCardNoise {
   background-image: url(data:image/png;base64,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);
-  filter: opacity(0.5);
   position: absolute;
   top: 0;
   right: 0;
@@ -934,19 +939,17 @@ body {
   z-index: 1;
 }
 
-.calendarFooter {
-  border-bottom: 1px solid #17181a;
-  padding: 0 9px;
+.calendarCardContent {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 2;
-  background: #070707d9;
+  background: #070707e9;
 }
 
-.calendarFooter table {
+.calendarCardContent table {
   height: 185px;
   border-collapse: collapse;
   width: 100%;
@@ -1098,17 +1101,16 @@ body {
 
 .calendarItem {
   background: #fff;
-  width: 333px;
+  width: 380px;
   height: 45px;
   border: 1px solid #17181a;
-  border-radius: 3px;
   padding: 0 3px 6px 3px;
 }
 
 .calendarItemHeader {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 10px;
   font-family: "Rubik", sans-serif;
   padding: 3px;
 }
@@ -1120,7 +1122,7 @@ body {
   font-size: 12px;
 }
 .calendarItemInput {
-  border: 0.5px solid #17181a;
+  border: 0.5px solid #dfdfdf;
   padding: 1px 9px;
   font-size: 12px;
   font-family: "Rubik", sans-serif;
@@ -1149,36 +1151,47 @@ body {
   margin-right: 5px;
 }
 /* ------------historytable----------- */
-.calendarBottom {
+.calendarCardContentBottom {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 435px);
-  background: #0c0c0c;
+  width: 100%;
+  border-top: 1px solid #17181a;
 }
 
-.table {
+.tableHistory {
   width: 100%;
   font-size: 12px;
   font-family: "Rubik", sans-serif;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-top: 6px;
 }
 
-.table button {
-  background: none;
+.historyBtn {
   outline: none;
   border: none;
   cursor: pointer;
-  width: 20px;
-  height: 100px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #636366;
+  transition: all 0.3s ease;
+}
+
+.historyBtn:hover {
+  background-color: #fff;
+}
+
+.historyBtn:first-child {
+  margin-right: 3px;
 }
 
 .tableItem {
-  width: 333px;
+  width: 380px;
   display: flex;
   margin-bottom: 2px;
   justify-content: center;
@@ -1192,6 +1205,7 @@ body {
   color: #fff;
   position: relative;
   border: 1px solid #17181a;
+  background: #07070799;
   cursor: default;
 }
 
@@ -1200,9 +1214,10 @@ body {
   display: flex;
   align-items: center;
   padding: 3px 6px;
-  color: #636363;
+  color: #3c4049;
   position: relative;
   border: 1px solid #17181a;
+  background: #07070799;
   cursor: pointer;
 }
 
@@ -1222,20 +1237,17 @@ body {
 
 .desc {
   width: 73%;
-  background-color: #fff;
+  background-color: #fafafa99;
   display: flex;
   align-items: center;
   padding: 3px 3px 3px 15px;
   cursor: default;
-}
-
-#calendarContent {
-  padding: 3px;
+  color: #17181a;
 }
 
 /* ------------searchInput------------ */
 .contentBody {
-  height: calc(100vh - 247px);
+  height: calc(100vh - 245px);
   overflow-y: scroll;
   position: relative;
   background-size: cover;
@@ -1800,8 +1812,6 @@ div#contentBody {
     transform: translateY(0);
   }
 }
-
-
 
 @keyframes rotating {
   from {

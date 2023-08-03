@@ -100,10 +100,10 @@
                 </div>
               </div>
             </div>
-            <div class="calendarCardDiv">
+            <div class="calendarBody">
               <div class="calendarCardImg"></div>
               <div class="calendarCardNoise"></div>
-              <div class="calendarFooter">
+              <div class="calendarCardContent">
                 <table id="dayNumber">
                   <thead>
                     <tr class="weekTitle">
@@ -132,29 +132,22 @@
                   </thead>
                   <tbody id="htmlDate"></tbody>
                 </table>
+                <div class="calendarCardContentBottom">
+                  <div class="tableHistory">
+                    <div id="historyTable"></div>
+                    <div>
+                      <button id="historyTableBtnLeft" class="historyBtn"></button>
+                      <button id="historyTableBtnRight" class="historyBtn"></button>
+                    </div>
+                  </div>
+                  <div id="calendarContent"></div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="calendarBottom">
-            <div class="table">
-              <button id="historyTableBtnLeft">
-                <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
-                  transform="scale(-1 1)">
-                  <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
-                    stroke-linejoin="round" stroke-width="1.125" />
-                </svg>
-              </button>
-              <div id="historyTable"></div>
-              <button id="historyTableBtnRight">
-                <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg"
-                  version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square"
-                    stroke-linejoin="round" stroke-width="1.125" />
-                </svg>
-              </button>
-            </div>
-            <div id="calendarContent"></div>
-          </div>
+
+
+
         </div>
       </div>
       <div class="mainFixedBottom">

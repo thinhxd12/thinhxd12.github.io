@@ -349,7 +349,6 @@ $('#historyTableBtnLeft').click(function (e) {
     if (btnIndex == 0) {
         renderHistoryTable(0)
         btnIndex = 0;
-        $('#historyTableBtnLeft').html('');
     }
 });
 
@@ -357,11 +356,6 @@ $('#historyTableBtnRight').click(function (e) {
     btnIndex++;
     if (btnIndex >= 0 && btnIndex <= dataHistory.length - 1) {
         renderHistoryTable(btnIndex);
-        $('#historyTableBtnLeft').html(`
-        <svg width="9" height="15.75" viewBox="0 0 9 15.75" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(-1 1)">
-        <path d="m1.688 1.125 6.75 6.75 -6.75 6.75" stroke="#636363" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.125"/>
-        </svg>
-        `);
     }
     if (btnIndex > dataHistory.length - 1) {
         setNextMonthTable();
@@ -989,7 +983,7 @@ const renderExplain = (text, headword, meaning) => {
       </div>
     </div>  
       `;
-      
+
     let newText = text.slice(0, -2);
     const re = new RegExp(`(${newText}\\w*)`, 'g');
     $("span.x").each(function () {

@@ -113,7 +113,7 @@ $('#tomatoText').click(function (e) {
 let historyImgArr = [];
 const fetchRenderImgBackground = () => {
   $.get(urlCors + mainPageUrl, function (html) {
-    let newLink = $(html).find('.also__list li:nth-child(3) a').attr('href');
+    let newLink = $(html).find('.also__list li:nth-child(1) a').attr('href');
     $.get(urlCors + newLink, function (html) {
       let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
       let imgDescGet = $(html).find(".main-description__wrapper")[0]

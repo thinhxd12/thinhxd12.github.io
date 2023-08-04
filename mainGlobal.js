@@ -485,7 +485,7 @@ const fetchAndRenderMonthImg = () => {
     batchQuery["pl"] = "en-US";
     batchQuery["lc"] = "en-US";
     batchQuery["ctry"] = "us";
-    const baseUrl = "https://arc.msn.com/v3/Delivery/Placement?" + new URLSearchParams(batchQuery).toString() + '&time=' + new Date().toISOString();
+    const baseUrl = "https://arc.msn.com/v3/Delivery/Placement?" + new URLSearchParams(batchQuery).toString();
     fetch(urlCors + baseUrl).then(res => res.json()).then(data => {
         let itemStr = data["batchrsp"]["items"][0].item;
         let itemObj = JSON.parse(itemStr)["ad"];
@@ -500,7 +500,7 @@ const fetchAndRenderMonthImg = () => {
         let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
         text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
-        $('.calendarCardImg').css('background-image', `url(${jsImageP.u})`);
+        $('.calendarCardImg').css('background-image', `url(${jsImageL.u})`);
         $('#contentImg').attr('src', jsImageL.u);
     })
 }
@@ -508,9 +508,9 @@ const fetchAndRenderMonthImg = () => {
 fetchAndRenderMonthImg();
 
 //change monthImg every 30m
-setInterval(() => {
-    fetchAndRenderMonthImg();
-}, 1800000);
+// setInterval(() => {
+//     fetchAndRenderMonthImg();
+// }, 1800000);
 
 const monthImg = (monthImg) => {
     switch (monthImg) {

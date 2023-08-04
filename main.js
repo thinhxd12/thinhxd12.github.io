@@ -170,7 +170,10 @@ const showTab = (tab) => {
 }
 
 $(document).keydown(function (e) {
-  if (e.keyCode == 37) showTab('tab1');
+  if (e.keyCode == 37) {
+    fetchAndRenderMonthImg();
+    showTab('tab1');
+  }
   if (e.keyCode == 39) {
     fetchAndRenderCalendarData();
     showTab('tab2');
@@ -204,6 +207,10 @@ $('.footerBtnToggleRight').mouseover(function () {
   $('.toogleItemRight').removeClass('toogleItemShowRight');
   $('.toogleItemRight').addClass('toogleItemShowRight');
   rightBtnSwitch = true;
+});
+
+$('.footerBtn[name="tab1"]').click(function (e) {
+  fetchAndRenderMonthImg();
 });
 
 $('.footerBtn[name="tab2"]').click(function (e) {

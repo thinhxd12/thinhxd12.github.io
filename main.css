@@ -917,10 +917,10 @@ body {
 }
 
 .calendarCardImg {
-  background-size: 120%;
-  /* background-position: center 90%; */
-  background-position: bottom center;
+  background-size: cover;
+  background-position: bottom;
   filter: blur(3px);
+  background-repeat: no-repeat;
   position: absolute;
   top: 0;
   right: 0;
@@ -946,7 +946,7 @@ body {
   right: 0;
   bottom: 0;
   z-index: 2;
-  background: #070707e9;
+  background: #070707e6;
 }
 
 .calendarCardContent table {

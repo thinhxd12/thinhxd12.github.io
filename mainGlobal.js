@@ -24,10 +24,11 @@ const getLocalSheetData = () => {
     }
 }
 
-const getLocalHistoryData = () => {
+const getRenderLocalHistoryData = () => {
     let itemH = localStorage.getItem("historyData");
     if (itemH !== null) {
         dataHistory = JSON.parse(itemH);
+        dataHistory = dataHistory.sort((a, b) => a.index - b.index)
         renderHistoryTable(dataHistory.length - 1);
     }
 }
@@ -48,7 +49,7 @@ const fetchAllData = () => {
     getAllData('history').then(data => {
         localStorage.removeItem('historyData');
         localStorage.setItem('historyData', JSON.stringify(data));
-    }).then(() => getLocalHistoryData())
+    }).then(() => getRenderLocalHistoryData())
 }
 
 fetchAllData();
@@ -167,14 +168,13 @@ let dataCalendar = [];
 const fetchAndRenderCalendarData = () => {
     getAllData('schedule').then(data => {
         renderCalendar(data);
+        localStorage.removeItem('calendarData');
         localStorage.setItem('calendarData', JSON.stringify(data));
-        let itemP = localStorage.getItem("calendarData");
-        if (itemP !== null) {
+        setTimeout(() => {
+            let itemP = localStorage.getItem("calendarData");
             dataCalendar = JSON.parse(itemP);
-        }
-        if (dataHistory.length > 0) {
-            renderHistoryTable(dataHistory.length - 1);
-        }
+            getRenderLocalHistoryData();
+        }, 2000);
     })
 };
 
@@ -314,14 +314,13 @@ const renderCalendar = (data) => {
 
 const renderHistoryTable = (numb) => {
     const historyTable = document.getElementById('historyTable');
-    let historyTableData = dataHistory[numb];
-    historyTableData = Object.values(historyTableData)[1];
-    historyTableData = Object.values(historyTableData);
+    let historyTableItem = dataHistory.find(item => item.index == numb);
+    let historyTableData = historyTableItem.data;
     historyTable.innerHTML = `
         ${historyTableData.map((item, index) => {
         return `
                 <div class="tableItem">
-                  <span  ${item.fromD ? 'class="term"' : `onclick="commitNewWork('${item.row}',${index})" class="term_not_complete"`}>${item.row}</span>
+                  <span  ${item.fromD ? `class="term" onclick="commitNewWork(${item.row},${numb})"` : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`}>${item.row} - ${item.row + 49}</span>
                   ${item.fromD ? `<span class="desc">
                     <span style="width: 90px;">${item.fromD}</span>
                     <span>${item.toD}</span>
@@ -394,12 +393,11 @@ const handleThis = (e) => {
 
 const setNewHistoryItem = () => {
     let val = document.querySelector('.calendarInputCheck:checked').value;
-
     let res = []
     if (val == 'item1') {
         for (let i = 0; i < 5; i++) {
             res.push({
-                row: `${200 * (i) + 1} - ${(i + 1) * 200}`,
+                row: 200 * (i) + 1,
                 fromD: '',
                 toD: ''
             })
@@ -408,42 +406,42 @@ const setNewHistoryItem = () => {
     else {
         for (let i = 0; i < 5; i++) {
             res.push({
-                row: `${200 * (i) + 1 + 1000} - ${(i + 1) * 200 + 1000}`,
+                row: 200 * (i) + 1 + 1000,
                 fromD: '',
                 toD: ''
             })
         }
     }
-    let resultArr = val == 'item1' ? { item1: { ...res } } : { item2: { ...res } }
+    let newdata = {
+        "index": dataHistory.length,
+        "data": res
+    }
 
     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem';
     fetch(url, {
         method: 'POST',
-        body: JSON.stringify(resultArr)
+        body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
         $('#calendarContent').html('');
 
         getAllData('history').then(data => {
+            localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
         })
         setTimeout(() => {
-            let itemH = localStorage.getItem("historyData");
-            if (itemH !== null) {
-                dataHistory = JSON.parse(itemH);
-            }
-            renderHistoryTable(dataHistory.length - 1)
-        }, 3000);
+            getRenderLocalHistoryData();
+        }, 2000);
     })
 }
 
-const commitNewWork = (row, index) => {
+const commitNewWork = (row, numb) => {
     const calendarContent = document.getElementById("calendarContent");
     calendarContent.innerHTML = `
     <div class="calendarItem">
     <div class="calendarItemHeader">
         <span></span>
         <div style="display: flex;">
-        <button class="close-btn" onclick="commitHistoryItem(${index})">
+        <button class="close-btn" onclick="commitHistoryItem(${row},${numb})">
             <img src="./img/complete.png" width="13" height="13">
         </button>
         <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
@@ -452,7 +450,7 @@ const commitNewWork = (row, index) => {
         </div>
     </div>
     <div class="calendarItemContent">
-        <input class="calendarItemInput" value="${row}" autocomplete="off" id="commitHistoryItemRow"
+        <input class="calendarItemInput" value="${row} - ${row + 49}" autocomplete="off" id="commitHistoryItemRow"
         onmouseover="this.focus()" onmouseout="this.blur()">
         <input class="calendarItemInput" value="2023/07/18" placeholder="From Day" id="commitHistoryItemFromD" autocomplete="off"
         onmouseover="this.focus()" onmouseout="this.blur()">
@@ -462,34 +460,25 @@ const commitNewWork = (row, index) => {
     </div>`;
 }
 
-const commitHistoryItem = (index) => {
-    let data = {
-        row: $('#commitHistoryItemRow').val(),
+const commitHistoryItem = (row, numb) => {
+    let newdata = {
         fromD: $('#commitHistoryItemFromD').val(),
-        toD: $('#commitHistoryItemToD').val(),
-    }
-    let id = dataHistory[btnIndex]._id;
-    let newdata = dataHistory[btnIndex];
-    newdata[Object.keys(newdata)[1]][index] = data;
-    delete newdata._id;
-
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}`;
+        toD: $('#commitHistoryItemToD').val()
+    };
+    let id = dataHistory.find(item => item.index == numb)._id
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}&row=${row}`;
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
         $('#calendarContent').html('');
-
         getAllData('history').then(data => {
+            localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
         })
         setTimeout(() => {
-            let itemH = localStorage.getItem("historyData");
-            if (itemH !== null) {
-                dataHistory = JSON.parse(itemH);
-            }
-            renderHistoryTable(dataHistory.length - 1)
-        }, 3000);
+            getRenderLocalHistoryData();
+        }, 2000);
     })
 }
 
@@ -595,7 +584,7 @@ const setTodayWork = () => {
     calendarContent.innerHTML = `
     <div class="calendarItem">
         <div class="calendarItemHeader">
-            <span></span>
+            <span>Set new week schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="importSchedule()">
             <img src="./img/complete.png" width="13" height="13">

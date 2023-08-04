@@ -126,7 +126,6 @@ const fetchRenderImgBackground = () => {
       $('#imgSrc').attr('srcset', imgSrcGet);
       $('#imgSrcBlurred').attr('srcset', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
-      // $('#contentImg').attr('srcset', imgSrcGet);
     });
   });
 
@@ -158,7 +157,6 @@ const showPreviousSlice = () => {
   }
 }
 
-// let activeTab = 'tab1';
 
 $('.tabButton').click(function (e) {
   showTab(this.name)
@@ -167,14 +165,16 @@ $('.tabButton').click(function (e) {
 const showTab = (tab) => {
   $('.city').hide();
   $(`#${tab}`).show();
-  // tab == 'tab1' ? activeTab = 'tab2' : activeTab = 'tab1';
   $('.footerBtn').removeClass("footerBtnActive");
   $(`.tabButton[name="${tab}"]`).addClass("footerBtnActive");
 }
 
 $(document).keydown(function (e) {
   if (e.keyCode == 37) showTab('tab1');
-  if (e.keyCode == 39) showTab('tab2');
+  if (e.keyCode == 39) {
+    fetchAndRenderCalendarData();
+    showTab('tab2');
+  }
 });
 
 $('.footerBtn').click(function (e) {
@@ -206,9 +206,8 @@ $('.footerBtnToggleRight').mouseover(function () {
   rightBtnSwitch = true;
 });
 
-$('.footerBtnToggleLeft').mouseover(function () {
-  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-  $('.toogleItemLeft').addClass('toogleItemShowLeft');
+$('.footerBtn[name="tab2"]').click(function (e) {
+  fetchAndRenderCalendarData();
 });
 
 

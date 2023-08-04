@@ -16,6 +16,7 @@ const chunk = (array, size) =>
 
 let dataSheets = [];
 let dataHistory = [];
+let slideIndex = 1;
 
 const getLocalSheetData = () => {
     let item = localStorage.getItem("sheetData")
@@ -29,30 +30,35 @@ const getRenderLocalHistoryData = () => {
     if (itemH !== null) {
         dataHistory = JSON.parse(itemH);
         dataHistory = dataHistory.sort((a, b) => a.index - b.index)
-        renderHistoryTable(dataHistory.length - 1);
     }
+    slideIndex = dataHistory.length - 1;
+    showSlides(slideIndex);
 }
 
+
 const getAllData = async (text) => {
-    // console.log('getAll data');
     const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`)
     return res.json();
 }
 
-const fetchAllData = () => {
+const fetchStartupData = () => {
     // console.log('fetch all data');
     getAllData('hoctuvung').then(data => {
         localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(data));
-    }).then(() => getLocalSheetData())
+        //save to array script
+        getLocalSheetData();
+    })
 
     getAllData('history').then(data => {
         localStorage.removeItem('historyData');
         localStorage.setItem('historyData', JSON.stringify(data));
-    }).then(() => getRenderLocalHistoryData())
+        //save to array script
+        getRenderLocalHistoryData();
+    })
 }
 
-fetchAllData();
+fetchStartupData();
 
 const autocomplete = (inp) => {
     var currentFocus;
@@ -96,7 +102,7 @@ const autocomplete = (inp) => {
                         localStorage.setItem('sheetData', JSON.stringify(dataSheets));
                     }
                     else {
-                        handleArchivedItem(item._id);
+                        handleArchivedItem(item._id, item.text);
                     }
                     closeAllLists();
                 });
@@ -168,13 +174,6 @@ let dataCalendar = [];
 const fetchAndRenderCalendarData = () => {
     getAllData('schedule').then(data => {
         renderCalendar(data);
-        localStorage.removeItem('calendarData');
-        localStorage.setItem('calendarData', JSON.stringify(data));
-        setTimeout(() => {
-            let itemP = localStorage.getItem("calendarData");
-            dataCalendar = JSON.parse(itemP);
-            getRenderLocalHistoryData();
-        }, 2000);
     })
 };
 
@@ -312,7 +311,7 @@ const renderCalendar = (data) => {
             `;
 }
 
-const renderHistoryTable = (numb) => {
+const renderHistorySlide = (numb) => {
     const historyTable = document.getElementById('historyTable');
     let historyTableItem = dataHistory.find(item => item.index == numb);
     let historyTableData = historyTableItem.data;
@@ -332,34 +331,27 @@ const renderHistoryTable = (numb) => {
         `;
 }
 
-let btnIndex;
-setTimeout(() => {
-    btnIndex = dataHistory.length - 1;
-}, 3000);
+const showSlides = (n) => {
+    if (n > dataHistory.length - 1) {
+        slideIndex = dataHistory.length - 1
+        setNextMonthTable();
+        return;
+    }
+    if (n < 1) {
+        slideIndex = 0;
+    }
+    renderHistorySlide(slideIndex)
+}
 
 $('#historyTableBtnLeft').click(function (e) {
-    btnIndex--;
-    if (btnIndex == dataHistory.length - 1) {
+    if (slideIndex == dataHistory.length - 1) {
         $('#calendarContent').html('');
     }
-    if (btnIndex > 0) {
-        renderHistoryTable(btnIndex)
-    }
-    if (btnIndex == 0) {
-        renderHistoryTable(0)
-        btnIndex = 0;
-    }
+    showSlides(slideIndex += -1);
 });
 
 $('#historyTableBtnRight').click(function (e) {
-    btnIndex++;
-    if (btnIndex >= 0 && btnIndex <= dataHistory.length - 1) {
-        renderHistoryTable(btnIndex);
-    }
-    if (btnIndex > dataHistory.length - 1) {
-        setNextMonthTable();
-        btnIndex = dataHistory.length;
-    }
+    showSlides(slideIndex += 1);
 });
 
 
@@ -427,10 +419,9 @@ const setNewHistoryItem = () => {
         getAllData('history').then(data => {
             localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
-        })
-        setTimeout(() => {
+            //save to array script
             getRenderLocalHistoryData();
-        }, 2000);
+        })
     })
 }
 
@@ -452,9 +443,9 @@ const commitNewWork = (row, numb) => {
     <div class="calendarItemContent">
         <input class="calendarItemInput" value="${row} - ${row + 49}" autocomplete="off" id="commitHistoryItemRow"
         onmouseover="this.focus()" onmouseout="this.blur()">
-        <input class="calendarItemInput" value="2023/07/18" placeholder="From Day" id="commitHistoryItemFromD" autocomplete="off"
+        <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemFromD" autocomplete="off"
         onmouseover="this.focus()" onmouseout="this.blur()">
-        <input class="calendarItemInput" value="2023/07/18" placeholder="To Day" id="commitHistoryItemToD" autocomplete="off"
+        <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemToD" autocomplete="off"
         onmouseover="this.focus()" onmouseout="this.blur()">
     </div>
     </div>`;
@@ -475,10 +466,9 @@ const commitHistoryItem = (row, numb) => {
         getAllData('history').then(data => {
             localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
-        })
-        setTimeout(() => {
+            //save to array script
             getRenderLocalHistoryData();
-        }, 2000);
+        })
     })
 }
 
@@ -575,7 +565,7 @@ function formatDate(date) {
     if (day.length < 2)
         day = '0' + day;
 
-    return [year, month, day].join('/');
+    return [year, month, day].join('-');
 }
 
 
@@ -800,8 +790,11 @@ function stop() {
     setTimeout(() => {
         setWordListHandy();
         getAllData('hoctuvung').then(data => {
+            localStorage.removeItem('sheetData');
             localStorage.setItem('sheetData', JSON.stringify(data));
-        }).then(() => getLocalSheetData())
+            //save to array script
+            getLocalSheetData();
+        });
     }, 2000);
 }
 
@@ -822,7 +815,7 @@ const handleNextWord = () => {
     let indexx = dataSheets.findIndex(n => n._id == item._id);
     playTTSwithValue(item.text);
     renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
-    item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id);
+    item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
     if ((indexx + 1) % 50 == 0) {
         autorunTime = 50;
     }
@@ -836,12 +829,12 @@ const handleCheckItem = (id) => {
         .catch(err => console.log(err))
 }
 
-const handleArchivedItem = (id) => {
+const handleArchivedItem = (id, text) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
     fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`)
         .then(res => res.json()).then(data => {
-            console.log(data)
+            console.log(text);
             getTotalDoneWord('passed');
         })
     dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
@@ -1197,12 +1190,15 @@ const setEditWord = () => {
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
         getAllData('hoctuvung').then(data => {
-            localStorage.setItem('sheetData', JSON.stringify(data));
             $('#inputEditWordText').val('');
             $('#inputEditWordPhonetic').val('');
             $('#inputEditWordMeaning').val('');
             $('#inputEditWordNumb').val('');
-        }).then(() => getLocalSheetData());
+            localStorage.removeItem('sheetData');
+            localStorage.setItem('sheetData', JSON.stringify(data));
+            //save to array script
+            getLocalSheetData();
+        });
     });
 }
 
@@ -1288,10 +1284,13 @@ const handleAddTextEnd = () => {
             method: 'POST',
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
+            $('#addNewW').val('');
             getAllData('hoctuvung').then(data => {
+                localStorage.removeItem('sheetData');
                 localStorage.setItem('sheetData', JSON.stringify(data));
-                $('#addNewW').val('');
-            }).then(() => getLocalSheetData());
+                //save to array script
+                getLocalSheetData();
+            });
         })
     }
 };

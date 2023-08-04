@@ -131,7 +131,7 @@ const fetchRenderImgBackground = () => {
 
 }
 
-let slideIndex = 0;
+let slideImgIndex = 0;
 const showImage = (n) => {
   $('#imgSrc').attr('srcset', historyImgArr[n].img);
   $('#imgSrcBlurred').attr('srcset', historyImgArr[n].img);
@@ -139,21 +139,21 @@ const showImage = (n) => {
 }
 
 const showNextSlice = () => {
-  if (slideIndex == 0) { fetchRenderImgBackground() }
-  if (slideIndex > 0) {
-    slideIndex--;
-    showImage(slideIndex)
+  if (slideImgIndex == 0) { fetchRenderImgBackground() }
+  if (slideImgIndex > 0) {
+    slideImgIndex--;
+    showImage(slideImgIndex)
   }
 }
 showNextSlice();
 
 const showPreviousSlice = () => {
   if (historyImgArr.length > 1) {
-    slideIndex++;
-    if (slideIndex < historyImgArr.length) {
-      showImage(slideIndex);
+    slideImgIndex++;
+    if (slideImgIndex < historyImgArr.length) {
+      showImage(slideImgIndex);
     }
-    else slideIndex = historyImgArr.length - 1;
+    else slideImgIndex = historyImgArr.length - 1;
   }
 }
 

@@ -173,7 +173,7 @@ let dataCalendar = [];
 
 const fetchAndRenderCalendarData = () => {
     getAllData('schedule').then(data => {
-        data = data.sort((a,b)=>new Date(a.date) - new Date(b.date))
+        data = data.sort((a, b) => new Date(a.date) - new Date(b.date))
         renderCalendar(data);
     })
 };
@@ -967,8 +967,8 @@ const renderExplain = (text, headword, meaning) => {
     </div>  
       `;
 
-    let newText = text.slice(0, -2);
-    const re = new RegExp(`(${newText}\\w*)`, 'g');
+    let newText = text.length > 4 ? text.slice(0, -2) : text;
+    const re = new RegExp(`(${newText}\\w*)`, 'gi');
     $("span.x").each(function () {
         $(this).html($(this).text().replace(re, `<b style="color:#f90000">$1</b>`));
     });

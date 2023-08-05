@@ -199,19 +199,19 @@ showRightToggleItem = () => {
     rightBtnSwitch = true;
   }
 }
+
 $('.footerBtnToggleRight').click(function (e) {
   showRightToggleItem();
 });
 
-$('.footerBtnToggleRight').mouseover(function () {
+$('.toogleItemRight').mouseover(function () {
   $('.toogleItemRight').removeClass('toogleItemShowRight');
   $('.toogleItemRight').addClass('toogleItemShowRight');
-  rightBtnSwitch = true;
 });
 
-// $('.footerBtn[name="tab1"]').click(function (e) {
-//   fetchAndRenderMonthImg();
-// });
+$('.toogleItemRight').mouseleave(function () {
+  $('.toogleItemRight').removeClass('toogleItemShowRight');
+});
 
 $('.footerBtn[name="tab2"]').click(function (e) {
   fetchAndRenderCalendarData();

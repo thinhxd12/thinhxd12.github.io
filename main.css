@@ -390,7 +390,7 @@ body {
   bottom: 125px;
   right: -30px;
   z-index: 9;
-  width: 35px;
+  width: 45px;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   overflow: hidden;
   display: flex;

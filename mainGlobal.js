@@ -370,10 +370,10 @@ const setNextMonthTable = () => {
         </div>
         <div style="display: flex;">
             <button class="close-btn" onclick="setNewHistoryItem()">
-            <img src="./img/complete.png" width="13" height="13">
+            <img src="./img/complete.png" width="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="./img/close.png" width="10" height="10">
+            <img src="./img/close.png" width="9">
             </button>
         </div>
         </div>
@@ -434,10 +434,10 @@ const commitNewWork = (row, numb) => {
         <span></span>
         <div style="display: flex;">
         <button class="close-btn" onclick="commitHistoryItem(${row},${numb})">
-            <img src="./img/complete.png" width="13" height="13">
+            <img src="./img/complete.png" width="13">
         </button>
         <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="./img/close.png" width="10" height="10">
+            <img src="./img/close.png" width="9">
         </button>
         </div>
     </div>
@@ -578,10 +578,10 @@ const setTodayWork = () => {
             <span>Set new week schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="importSchedule()">
-            <img src="./img/complete.png" width="13" height="13">
+            <img src="./img/complete.png" width="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="./img/close.png" width="10" height="10">
+                <img src="./img/close.png" width="9">
             </button>
             </div>
         </div>
@@ -631,10 +631,10 @@ const resetTodaySchedule = () => {
             <span>Reset today schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="updateScheduleItem()">
-            <img src="./img/complete.png" width="13" height="13">
+            <img src="./img/complete.png" width="13">
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="./img/close.png" width="10" height="10">
+                <img src="./img/close.png" width="9">
             </button>
             </div>
         </div>
@@ -1052,7 +1052,7 @@ const renderTranslate = (arr) => {
               <img src="./img/chain.png" width="15">
             </button>
             <button class="close-btn" onclick="handleDeleteQuote();">
-              <img src="./img/close.png" width="10">
+              <img src="./img/close.png" width="9">
             </button>
           </div>
         </div>
@@ -1097,10 +1097,10 @@ const renderEditWord = () => {
             <span></span>
             <div style="display: flex;">
             <button class="close-btn" onclick="setEditWord()">
-                <img src="./img/complete.png" width="13" height="13">
+                <img src="./img/complete.png" width="13">
             </button>
             <button class="close-btn" onclick="handleDelete();">
-                <img src="./img/close.png" width="10" height="10">
+                <img src="./img/close.png" width="9">
             </button>
             </div>
         </div>
@@ -1134,7 +1134,7 @@ const renderDeleteWord = () => {
                   <img src="./img/bin.png" width="15">
                 </button>
                 <button class="close-btn" onclick="handleDelete();">
-                  <img src="./img/close.png" width="10" height="10">
+                  <img src="./img/close.png" width="9">
                 </button>
             </div>
         </div>

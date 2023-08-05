@@ -509,9 +509,9 @@ const fetchAndRenderMonthImg = () => {
 fetchAndRenderMonthImg();
 
 //change monthImg every 30m
-// setInterval(() => {
-//     fetchAndRenderMonthImg();
-// }, 1800000);
+setInterval(() => {
+    fetchAndRenderMonthImg();
+}, 360000);
 
 const monthImg = (monthImg) => {
     switch (monthImg) {

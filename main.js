@@ -171,7 +171,7 @@ const showTab = (tab) => {
 
 $(document).keydown(function (e) {
   if (e.keyCode == 37) {
-    fetchAndRenderMonthImg();
+    // fetchAndRenderMonthImg();
     showTab('tab1');
   }
   if (e.keyCode == 39) {
@@ -209,9 +209,9 @@ $('.footerBtnToggleRight').mouseover(function () {
   rightBtnSwitch = true;
 });
 
-$('.footerBtn[name="tab1"]').click(function (e) {
-  fetchAndRenderMonthImg();
-});
+// $('.footerBtn[name="tab1"]').click(function (e) {
+//   fetchAndRenderMonthImg();
+// });
 
 $('.footerBtn[name="tab2"]').click(function (e) {
   fetchAndRenderCalendarData();

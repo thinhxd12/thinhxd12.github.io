@@ -1046,10 +1046,10 @@ const renderTranslate = (arr) => {
           <span></span>
           <div style="display: flex;">
             <button class="close-btn" onclick="handleAddTextEnd()">
-              <img src="./img/send.png" width="14">
+              <img src="./img/send.png" width="10">
             </button>
             <button class="close-btn" onclick="handleAddNewText()">
-              <img src="./img/chain.png" width="15">
+              <img src="./img/chain.png" width="12">
             </button>
             <button class="close-btn" onclick="handleDeleteQuote();">
               <img src="./img/close.png" width="9">

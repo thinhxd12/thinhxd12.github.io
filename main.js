@@ -43,6 +43,7 @@ const renderTomatoTick = () => {
 
 const startHandler = () => {
   $('#tomatoText').show();
+  $('#tomatoButton').css('margin-right', '6px');
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 
@@ -71,6 +72,7 @@ const resetHandler = () => {
   clearTimeout(tickTimeout);
   clearTimeout(timerTimeout);
   $('#tomatoText').hide();
+  $('#tomatoButton').css('margin-right', '0px');
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 }
@@ -102,12 +104,10 @@ if (Notification.permission !== "granted") {
 
 $('#tomatoButton img').click(function (e) {
   startHandler();
-  $('#tomatoButton').css('margin-right', '6px');
 });
 
 $('#tomatoText').click(function (e) {
   resetHandler();
-  $('#tomatoButton').css('margin-right', '0px');
 });
 
 let historyImgArr = [];

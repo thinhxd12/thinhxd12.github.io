@@ -173,6 +173,7 @@ let dataCalendar = [];
 
 const fetchAndRenderCalendarData = () => {
     getAllData('schedule').then(data => {
+        data = data.sort((a,b)=>new Date(a.date) - new Date(b.date))
         renderCalendar(data);
     })
 };

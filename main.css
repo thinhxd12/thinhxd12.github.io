@@ -1179,8 +1179,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  margin-top: 6px;
   display: flex;
+  margin-top: 6px;
   flex-direction: column;
   align-items: center;
 }

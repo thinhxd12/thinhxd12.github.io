@@ -590,7 +590,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.indicateFlip img{
+.indicateFlip img {
   position: absolute;
   top: -1px;
   left: 11px;
@@ -1098,10 +1098,10 @@ body {
 }
 
 .calendarItem {
-  background: #fafafa99;
+  background: #fafafa17;
   width: 385px;
   height: 45px;
-  border: 1px solid #17181a;
+  /* border: 1px solid #17181a; */
   padding: 0 3px 6px 3px;
   border-radius: 3px;
 }
@@ -1136,13 +1136,17 @@ body {
   width: 50%;
 }
 
+.calendarItemInput::placeholder {
+  color: #17181ac2;
+}
+
 .calendarItemContent label {
   margin-left: 6px;
   cursor: pointer;
 }
 
 .calendarItemContent label:first-of-type {
-  margin: 0 45px 0 6px;
+  margin: 0 95px 0 6px;
 }
 
 .calendarItemInput:focus {
@@ -1160,7 +1164,7 @@ body {
   align-items: center;
   width: 100%;
   height: calc(100% - 185px);
-  border-top: 1px solid #17181a;
+  border-top: 1px solid #17181a8a;
 }
 
 .tableHistory {
@@ -1184,7 +1188,7 @@ body {
 
 .historyBtnContainer {
   position: absolute;
-  height: 114px;
+  height: 109px;
   width: 18px;
   top: 8px;
   right: 12px;
@@ -1217,7 +1221,7 @@ body {
 .tableItem {
   width: 385px;
   display: flex;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   justify-content: center;
 }
 
@@ -1228,8 +1232,8 @@ body {
   padding: 3px 6px;
   color: #fff;
   position: relative;
-  border: 1px solid #17181a;
-  background: #07070799;
+  /* border: 1px solid #17181a; */
+  background: #0707075c;
   cursor: default;
 }
 
@@ -1238,10 +1242,10 @@ body {
   display: flex;
   align-items: center;
   padding: 3px 6px;
-  color: #3c4049;
+  color: #17181ac2;
   position: relative;
-  border: 1px solid #17181a;
-  background: #07070799;
+  /* border: 1px solid #17181a; */
+  background: #0707075c;
   cursor: pointer;
 }
 
@@ -1254,14 +1258,14 @@ body {
   width: 6px;
   height: 10px;
   position: absolute;
-  background: #070707e6;
-  left: 100%;
+  background: #0707075c;
+  left: 99.5%;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
 .desc {
   width: 73%;
-  background-color: #fafafa99;
+  background-color: #fafafa17;
   display: flex;
   align-items: center;
   padding: 3px 3px 3px 15px;

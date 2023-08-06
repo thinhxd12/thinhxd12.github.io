@@ -359,7 +359,7 @@ $('#historyTableBtnRight').click(function (e) {
 const setNextMonthTable = () => {
     const calendarContent = document.getElementById("calendarContent");
     calendarContent.innerHTML = `
-    <div class="calendarItem" style="height: 23px;">
+    <div class="calendarItem" style="height: 21px;">
         <div class="calendarItemHeader">
         <span style="width: 45px;"></span>
         <div class="calendarItemContent">

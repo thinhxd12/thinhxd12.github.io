@@ -1099,7 +1099,7 @@ body {
 
 .calendarItem {
   background: #fafafa17;
-  width: 385px;
+  width: 375px;
   height: 45px;
   /* border: 1px solid #17181a; */
   padding: 0 3px 6px 3px;
@@ -1219,7 +1219,7 @@ body {
 }
 
 .tableItem {
-  width: 385px;
+  width: 375px;
   display: flex;
   margin-bottom: 3px;
   justify-content: center;

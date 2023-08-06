@@ -1148,6 +1148,44 @@ const renderDeleteWord = () => {
         <div id="editContentDiv"></div>`;
 };
 
+const renderProxySelect = () => {
+    let contentBody = document.getElementById("contentBody");
+    contentBody.innerHTML = `
+      <div class="transItem">
+       <div class="transItemHeader">
+            <span>Select cors proxy server</span>
+            <div style="display: flex;">
+                <button class="close-btn" onclick="selectProxy()">
+                    <img src="./img/complete.png" width="13">
+                </button>
+                <button class="close-btn" onclick="handleDelete()">
+                  <img src="./img/close.png" width="9">
+                </button>
+            </div>
+        </div>
+        ${proxyArr.map((item, index) => {
+        return `<div class="transItemContent">
+                    <label>
+                    <input type="checkbox" ${index == 0 ? 'checked' : ''} onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
+                        ${item}
+                    </label>
+                </div>`
+    }).join('')
+        }
+        </div>`;
+};
+
+const handleThisCheckbox = (e) => {
+    $('.translateInputCheck').not(e).prop('checked', false);
+}
+
+const selectProxy = () => {
+    let val = document.querySelector('.translateInputCheck:checked').value;
+    val == proxyArr.length - 1 ? urlCors = '' : urlCors = proxyArr[val];
+    handleDelete();
+}
+
+
 let editId;
 const handleChangeEditInput = (e) => {
     const editContentDiv = document.getElementById("editContentDiv");

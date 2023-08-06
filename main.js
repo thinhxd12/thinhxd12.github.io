@@ -178,6 +178,7 @@ $(document).keydown(function (e) {
   }
   if (e.keyCode == 39) {
     fetchAndRenderCalendarData();
+    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
     showTab('tab2');
   }
 });
@@ -217,6 +218,7 @@ $('.toogleItemRight').mouseleave(function () {
 
 $('.footerBtn[name="tab2"]').click(function (e) {
   fetchAndRenderCalendarData();
+  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
 });
 
 

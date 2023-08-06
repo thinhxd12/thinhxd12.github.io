@@ -1,6 +1,6 @@
 
-const urlCors = "https://mycorspass.up.railway.app/";
-// const urlCors ="https://mywebapp.abcworker.workers.dev/";
+// const urlCors = "https://mycorspass.up.railway.app/";
+const urlCors ="https://mywebapp.abcworker.workers.dev/";
 // const urlCors = 'https://cors-proxy.fringe.zone/';
 // const urlCors = 'https://api.codetabs.com/v1/proxy?quest=';
 // const urlTransWorker = "https://ggtrans.abcworker.workers.dev/";

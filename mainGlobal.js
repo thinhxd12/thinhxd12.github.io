@@ -293,7 +293,7 @@ const renderCalendar = (data) => {
 
     let diffDay = (date.getTime() - endDay.getTime()) / 86400000;
     if (Math.floor(diffDay) > 0) {
-        document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="20px">';
+        document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="25px">';
     } else document.getElementById('dateProgress').innerHTML = `
                       <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
                         <span class="dateProgressImg">
@@ -916,7 +916,7 @@ const renderFlashcard = (item, progress, row) => {
                     <h1>${item.text}</h1>
                     <p class="cardPhonetic">| ${item.phonetic} |</p>
                     <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
-                ${item.numb == 0 ? '<img src="./img/cup.png" width="20px">' : item.numb}
+                        ${item.numb}
                     </span>
         
           ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
@@ -937,7 +937,7 @@ const renderFlashcard = (item, progress, row) => {
     if (item.numb > 0) {
         setTimeout(() => {
             document.getElementById("indicateFlip").innerHTML = `
-      ${newNumb == 0 ? '<img src="./img/cup.png" width="20px">' : newNumb}
+      ${newNumb == 0 ? '<img src="./img/cup.png" width="25px">' : newNumb}
       `;
         }, 1000)
     }

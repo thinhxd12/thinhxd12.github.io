@@ -590,6 +590,12 @@ body {
   background-repeat: no-repeat;
 }
 
+.indicateFlip img{
+  position: absolute;
+  top: -1px;
+  left: 11px;
+}
+
 .indexFlip {
   position: absolute;
   bottom: 3px;

@@ -1,11 +1,11 @@
 
 const proxyArr = [
-  "https://mywebapp.abcworker.workers.dev/",
-  "https://cors-proxy.fringe.zone/",
-  "https://api.codetabs.com/v1/proxy?quest=",
-  "none"
+  { link: "https://mywebapp.abcworker.workers.dev/", active: true },
+  { link: "https://cors-proxy.fringe.zone/", active: false },
+  { link: "https://api.codetabs.com/v1/proxy?quest=", active: false },
+  { link: "none", active: false }
 ]
-let urlCors = proxyArr[0];
+let urlCors = proxyArr[0].link;
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbyLGSgS2kd2i5gLEH-cfuAsOxgj7pFCu1qaFQEDCP11nXbBVViA4P-KP008NZ8r1d7G7g/exec'
 
@@ -113,24 +113,58 @@ $('#tomatoText').click(function (e) {
 });
 
 let historyImgArr = [];
+// const fetchRenderImgBackground = () => {
+//   $.get(urlCors + mainPageUrl, function (html) {
+//     let newLink = $(html).find('.also__list li:nth-child(3) a').attr('href');
+//     $.get(urlCors + newLink, function (html) {
+//       let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
+//       let imgDescGet = $(html).find(".main-description__wrapper")[0]
+
+//       historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
+//       if (historyImgArr.length > 4) {
+//         historyImgArr.pop();
+//       }
+
+//       $('#imgSrc').attr('srcset', imgSrcGet);
+//       $('#imgSrcBlurred').attr('srcset', imgSrcGet);
+//       $('#imgDesc').html(imgDescGet);
+//     });
+//   });
+// }
+
 const fetchRenderImgBackground = () => {
-  $.get(urlCors + mainPageUrl, function (html) {
-    let newLink = $(html).find('.also__list li:nth-child(1) a').attr('href');
-    $.get(urlCors + newLink, function (html) {
-      let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
-      let imgDescGet = $(html).find(".main-description__wrapper")[0]
+  fetch(urlCors + mainPageUrl).then(res => res.text()).then(link => {
+    let regLink = new RegExp('<li class="also__item">\n<a href="(.+?)">', 'i')
+    let newLink = regLink.exec(link)[1]
+    fetch(urlCors + newLink).then(res => res.text())
+      .then(data => {
+        let regMainImg = new RegExp('<div class="main-image">\n<img srcset="((.|\n)+?) 800w,', 'i');
+        let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
+        let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
+        let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
+        let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
+        let regMainDesc = new RegExp('<div class="main-description__text-content">((.|\n)+?)</div>', 'i');
 
-      historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
-      if (historyImgArr.length > 4) {
-        historyImgArr.pop();
-      }
+        let imgSrcGet = regMainImg.exec(data)[1]
 
-      $('#imgSrc').attr('srcset', imgSrcGet);
-      $('#imgSrcBlurred').attr('srcset', imgSrcGet);
-      $('#imgDesc').html(imgDescGet);
-    });
-  });
+        let imgDateGet = regMainDate.exec(data)[0]
+        let imgTitleGet = regMainTitle.exec(data)[0]
+        let imgAttGet = regMainAtt.exec(data)[0]
+        let imgAuthorGet = regMainAuthor.exec(data)[0]
+        let imgTextGet = regMainDesc.exec(data)[0]
+        let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
 
+
+        historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
+        if (historyImgArr.length > 4) {
+          historyImgArr.pop();
+        }
+        $('#imgSrc').attr('src', imgSrcGet);
+        $('#imgSrcBlurred').attr('src', imgSrcGet);
+        $('#imgDesc').html(imgDescGet);
+
+      })
+  })
 }
 
 let slideImgIndex = 0;

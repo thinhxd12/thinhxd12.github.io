@@ -846,6 +846,10 @@ const handleArchivedItem = (id, text) => {
 
 const playTTSwithValue = (val, render = true) => {
     let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let newText = val.length > 4 ? val.slice(0, -2) : val;
+    const regId = new RegExp('<div id="ring-links-box">((.|\n)+?)</div>', 'gi');
+    const regText = new RegExp(`(${newText}\\w*)`, 'gi');
+
     $.get(urlEngAmerica, function (html) {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
@@ -856,8 +860,14 @@ const playTTSwithValue = (val, render = true) => {
             if (render) {
                 let headword = $(html).find('.webtop-g').html();
                 // let meaning = $(html).find('#entryContent').html();
-                let meaning = $(html).find('.sn-gs').html();
-                renderExplain(val, headword, meaning);
+
+                let meaning = $(html).find('.sn-gs').each(function () {
+                    $(this).html($(this).html().replace(regId, ''));
+                    $('span.x', this).each(function () {
+                        $(this).html($(this).text().replace(regText, `<b style="color:#f90000">$1</b>`));
+                    });
+                }).html()
+                renderExplain(headword, meaning);
             }
         }
         else {
@@ -951,7 +961,7 @@ const flipFlashCard = () => {
     flipCardInner.classList.toggle("flipMyCard");
 };
 
-const renderExplain = (text, headword, meaning) => {
+const renderExplain = (headword, meaning) => {
     const contentBody = document.getElementById("contentBody");
     contentBody.innerHTML = `
     <div class="explainContainer">
@@ -967,11 +977,11 @@ const renderExplain = (text, headword, meaning) => {
     </div>  
       `;
 
-    let newText = text.length > 4 ? text.slice(0, -2) : text;
-    const re = new RegExp(`(${newText}\\w*)`, 'gi');
-    $("span.x").each(function () {
-        $(this).html($(this).text().replace(re, `<b style="color:#f90000">$1</b>`));
-    });
+    // let newText = text.length > 4 ? text.slice(0, -2) : text;
+    // const re = new RegExp(`(${newText}\\w*)`, 'gi');
+    // $("span.x").each(function () {
+    //     $(this).html($(this).text().replace(re, `<b style="color:#f90000">$1</b>`));
+    // });
 };
 
 const renderExplainGG = (headword, meaning) => {
@@ -1166,8 +1176,8 @@ const renderProxySelect = () => {
         ${proxyArr.map((item, index) => {
         return `<div class="transItemContent">
                     <label>
-                    <input type="checkbox" ${index == 0 ? 'checked' : ''} onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
-                        ${item}
+                    <input type="checkbox" ${item.active ? 'checked' : ''} onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
+                        ${item.link}
                     </label>
                 </div>`
     }).join('')
@@ -1181,7 +1191,8 @@ const handleThisCheckbox = (e) => {
 
 const selectProxy = () => {
     let val = document.querySelector('.translateInputCheck:checked').value;
-    val == proxyArr.length - 1 ? urlCors = '' : urlCors = proxyArr[val];
+    val == proxyArr.length - 1 ? urlCors = '' : urlCors = proxyArr[val].link;
+    proxyArr.forEach((item, index) => index != val ? item.active = false : item.active = true)
     handleDelete();
 }
 

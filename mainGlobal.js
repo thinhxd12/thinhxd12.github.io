@@ -719,6 +719,9 @@ const setWordListHandy = async () => {
     $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
+    startHandler();
+    $('.toogleItemRight').removeClass('toogleItemShowRight');
+    $('.toogleItemRight').addClass('toogleItemShowRight');
 }
 
 const handleToggleSwitchMoon = () => {

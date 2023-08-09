@@ -58,7 +58,7 @@ const fetchStartupData = () => {
     })
 }
 
-fetchStartupData();
+// fetchStartupData();
 
 const autocomplete = (inp) => {
     var currentFocus;

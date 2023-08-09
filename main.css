@@ -1774,6 +1774,68 @@ div#contentBody {
   display: flex;
 }
 
+/* -----------------------rssCard------------- */
+.rssCard {
+  background: #f0e9ce;
+  font-family: "nyt-cheltenham";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 11px;
+  border-radius: 6px;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 6px;
+  padding: 6px;
+  display: flex;
+}
+
+.rssCardImg {
+  border-radius: 6px;
+  display: block;
+  height: 150px;
+  min-width: 150px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.rssCardText {
+  padding-left: 6px;
+}
+
+.rssCardText a {
+  text-decoration: none;
+  color: #000;
+}
+
+.rssCardTitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.rssBtnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rssBtn {
+  background: none;
+  border: 0;
+  outline: 0;
+  margin-right: 9px;
+  cursor: pointer;
+}
+
+.rssBtn:hover img {
+  transform: scale(1.1);
+}
+
+.rssBtn img {
+  width: 18px;
+  height: 18px;
+  transition: all 0.3 ease;
+}
+
 /* ----------responsive------------ */
 @media only screen and (max-width: 618px) {
   .imageView,

@@ -337,3 +337,136 @@ const copyQuote = () => {
     $('#clipboardBtn').html('<img src="./img/clipboard.png" width="16">')
   })
 }
+
+const renderRssNews = () => {
+  document.getElementById('quoteBody').innerHTML = `
+  <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
+  <div class="explainHeader">
+  <button class="closeBtn" onclick="handleDeleteQuote()">
+     <img src="./img/close_circle.png" width="15" height="15">
+  </button>
+  </div>
+  <div class="explainBody">
+  <div class="rssBtnContainer">
+    <button class="rssBtn" onclick="renderRssNYT()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEVHcEwYGBgTExMSEhITExMSEhISEhISEhISEhISEhIaGhoSEhISEhISEhIUFBQSEhIUFBQTExMSEhISEhKEQ9J+AAAAFHRSTlMADkynKmHI4tT/BvG6ITywGYyZe8Y/Bk0AAADpSURBVHgBxdLBbkURFIXhBbBwgPd/10au2xbttP0GJvtPZAf8EyGVxkkY67wya2BpsAuenGIyAYCje/a55ZdoI0m5BZmnIzCkK8lHfvJ1CyS9BoRulovBpvoOPK0FwBTrXMo46I4RFYBhIHLGTSR66EZ2oFbcLDmy5a9BJ30NK5ADJx3JAvEKcmTDoc3JCjLniV0i2VYwa6+xcyTVO8BIAMIV2BWsLeS5JGMO34JHnVuSZXbteQWpHI81NWUwVSHU8VrCc7J1fT/PqLHRXJIqliQHDoObiEuOXNZdF9351gV+JnsppRv8rQ8S0A3fpn5NfAAAAABJRU5ErkJggg==">  
+    </button>
+    <button class="rssBtn" onclick="renderRssNikkei()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAdr8AdL8ggcQAbrw6jMlLk8xcnNC71etyqNbo8/qRut4AZrna6vX///+nyeXN4PDis/X7AAABQklEQVR4AWOgChBgYGQUEAAhQSBgYGBUZhARUnQUCHAUcAhNUhFgYK4wsLRaONsmabal671n6QYMzG+DLa0Wz/5hdPqo6W9jkEDppJ1Wi8+9Fvq+WPRYIkigjNPGavG9yUK3JovOeggWMD0D1LJ80+l3W38bggWEc60WT96ZdNjS9aMCSGCpgIVE42ORB49FH/3/4WXAwGAIcpgBoyEQGRsK43Q9EDAawPmMgSDSYiFcQOiqAFCVzWW4gN11A0ZjYWFDY2OoLtu7jIJ/b26fvfbuYzCfubd3sd21OPvbr9pvgZVwn9wz2e4G9/7L1huugwVE7nFdM5p73/52zl2IgN3du/c3b3nbf+G+MliAUfaQUy1Xcm7/lXvbwALMa5uFfV/dvb/n9t87EBVAlwswsygLMJo4Qz0B8o2gACMQClInZgE033H1ovn+2QAAAABJRU5ErkJggg==">  
+    </button>
+    <button class="rssBtn" onclick="renderRssSCMP()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAjUlEQVR4AWP4Q2NAZQtGLRi14O/fv/8pBkBDaGQBAhCy4PmK/6dY/5+VRUcnGCD6GXiDpXXi0RCDdMjEaSuJ88HTpUCzgHago2MwCxicGcSD0BGD94SpK6hlgRvQveiIwRvoA1pbMGrBqAWjFgz+ouIE3AJvBulwBhlUxOBPrA8oBzSvcIZYnTxqwagFAH35Im3PxoFeAAAAAElFTkSuQmCC">  
+    </button>
+  </div>
+  </div>`
+}
+
+const renderRssNYT = () => {
+  const nytRss = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
+  $.get(urlCors + nytRss, function (data) {
+    // console.log(data);
+    $(data).find("item").each(function () {
+      const el = $(this);
+      let img = el.find('media\\:content, content').attr('url')
+      let link = el.find("link").text();
+      let title = el.find("title").text();
+      let pubDate = el.find("pubDate").text();
+      let description = el.find("description").text();
+
+      let dt1 = new Date(pubDate);
+      let dt2 = new Date(new Date().toISOString());
+
+      let diff = (dt2.getTime() - dt1.getTime());
+      let hours = Math.floor(diff / (1000 * 60 * 60));
+      let diffRes = hours + 1 + ' hours ago';
+      if (hours >= 24) {
+        let days = Math.floor(hours / 24);
+        diffRes = days + ' day ago'
+      }
+
+      document.getElementById('contentBody').innerHTML += `
+        <div class="rssCard">
+          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`: ''}
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
+            </div>
+        </div>
+      `
+    })
+  })
+}
+
+
+const renderRssNikkei = () => {
+  const nytRss = 'https://asia.nikkei.com/rss/feed/nar'
+  $.get(urlCors + nytRss, function (data) {
+    // console.log(data);
+    $(data).find("item").each(function () {
+      const el = $(this);
+      let link = el.find("link").text();
+      let title = el.find("title").text();
+      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
+        .then(html => {
+          document.getElementById('contentBody').innerHTML += `
+            <div class="rssCard">
+                ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                  </div>`: ''}
+                <div class="rssCardText">
+                  <a href="${link}" target="_blank">
+                    <p class="rssCardTitle">${title}</p>
+                    <p class="rssCardDescription">${html.description}</p>
+                  </a>
+                </div>
+            </div>
+        `
+        })
+
+    })
+  })
+
+}
+
+const renderRssSCMP = () => {
+  const nytRss = 'https://www.scmp.com/rss/91/feed'
+  $.get(urlCors + nytRss, function (data) {
+    // console.log(data);
+    $(data).find("item").each(function () {
+      const el = $(this);
+      let img = el.find("enclosure").last().attr('url')
+      let link = el.find("link").text();
+      let title = el.find("title").text();
+      let pubDate = el.find("pubDate").text();
+      let description = el.find("description").text();
+
+      let dt1 = new Date(pubDate);
+      let dt2 = new Date(new Date().toISOString());
+
+      let diff = (dt2.getTime() - dt1.getTime());
+      let hours = Math.floor(diff / (1000 * 60 * 60));
+      let diffRes = hours + 1 + ' hours ago';
+      if (hours >= 24) {
+        let days = Math.floor(hours / 24);
+        diffRes = days + ' day ago'
+      }
+
+      document.getElementById('contentBody').innerHTML += `
+        <div class="rssCard">
+          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`: ''}
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
+            </div>
+        </div>
+      `
+    })
+  })
+}

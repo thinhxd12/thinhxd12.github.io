@@ -320,7 +320,7 @@ const renderHistorySlide = (numb) => {
         ${historyTableData.map((item, index) => {
         return `
                 <div class="tableItem">
-                  <span  ${item.fromD ? `class="term" onclick="commitNewWork(${item.row},${numb})"` : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`}>${item.row} - ${item.row + 49}</span>
+                  <span  ${item.fromD ? `class="term" onclick="commitNewWork(${item.row},${numb})"` : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`}>${item.row} - ${item.row + 199}</span>
                   ${item.fromD ? `<span class="desc">
                     <span style="width: 90px;">${item.fromD}</span>
                     <span>${item.toD}</span>

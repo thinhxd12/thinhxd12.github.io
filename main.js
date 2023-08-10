@@ -365,6 +365,12 @@ const renderRssNYT = () => {
   const nytRss = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
   $.get(urlCors + nytRss, function (data) {
     // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
     $(data).find("item").each(function () {
       const el = $(this);
       let img = el.find('media\\:content, content').attr('url')
@@ -406,6 +412,12 @@ const renderRssNikkei = () => {
   const nytRss = 'https://asia.nikkei.com/rss/feed/nar'
   $.get(urlCors + nytRss, function (data) {
     // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
     $(data).find("item").each(function () {
       const el = $(this);
       let link = el.find("link").text();
@@ -428,13 +440,18 @@ const renderRssNikkei = () => {
 
     })
   })
-
 }
 
 const renderRssSCMP = () => {
   const nytRss = 'https://www.scmp.com/rss/91/feed'
   $.get(urlCors + nytRss, function (data) {
     // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
     $(data).find("item").each(function () {
       const el = $(this);
       let img = el.find("enclosure").last().attr('url')

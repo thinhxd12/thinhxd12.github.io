@@ -357,13 +357,18 @@ const renderRssNews = () => {
     <button class="rssBtn" onclick="renderRssSCMP()">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAjUlEQVR4AWP4Q2NAZQtGLRi14O/fv/8pBkBDaGQBAhCy4PmK/6dY/5+VRUcnGCD6GXiDpXXi0RCDdMjEaSuJ88HTpUCzgHago2MwCxicGcSD0BGD94SpK6hlgRvQveiIwRvoA1pbMGrBqAWjFgz+ouIE3AJvBulwBhlUxOBPrA8oBzSvcIZYnTxqwagFAH35Im3PxoFeAAAAAElFTkSuQmCC">  
     </button>
+    <button class="rssBtn" onclick="renderRssAlJaz()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEX6kAD8uFz6lAr7oSj8u2L7pzT92qn////+4777nBv/9ej9yYT8wG790pf6lQz+4bv+79r8xHj+8+P7qjv+37b9zo/9z5H+6s7916P9zIn7rUL93bD8tFP/+fH7rkb6mRX905v8xnz7pC4m+LyJAAAA30lEQVR4AazSNRLDUAAD0TXKzMz2/Q+ZPn/CefWOKvF/ls1Tjstzns8L4oVAPBdG4gnFCUp5JMuLsrKQxwOW6qaWg3gkUesiygdFqCDschCKMdGoJih7GEaEqReEQzHRMtMF3FvERJGsRNgSMgLZtU8xbruD1NP6RgD7aHWAI6zYnAjCgYopnvFAoRnM0nJwalKPeswgjlCJSkCC0AhCSRNzD1oRlRHU7pxcTopSwZbIvF4OWzOyqYnHSBUGPyaRo73yJbVgkuQzIB7yvCTTJRqHR5IKielxwClN3EZvAAAI0Arm0fKq0AAAAABJRU5ErkJggg==">  
+    </button>
+    
+
+
   </div>
   </div>`
 }
 
 const renderRssNYT = () => {
-  const nytRss = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
-  $.get(urlCors + nytRss, function (data) {
+  $.get(urlCors + 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -409,8 +414,7 @@ const renderRssNYT = () => {
 
 
 const renderRssNikkei = () => {
-  const nytRss = 'https://asia.nikkei.com/rss/feed/nar'
-  $.get(urlCors + nytRss, function (data) {
+  $.get(urlCors + 'https://asia.nikkei.com/rss/feed/nar', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -443,8 +447,7 @@ const renderRssNikkei = () => {
 }
 
 const renderRssSCMP = () => {
-  const nytRss = 'https://www.scmp.com/rss/91/feed'
-  $.get(urlCors + nytRss, function (data) {
+  $.get(urlCors + 'https://www.scmp.com/rss/91/feed', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -484,6 +487,56 @@ const renderRssSCMP = () => {
             </div>
         </div>
       `
+    })
+  })
+}
+
+const renderRssAlJaz = () => {
+  $.get(urlCors + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
+    // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
+    $(data).find("item").each(function () {
+      const el = $(this);
+      let img = el.find("enclosure").last().attr('url')
+      let link = el.find("link").text();
+      let title = el.find("title").text();
+      let pubDate = el.find("pubDate").text();
+      let description = el.find("description").text();
+
+      let dt1 = new Date(pubDate);
+      let dt2 = new Date(new Date().toISOString());
+
+      let diff = (dt2.getTime() - dt1.getTime());
+      let hours = Math.floor(diff / (1000 * 60 * 60));
+      let diffRes = hours + 1 + ' hours ago';
+      if (hours >= 24) {
+        let days = Math.floor(hours / 24);
+        diffRes = days + ' day ago'
+      }
+
+      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
+        .then(html => {
+          document.getElementById('contentBody').innerHTML += `
+            <div class="rssCard">
+                ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                  </div>`: ''}
+                <div class="rssCardText">
+                  <p class="rssCardDate">${diffRes}</p>
+                  <a href="${link}" target="_blank">
+                    <p class="rssCardTitle">${title}</p>
+                  </a>
+                  <p class="rssCardDescription">${description}</p>
+                </div>
+            </div>
+        `
+        })
+
+
     })
   })
 }

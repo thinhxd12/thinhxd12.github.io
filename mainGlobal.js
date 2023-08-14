@@ -193,7 +193,7 @@ const renderCalendar = (data) => {
     // const endDay = new Date("2021/07/09");
     const startDay = new Date(data[0].date);
     const endDay = new Date(data[data.length - 1].date);
-    todayData = data.find(item => item.date === formatDate(date))
+    todayData = data.find(item => item.date === formatDate(date));
     // console.log('todayData', data);
     const weekDays = [
         "Sunday",
@@ -257,11 +257,14 @@ const renderCalendar = (data) => {
             item["class"] += " todayDay";
         }
 
-        if (
-            item.date === startDay.getDate() &&
-            item.month === startDay.getMonth()
-        ) {
+        if (item.date === startDay.getDate() && item.month === startDay.getMonth()) {
             item["class"] += " startDay";
+        }
+
+        if (item.date >= startDay.getDate() && item.month === startDay.getMonth() && item.date <= endDay.getDate()) {
+            item["indicate"] = true;
+            item["time1"] = data[item.date - startDay.getDate()].time1
+            item["time2"] = data[item.date - startDay.getDate()].time2
         }
 
         if (item.date === endDay.getDate() && item.month === endDay.getMonth()) {
@@ -273,6 +276,7 @@ const renderCalendar = (data) => {
 
     // renderCalendar---------------
     monthDateArr = chunk(monthDateArr, 7);
+    // console.log(monthDateArr);
     const htmlDate = document.getElementById("htmlDate");
     htmlDate.innerHTML = '';
     for (let i = 0; i < monthDateArr.length; i++) {
@@ -281,7 +285,12 @@ const renderCalendar = (data) => {
         ${monthDateArr[i]
                 .map((item, index) => {
                     return `
-              <td><span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" >${item.date}</span></td>
+                <td>
+                    <span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" >${item.date}
+                    ${item.indicate ? `<span class="dayIndicate1 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>
+                    <span class="dayIndicate2 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>` : ''}
+                    </span>
+                </td>
             `;
                 })
                 .join("")}

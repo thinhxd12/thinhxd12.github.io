@@ -1048,11 +1048,12 @@ body {
   text-align: center;
 }
 
-.weekDay td span {
+.weekDay td > span {
   z-index: 1;
   display: block;
   width: 52px;
   cursor: default;
+  position: relative;
 }
 
 .sundayDay {
@@ -1060,41 +1061,66 @@ body {
   font-weight: bold;
 }
 
-.weekDay .startDay,
-.weekDay .endDay,
-.weekDay .todayDay {
-  position: relative;
-}
-
 /* fix */
 .weekDay .startDay::after,
 .weekDay .endDay::after {
   content: "";
   position: absolute;
-  top: -6px;
-  left: 13.5px;
+  top: -4px;
+  left: 15px;
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid #ac0000;
 }
 
 .weekDay .todayDay::before {
   content: "";
-  display: block;
   position: absolute;
-  top: -5px;
-  left: 14px;
+  top: -4px;
+  left: 15px;
   display: block;
   background-image: linear-gradient(to top left, #ac0000, #000);
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   z-index: -1;
 }
 .weekDay .todayDay {
   color: #fff;
+}
+
+.dayIndicate1,
+.dayIndicate2 {
+  display: inline-block;
+  position: absolute;
+  right: 11px;
+  bottom: 1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #070707b1;
+  box-shadow: 0px -5px 0px #070707b1, 0px -10px 0px #070707b1;
+}
+
+.complete1 {
+  background-color: #00d566;
+  box-shadow: 0px -5px 0px #070707b1, 0px -10px 0px #070707b1;
+}
+
+.complete2 {
+  background-color: #00d566;
+  box-shadow: 0px -5px 0px #00d566, 0px -10px 0px #070707b1;
+}
+
+.complete3 {
+  background-color: #00d566;
+  box-shadow: 0px -5px 0px #00d566, 0px -10px 0px #00d566;
+}
+
+.dayIndicate2 {
+  right: 6px;
 }
 
 #todayReset {
@@ -1105,7 +1131,6 @@ body {
   background: #fafafa17;
   width: 380px;
   height: 45px;
-  /* border: 1px solid #17181a; */
   padding: 0 3px 6px 3px;
   border-radius: 3px;
 }

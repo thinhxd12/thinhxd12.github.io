@@ -948,7 +948,7 @@ body {
   bottom: 0;
   z-index: 2;
   background: url("./img/noise.png");
-  backdrop-filter: blur(27px) brightness(0.6);
+  backdrop-filter: blur(15px) brightness(0.6);
 }
 
 .calendarCardContent table {
@@ -1245,9 +1245,8 @@ body {
   display: flex;
   align-items: center;
   padding: 4px 6px;
-  color: #17181ac2;
+  color: #000;
   position: relative;
-  /* border: 1px solid #17181a; */
   background: #0707075c;
   cursor: pointer;
 }
@@ -1261,7 +1260,7 @@ body {
   width: 6px;
   height: 10px;
   position: absolute;
-  background: #0707075c;
+  background: #0707076c;
   left: 100%;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
@@ -1273,7 +1272,7 @@ body {
   align-items: center;
   padding: 3px 3px 3px 15px;
   cursor: default;
-  color: #17181a;
+  color: #000;
 }
 
 /* ------------searchInput------------ */
@@ -1775,7 +1774,7 @@ div#contentBody {
 }
 
 /* -----------------------rssCard------------- */
-.rssCardHeader{
+.rssCardHeader {
   position: sticky;
   top: 0;
 }

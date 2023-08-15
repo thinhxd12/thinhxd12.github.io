@@ -288,7 +288,7 @@ const renderCalendar = (data) => {
                 <td>
                     <span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" >${item.date}
                     ${item.indicate ? `<span class="dayIndicate1 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>
-                    <span class="dayIndicate2 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>` : ''}
+                    <span class="dayIndicate2 ${item.time2 ? 'complete' + Math.floor(item.time2 / 3) : ''}"></span>` : ''}
                     </span>
                 </td>
             `;
@@ -988,12 +988,6 @@ const renderExplain = (headword, meaning) => {
       </div>
     </div>  
       `;
-
-    // let newText = text.length > 4 ? text.slice(0, -2) : text;
-    // const re = new RegExp(`(${newText}\\w*)`, 'gi');
-    // $("span.x").each(function () {
-    //     $(this).html($(this).text().replace(re, `<b style="color:#f90000">$1</b>`));
-    // });
 };
 
 const renderExplainGG = (headword, meaning) => {

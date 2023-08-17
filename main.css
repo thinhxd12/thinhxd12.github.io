@@ -337,7 +337,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* overflow-y: scroll; */
   border-left: 1px solid #17181a;
   border-right: 1px solid #17181a;
 }
@@ -880,13 +879,13 @@ body {
   font-family: "Rubik", sans-serif;
   height: 100%;
   font-size: 12px;
-  color: #636363;
+  color: #070707b1;
   display: flex;
   flex-direction: column;
 }
 
 .calendarHeader {
-  height: 210px;
+  height: 250px;
   background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
@@ -900,10 +899,7 @@ body {
 }
 
 .calendarCardContent .weekTitle {
-  font-weight: lighter;
-  border-top: 1px solid #17181a;
-  border-bottom: 1px solid #17181a;
-  background: #0707075c;
+  border-bottom: 1px solid #17181a38;
 }
 
 .weekDate {
@@ -915,6 +911,7 @@ body {
   align-items: center;
   color: #fff;
   cursor: default;
+  text-shadow: 0px 2px 2px #000000d1;
 }
 
 .weekTitle td:first-of-type span {
@@ -952,10 +949,11 @@ body {
 }
 
 .calendarCardContent table {
-  height: 185px;
+  height: 171px;
   border-collapse: collapse;
   width: 100%;
   text-align: center;
+  background: #0707075c;
 }
 
 .topCalendarContent,
@@ -988,6 +986,7 @@ body {
   align-items: center;
   cursor: pointer;
   color: #ededed;
+  text-shadow: 0px 1px 2px #000000d1;
 }
 
 .dateContent:hover,
@@ -1022,6 +1021,7 @@ body {
   cursor: pointer;
   margin-top: 3px;
   color: #ededed;
+  text-shadow: 0px 1px 2px #000000d1;
 }
 
 .dateProgressContent span {
@@ -1044,8 +1044,12 @@ body {
 }
 
 .normalDay {
-  color: white;
+  color: #ffffffa3;
   text-align: center;
+}
+
+.todayWeekDay {
+  color: #fff;
 }
 
 .weekDay td > span {
@@ -1066,13 +1070,14 @@ body {
 .weekDay .endDay::after {
   content: "";
   position: absolute;
-  top: -4px;
-  left: 15px;
+  bottom: -3px;
+  right: 18px;
   display: block;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid #ac0000;
+  width: 15px;
+  height: 3px;
+  background: #ac0000;
+  border-radius: 2px;
+  box-shadow: 0px 1px 2px #000000d1;
 }
 
 .weekDay .todayDay::before {
@@ -1086,7 +1091,9 @@ body {
   height: 22px;
   border-radius: 50%;
   z-index: -1;
+  box-shadow: 0px 1px 2px #000000d1;
 }
+
 .weekDay .todayDay {
   color: #fff;
 }
@@ -1129,7 +1136,7 @@ body {
 
 .calendarItem {
   background: #fafafa17;
-  width: 380px;
+  width: 385px;
   height: 45px;
   padding: 0 3px 6px 3px;
   border-radius: 3px;
@@ -1192,7 +1199,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: calc(100% - 185px);
+  height: calc(100% - 172px);
   border-top: 1px solid #17181a8a;
 }
 
@@ -1210,17 +1217,17 @@ body {
   left: 0;
   width: 100%;
   display: flex;
-  margin-top: 6px;
+  margin-top: 8px;
   flex-direction: column;
   align-items: center;
 }
 
 .historyBtnContainer {
   position: absolute;
-  height: 115px;
+  height: 125px;
   width: 18px;
-  top: 10px;
-  right: 15px;
+  top: 7px;
+  right: 10px;
   z-index: 99;
   display: flex;
   flex-direction: column;
@@ -1248,7 +1255,7 @@ body {
 }
 
 .tableItem {
-  width: 380px;
+  width: 385px;
   display: flex;
   margin-bottom: 3px;
   justify-content: center;
@@ -1270,7 +1277,7 @@ body {
   display: flex;
   align-items: center;
   padding: 4px 6px;
-  color: #000;
+  color: #ffffff38;
   position: relative;
   background: #0707075c;
   cursor: pointer;
@@ -1295,7 +1302,7 @@ body {
   background-color: #fafafa17;
   display: flex;
   align-items: center;
-  padding: 3px 3px 3px 15px;
+  padding-left: 15px;
   cursor: default;
   color: #000;
 }

@@ -1,12 +1,3 @@
-function checkShortcuts(event) {
-    if (event.keyCode == 27) {
-        handleDelete();
-        const text_input = document.getElementById("searchInput");
-        text_input.focus();
-        return false;
-    }
-}
-document.onkeydown = checkShortcuts;
 
 const chunk = (array, size) =>
     array.reduce((acc, _, i) => {
@@ -249,6 +240,7 @@ const renderCalendar = (data) => {
             month: todaysMonth + 1,
         });
     }
+    console.log(todaysWeekDay);
 
     monthDateArr.map((item) => {
         item.month == date.getMonth() ? item["class"] = "normalDay" : item["class"] = '';
@@ -286,7 +278,7 @@ const renderCalendar = (data) => {
                 .map((item, index) => {
                     return `
                 <td>
-                    <span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : `${item.class}`}" >${item.date}
+                    <span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : (index == todaysWeekDay && item.class !== '' ? `todayWeekDay ${item.class}` : `${item.class}`)}" >${item.date}
                     ${item.indicate ? `<span class="dayIndicate1 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>
                     <span class="dayIndicate2 ${item.time2 ? 'complete' + Math.floor(item.time2 / 3) : ''}"></span>` : ''}
                     </span>

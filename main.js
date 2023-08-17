@@ -206,14 +206,41 @@ const showTab = (tab) => {
 }
 
 $(document).keydown(function (e) {
-  if (e.keyCode == 37) {
-    // fetchAndRenderMonthImg();
-    showTab('tab1');
-  }
-  if (e.keyCode == 39) {
-    fetchAndRenderCalendarData();
-    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-    showTab('tab2');
+  // console.log(e.keyCode);
+  // console.log($("#tab2").css('display') == 'none');
+  if ($(e.target).is('input,select,button')) return;
+  switch (e.keyCode) {
+    case 37:
+      showTab('tab1');
+      break;
+    case 39:
+      fetchAndRenderCalendarData();
+      $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+      showTab('tab2');
+      break;
+    case 38:
+      if ($("#tab1").css('display') == 'none') {
+        showSlides(slideIndex += 1);
+      }
+      break;
+    case 40:
+      if ($("#tab1").css('display') == 'none') {
+        if (slideIndex == dataHistory.length - 1) {
+          $('#calendarContent').html('');
+        }
+        showSlides(slideIndex += -1);
+      }
+      break;
+    case 27:
+      handleDelete();
+      $('#searchInput').focus();
+      break;
+    case 78:
+      fetchAndRenderMonthImg();
+      break;
+
+    default:
+      break;
   }
 });
 
@@ -360,9 +387,6 @@ const renderRssNews = () => {
     <button class="rssBtn" onclick="renderRssAlJaz()">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEX6kAD8uFz6lAr7oSj8u2L7pzT92qn////+4777nBv/9ej9yYT8wG790pf6lQz+4bv+79r8xHj+8+P7qjv+37b9zo/9z5H+6s7916P9zIn7rUL93bD8tFP/+fH7rkb6mRX905v8xnz7pC4m+LyJAAAA30lEQVR4AazSNRLDUAAD0TXKzMz2/Q+ZPn/CefWOKvF/ls1Tjstzns8L4oVAPBdG4gnFCUp5JMuLsrKQxwOW6qaWg3gkUesiygdFqCDschCKMdGoJih7GEaEqReEQzHRMtMF3FvERJGsRNgSMgLZtU8xbruD1NP6RgD7aHWAI6zYnAjCgYopnvFAoRnM0nJwalKPeswgjlCJSkCC0AhCSRNzD1oRlRHU7pxcTopSwZbIvF4OWzOyqYnHSBUGPyaRo73yJbVgkuQzIB7yvCTTJRqHR5IKielxwClN3EZvAAAI0Arm0fKq0AAAAABJRU5ErkJggg==">  
     </button>
-    
-
-
   </div>
   </div>`
 }

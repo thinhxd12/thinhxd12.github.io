@@ -207,7 +207,10 @@ const showTab = (tab) => {
 
 $(document).keydown(function (e) {
   // console.log(e.keyCode);
-  // console.log($("#tab2").css('display') == 'none');
+  if(e.keyCode ==27){
+    handleDelete();
+    $('#searchInput').focus();
+  }
   if ($(e.target).is('input,select,button')) return;
   switch (e.keyCode) {
     case 37:
@@ -230,10 +233,6 @@ $(document).keydown(function (e) {
         }
         showSlides(slideIndex += -1);
       }
-      break;
-    case 27:
-      handleDelete();
-      $('#searchInput').focus();
       break;
     case 78:
       fetchAndRenderMonthImg();

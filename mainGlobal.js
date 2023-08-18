@@ -335,7 +335,7 @@ const renderHistorySlide = (numb) => {
 
 const showSlides = (n) => {
     if (n > dataHistory.length - 1) {
-        slideIndex = dataHistory.length - 1
+        slideIndex = dataHistory.length
         setNextMonthTable();
         return;
     }
@@ -346,7 +346,7 @@ const showSlides = (n) => {
 }
 
 $('#historyTableBtnLeft').click(function (e) {
-    if (slideIndex == dataHistory.length - 1) {
+    if (slideIndex == dataHistory.length) {
         $('#calendarContent').html('');
     }
     showSlides(slideIndex += -1);

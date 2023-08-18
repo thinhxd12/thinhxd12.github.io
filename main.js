@@ -207,7 +207,7 @@ const showTab = (tab) => {
 
 $(document).keydown(function (e) {
   // console.log(e.keyCode);
-  if(e.keyCode ==27){
+  if (e.keyCode == 27) {
     handleDelete();
     $('#searchInput').focus();
   }
@@ -228,7 +228,7 @@ $(document).keydown(function (e) {
       break;
     case 40:
       if ($("#tab1").css('display') == 'none') {
-        if (slideIndex == dataHistory.length - 1) {
+        if (slideIndex == dataHistory.length) {
           $('#calendarContent').html('');
         }
         showSlides(slideIndex += -1);

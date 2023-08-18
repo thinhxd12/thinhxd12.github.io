@@ -195,7 +195,14 @@ const showPreviousSlice = () => {
 
 
 $('.tabButton').click(function (e) {
-  showTab(this.name)
+  if (this.name == 'tab1') {
+    showTab('tab1');
+    setTimeout(() => {
+      $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+      $('.toogleItemLeft').addClass('toogleItemShowLeft');
+    }, 500);
+  }
+  else showTab(this.name)
 });
 
 const showTab = (tab) => {
@@ -215,6 +222,10 @@ $(document).keydown(function (e) {
   switch (e.keyCode) {
     case 37:
       showTab('tab1');
+      setTimeout(() => {
+        $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+        $('.toogleItemLeft').addClass('toogleItemShowLeft');
+      }, 500);
       break;
     case 39:
       fetchAndRenderCalendarData();

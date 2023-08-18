@@ -213,6 +213,8 @@ const renderCalendar = (data) => {
     document.getElementById("calendarDay").innerHTML = weekDays[todaysWeekDay];
     document.getElementById("calendarMonth").innerHTML = monthDays[todaysMonth] + " " + todaysYear;
     $('.dateProgressDiv').html(`${data[0].startIndex1 + 1} <span>&#8226;</span> ${data[1].startIndex2 + 50}`);
+    $('div.weekDate').eq(todaysWeekDay).css('color', '#fff');
+    $('div.weekDate').eq(todaysWeekDay).css('text-shadow', '0px 2px 2px #000000d1');
 
     // monthImg(todaysMonth + 1);
 

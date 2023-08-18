@@ -909,9 +909,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #ffffff38  ;
   cursor: default;
-  text-shadow: 0px 2px 2px #000000d1;
 }
 
 .weekTitle td:first-of-type span {
@@ -1044,7 +1043,7 @@ body {
 }
 
 .normalDay {
-  color: #ffffffa3;
+  color: #ffffff38;
   text-align: center;
 }
 
@@ -1063,7 +1062,6 @@ body {
 .weekDay td > div > span {
   cursor: default;
   position: relative;
-  text-shadow: 0px 1px 1px #000000d1;
 }
 
 .sundayDay {
@@ -1079,7 +1077,7 @@ body {
   margin-top: -1px;
   width: 12px;
   height: 3px;
-  background: #cbcbcb;
+  background: #ffffff38;
   border-radius: 2px;
 }
 

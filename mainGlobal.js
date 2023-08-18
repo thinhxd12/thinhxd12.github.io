@@ -240,7 +240,6 @@ const renderCalendar = (data) => {
             month: todaysMonth + 1,
         });
     }
-    console.log(todaysWeekDay);
 
     monthDateArr.map((item) => {
         item.month == date.getMonth() ? item["class"] = "normalDay" : item["class"] = '';

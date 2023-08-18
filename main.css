@@ -1052,16 +1052,18 @@ body {
   color: #fff;
 }
 .weekDay td > div {
+  min-height: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 }
 
 .weekDay td > div > span {
   cursor: default;
   position: relative;
+  text-shadow: 0px 1px 1px #000000d1;
 }
 
 .sundayDay {
@@ -1074,8 +1076,9 @@ body {
 .weekDay .endDay::after {
   content: "";
   display: block;
+  margin-top: -1px;
   width: 12px;
-  height: 2.5px;
+  height: 3px;
   background: #cbcbcb;
   border-radius: 2px;
 }
@@ -1083,7 +1086,7 @@ body {
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  top: -2px;
+  top: -4px;
   display: block;
   background-image: linear-gradient(to top left, #ac0000, #000);
   width: 22px;

@@ -278,10 +278,12 @@ const renderCalendar = (data) => {
                 .map((item, index) => {
                     return `
                 <td>
-                    <span ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : (index == todaysWeekDay && item.class !== '' ? `todayWeekDay ${item.class}` : `${item.class}`)}" >${item.date}
+                    <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : (index == todaysWeekDay && item.class !== '' ? `todayWeekDay ${item.class}` : `${item.class}`)}" >
+                    <span>${item.date}
                     ${item.indicate ? `<span class="dayIndicate1 ${item.time1 ? 'complete' + Math.floor(item.time1 / 3) : ''}"></span>
                     <span class="dayIndicate2 ${item.time2 ? 'complete' + Math.floor(item.time2 / 3) : ''}"></span>` : ''}
                     </span>
+                    </div>
                 </td>
             `;
                 })

@@ -1051,11 +1051,15 @@ body {
 .todayWeekDay {
   color: #fff;
 }
+.weekDay td > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-.weekDay td > span {
-  z-index: 1;
-  display: block;
-  width: 52px;
+.weekDay td > div > span {
   cursor: default;
   position: relative;
 }
@@ -1069,22 +1073,17 @@ body {
 .weekDay .startDay::after,
 .weekDay .endDay::after {
   content: "";
-  position: absolute;
-  bottom: -3px;
-  right: 18px;
   display: block;
-  width: 15px;
-  height: 3px;
-  background: #ac0000;
+  width: 12px;
+  height: 2.5px;
+  background: #cbcbcb;
   border-radius: 2px;
-  box-shadow: 0px 1px 2px #000000d1;
 }
 
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  top: -4px;
-  left: 15px;
+  top: -2px;
   display: block;
   background-image: linear-gradient(to top left, #ac0000, #000);
   width: 22px;
@@ -1102,11 +1101,11 @@ body {
 .dayIndicate2 {
   display: inline-block;
   position: absolute;
-  right: 11px;
+  right: -9px;
   bottom: 1px;
   width: 3px;
   height: 3px;
-  border-radius: 50%;
+  border-radius: 60%;
   background-color: #070707b1;
   box-shadow: 0px -5px 0px #070707b1, 0px -10px 0px #070707b1;
 }
@@ -1127,7 +1126,7 @@ body {
 }
 
 .dayIndicate2 {
-  right: 6px;
+  right: -13px;
 }
 
 #todayReset {

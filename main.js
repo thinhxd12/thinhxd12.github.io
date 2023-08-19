@@ -397,6 +397,12 @@ const renderRssNews = () => {
     <button class="rssBtn" onclick="renderRssAlJaz()">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEX6kAD8uFz6lAr7oSj8u2L7pzT92qn////+4777nBv/9ej9yYT8wG790pf6lQz+4bv+79r8xHj+8+P7qjv+37b9zo/9z5H+6s7916P9zIn7rUL93bD8tFP/+fH7rkb6mRX905v8xnz7pC4m+LyJAAAA30lEQVR4AazSNRLDUAAD0TXKzMz2/Q+ZPn/CefWOKvF/ls1Tjstzns8L4oVAPBdG4gnFCUp5JMuLsrKQxwOW6qaWg3gkUesiygdFqCDschCKMdGoJih7GEaEqReEQzHRMtMF3FvERJGsRNgSMgLZtU8xbruD1NP6RgD7aHWAI6zYnAjCgYopnvFAoRnM0nJwalKPeswgjlCJSkCC0AhCSRNzD1oRlRHU7pxcTopSwZbIvF4OWzOyqYnHSBUGPyaRo73yJbVgkuQzIB7yvCTTJRqHR5IKielxwClN3EZvAAAI0Arm0fKq0AAAAABJRU5ErkJggg==">  
     </button>
+    <button class="rssBtn" onclick="renderRssYahoo()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEVgAdJ8Ltrk1PeufujGpO7///+DOdxwG9b8+/7gzva0iOqZXOJmC9P07vzu5frbxvTAmu2jbOWqeOeUVOD49f1pENSWWOHo2/jr3/mlcOWRUOC7kuvWvvPYwvR2JNiIQd23jOrKq/DSuPJgXEy7AAAAsUlEQVR4Ad3SxRHDQBAEwDGImRnzD9Ijxiv/1Z9j3MWTvd70gdhXIhlCispxDWK6RAaETIvjtomNww4X9GHFgSeRj52AHWHEis1KjGRq7qXsyqaJNnKJChxk7HoD5bh1JVF9c62mHrc2E3Jx0nKsK6a7mqbga9SQE15RL6kFrjpp1E+/HONClkY53hLdxGm6ewIUojgFEnmA6aZajBs5xy0TYsMntRB7cVyt/+RQh6f6AanbCL/9Rz1bAAAAAElFTkSuQmCC">  
+    </button>
+    <button class="rssBtn" onclick="renderRssTheconversation()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVR4Ae1WA7AdMRRNbQxrM8krd5Pa7XjqjqtBjWFt22PWdke1bSWpbXNU5Ja76eJh36/+mVkF55y9uQHKRCaC8AmhrIJXrac4magYXisZPiAZPR58QRuyRjEyCfoCR+LCnVA2wWg3TXRTX59SvG4CV9xGLtepXlIyfAw6R3wdBe5A8UuM1tQN70UpbFx3QcNT/KKFi0lG7/h0fKJsvAzGVXI6OOiCfJGcbNDXay8u0LjAaFEz2bLoyr0eHR4qjrsct6wcKEFcrlOxoOR4uOZ472FiN2j+aCxYrL3ZSDFy/ovTFCGsqtU8I2uTNj8a6YLTZshTEjdzq24MewzJKQS4UJtW9Ah9dxQxNOcAU+eyFavgVfH0etOyuVHEuFyxYi7J6AvXMNu0LxiYa4zNepQmALfbAJmHJCerjQhMR2mCYHiB2wBeBhFYZRiYm7YIMDrbqQX7CxIcz3IWCkbXoTRBC252aWltJGzaz4jAc0iYqMX1YpZXc790aXHSC4m6Vcvqj4+GiQHRhx/3NjQ+XmGxUt8rjxnOXl+uQ0mKmsYOS54bBvY6p0cbj8XonuK0Rqri8JeaS/3Cz2lzY4qQbR4m3itGR12vWbNwosKwmAmb9NQczzx4V/k5veWzHb8VNt2iGJkRuh1DG0bWGKue46JnYaf03TQMx9FeNrn4I/G8cIHS/IbzKK9VskGVAmELRZ/ohfEBM+E8AScUCJEzAXXnccqiDZVNRn85ZjGyP+xYDsmsBRfpvgO/bLfx4qKNWznEd0A+oIyEFt0ERyc4A6KMhqpXuYSwyUwjSf4PfAZay1f064LokgAAAABJRU5ErkJggg==">  
+    </button>
   </div>
   </div>`
 }
@@ -571,6 +577,96 @@ const renderRssAlJaz = () => {
         })
 
 
+    })
+  })
+}
+
+const renderRssYahoo = () => {
+  $.get(urlCors + 'https://www.yahoo.com/news/rss', function (data) {
+    // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
+    $(data).find("item").each(function () {
+      const el = $(this);
+      let link = el.find("link").text();
+      let img = el.find('media\\:content, content').attr('url')
+      let title = el.find("title").text();
+      let pubDate = el.find("pubDate").text();
+
+      let dt1 = new Date(pubDate);
+      let dt2 = new Date(new Date().toISOString());
+
+      let diff = (dt2.getTime() - dt1.getTime());
+      let hours = Math.floor(diff / (1000 * 60 * 60));
+      let diffRes = hours + 1 + ' hours ago';
+      if (hours >= 24) {
+        let days = Math.floor(hours / 24);
+        diffRes = days + ' day ago'
+      }
+
+      document.getElementById('contentBody').innerHTML += `
+        <div class="rssCard">
+          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`: ''}
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+            </div>
+        </div>
+      `
+    })
+  })
+}
+
+const renderRssTheconversation = () => {
+  $.get(urlCors + 'https://theconversation.com/ca/articles.atom', function (data) {
+    // console.log(data);
+    document.getElementById('contentBody').innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete()">
+      <img src="./img/close_circle.png" width="15" height="15">
+    </button>
+    </div>`
+    $(data).find("entry").each(function () {
+      const el = $(this);
+      let link = el.find("link").attr('href');
+      let title = el.find("title").text();
+      let pubDate = el.find("published").text();
+      let description = el.find("summary").text();
+
+      let dt1 = new Date(pubDate);
+      let dt2 = new Date(new Date().toISOString());
+
+      let diff = (dt2.getTime() - dt1.getTime());
+      let hours = Math.floor(diff / (1000 * 60 * 60));
+      let diffRes = hours + 1 + ' hours ago';
+      if (hours >= 24) {
+        let days = Math.floor(hours / 24);
+        diffRes = days + ' day ago'
+      }
+
+      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
+        .then(html => {
+          document.getElementById('contentBody').innerHTML += `
+          <div class="rssCard">
+              ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                </div>`: ''}
+              <div class="rssCardText">
+                <p class="rssCardDate">${diffRes}</p>
+                <a href="${link}" target="_blank">
+                  <p class="rssCardTitle">${title}</p>
+                </a>
+                <p class="rssCardDescription">${description}</p>
+              </div>
+          </div>
+      `
+        })
     })
   })
 }

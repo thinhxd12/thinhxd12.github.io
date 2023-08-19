@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    let loginItem = sessionStorage.getItem("loginItem");
-    if (loginItem == 'success') {
+    let expItem = localStorage.getItem("expItem");
+    if (Date.now() - expItem * 1 < 86400000) {
         window.location.href = './main.html';
     }
 });
@@ -11,7 +11,8 @@ $('#loginForm').on('submit', function (e) {
         .then(res => res.json())
         .then(data => {
             if (data == 'success') {
-                sessionStorage.setItem('loginItem', 'success');
+                localStorage.setItem('loginItem', 'success');
+                localStorage.setItem('expItem', Date.now());
                 window.location.href = './main.html';
             }
             else {

@@ -9,6 +9,16 @@ let dataSheets = [];
 let dataHistory = [];
 let slideIndex = 1;
 
+let mongoFetchOp = {};
+let loginItem = localStorage.getItem("loginItem");
+if (loginItem !== null) {
+    mongoFetchOp = {
+        headers: {
+            'Authorization': `Bearer ${JSON.parse(loginItem).access_token}`
+        }
+    }
+}
+
 const getLocalSheetData = () => {
     let item = localStorage.getItem("sheetData")
     if (item !== null) {
@@ -28,7 +38,7 @@ const getRenderLocalHistoryData = () => {
 
 
 const getAllData = async (text) => {
-    const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`)
+    const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`, mongoFetchOp)
     return res.json();
 }
 
@@ -152,7 +162,7 @@ autocomplete(document.getElementById("searchInput"));
 
 
 const getTotalDoneWord = (text) => {
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`, mongoFetchOp)
         .then(res => res.json()).then(data => {
             $('#wordNum').html(data);
         })
@@ -416,6 +426,7 @@ const setNewHistoryItem = () => {
 
     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem';
     fetch(url, {
+        ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
@@ -464,6 +475,7 @@ const commitHistoryItem = (row, numb) => {
     let id = dataHistory.find(item => item.index == numb)._id
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}&row=${row}`;
     fetch(url, {
+        ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
@@ -618,6 +630,7 @@ const importSchedule = (reset = false) => {
     }
     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule'
     fetch(url, {
+        ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(data)
     }).then(res => res.json()).then(data => {
@@ -659,6 +672,7 @@ const updateScheduleItem = () => {
     }
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleItem?id=${todayData._id}`;
     fetch(url, {
+        ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(data)
     }).then(res => res.text()).then(data => {
@@ -694,7 +708,7 @@ const setWordList = async (item, num) => {
     autorunTime = 0;
     let index = num == 1 ? item.startIndex1 : item.startIndex2;
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
-    await fetch(url).then(res => res.json()).then(data => wordList = data);
+    await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.value = index;
     wordRow.blur();
     handleToggleSwitchSun();
@@ -718,7 +732,7 @@ const setWordListHandy = async () => {
     autorunTime = 0;
     let index = wordRow.value;
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
-    await fetch(url).then(res => res.json()).then(data => wordList = data);
+    await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.blur();
     $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
     handleToggleSwitchSun();
@@ -729,33 +743,17 @@ const setWordListHandy = async () => {
 }
 
 const handleToggleSwitchMoon = () => {
-    document
-        .getElementById("roundBtnBody")
-        .classList.add("roundBtnBodyToggle");
-    document
-        .getElementById("roundBtnDiv1")
-        .classList.add("roundBtnDiv1Toggle");
-    document
-        .getElementById("roundBtnDiv2")
-        .classList.add("roundBtnDiv2Toggle");
-    document
-        .getElementById("roundBtnDiv3")
-        .classList.add("roundBtnDiv3Toggle");
+    $("#roundBtnBody").addClass("roundBtnBodyToggle");
+    $("#roundBtnDiv1").addClass("roundBtnDiv1Toggle");
+    $("#roundBtnDiv2").addClass("roundBtnDiv2Toggle");
+    $("#roundBtnDiv3").addClass("roundBtnDiv3Toggle");
 };
 
 const handleToggleSwitchSun = () => {
-    document
-        .getElementById("roundBtnBody")
-        .classList.remove("roundBtnBodyToggle");
-    document
-        .getElementById("roundBtnDiv1")
-        .classList.remove("roundBtnDiv1Toggle");
-    document
-        .getElementById("roundBtnDiv2")
-        .classList.remove("roundBtnDiv2Toggle");
-    document
-        .getElementById("roundBtnDiv3")
-        .classList.remove("roundBtnDiv3Toggle");
+    $("#roundBtnBody").removeClass("roundBtnBodyToggle");
+    $("#roundBtnDiv1").removeClass("roundBtnDiv1Toggle");
+    $("#roundBtnDiv2").removeClass("roundBtnDiv2Toggle");
+    $("#roundBtnDiv3").removeClass("roundBtnDiv3Toggle");
 };
 
 let currentTimeout;
@@ -810,7 +808,7 @@ function stop() {
 const updateScheduleProgress = (id, val) => {
     // console.log('updateScheduleProgress');
     const url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleProgress?id=${id}&val=${val}`
-    fetch(url).then(res => res.json())
+    fetch(url, mongoFetchOp).then(res => res.json())
 }
 
 
@@ -832,7 +830,7 @@ const handleNextWord = () => {
 
 const handleCheckItem = (id) => {
     // console.log('check');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}`)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}`, mongoFetchOp)
         .then(res => res.json())
         .catch(err => console.log(err))
 }
@@ -840,7 +838,7 @@ const handleCheckItem = (id) => {
 const handleArchivedItem = (id, text) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`, mongoFetchOp)
         .then(res => res.json()).then(data => {
             console.log(text);
             getTotalDoneWord('passed');
@@ -1237,6 +1235,7 @@ const setEditWord = () => {
 
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}`;
     fetch(url, {
+        ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
@@ -1255,7 +1254,7 @@ const setEditWord = () => {
 
 const setDeleteWord = () => {
     // console.log('delete');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}`)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}`, mongoFetchOp)
         .then(res => res.json())
         .then(data => {
             $('#inputEditWord').val('');
@@ -1332,6 +1331,7 @@ const handleAddTextEnd = () => {
         data.numb = 210;
         let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText';
         fetch(url, {
+            ...mongoFetchOp,
             method: 'POST',
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {

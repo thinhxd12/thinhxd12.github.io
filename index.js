@@ -9,11 +9,21 @@ $('#loginForm').on('submit', function (e) {
     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/login'
     fetch(url, { method: 'POST', body: JSON.stringify({ string: $('#passInput').val() }) })
         .then(res => res.json())
-        .then(data => {
-            if (data == 'success') {
-                localStorage.setItem('loginItem', 'success');
-                localStorage.setItem('expItem', Date.now());
-                window.location.href = './main.html';
+        .then(string => {
+            if (string !== 'failed') {
+                const fetchOpRef = {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${string}`
+                    }
+                }
+                fetch('https://realm.mongodb.com/api/client/v2.0/auth/session', fetchOpRef).then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('loginItem', JSON.stringify(data));
+                        localStorage.setItem('expItem', Date.now());
+                        window.location.href = './main.html';
+                    })
             }
             else {
                 $('#passInput').addClass('myInputPassErr');

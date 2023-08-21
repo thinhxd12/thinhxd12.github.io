@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let expItem = localStorage.getItem("expItem");
-    if (Date.now() - expItem * 1 < 86400000) {
+    if (expItem !== null && Date.now() - expItem * 1 < 86400000) {
         window.location.href = './main.html';
     }
 });

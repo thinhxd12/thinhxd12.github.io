@@ -8,16 +8,48 @@ const chunk = (array, size) =>
 let dataSheets = [];
 let dataHistory = [];
 let slideIndex = 1;
-
 let mongoFetchOp = {};
-let loginItem = localStorage.getItem("loginItem");
-if (loginItem !== null) {
-    mongoFetchOp = {
-        headers: {
-            'Authorization': `Bearer ${JSON.parse(loginItem).access_token}`
+
+
+const getToken = () => {
+    let loginItem = sessionStorage.getItem("loginItem");
+    if(loginItem == null){
+        window.location.href = './index.html';
+    }
+    if (loginItem !== null) {
+        fetch('https://realm.mongodb.com/api/client/v2.0/auth/session', {
+            method: 'post',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${loginItem}`
+            }
+        }).then(res => res.json()).then(data => {
+            sessionStorage.removeItem('accessItem');
+            sessionStorage.setItem('accessItem', JSON.stringify(data));
+            getAccesToken();
+        })
+    }
+}
+
+getToken();
+
+const getAccesToken = () => {
+    let accessItem = sessionStorage.getItem("accessItem");
+    if (accessItem !== null) {
+        mongoFetchOp = {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(accessItem).access_token}`
+            }
         }
     }
 }
+
+setInterval(() => {
+    getToken();
+}, 1620000);
 
 const getLocalSheetData = () => {
     let item = localStorage.getItem("sheetData")
@@ -38,7 +70,7 @@ const getRenderLocalHistoryData = () => {
 
 
 const getAllData = async (text) => {
-    const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`, mongoFetchOp)
+    const res = await fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getAllData?collection=${text}`)
     return res.json();
 }
 
@@ -162,7 +194,7 @@ autocomplete(document.getElementById("searchInput"));
 
 
 const getTotalDoneWord = (text) => {
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`)
         .then(res => res.json()).then(data => {
             $('#wordNum').html(data);
         })
@@ -628,7 +660,7 @@ const importSchedule = (reset = false) => {
             time2: 0
         })
     }
-    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule'
+    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule';
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',

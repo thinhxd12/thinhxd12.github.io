@@ -252,7 +252,7 @@
   <!-- <script src="./abc.js"></script> -->
   <script>
     let expItem = localStorage.getItem("expItem");
-    if (Date.now() - expItem * 1 > 86400000) {
+    if (Date.now() > expItem * 1) {
       localStorage.clear();
       window.location.href = './index.html';
     }

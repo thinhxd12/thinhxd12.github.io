@@ -27,6 +27,13 @@
             </form>
         </div>
     </div>
+    <script>
+        let expItem = localStorage.getItem("expItem");
+        let loginItem = sessionStorage.getItem("loginItem");
+        if (loginItem !== null && Date.now() < expItem * 1) {
+            window.location.href = './main.html';
+        }
+    </script>
     <script src="./index.js"></script>
 </body>
 

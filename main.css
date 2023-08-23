@@ -124,16 +124,24 @@ body {
 .mainFixedContent {
   width: 100%;
   height: 100%;
-  background-image: url("./img/top-left-corner.png"),
-    url("./img/top-right-corner.png");
-  background-position: top left, top right;
-  background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px;
 }
 
 .mainFixedBottom {
   width: 100%;
   position: relative;
+}
+
+.headerOrnament {
+  width: 100%;
+  height: 90px;
+  position: absolute;
+  top: 0;
+  z-index: 33;
+  background-image: url("./img/top-left-corner.png"),
+    url("./img/top-right-corner.png");
+  background-position: top left, top right;
+  background-repeat: no-repeat;
+  background-size: 90px 90px, 90px 90px;
 }
 
 .mainFixedOrnament {
@@ -461,126 +469,80 @@ body {
   min-height: 150px;
 }
 
-.flip-card {
-  width: 300px;
-  height: 160px;
-  perspective: 1000px;
-  border-radius: 3px;
-  font-family: sans-serif;
-  font-weight: normal;
+.item {
+  position: relative;
+  width: 400px;
+  height: 185px;
+  overflow: hidden;
 }
 
-.cardName {
+.img-overlay {
   position: absolute;
-  font-size: 6px;
-  bottom: 6px;
-  left: 72px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #dfdbd5;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
 }
 
-.cardRow {
+.item-img {
   position: absolute;
-  font-size: 11px;
-  bottom: 6px;
-  right: 72px;
-  opacity: 0.45;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+  transform: scale(1.5);
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
+}
+
+.item-wrapper:hover .img-overlay,
+.item-hover .img-overlay {
+  top: -100%;
+}
+
+.item-wrapper:hover .item-img,
+.item-hover .item-img {
+  transform: scale(1);
+}
+
+.item-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #000;
+  z-index: 2;
+  padding: 18px 36px;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.flip-card-front-content {
+  padding: 2em;
+  text-align: center;
 }
 
 .flip-card-front-content h1 {
-  font-size: 1.5em;
+  font-size: 33px;
   margin: 0 auto 6px;
   font-family: "Roslindale";
   letter-spacing: 1.5px;
 }
 
-.cardPhonetic {
+.flip-card-front-content .cardPhonetic {
   font-size: 20px;
   margin: 0 auto;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateX(180deg);
-}
-
-.flipMyCard {
-  transform: rotateX(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-  background-color: #fff;
-  background-image: url("./img/frame.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-
-  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 3px;
-}
-
-.flip-card-front,
-.flip-card-back {
-  -webkit-font-smoothing: antialiased;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-}
-
-.flip-card-back {
-  transform: rotateX(180deg);
-}
-
-.flip-card-front-content,
-.flip-card-back-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.flip-card-front-content {
-  padding: 50px 10px 10px;
-}
-
-.flip-card-back-content {
-  padding: 20px 20px 15px 35px;
-}
-
-.flip-card-front-content::-webkit-scrollbar,
-.flip-card-back-content::-webkit-scrollbar {
-  display: none;
-}
-
-.cardMeaning {
-  font-family: "Roslindale";
-  letter-spacing: 1px;
-  font-size: 12.5px;
-  line-height: 18px;
-  text-align: left;
-  white-space: break-spaces;
-  font-weight: bold;
-}
-
-.flip-card-back-content img {
-  transform: rotate(18deg);
-  vertical-align: sub;
+  font-family: sans-serif;
+  font-weight: normal;
 }
 
 .indicateFlip {
@@ -620,16 +582,45 @@ body {
 .progressFlip {
   position: absolute;
   top: 18px;
-  left: 36px;
+  left: 45px;
   opacity: 72%;
   color: #c70000;
   font-size: 1rem;
   font-variant-numeric: diagonal-fractions;
 }
 
-.flashCardContainer {
-  width: 100%;
-  padding-top: 19px;
+.cardName {
+  position: absolute;
+  font-size: 6px;
+  bottom: 3px;
+  left: 6px;
+}
+
+.cardRow {
+  position: absolute;
+  font-size: 11px;
+  bottom: 0px;
+  right: 45px;
+  opacity: 0.45;
+}
+
+.flip-card-back-content img {
+  transform: rotate(18deg);
+  vertical-align: bottom;
+}
+
+.flip-card-back-content .cardRow {
+  color: #fff;
+}
+
+.cardMeaning {
+  font-family: "Roslindale";
+  letter-spacing: 1px;
+  font-size: 16px;
+  color: #fff;
+  text-align: left;
+  white-space: break-spaces;
+  font-weight: bold;
 }
 
 /* -----------input search----------- */
@@ -647,6 +638,7 @@ body {
 
 .myInputContainer .inputOrnamentCorner {
   height: 190%;
+  z-index: 5;
 }
 
 .myInput {
@@ -915,7 +907,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff38  ;
+  color: #ffffff38;
   cursor: default;
 }
 
@@ -1233,7 +1225,7 @@ body {
   height: 45px;
   width: 18px;
   bottom: 6px;
-  right:6px;
+  right: 6px;
   z-index: 99;
   display: flex;
   flex-direction: column;

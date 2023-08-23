@@ -13,7 +13,7 @@ let mongoFetchOp = {};
 
 const getToken = () => {
     let loginItem = sessionStorage.getItem("loginItem");
-    if(loginItem == null){
+    if (loginItem == null) {
         window.location.href = './index.html';
     }
     if (loginItem !== null) {
@@ -954,32 +954,60 @@ const renderFlashcard = (item, progress, row) => {
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
     cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`).substring(1);
     const flashCardContent = document.getElementById("flashCardContent");
+    // flashCardContent.innerHTML = `
+    //   <div class="flip-card">
+    //   <div class="flip-card-inner" id="flipCardInner">
+    //     <div class="flip-card-front">
+    //     <div class="flip-card-front-content">
+    //       ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
+    //                 <h1>${item.text}</h1>
+    //                 <p class="cardPhonetic">| ${item.phonetic} |</p>
+    //                 <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
+    //                     ${item.numb}
+    //                 </span>
+
+    //       ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
+    //       <p class="cardName">05/07/22</p>
+    //       </div>
+    //     </div>
+    //     <div class="flip-card-back">
+    //       <div class="flip-card-back-content">
+    //         <p class="cardMeaning">${cardMeaning}</p>
+    //         ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
+    //         <p class="cardName">05/07/22</p>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    // `;
+
     flashCardContent.innerHTML = `
-      <div class="flip-card">
-      <div class="flip-card-inner" id="flipCardInner">
-        <div class="flip-card-front">
-        <div class="flip-card-front-content">
-          ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
-                    <h1>${item.text}</h1>
-                    <p class="cardPhonetic">| ${item.phonetic} |</p>
-                    <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
-                        ${item.numb}
-                    </span>
-        
-          ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
-          <p class="cardName">05/07/22</p>
-          </div>
-        </div>
-        <div class="flip-card-back">
-          <div class="flip-card-back-content">
-            <p class="cardMeaning">${cardMeaning}</p>
-            ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
-            <p class="cardName">05/07/22</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    `;
+                <div class="item">
+                  <div class="item-wrapper">
+                    <img class="item-img" src="./img/vangogh.jpg">
+                    <div class="img-overlay">
+                    <div class="flip-card-front-content">
+                    ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
+                              <h1>${item.text}</h1>
+                              <p class="cardPhonetic">| ${item.phonetic} |</p>
+                              <span class="indicateFlip" id="indicateFlip" style="color: ${mangMau1[newNumb].color}">
+                                  ${item.numb}
+                              </span>
+                  
+                    ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
+                    <p class="cardName">05/07/22</p>
+                    </div>
+                    </div>
+                    <div class="item-back">
+                        <div class="flip-card-back-content">
+                            <p class="cardMeaning">${cardMeaning}</p>
+                            ${row ? `<p class="cardRow"><small>No.</small>${row}</p>` : ''}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+    
+    `
 
     if (item.numb > 0) {
         setTimeout(() => {
@@ -989,13 +1017,16 @@ const renderFlashcard = (item, progress, row) => {
         }, 1000)
     }
 
-    flipTimer1 = setTimeout(flipFlashCard, 4000);
-    flipTimer2 = setTimeout(flipFlashCard, 7000);
+    flipTimer1 = setTimeout(hoverIn, 4000);
+    flipTimer2 = setTimeout(hoverOut, 7000);
 };
 
-const flipFlashCard = () => {
-    const flipCardInner = document.getElementById('flipCardInner');
-    flipCardInner.classList.toggle("flipMyCard");
+const hoverIn = () => {
+    $('.item-wrapper').addClass('item-hover');
+};
+
+const hoverOut = () => {
+    $('.item-wrapper').removeClass('item-hover');
 };
 
 const renderExplain = (headword, meaning) => {

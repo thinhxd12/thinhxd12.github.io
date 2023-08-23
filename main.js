@@ -113,85 +113,62 @@ $('#tomatoText').click(function (e) {
 });
 
 let historyImgArr = [];
-// const fetchRenderImgBackground = () => {
-//   $.get(urlCors + mainPageUrl, function (html) {
-//     let newLink = $(html).find('.also__list li:nth-child(3) a').attr('href');
-//     $.get(urlCors + newLink, function (html) {
-//       let imgSrcGet = $(html).find('.main-image img:first').attr('srcset');
-//       let imgDescGet = $(html).find(".main-description__wrapper")[0]
 
-//       historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
-//       if (historyImgArr.length > 4) {
-//         historyImgArr.pop();
-//       }
+const fetchImgLinkArr = () => {
+  $.get(urlCors + mainPageUrl, function (html) {
+    historyImgArr = $(html).find('.also__item > a').map(function () {
+      return $(this).attr('href');
+    }).get();
+    fetchRenderImgBackground(0)
+  });
+}
 
-//       $('#imgSrc').attr('srcset', imgSrcGet);
-//       $('#imgSrcBlurred').attr('srcset', imgSrcGet);
-//       $('#imgDesc').html(imgDescGet);
-//     });
-//   });
-// }
+fetchImgLinkArr();
 
-const fetchRenderImgBackground = () => {
-  fetch(urlCors + mainPageUrl).then(res => res.text()).then(link => {
-    let regLink = new RegExp('<li class="also__item">\n<a href="(.+?)">', 'i')
-    let newLink = regLink.exec(link)[1]
-    fetch(urlCors + newLink).then(res => res.text())
-      .then(data => {
-        let regMainImg = new RegExp('<div class="main-image">\n<img srcset="((.|\n)+?) 800w,', 'i');
-        let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
-        let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
-        let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
-        let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
-        let regMainDesc = new RegExp('<div class="main-description__text-content">((.|\n)+?)</div>', 'i');
+const fetchRenderImgBackground = (numb) => {
+  fetch(urlCors + historyImgArr[numb]).then(res => res.text())
+    .then(data => {
+      let regMainImg = new RegExp('<div class="main-image">\n<img srcset="((.|\n)+?) 800w,', 'i');
+      let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
+      let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
+      let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
+      let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
+      let regMainDesc = new RegExp('<div class="main-description__text-content">((.|\n)+?)</div>', 'i');
 
-        let imgSrcGet = regMainImg.exec(data)[1]
+      let imgSrcGet = regMainImg.exec(data)[1]
+      let imgDateGet = regMainDate.exec(data)[0]
+      let imgTitleGet = regMainTitle.exec(data)[0]
+      let imgAttGet = regMainAtt.exec(data)[0]
+      let imgAuthorGet = regMainAuthor.exec(data)[0]
+      let imgTextGet = regMainDesc.exec(data)[0]
+      let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
 
-        let imgDateGet = regMainDate.exec(data)[0]
-        let imgTitleGet = regMainTitle.exec(data)[0]
-        let imgAttGet = regMainAtt.exec(data)[0]
-        let imgAuthorGet = regMainAuthor.exec(data)[0]
-        let imgTextGet = regMainDesc.exec(data)[0]
-        let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
+      $('#imgSrc').attr('src', imgSrcGet);
+      $('#imgSrcBlurred').attr('src', imgSrcGet);
+      $('#imgDesc').html(imgDescGet);
 
-
-        historyImgArr.unshift({ img: imgSrcGet, desc: imgDescGet });
-        if (historyImgArr.length > 4) {
-          historyImgArr.pop();
-        }
-        $('#imgSrc').attr('src', imgSrcGet);
-        $('#imgSrcBlurred').attr('src', imgSrcGet);
-        $('#imgDesc').html(imgDescGet);
-
-      })
-  })
+    })
 }
 
 let slideImgIndex = 0;
+
 const showImage = (n) => {
-  $('#imgSrc').attr('srcset', historyImgArr[n].img);
-  $('#imgSrcBlurred').attr('srcset', historyImgArr[n].img);
-  $('#imgDesc').html(historyImgArr[n].desc);
+  if (n > historyImgArr.length - 1) {
+    slideImgIndex = 0
+  }
+  if (n < 0) {
+    slideImgIndex = historyImgArr.length - 1;
+  }
+  fetchRenderImgBackground(slideImgIndex);
 }
 
-const showNextSlice = () => {
-  if (slideImgIndex == 0) { fetchRenderImgBackground() }
-  if (slideImgIndex > 0) {
-    slideImgIndex--;
-    showImage(slideImgIndex)
-  }
-}
-showNextSlice();
+$('.imgBtnLeft').click(function (e) {
+  showImage(slideImgIndex += -1);
+});
 
-const showPreviousSlice = () => {
-  if (historyImgArr.length > 1) {
-    slideImgIndex++;
-    if (slideImgIndex < historyImgArr.length) {
-      showImage(slideImgIndex);
-    }
-    else slideImgIndex = historyImgArr.length - 1;
-  }
-}
+$('.imgBtnRight').click(function (e) {
+  showImage(slideImgIndex += 1);
+});
 
 
 $('.tabButton').click(function (e) {

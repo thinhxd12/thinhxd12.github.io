@@ -568,7 +568,7 @@ body {
   animation: bounce 1.2s ease-out;
 }
 
-.indicateFlip img {
+.indicateFlip > img {
   width: 60px;
   filter: drop-shadow(3px 3px 6px #000000d1);
   border: 1px solid transparent;
@@ -587,6 +587,7 @@ body {
   font-weight: bold;
   font-style: italic;
   text-shadow: 0px 1px 2px #000000d1;
+  filter: drop-shadow(3px 3px 6px #000000d1);
 }
 
 .indexFlip {

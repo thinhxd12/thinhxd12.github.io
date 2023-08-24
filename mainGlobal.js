@@ -986,7 +986,7 @@ const renderFlashcard = (item, progress, row) => {
     if (item.numb > 0) {
         setTimeout(() => {
             document.getElementById("indicateFlip").innerHTML = `
-      ${newNumb == 0 ? '<img src="./img/cup.png" width="25px">' : newNumb}
+      ${newNumb == 0 ? '<img src="./img/cup.png" width="42px">' : newNumb}
       `;
         }, 1000)
     }

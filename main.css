@@ -501,7 +501,24 @@ body {
 
 .item-wrapper:hover .indicateFlip,
 .item-hover .indicateFlip {
-  top: -15%;
+  top: -30%;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    top: -30%;
+  }
+  50% {
+    top: -3%;
+  }
+  100% {
+    top: -12%;
+  }
+}
+
+.item-wrapper:hover .indicateFlipimg,
+.item-hover .indicateFlip img {
+  filter: drop-shadow(0px 3px 3px #000000d1);
 }
 
 .item-wrapper:hover .cardRow,
@@ -544,21 +561,24 @@ body {
 
 .indicateFlip {
   position: absolute;
-  top: -3px;
-  right: 0;
+  top: -12%;
+  right: 18px;
   z-index: 6;
   transition: 0.5s ease-out;
+  animation: bounce 1.2s ease-out;
 }
 
 .indicateFlip img {
+  width: 60px;
   filter: drop-shadow(3px 3px 6px #000000d1);
+  border: 1px solid transparent;
 }
 
 #indicateFlip {
   position: absolute;
-  top: 4.5em;
+  top: 6em;
   right: 0;
-  width: 90px;
+  width: 60px;
   display: block;
   text-align: center;
   z-index: 19;
@@ -619,6 +639,7 @@ body {
   color: #fff;
   text-align: left;
   white-space: break-spaces;
+  text-shadow: 0 2px 2px #00000030;
 }
 
 /* -----------input search----------- */
@@ -1342,7 +1363,7 @@ body {
 div#quoteBody,
 div#contentBody {
   width: 100%;
-  padding: 6px;
+  padding: 6px 3px;
 }
 
 #quoteBody .wordType {

@@ -959,7 +959,7 @@ const renderFlashcard = (item, progress, row) => {
                   <div class="item-wrapper">
                     <img class="item-img" src="./img/vangogh.jpg">
                     <div class="indicateFlip">
-                        <img src="./img/flag.png" width="90">
+                        <img src="./img/flag.png">
                         <span id="indicateFlip" style="color: ${newNumb > 100 ? '#fff' : '#000'}">
                         ${item.numb}
                         </span>

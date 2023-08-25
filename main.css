@@ -902,6 +902,7 @@ body {
   background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .calendarContent {
@@ -974,6 +975,42 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.middleCalendarContent {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  color: #fff;
+  padding: 6px;
+}
+
+.weatherItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.weatherItemSmall {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 18px;
+}
+
+.weatherItemColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.currentWeatherImg {
+  width: 70px;
+}
+
+.iconWeatherImg {
+  width: 30px;
 }
 
 .bottomCalendarContent {

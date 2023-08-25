@@ -8,6 +8,9 @@ const proxyArr = [
 let urlCors = proxyArr[0].link;
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbyLGSgS2kd2i5gLEH-cfuAsOxgj7pFCu1qaFQEDCP11nXbBVViA4P-KP008NZ8r1d7G7g/exec'
+const API_WEATHER_KEY1 = 'E0XcMshFBdyxSzYudwoUin9dSvrp1UkG';
+const API_WEATHER_KEY2 = 'FQhDhttKGhz2VTiKYKN3WP6RSAT6qEcs';
+const API_WEATHER_KEY3 = 'jCLPUDFqHDZV7369qCF3gfHGutmpcVKG';
 
 
 const START_MINUTES = "06";
@@ -206,6 +209,8 @@ $(document).keydown(function (e) {
       break;
     case 39:
       fetchAndRenderCalendarData();
+      fetchCurrentConditions();
+
       $('.toogleItemLeft').removeClass('toogleItemShowLeft');
       showTab('tab2');
       break;
@@ -266,6 +271,8 @@ $('.toogleItemRight').mouseleave(function () {
 
 $('.footerBtn[name="tab2"]').click(function (e) {
   fetchAndRenderCalendarData();
+  fetchCurrentConditions();
+
   $('.toogleItemLeft').removeClass('toogleItemShowLeft');
 });
 
@@ -647,3 +654,58 @@ const renderRssTheconversation = () => {
     })
   })
 }
+
+
+const fetchCurrentConditions = () => {
+  let link = `http://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY3}&details=true&metric=true`;
+
+  fetch(link).then(res => res.json())
+    .then(data => {
+      // console.log(data);
+      data = data[0];
+      let content = `
+      <div class="weatherItem">
+      <div class="weatherItemColumn">
+        <a href="${data.Link}" target="_blank">
+        <img class="currentWeatherImg" src="./icons/${data.WeatherIcon}.svg">
+        </a>
+        <p>${data.WeatherText}</p>
+      </div>
+      <div class="weatherItemColumn">
+        <div class="weatherItemSmall">
+          <img class="iconWeatherImg" src="./icons/thermometer.svg">
+          ${Math.round(data.Temperature.Metric.Value)}°C
+        </div>
+        <div class="weatherItemSmall">
+          <img class="iconWeatherImg" src="./icons/umbrella.svg">
+          ${Math.round(data.RealFeelTemperatureShade.Metric.Value)}°C
+        </div>
+      </div>
+    </div>
+    <div class="weatherItem">
+      ${data.UVIndexText == 0 ? `<div class="weatherItemSmall">
+        <img src="./icons/uv-index-${data.UVIndex}.svg">
+        <span>${data.UVIndexText}</span>
+      </div>`: ''}
+      <div class="weatherItemSmall">
+        <img src="./icons/humidity.svg">
+        <span>${data.IndoorRelativeHumidity}%</span>
+      </div>
+    </div>
+
+    `
+      $('.middleCalendarContent').html(content);
+    })
+
+
+  let linkMinute = `http://dataservice.accuweather.com/forecasts/v1/minute?q=10.602,106.403&apikey=${API_WEATHER_KEY1}`
+  fetch(linkMinute).then(res => res.json())
+    .then(data => {
+      // console.log(data);
+      document.getElementById('middleCalendarContent').innerHTML += `
+      <p>${data.Summary.Phrase}</p>
+      `
+    })
+}
+
+fetchCurrentConditions();

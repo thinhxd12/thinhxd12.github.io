@@ -979,10 +979,13 @@ body {
 
 .middleCalendarContent {
   position: absolute;
-  top: 15px;
-  right: 0;
+  top: 32px;
+  right: 9px;
   color: #fff;
   padding: 6px;
+  max-width: 145px;
+  font-size: 10px;
+  background: rgb(0 0 0 / 27%);
 }
 
 .weatherItem {
@@ -993,7 +996,7 @@ body {
 
 .weatherItemSmall {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   height: 18px;
 }

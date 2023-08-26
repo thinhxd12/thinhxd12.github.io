@@ -8,7 +8,7 @@ const proxyArr = [
 let urlCors = proxyArr[0].link;
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbyLGSgS2kd2i5gLEH-cfuAsOxgj7pFCu1qaFQEDCP11nXbBVViA4P-KP008NZ8r1d7G7g/exec'
-const API_WEATHER_KEY1 = 'E0XcMshFBdyxSzYudwoUin9dSvrp1UkG';
+const API_WEATHER_KEY1 = 'S4lfurveMLwDd6ZhJbYWpzLxJDv53m7x';
 const API_WEATHER_KEY2 = 'FQhDhttKGhz2VTiKYKN3WP6RSAT6qEcs';
 const API_WEATHER_KEY3 = 'jCLPUDFqHDZV7369qCF3gfHGutmpcVKG';
 
@@ -657,7 +657,7 @@ const renderRssTheconversation = () => {
 
 
 const fetchCurrentConditions = () => {
-  let link = `http://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY3}&details=true&metric=true`;
+  let link = `https://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY3}&details=true&metric=true`;
 
   fetch(link).then(res => res.json())
     .then(data => {
@@ -666,10 +666,10 @@ const fetchCurrentConditions = () => {
       let content = `
       <div class="weatherItem">
       <div class="weatherItemColumn">
+        <p>${data.WeatherText}</p>
         <a href="${data.Link}" target="_blank">
         <img class="currentWeatherImg" src="./icons/${data.WeatherIcon}.svg">
         </a>
-        <p>${data.WeatherText}</p>
       </div>
       <div class="weatherItemColumn">
         <div class="weatherItemSmall">
@@ -680,17 +680,17 @@ const fetchCurrentConditions = () => {
           <img class="iconWeatherImg" src="./icons/umbrella.svg">
           ${Math.round(data.RealFeelTemperatureShade.Metric.Value)}°C
         </div>
+        <div class="weatherItemSmall">
+          <img class="iconWeatherImg" src="./icons/thermometer-sun.svg">
+          <span>UV-${data.UVIndex}</span>
+        </div>
+        <div class="weatherItemSmall">
+          <img class="iconWeatherImg" src="./icons/humidity.svg">
+          <span>${data.IndoorRelativeHumidity}%</span>
+        </div>
       </div>
     </div>
     <div class="weatherItem">
-      ${data.UVIndexText == 0 ? `<div class="weatherItemSmall">
-        <img src="./icons/uv-index-${data.UVIndex}.svg">
-        <span>${data.UVIndexText}</span>
-      </div>`: ''}
-      <div class="weatherItemSmall">
-        <img src="./icons/humidity.svg">
-        <span>${data.IndoorRelativeHumidity}%</span>
-      </div>
     </div>
 
     `
@@ -698,7 +698,7 @@ const fetchCurrentConditions = () => {
     })
 
 
-  let linkMinute = `http://dataservice.accuweather.com/forecasts/v1/minute?q=10.602,106.403&apikey=${API_WEATHER_KEY1}`
+  let linkMinute = `https://dataservice.accuweather.com/forecasts/v1/minute?q=10.602,106.403&apikey=${API_WEATHER_KEY1}`
   fetch(linkMinute).then(res => res.json())
     .then(data => {
       // console.log(data);

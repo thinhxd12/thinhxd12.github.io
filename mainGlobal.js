@@ -285,7 +285,7 @@ const renderCalendar = (data) => {
         });
     }
 
-    monthDateArr.map((item) => {
+    monthDateArr.map((item, index) => {
         item.month == date.getMonth() ? item["class"] = "normalDay" : item["class"] = '';
 
         if (item.date === date.getDate() && item.month === date.getMonth()) {
@@ -296,18 +296,25 @@ const renderCalendar = (data) => {
             item["class"] += " startDay";
         }
 
-        if (item.date >= startDay.getDate() && item.month === startDay.getMonth() && item.date <= endDay.getDate()) {
-            item["indicate"] = true;
-            item["time1"] = data[item.date - startDay.getDate()].time1
-            item["time2"] = data[item.date - startDay.getDate()].time2
-        }
-
         if (item.date === endDay.getDate() && item.month === endDay.getMonth()) {
             item["class"] += " endDay";
         }
 
         return item;
     });
+    let startDayIndex = monthDateArr.findIndex(item => item.date === startDay.getDate() && item.month === startDay.getMonth())
+    // console.log(todayData);
+    monthDateArr.map((item, index) => {
+        if (index >= startDayIndex && index <= startDayIndex + 5) {
+            item["indicate"] = true;
+            item["time1"] = todayData?.time1;
+            item["time2"] = todayData?.time2;
+            return item;
+        }
+        return item;
+    })
+
+
 
     // renderCalendar---------------
     monthDateArr = chunk(monthDateArr, 7);
@@ -337,8 +344,7 @@ const renderCalendar = (data) => {
 
     // renderCalendarProgress---------------
 
-    let diffDay = (date.getTime() - endDay.getTime()) / 86400000;
-    if (Math.floor(diffDay) > 0) {
+    if (date.getTime() > endDay.getTime() || date.getTime() < startDay.getTime()) {
         document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="25px">';
     } else document.getElementById('dateProgress').innerHTML = `
                       <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>

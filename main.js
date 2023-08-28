@@ -657,7 +657,7 @@ const renderRssTheconversation = () => {
 
 
 const fetchCurrentConditions = () => {
-  let link = `https://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY3}&details=true&metric=true`;
+  let link = `https://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY2}&details=true&metric=true`;
 
   fetch(link).then(res => res.json())
     .then(data => {
@@ -690,7 +690,7 @@ const fetchCurrentConditions = () => {
         </div>
       </div>
     </div>
-    <div class="weatherItem">
+    <div id="weatherItemPre">
     </div>
 
     `
@@ -702,7 +702,7 @@ const fetchCurrentConditions = () => {
   fetch(linkMinute).then(res => res.json())
     .then(data => {
       // console.log(data);
-      document.getElementById('middleCalendarContent').innerHTML += `
+      document.getElementById('weatherItemPre').innerHTML = `
       <p>${data.Summary.Phrase}</p>
       `
     })

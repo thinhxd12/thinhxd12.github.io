@@ -500,12 +500,12 @@ body {
   transform: scale(1);
 }
 
-/* .item-wrapper:hover .indicateFlip,
+.item-wrapper:hover .indicateFlip,
 .item-hover .indicateFlip {
   top: -30%;
-} */
+}
 
-@-webkit-keyframes bounce {
+/* @-webkit-keyframes bounce {
   0% {
     top: 21%;
   }
@@ -515,7 +515,7 @@ body {
   100% {
     top: -15%;
   }
-}
+} */
 
 .item-wrapper:hover .cardRow,
 .item-hover .cardRow {
@@ -562,7 +562,7 @@ body {
   right: 18px;
   z-index: 6;
   transition: 0.5s ease-out;
-  animation: bounce 1.5s cubic-bezier(0.12, 0.18, 0.24, 1.44);
+  /* animation: bounce 1.5s cubic-bezier(0.12, 0.18, 0.24, 1.44); */
   display: flex;
   justify-content: center;
   align-items: center;

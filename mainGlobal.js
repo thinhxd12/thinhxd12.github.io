@@ -307,8 +307,8 @@ const renderCalendar = (data) => {
     monthDateArr.map((item, index) => {
         if (index >= startDayIndex && index <= startDayIndex + 5) {
             item["indicate"] = true;
-            item["time1"] = todayData?.time1;
-            item["time2"] = todayData?.time2;
+            item["time1"] = data[index - startDayIndex].time1;
+            item["time2"] = data[index - startDayIndex].time2;
             return item;
         }
         return item;

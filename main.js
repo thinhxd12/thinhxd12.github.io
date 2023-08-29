@@ -8,9 +8,7 @@ const proxyArr = [
 let urlCors = proxyArr[0].link;
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 const ggsUrl = 'https://script.google.com/macros/s/AKfycbyLGSgS2kd2i5gLEH-cfuAsOxgj7pFCu1qaFQEDCP11nXbBVViA4P-KP008NZ8r1d7G7g/exec'
-const API_WEATHER_KEY1 = 'S4lfurveMLwDd6ZhJbYWpzLxJDv53m7x';
-const API_WEATHER_KEY2 = 'FQhDhttKGhz2VTiKYKN3WP6RSAT6qEcs';
-const API_WEATHER_KEY3 = 'jCLPUDFqHDZV7369qCF3gfHGutmpcVKG';
+
 
 
 const START_MINUTES = "06";
@@ -19,6 +17,8 @@ let duration;
 let notifyMessageFlag = false;
 let timerTimeout = null;
 let tickTimeout = null;
+
+
 
 const renderTomatoTick = () => {
   let timeCount = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
@@ -172,7 +172,6 @@ $('.imgBtnLeft').click(function (e) {
 $('.imgBtnRight').click(function (e) {
   showImage(slideImgIndex += 1);
 });
-
 
 $('.tabButton').click(function (e) {
   switch (this.name) {
@@ -664,4 +663,3 @@ const renderRssTheconversation = () => {
     })
   })
 }
-

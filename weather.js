@@ -1,7 +1,78 @@
 
 const PRECIP_NUMB = 0.63;
-const PLACE_GEO = '10.6011534,106.4018563';
-const API_PIRATEWEATHER = 'gnunh5vxMIu0kLZG';
+let placeObj = {};
+let API_WEATHER_KEY = '';
+let LAT_LONG = '';
+
+const getWeatherToken = () => {
+    let weatherKey = sessionStorage.getItem("weatherKey");
+    if (weatherKey !== null) {
+        let obj = JSON.parse(weatherKey);
+        API_WEATHER_KEY = obj.key;
+        placeObj = Object.values(obj.geo);
+        // console.log(placeObj);
+        LAT_LONG = Object.values(placeObj[0]);
+        renderWeatherPlaceSelect(placeObj);
+    }
+}
+
+
+
+const renderWeatherPlaceSelect = (data) => {
+    const weatherPlace = document.getElementById('weatherPlace');
+    weatherPlace.innerHTML = `
+        <div class="select_wrap">
+                <ul class="default_option">
+                  <li>
+                    <div class="option">
+                      <div class="weatherIcon">
+                        <img src="./darksky/place-icon.svg">
+                      </div>
+                      <p>${Object.keys(placeObj[0])}</p>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="select_ul">
+                    ${Object.keys(placeObj).map((item, index) => {
+        return `
+                            <li name="${index}">
+                                <div class="option">
+                                <div class="weatherIcon">
+                                    <img src="./darksky/place-icon.svg">
+                                </div>
+                                <p>${Object.keys(placeObj[item])}</p>
+                                </div>
+                            </li>
+                            
+                            `
+    }).join('')
+        }
+                
+                </ul>
+        </div>
+    `
+}
+
+const setPlaceObject = (index) => {
+    // console.log(index);
+    LAT_LONG = Object.values(placeObj[index]);
+    fetchPirateApi();
+}
+
+setTimeout(() => {
+    getWeatherToken();
+}, 2000);
+
+$(".default_option li").click(function () {
+    $(this).parent().toggleClass("active");
+})
+
+$(".select_ul li").click(function (e) {
+    var currentele = $(this).html();
+    $(".default_option li").html(currentele);
+    $(this).parents(".select_wrap").removeClass("active");
+    setPlaceObject($(this).attr('name'));
+})
 
 const makePrediction = (data) => {
     let lightRainIndex = data.findIndex(item => item.precipIntensity >= 0.1 && item.precipProbability >= PRECIP_NUMB);
@@ -250,11 +321,11 @@ const cleanDataCurrently = (data) => {
     return { ...data, ...newItem };
 }
 
-const renderCurrentlyData = (data) => {
+const renderCurrentlyData = (data, offset) => {
     data = cleanDataCurrently(data);
     const time = new Date(data.time * 1000);
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
+    let hours = time.getUTCHours() + offset;
+    let minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
     let timeNow = hours > 12 ? hours - 12 + ':' + minutes + ' PM' : hours + ':' + minutes + ' AM';
     let content = `
           <img src="./darksky/${data.icon}.svg" style="width: 135px;">
@@ -267,7 +338,7 @@ const renderCurrentlyData = (data) => {
           </div>
         `
     $('.weatherContent').html(content);
-    $('.testContainer').css('background-image', `url('./darksky/background/${data.summary}.jpg')`);
+    $('.testContainer').css('background-image', `url('./darksky/background/${data.icon}.jpg')`);
     if (data.icon.includes('rain') || data.icon == 'drizzle') animloop();
 
     // $('.testContainer').css('background-image', `url('./darksky/background/thunderstorm.jpg')`);
@@ -283,7 +354,7 @@ const chunkAverage = (array, size) =>
     }, []);
 
 const renderHourTimeline = (data) => {
-    // data = cleanDataHourly(data);
+    // console.log(data);
     const colorObj = {
         'Partly Cloudy': '#b9b9b9',
         'Cloudy': '#8c8c8c',
@@ -298,8 +369,29 @@ const renderHourTimeline = (data) => {
     function isDayTime(hours) {
         return hours * 1 > 5 && hours * 1 < 18;
     }
-    const timeLine = ['1PM', '3AM', '5AM', '7AM', '9AM', '11AM', '1PM', '3PM', '5PM', '7PM', '9PM', '11PM'];
-    const timeLine24 = ['1', '3', '5', '7', '9', '11', '13', '15', '17', '19', '21', '23'];
+    let nowHour = new Date().getHours();
+    let timeLine24 = [];
+
+    function createTimeLine() {
+        if (nowHour % 2 > 0) {
+            for (let i = 0; i < 12; i++) {
+                nowHour < 24 ? timeLine24.push(nowHour) : timeLine24.push(nowHour - 24);
+                nowHour += 2;
+            }
+        }
+        else {
+            nowHour++;
+            for (let i = 0; i < 12; i++) {
+                nowHour < 24 ? timeLine24.push(nowHour) : timeLine24.push(nowHour - 24);
+                nowHour += 2;
+            }
+        }
+    }
+
+    createTimeLine();
+    let timeLine = timeLine24.map((item, index) => {
+        return index == 0 ? 'NOW' : item > 12 ? item - 12 + 'PM' : item + 'AM';
+    })
 
     let tempArr = data.map(item => item.temperature);
     tempArr = chunkAverage(tempArr, 4);
@@ -434,11 +526,11 @@ const renderHourTimeline = (data) => {
 const fetchPirateApi = () => {
     // let time = Math.round(Date.now() / 1000) + 100000;
     let time = Math.round(Date.now() / 1000);
-    let url = `https://api.pirateweather.net/forecast/${API_PIRATEWEATHER}/${PLACE_GEO},${time}?exclude=daily&units=ca`;
+    let url = `https://api.pirateweather.net/forecast/${API_WEATHER_KEY}/${LAT_LONG},${time}?exclude=daily&units=ca`;
     fetch(url).then(res => res.json())
         .then(data => {
             // console.log(data);
-            renderCurrentlyData(data.currently);
+            renderCurrentlyData(data.currently, data.offset);
             $('.weatherPredict').text(makePrediction(data.minutely.data));
             drawChartRain(data.minutely.data);
             renderHourTimeline(data.hourly.data);

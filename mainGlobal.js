@@ -27,9 +27,27 @@ const getToken = () => {
         }).then(res => res.json()).then(data => {
             sessionStorage.removeItem('accessItem');
             sessionStorage.setItem('accessItem', JSON.stringify(data));
+            getWeatherKey(data.access_token);
             getAccesToken();
         })
     }
+
+
+}
+
+const getWeatherKey = (token) => {
+    let urlkey = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/loginGetKeys';
+    let opts = {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    fetch(urlkey, opts).then(res => res.json()).then(data => {
+        // console.log(data);
+        sessionStorage.setItem('weatherKey', JSON.stringify(data));
+    })
 }
 
 getToken();

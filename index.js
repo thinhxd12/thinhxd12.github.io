@@ -4,8 +4,8 @@ $('#loginForm').on('submit', function (e) {
         .then(res => res.json())
         .then(string => {
             if (string !== 'failed') {
-                console.log(string);
-                getToken(string)
+                // console.log(string);
+                getToken(string);
             }
             else {
                 $('#passInput').addClass('myInputPassErr');
@@ -18,22 +18,22 @@ $('#loginForm').on('submit', function (e) {
 
 const getToken = (token) => {
     const decode = JSON.parse(atob(token.split('.')[1]));
-    console.log(decode.exp);
+    // console.log(decode.exp);
     if (decode.exp * 1000 < new Date().getTime()) {
         sessionStorage.clear("loginItem");
         localStorage.clear("expItem");
         let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/loginRefresh';
         fetch(url).then(res => res.json()).then(data => {
             // console.log(data);
-            fetch('https://realm.mongodb.com/api/client/v2.0/app/data-tcfpw/auth/providers/custom-token/login', {
+            fetch(data.link, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: `{"token": "${data}"}`
+                body: `{"token": "${data.value}"}`
             }).then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/loginUpdate';
                     fetch(url, {
                         method: 'POST',
@@ -44,6 +44,8 @@ const getToken = (token) => {
                     })
                 })
         })
+
+
     }
     else {
         sessionStorage.removeItem('loginItem');

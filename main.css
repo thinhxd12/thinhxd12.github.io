@@ -80,6 +80,10 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   height: 100vh;
   width: 100vw;
@@ -349,7 +353,7 @@ body {
 .footerBtnContainer {
   border-top: 1px solid #17181a;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
   position: relative;
@@ -2032,4 +2036,183 @@ div#contentBody {
 
 .city {
   animation: fade-in 1.5s ease, slide-in 1.2s ease;
+}
+
+/* weather -----------------------*/
+
+.testContainer {
+  width: 400px;
+  border-left: 1px solid #17181a;
+  border-right: 1px solid #17181a;
+  background-color: #fdfdfd;
+  background-size: cover;
+  background-position: top left;
+  animation: moveBg 1260s linear infinite;
+  position: relative;
+  overflow-y: scroll;
+  font-family: "Rubik", sans-serif;
+}
+
+.testContainer::-webkit-scrollbar {
+  display: none;
+}
+
+@-webkit-keyframes moveBg {
+  0% {
+    background-position-x: 0;
+  }
+  50% {
+    background-position-x: right;
+  }
+  100% {
+    background-position-x: 0;
+  }
+}
+
+#raincanvas {
+  position: absolute;
+  z-index: 3;
+  height: 90%;
+  width: 100%;
+}
+
+.weatherPlace {
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding: 3px;
+}
+
+.weatherPlace img {
+  height: 1rem;
+  width: 1rem;
+}
+
+.weatherContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weatherContentTemp {
+  font-size: 66px;
+  line-height: 50px;
+}
+
+.weatherContentInfo:last-child {
+  font-size: 10px;
+}
+
+.weatherContentInfo {
+  font-size: 9px;
+  padding-left: 9px;
+}
+
+.weatherPredict {
+  font-size: 12px;
+  text-align: center;
+}
+
+.hourDiv {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 9px 0;
+}
+
+.hourTimeline,
+.timelineItems {
+  display: flex;
+  flex-direction: column;
+}
+
+.hourTimeline {
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 6px;
+}
+
+.hourItem {
+  display: block;
+  width: 21px;
+  height: 36px;
+}
+
+.timelineItem {
+  width: 330px;
+  height: 36px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.dots-box {
+  flex: 1 1 auto;
+  position: relative;
+}
+
+.dots-box:before {
+  position: absolute;
+  width: 94%;
+  border-bottom: 1px dotted #000;
+  content: "";
+  left: 3%;
+}
+
+.timelineItemShow {
+  width: 125px;
+  height: 35px;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.493);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.windItemShow {
+  display: flex;
+  background: #f5f9fa;
+  padding: 3px;
+  border-radius: 12px;
+  border: 1px solid #17181a4f;
+  align-items: center;
+  justify-content: center;
+}
+
+.windItemShow span {
+  font-size: 12px;
+}
+
+.timelineItemSum {
+  margin-left: 6px;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.timelineItemHour {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 12px;
+  display: inline-block;
+  width: 27px;
+}
+
+.hourBtn {
+  background: none;
+  border: 1px solid #007afe;
+  color: #007afe;
+  outline: 0;
+  margin-right: 3px;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 9px;
+  padding: 3px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.hourBtn:hover,
+.hourBtnActive {
+  background: #007afe;
+  color: #fff;
 }

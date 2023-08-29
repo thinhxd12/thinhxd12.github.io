@@ -13,6 +13,11 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
     </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"
+    integrity="sha512-9hzM/Gfa9KP1hSBlq3/zyNF/dfbcjAYwUTBWYX+xi8fzfAPHL3ILwS1ci0CTVeuXTGkRAWgRMZZwtSNV7P+nfw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -90,9 +95,6 @@
                   </div>
                   <div id="topCalendarText"></div>
                 </div>
-                <div class="middleCalendarContent" id="middleCalendarContent">
-               
-                </div>
                 <div class="bottomCalendarContent">
                   <div id="bottomCalendarText"></div>
                   <div class="dateProgress" id="dateProgress"></div>
@@ -149,6 +151,25 @@
           </div>
         </div>
       </div>
+      <div id="tab3" class="city" style="display: none;">
+        <div class="testContainer calendarContainer" id="testContainer">
+          <canvas id="raincanvas" style="display: none;"></canvas>
+          <div class="weatherContainer">
+            <div class="weatherPlace">
+              <img src="./darksky/place-icon.svg">
+              <span>Thuthua</span>
+            </div>
+            <div class="weatherContent"></div>
+            <canvas id="rainChart" style="margin: 0 auto;width:100%;max-width:380px"></canvas>
+            <p class="weatherPredict"></p>
+            <div class="hourDiv">
+              <div class="hourTimeline" id="hourTimeline"></div>
+              <div class="timelineItems" id="timelineItems"></div>
+            </div>
+            <div class="hourDiv" id="hourDivBtn"></div>
+          </div>
+        </div>
+      </div>
       <div class="mainFixedBottom">
         <div class="footerBtnContainer">
           <button class="footerBtn footerBtnToggleLeft">
@@ -159,6 +180,9 @@
           </button>
           <button class="footerBtn tabButton" name="tab2">
             Excellence
+          </button>
+          <button class="footerBtn tabButton" name="tab3">
+            Caelus
           </button>
           <button class="footerBtn footerBtnToggleRight">
             Imperium
@@ -246,8 +270,10 @@
     </div>
   </div>
 
+  <script src="./weather.js" type="module"></script>
   <script src="./main.js"></script>
   <script src="./mainGlobal.js"></script>
+
   <!-- <script src="./abc.js"></script> -->
   <script>
     let expItem = localStorage.getItem("expItem");

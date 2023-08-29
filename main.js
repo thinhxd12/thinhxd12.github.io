@@ -175,14 +175,24 @@ $('.imgBtnRight').click(function (e) {
 
 
 $('.tabButton').click(function (e) {
-  if (this.name == 'tab1') {
-    showTab('tab1');
-    setTimeout(() => {
-      $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-      $('.toogleItemLeft').addClass('toogleItemShowLeft');
-    }, 500);
+  switch (this.name) {
+    case 'tab1':
+      showTab(this.name);
+      setTimeout(() => {
+        $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+        $('.toogleItemLeft').addClass('toogleItemShowLeft');
+      }, 500);
+      break;
+    case 'tab2':
+      showTab(this.name);
+      fetchAndRenderCalendarData();
+      break;
+    case 'tab3':
+      showTab(this.name);
+      break;
+    default:
+      break;
   }
-  else showTab(this.name)
 });
 
 const showTab = (tab) => {
@@ -209,7 +219,7 @@ $(document).keydown(function (e) {
       break;
     case 39:
       fetchAndRenderCalendarData();
-      fetchCurrentConditions();
+      // fetchCurrentConditions();
 
       $('.toogleItemLeft').removeClass('toogleItemShowLeft');
       showTab('tab2');
@@ -271,7 +281,7 @@ $('.toogleItemRight').mouseleave(function () {
 
 $('.footerBtn[name="tab2"]').click(function (e) {
   fetchAndRenderCalendarData();
-  fetchCurrentConditions();
+  // fetchCurrentConditions();
 
   $('.toogleItemLeft').removeClass('toogleItemShowLeft');
 });
@@ -655,57 +665,3 @@ const renderRssTheconversation = () => {
   })
 }
 
-
-const fetchCurrentConditions = () => {
-  let link = `https://dataservice.accuweather.com/currentconditions/v1/354472?apikey=${API_WEATHER_KEY2}&details=true&metric=true`;
-
-  fetch(link).then(res => res.json())
-    .then(data => {
-      // console.log(data);
-      data = data[0];
-      let content = `
-      <div class="weatherItem">
-      <div class="weatherItemColumn">
-        <p>${data.WeatherText}</p>
-        <a href="${data.Link}" target="_blank">
-        <img class="currentWeatherImg" src="./icons/${data.WeatherIcon}.svg">
-        </a>
-      </div>
-      <div class="weatherItemColumn">
-        <div class="weatherItemSmall">
-          <img class="iconWeatherImg" src="./icons/thermometer.svg">
-          ${Math.round(data.Temperature.Metric.Value)}°C
-        </div>
-        <div class="weatherItemSmall">
-          <img class="iconWeatherImg" src="./icons/umbrella.svg">
-          ${Math.round(data.RealFeelTemperatureShade.Metric.Value)}°C
-        </div>
-        <div class="weatherItemSmall">
-          <img class="iconWeatherImg" src="./icons/thermometer-sun.svg">
-          <span>UV-${data.UVIndex}</span>
-        </div>
-        <div class="weatherItemSmall">
-          <img class="iconWeatherImg" src="./icons/humidity.svg">
-          <span>${data.IndoorRelativeHumidity}%</span>
-        </div>
-      </div>
-    </div>
-    <div id="weatherItemPre">
-    </div>
-
-    `
-      $('.middleCalendarContent').html(content);
-    })
-
-
-  let linkMinute = `https://dataservice.accuweather.com/forecasts/v1/minute?q=10.602,106.403&apikey=${API_WEATHER_KEY1}`
-  fetch(linkMinute).then(res => res.json())
-    .then(data => {
-      // console.log(data);
-      document.getElementById('weatherItemPre').innerHTML = `
-      <p>${data.Summary.Phrase}</p>
-      `
-    })
-}
-
-fetchCurrentConditions();

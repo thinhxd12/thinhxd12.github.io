@@ -1,10 +1,12 @@
 
 const PRECIP_NUMB = 0.63;
+const DEVIATION_NUMB = 1.8;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
 let CURRENT_HOUR;
 let CURRENT_MINUTE;
+
 
 const getWeatherToken = () => {
     let weatherKey = sessionStorage.getItem("weatherKey");
@@ -45,14 +47,14 @@ setTimeout(() => {
 
 
 const makePrediction = (data) => {
-    let lightRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 0.1 && item.precipProbability >= PRECIP_NUMB);
-    let medRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 0.5 && item.precipProbability >= PRECIP_NUMB);
-    let heavyRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 1 && item.precipProbability >= PRECIP_NUMB);
+    let lightRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 0.1 && item.precipProbability >= PRECIP_NUMB);
+    let medRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 0.5 && item.precipProbability >= PRECIP_NUMB);
+    let heavyRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 1 && item.precipProbability >= PRECIP_NUMB);
     let maxIndex = Math.max(lightRainIndex, medRainIndex, heavyRainIndex);
     let mainItem = {};
 
     function checkCurrent() {
-        let item = data[0].precipIntensity - 2 * data[0].precipIntensityError;
+        let item = data[0].precipIntensity - DEVIATION_NUMB * data[0].precipIntensityError;
         return item >= 1 ? 'Heavy rain' : item >= 0.5 ? 'Rain' : 'Light rain';
     }
 
@@ -67,7 +69,7 @@ const makePrediction = (data) => {
         }
     }
     function countTimeEnd() {
-        let endRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError < 0.1 && item.precipProbability >= PRECIP_NUMB);
+        let endRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError < 0.1 && item.precipProbability >= PRECIP_NUMB);
         if (endRainIndex > -1) {
             let start = data[0].time;
             let time = data[endRainIndex].time;
@@ -133,8 +135,8 @@ const drawChartRain = (data) => {
     })
 
     const yValues = data.map(item => {
-        // 95% = 2 * standard deviation occur
-        let newData = item.precipIntensity - 2 * data.precipIntensityError;
+        // 95% = DEVIATION_NUMB* standard deviation occur
+        let newData = item.precipIntensity - DEVIATION_NUMB * data.precipIntensityError;
         return newData >= 0 ? newData : 0
     })
     new Chart("rainChart", {
@@ -263,8 +265,8 @@ const cleanDataCurrently = (data, offset) => {
         icon: data.icon,
         summary: data.summary,
         isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18,
-        // 95% = 2 * standard deviation occur
-        precipIntensity: data.precipIntensity - 2 * data.precipIntensityError,
+        // 95% = DEVIATION_NUMB* standard deviation occur
+        precipIntensity: data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError,
     };
     switch (true) {
         case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
@@ -379,6 +381,8 @@ const renderHourTimeline = (data) => {
     tempAvgArr = chunkAverage(tempAvgArr, 4);
     let precipIntentArr = data.map(item => item.precipIntensity);
     precipIntentArr = chunkAverage(precipIntentArr, 4);
+    let precipErrtArr = data.map(item => item.precipIntensityError);
+    precipErrtArr = chunkAverage(precipErrtArr, 4);
     let precipProbtArr = data.map(item => item.precipProbability);
     precipProbtArr = chunkAverage(precipProbtArr, 4);
     let visibilityArr = data.map(item => item.visibility);
@@ -398,9 +402,9 @@ const renderHourTimeline = (data) => {
         switch (true) {
             case visibilityArr[index] < 1:
                 return 'Fog';
-            case precipIntentArr[index] < 0.5 && precipProbtArr[index] >= PRECIP_NUMB:
+            case precipIntentArr[index] - DEVIATION_NUMB * precipErrtArr[index] < 0.5 && precipProbtArr[index] >= PRECIP_NUMB:
                 return 'Light Rain';
-            case precipIntentArr[index] >= 1 && precipProbtArr[index] >= PRECIP_NUMB:
+            case precipIntentArr[index] - DEVIATION_NUMB * precipErrtArr[index] >= 1 && precipProbtArr[index] >= PRECIP_NUMB:
                 return 'Rain';
             case cloudArr[index] <= 0.375:
                 return 'Clear';
@@ -408,7 +412,7 @@ const renderHourTimeline = (data) => {
                 return 'Partly Cloudy';
             case cloudArr[index] <= 0.95:
                 return 'Cloudy';
-            case cloudArr[index] <= 1 && precipIntentArr[index] >= 0.5 && precipProbtArr[index] >= PRECIP_NUMB && isDayTime(timeLine24[index]):
+            case cloudArr[index] <= 1 && precipIntentArr[index] - DEVIATION_NUMB * precipErrtArr[index] >= 0.5 && precipProbtArr[index] >= PRECIP_NUMB && isDayTime(timeLine24[index]):
                 return 'Overcast With Rain';
             case cloudArr[index] <= 1 && isDayTime(timeLine24[index]):
                 return 'Overcast';

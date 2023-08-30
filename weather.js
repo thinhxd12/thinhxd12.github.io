@@ -45,14 +45,14 @@ setTimeout(() => {
 
 
 const makePrediction = (data) => {
-    let lightRainIndex = data.findIndex(item => item.precipIntensity >= 0.1 && item.precipProbability >= PRECIP_NUMB);
-    let medRainIndex = data.findIndex(item => item.precipIntensity >= 0.5 && item.precipProbability >= PRECIP_NUMB);
-    let heavyRainIndex = data.findIndex(item => item.precipIntensity >= 1 && item.precipProbability >= PRECIP_NUMB);
+    let lightRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 0.1 && item.precipProbability >= PRECIP_NUMB);
+    let medRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 0.5 && item.precipProbability >= PRECIP_NUMB);
+    let heavyRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError >= 1 && item.precipProbability >= PRECIP_NUMB);
     let maxIndex = Math.max(lightRainIndex, medRainIndex, heavyRainIndex);
     let mainItem = {};
 
     function checkCurrent() {
-        let item = data[0].precipIntensity;
+        let item = data[0].precipIntensity - 2 * data[0].precipIntensityError;
         return item >= 1 ? 'Heavy rain' : item >= 0.5 ? 'Rain' : 'Light rain';
     }
 
@@ -67,7 +67,7 @@ const makePrediction = (data) => {
         }
     }
     function countTimeEnd() {
-        let endRainIndex = data.findIndex(item => item.precipIntensity < 0.1 && item.precipProbability >= PRECIP_NUMB);
+        let endRainIndex = data.findIndex(item => item.precipIntensity - 2 * item.precipIntensityError < 0.1 && item.precipProbability >= PRECIP_NUMB);
         if (endRainIndex > -1) {
             let start = data[0].time;
             let time = data[endRainIndex].time;
@@ -123,10 +123,8 @@ const makePrediction = (data) => {
 
     }
     return createText();
-
 }
 // makePrediction(data);
-
 
 const drawChartRain = (data) => {
     const xValues = data.map(item => {
@@ -135,7 +133,9 @@ const drawChartRain = (data) => {
     })
 
     const yValues = data.map(item => {
-        return item.precipIntensity;
+        // 95% = 2 * standard deviation occur
+        let newData = item.precipIntensity - 2 * data.precipIntensityError;
+        return newData >= 0 ? newData : 0
     })
     new Chart("rainChart", {
         type: "line",
@@ -176,9 +176,9 @@ const drawChartRain = (data) => {
                     },
                     ticks: {
                         display: false,
-                        stepSize: 0.1,
+                        // stepSize: 0.1,
                         min: 0,
-                        max: 1.5
+                        // max: 2
                     },
                     // type: 'logarithmic',
                 }]
@@ -257,13 +257,21 @@ const cleanDataCurrently = (data, offset) => {
     CURRENT_HOUR = hours;
     CURRENT_MINUTE = minutes;
     // console.log(CURRENT_HOUR);
-    let newItem = { icon: data.icon, summary: data.summary, isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18 };
+
+
+    let newItem = {
+        icon: data.icon,
+        summary: data.summary,
+        isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18,
+        // 95% = 2 * standard deviation occur
+        precipIntensity: data.precipIntensity - 2 * data.precipIntensityError,
+    };
     switch (true) {
-        case data.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
+        case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
             newItem.icon = 'drizzle';
             newItem.summary = 'Light Rain';
             break;
-        case data.precipIntensity >= 1 && data.precipProbability >= PRECIP_NUMB:
+        case newItem.precipIntensity >= 1 && data.precipProbability >= PRECIP_NUMB:
             newItem.icon = 'overcast-rain';
             newItem.summary = 'Heavy Rain';
             break;
@@ -279,7 +287,7 @@ const cleanDataCurrently = (data, offset) => {
             newItem.icon = 'cloudy';
             newItem.summary = 'Cloudy';
             break;
-        case data.cloudCover <= 1 && data.precipIntensity >= 0.5 && data.precipProbability >= PRECIP_NUMB:
+        case data.cloudCover <= 1 && newItem.precipIntensity >= 0.5 && data.precipProbability >= PRECIP_NUMB:
             newItem.icon = 'overcast-rain';
             newItem.summary = 'Overcast';
             break;
@@ -290,9 +298,9 @@ const cleanDataCurrently = (data, offset) => {
         default:
             break;
     }
-    // let res = { ...data, ...newItem }
+    let res = { ...data, ...newItem };
     // console.log(res);
-    return { ...data, ...newItem };
+    return res;
 }
 
 const renderCurrentlyData = (data, offset) => {
@@ -312,7 +320,7 @@ const renderCurrentlyData = (data, offset) => {
           </div>
         `
     $('.weatherContent').html(content);
-    $('.testContainer').css('background-image', `url('./darksky/background/${data.icon}.jpg')`);
+    $('.raincanvasBg').css('background-image', `url('./darksky/background/${data.icon}.jpg')`);
     if (data.icon.includes('rain') || data.icon == 'drizzle') animloop();
 }
 
@@ -502,7 +510,7 @@ const fetchPirateApi = () => {
     cancelAnimationFrame(rainReq);
     $('#raincanvas').hide();
 
-    // let time = Math.round(Date.now() / 1000) + 100000;
+    // let time = Math.round(Date.now() / 1000) + 1000;
     let time = Math.round(Date.now() / 1000);
     let url = `https://api.pirateweather.net/forecast/${API_WEATHER_KEY}/${LAT_LONG},${time}?exclude=daily&units=ca`;
     fetch(url).then(res => res.json())
@@ -581,5 +589,5 @@ var rainReq;
 function animloop() {
     $('#raincanvas').show();
     animateRain();
-    rainReq =  requestAnimationFrame(animloop);
+    rainReq = requestAnimationFrame(animloop);
 }

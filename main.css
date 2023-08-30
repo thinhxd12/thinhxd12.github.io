@@ -2042,13 +2042,7 @@ div#contentBody {
 /* weather -----------------------*/
 
 .testContainer {
-  width: 400px;
-  border-left: 1px solid #17181a;
-  border-right: 1px solid #17181a;
-  background-color: #fdfdfd;
-  background-size: cover;
-  background-position: top left;
-  animation: moveBg 1260s linear infinite;
+  width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   font-family: "Rubik", sans-serif;
@@ -2070,15 +2064,27 @@ div#contentBody {
   }
 }
 
-#raincanvas {
-  position: absolute;
-  z-index: 3;
-}
-
 .weatherContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.raincanvasBg {
+  animation: moveBg 1260s linear infinite;
+  background-color: #fdfdfd;
+  background-size: cover;
+  background-position: top left;
+  width: 398px;
+  min-height: 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
 }
 
 .weatherPlace {

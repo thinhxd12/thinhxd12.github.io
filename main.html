@@ -153,12 +153,13 @@
       </div>
       <div id="tab3" class="city" style="display: none;">
         <div class="testContainer calendarContainer" id="testContainer">
-          <canvas id="raincanvas" style="display: none;"></canvas>
+          <div class="raincanvasBg">
+            <canvas id="raincanvas" style="display: none;"></canvas>
+          </div>
           <div class="weatherContainer">
-            <div class="weatherPlace" id="weatherPlace">
-            </div>
+            <div class="weatherPlace" id="weatherPlace"></div>
             <div class="weatherContent"></div>
-            <canvas id="rainChart" style="margin: 0 auto;width:100%;max-width:380px"></canvas>
+            <canvas id="rainChart" style="margin: 0 auto;width:100%;max-width:380px;height: 127px;"></canvas>
             <p class="weatherPredict"></p>
             <div class="hourDiv">
               <div class="hourTimeline" id="hourTimeline"></div>

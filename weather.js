@@ -3,6 +3,8 @@ const PRECIP_NUMB = 0.63;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
+let CURRENT_HOUR;
+let CURRENT_MINUTE;
 
 const getWeatherToken = () => {
     let weatherKey = sessionStorage.getItem("weatherKey");
@@ -21,58 +23,26 @@ const getWeatherToken = () => {
 const renderWeatherPlaceSelect = (data) => {
     const weatherPlace = document.getElementById('weatherPlace');
     weatherPlace.innerHTML = `
-        <div class="select_wrap">
-                <ul class="default_option">
-                  <li>
-                    <div class="option">
-                      <div class="weatherIcon">
-                        <img src="./darksky/place-icon.svg">
-                      </div>
-                      <p>${Object.keys(placeObj[0])}</p>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="select_ul">
-                    ${Object.keys(placeObj).map((item, index) => {
-        return `
-                            <li name="${index}">
-                                <div class="option">
-                                <div class="weatherIcon">
-                                    <img src="./darksky/place-icon.svg">
-                                </div>
-                                <p>${Object.keys(placeObj[item])}</p>
-                                </div>
-                            </li>
-                            
-                            `
+    <select id="weatherPlaces">
+        ${Object.keys(placeObj).map((item, index) => {
+        return `<option value="${index}" ${index == 0 ? 'selected' : ''}>
+                <span>${Object.keys(placeObj[item])}</span>
+                </option>`
     }).join('')
         }
-                
-                </ul>
-        </div>
+    </select>
     `
-}
-
-const setPlaceObject = (index) => {
-    // console.log(index);
-    LAT_LONG = Object.values(placeObj[index]);
-    fetchPirateApi();
+    $('#weatherPlaces').on('change', function (e) {
+        // console.log(this.value);
+        LAT_LONG = Object.values(placeObj[this.value]);
+        fetchPirateApi();
+    });
 }
 
 setTimeout(() => {
     getWeatherToken();
 }, 2000);
 
-$(".default_option li").click(function () {
-    $(this).parent().toggleClass("active");
-})
-
-$(".select_ul li").click(function (e) {
-    var currentele = $(this).html();
-    $(".default_option li").html(currentele);
-    $(this).parents(".select_wrap").removeClass("active");
-    setPlaceObject($(this).attr('name'));
-})
 
 const makePrediction = (data) => {
     let lightRainIndex = data.findIndex(item => item.precipIntensity >= 0.1 && item.precipProbability >= PRECIP_NUMB);
@@ -187,7 +157,6 @@ const drawChartRain = (data) => {
                     gridLines: {
                         // display: false,
                         drawTicks: true,
-
                     },
                     ticks: {
                         callback: function (value, index, ticks) {
@@ -280,10 +249,14 @@ const drawChartRain = (data) => {
     });
 }
 
-const cleanDataCurrently = (data) => {
-    const hours = /(([01]?[0-9]|2[0-3])):[0-5][0-9]/.exec(Date(data.time))[1];
-    let newItem = { icon: data.icon, summary: data.summary, isDayTime: hours * 1 > 5 && hours * 1 < 18 };
-
+const cleanDataCurrently = (data, offset) => {
+    const time = new Date(data.time * 1000);
+    let hours = time.getUTCHours() + offset;
+    let minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
+    CURRENT_HOUR = hours;
+    CURRENT_MINUTE = minutes;
+    console.log(CURRENT_HOUR);
+    let newItem = { icon: data.icon, summary: data.summary, isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18 };
     switch (true) {
         case data.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
             newItem.icon = 'drizzle';
@@ -316,32 +289,30 @@ const cleanDataCurrently = (data) => {
         default:
             break;
     }
-    // let res = { ...data, ...newItem }
-    // console.log(res);
+    let res = { ...data, ...newItem }
+    console.log(res);
     return { ...data, ...newItem };
 }
 
 const renderCurrentlyData = (data, offset) => {
-    data = cleanDataCurrently(data);
-    const time = new Date(data.time * 1000);
-    let hours = time.getUTCHours() + offset;
-    let minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
-    let timeNow = hours > 12 ? hours - 12 + ':' + minutes + ' PM' : hours + ':' + minutes + ' AM';
+    data = cleanDataCurrently(data, offset);
+    let timeNow = CURRENT_HOUR > 12 ? CURRENT_HOUR - 12 + ':' + CURRENT_MINUTE + ' PM' : CURRENT_HOUR + ':' + CURRENT_MINUTE + ' AM';
     let content = `
           <img src="./darksky/${data.icon}.svg" style="width: 135px;">
           <div class="weatherContentText">
           <p class="weatherContentTemp">${Math.round(data.temperature)}°</p>
           <p class="weatherContentInfo">Feels ${Math.round(data.apparentTemperature)}°C</p>
           <p class="weatherContentInfo">UV ${data.uvIndex}</p>
-          <p class="weatherContentInfo">Humid ${Math.round(data.humidity) * 100}%</p>
+          <div class="weatherContentWind">
+          <span>Wind ${Math.round(data.windSpeed)}km/h</span> 
+          <img src="./darksky/arrow-up.svg" style="height: 10px;width: 10px;transform: rotate(${data.windBearing}deg);">
+          </div>
           <p class="weatherContentInfo">${timeNow + ' - ' + data.summary}</p>
           </div>
         `
     $('.weatherContent').html(content);
     $('.testContainer').css('background-image', `url('./darksky/background/${data.icon}.jpg')`);
     if (data.icon.includes('rain') || data.icon == 'drizzle') animloop();
-
-    // $('.testContainer').css('background-image', `url('./darksky/background/thunderstorm.jpg')`);
 }
 
 
@@ -369,21 +340,21 @@ const renderHourTimeline = (data) => {
     function isDayTime(hours) {
         return hours * 1 > 5 && hours * 1 < 18;
     }
-    let nowHour = new Date().getHours();
-    let timeLine24 = [];
 
+    let timeLine24 = [];
+    let hourNow = CURRENT_HOUR;
     function createTimeLine() {
-        if (nowHour % 2 > 0) {
+        if (hourNow % 2 > 0) {
             for (let i = 0; i < 12; i++) {
-                nowHour < 24 ? timeLine24.push(nowHour) : timeLine24.push(nowHour - 24);
-                nowHour += 2;
+                hourNow < 24 ? timeLine24.push(hourNow) : timeLine24.push(hourNow - 24);
+                hourNow += 2;
             }
         }
         else {
-            nowHour++;
+            hourNow++;
             for (let i = 0; i < 12; i++) {
-                nowHour < 24 ? timeLine24.push(nowHour) : timeLine24.push(nowHour - 24);
-                nowHour += 2;
+                hourNow < 24 ? timeLine24.push(hourNow) : timeLine24.push(hourNow - 24);
+                hourNow += 2;
             }
         }
     }
@@ -464,7 +435,9 @@ const renderHourTimeline = (data) => {
         ${summaryArr[index] == 'Overcast With Rain' ? `<span class="timelineItemSum">(${Math.round(precipProbtArr[index] * 100)}%)</span>` : ''}
         <span class="dots-box"></span>
         <span class="timelineItemHour" style="width: ${humid ? Math.round((average(data) - data[index]) * 50) + 25 : Math.floor(average(data) - data[index]) * 2 + 25}%;">
-          ${humid ? Math.round(data[index] * 100) : Math.round(data[index])}${uv ? '' : humid ? '%' : '°'}
+            <span class="timelineItemShowText">
+            ${humid ? Math.round(data[index] * 100) : Math.round(data[index])}${uv ? '' : humid ? '%' : '°'}
+            </span>
         </span> 
         </div > `
         }).join('');

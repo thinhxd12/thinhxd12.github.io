@@ -173,32 +173,56 @@ $('.imgBtnRight').click(function (e) {
   showImage(slideImgIndex += 1);
 });
 
-$('.tabButton').click(function (e) {
+$('.footerBtn').click(function (e) {
+  $('.footerBtn').removeClass("footerBtnActive");
+  $(this).addClass("footerBtnActive");
   switch (this.name) {
     case 'tab1':
-      showTab(this.name);
-      setTimeout(() => {
-        $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-        $('.toogleItemLeft').addClass('toogleItemShowLeft');
-      }, 500);
+      showTab(1);
       break;
     case 'tab2':
-      showTab(this.name);
-      fetchAndRenderCalendarData();
+      showTab(2);
       break;
     case 'tab3':
-      showTab(this.name);
+      showTab(3);
       break;
     default:
       break;
   }
 });
 
-const showTab = (tab) => {
+let tabIndex = 1;
+const showTab = (n) => {
+  tabIndex = n;
+  if (n > 3) {
+    tabIndex = 1
+  }
+  if (n < 1) {
+    tabIndex = 3;
+  }
   $('.city').hide();
-  $(`#${tab}`).show();
+  $(`#tab${tabIndex}`).show();
   $('.footerBtn').removeClass("footerBtnActive");
-  $(`.tabButton[name="${tab}"]`).addClass("footerBtnActive");
+  $(`.tabButton[name="tab${tabIndex}"]`).addClass("footerBtnActive");
+  if (tabIndex == 1) {
+    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+    $('.toogleItemLeft').addClass('toogleItemShowLeft');
+  }
+  else {
+    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+  }
+
+  switch (n) {
+    case 1:
+      break;
+    case 2:
+      fetchAndRenderCalendarData();
+      break;
+    case 3:
+      break;
+    default:
+      break;
+  }
 }
 
 $(document).keydown(function (e) {
@@ -207,29 +231,21 @@ $(document).keydown(function (e) {
     handleDelete();
     $('#searchInput').focus();
   }
-  if ($(e.target).is('input,select,button')) return;
+  if ($(e.target).is('input,select')) return;
   switch (e.keyCode) {
     case 37:
-      showTab('tab1');
-      setTimeout(() => {
-        $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-        $('.toogleItemLeft').addClass('toogleItemShowLeft');
-      }, 500);
+      showTab(tabIndex += -1);
       break;
     case 39:
-      fetchAndRenderCalendarData();
-      // fetchCurrentConditions();
-
-      $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-      showTab('tab2');
+      showTab(tabIndex += 1);
       break;
     case 38:
-      if ($("#tab1").css('display') == 'none') {
+      if (tabIndex == 2) {
         showSlides(slideIndex += 1);
       }
       break;
     case 40:
-      if ($("#tab1").css('display') == 'none') {
+      if (tabIndex == 2) {
         if (slideIndex == dataHistory.length) {
           $('#calendarContent').html('');
         }
@@ -245,10 +261,7 @@ $(document).keydown(function (e) {
   }
 });
 
-$('.footerBtn').click(function (e) {
-  $('.footerBtn').removeClass("footerBtnActive");
-  $(this).addClass("footerBtnActive");
-});
+
 
 $('.footerBtnToggleLeft').click(function (e) {
   $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
@@ -278,12 +291,7 @@ $('.toogleItemRight').mouseleave(function () {
   $('.toogleItemRight').removeClass('toogleItemShowRight');
 });
 
-$('.footerBtn[name="tab2"]').click(function (e) {
-  fetchAndRenderCalendarData();
-  // fetchCurrentConditions();
 
-  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-});
 
 
 

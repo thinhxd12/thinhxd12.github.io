@@ -165,7 +165,8 @@ const drawChartRain = (data) => {
                         maxRotation: 0,
                         fontColor: "#000",
                         fontSize: 9,
-                        autoSkip: false
+                        autoSkip: false,
+                        labelOffset: -3
                     },
                 }],
                 yAxes: [{
@@ -255,7 +256,7 @@ const cleanDataCurrently = (data, offset) => {
     let minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
     CURRENT_HOUR = hours;
     CURRENT_MINUTE = minutes;
-    console.log(CURRENT_HOUR);
+    // console.log(CURRENT_HOUR);
     let newItem = { icon: data.icon, summary: data.summary, isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18 };
     switch (true) {
         case data.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
@@ -289,8 +290,8 @@ const cleanDataCurrently = (data, offset) => {
         default:
             break;
     }
-    let res = { ...data, ...newItem }
-    console.log(res);
+    // let res = { ...data, ...newItem }
+    // console.log(res);
     return { ...data, ...newItem };
 }
 
@@ -497,6 +498,10 @@ const renderHourTimeline = (data) => {
 // renderHourTimeline(hourlyData);
 
 const fetchPirateApi = () => {
+    //turn off rain
+    cancelAnimationFrame(rainReq);
+    $('#raincanvas').hide();
+
     // let time = Math.round(Date.now() / 1000) + 100000;
     let time = Math.round(Date.now() / 1000);
     let url = `https://api.pirateweather.net/forecast/${API_WEATHER_KEY}/${LAT_LONG},${time}?exclude=daily&units=ca`;
@@ -523,10 +528,10 @@ var raincanvas = document.getElementById('raincanvas');
 var ctx2 = raincanvas.getContext('2d');
 var rainnum = 500;
 var rain = [];
-var w = raincanvas.width = window.innerWidth;
+var w = raincanvas.width = 380;
 var h = raincanvas.height = window.innerHeight;
 window.addEventListener('resize', function () {
-    w = raincanvas.width = window.innerWidth;
+    w = raincanvas.width = 380;
     h = raincanvas.height = window.innerHeight;
 });
 function random(min, max) {
@@ -572,8 +577,9 @@ function animateRain() {
 
 createRain();
 
+var rainReq;
 function animloop() {
     $('#raincanvas').show();
     animateRain();
-    requestAnimationFrame(animloop);
+    rainReq =  requestAnimationFrame(animloop);
 }

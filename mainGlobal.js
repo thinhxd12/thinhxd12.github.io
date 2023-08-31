@@ -948,18 +948,8 @@ const textToSpeech = (text, render) => {
     utterance.text = text;
     window.speechSynthesis.speak(utterance);
     if (render) {
-        const fetchOptions = {
-            returnRawResponse: false,
-            detailedTranslations: false,
-            definitionSynonyms: false,
-            detailedTranslationsSynonyms: false,
-            definitions: false,
-            definitionExamples: false,
-            examples: true,
-            removeStyles: false
-        }
-        let obj = { text: text, fromL: 'en', toL: 'vi', option: fetchOptions };
-        fetch(ggsUrl + '?action=getTranslateInfo', { method: 'POST', body: JSON.stringify(obj) })
+        let transUrl = `https://myapp-9r5h.onrender.com/example?text=${text}&from=en&to=vi`;
+        fetch(transUrl)
             .then(res => res.json())
             .then(data => {
                 renderExplainGG(text, data.examples)
@@ -1094,8 +1084,8 @@ const handleTranslate = async () => {
     const transInput = document.getElementById("transInput");
 
     if (/\w*/.test(transInput.value)) {
-        let obj = { text: transInput.value, fromL: 'en', toL: 'vi' };
-        fetch(ggsUrl + '?action=getTranslateInfo', { method: 'POST', body: JSON.stringify(obj) })
+        let transUrl = `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
+        fetch(transUrl)
             .then(res => res.json())
             .then(data => {
                 renderTranslate(data);

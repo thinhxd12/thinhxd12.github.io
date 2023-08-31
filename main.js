@@ -7,7 +7,6 @@ const proxyArr = [
 ]
 let urlCors = proxyArr[0].link;
 const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
-const ggsUrl = 'https://script.google.com/macros/s/AKfycbyLGSgS2kd2i5gLEH-cfuAsOxgj7pFCu1qaFQEDCP11nXbBVViA4P-KP008NZ8r1d7G7g/exec'
 
 
 

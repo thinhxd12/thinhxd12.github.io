@@ -578,12 +578,12 @@ const fetchAndRenderMonthImg = () => {
     })
 }
 
-fetchAndRenderMonthImg();
+// fetchAndRenderMonthImg();
 
 //change monthImg every 30m
-setInterval(() => {
-    fetchAndRenderMonthImg();
-}, 360000);
+// setInterval(() => {
+//     fetchAndRenderMonthImg();
+// }, 360000);
 
 const monthImg = (monthImg) => {
     switch (monthImg) {
@@ -625,6 +625,8 @@ const monthImg = (monthImg) => {
             break;
     }
 };
+
+monthImg(new Date().getMonth()+1);
 
 
 function formatDate(date) {

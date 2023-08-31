@@ -1,6 +1,6 @@
 
 const PRECIP_NUMB = 0.63;
-const DEVIATION_NUMB = 1.8;
+const DEVIATION_NUMB = 1.53;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
@@ -136,8 +136,8 @@ const drawChartRain = (data) => {
 
     const yValues = data.map(item => {
         // 95% = DEVIATION_NUMB* standard deviation occur
-        let newData = item.precipIntensity - DEVIATION_NUMB * data.precipIntensityError;
-        return newData >= 0 ? newData : 0
+        let newData = item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError;
+        return newData >= 0 ? newData.toFixed(3) : 0
     })
     new Chart("rainChart", {
         type: "line",
@@ -269,6 +269,10 @@ const cleanDataCurrently = (data, offset) => {
         precipIntensity: data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError,
     };
     switch (true) {
+        case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.cloudCover >= 0.875 && data.precipProbability >= PRECIP_NUMB:
+            newItem.icon = 'overcast-rain';
+            newItem.summary = 'Overcast Light Rain';
+            break;
         case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.precipProbability >= PRECIP_NUMB:
             newItem.icon = 'drizzle';
             newItem.summary = 'Light Rain';

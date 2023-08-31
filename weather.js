@@ -1,6 +1,6 @@
 
 const PRECIP_NUMB = 0.63;
-const DEVIATION_NUMB = 1.53;
+const DEVIATION_NUMB = 1.72;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
@@ -43,7 +43,7 @@ const renderWeatherPlaceSelect = (data) => {
 
 setTimeout(() => {
     getWeatherToken();
-}, 2000);
+}, 1000);
 
 
 const makePrediction = (data) => {
@@ -180,7 +180,7 @@ const drawChartRain = (data) => {
                         display: false,
                         // stepSize: 0.1,
                         min: 0,
-                        // max: 2
+                        max: 1.5
                     },
                     // type: 'logarithmic',
                 }]
@@ -266,7 +266,7 @@ const cleanDataCurrently = (data, offset) => {
         summary: data.summary,
         isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18,
         // 95% = DEVIATION_NUMB* standard deviation occur
-        precipIntensity: data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError,
+        precipIntensity: (data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError).toFixed(3),
     };
     switch (true) {
         case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.cloudCover >= 0.875 && data.precipProbability >= PRECIP_NUMB:

@@ -260,13 +260,13 @@ const cleanDataCurrently = (data, offset) => {
     CURRENT_MINUTE = minutes;
     // console.log(CURRENT_HOUR);
 
-
+    // 95% = DEVIATION_NUMB* standard deviation occur
+    let newPrecipIntensity = (data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError).toFixed(3) * 1;
     let newItem = {
         icon: data.icon,
         summary: data.summary,
         isDayTime: CURRENT_HOUR * 1 > 5 && CURRENT_HOUR * 1 < 18,
-        // 95% = DEVIATION_NUMB* standard deviation occur
-        precipIntensity: (data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError).toFixed(3),
+        precipIntensity: newPrecipIntensity > 0 ? newPrecipIntensity : 0,
     };
     switch (true) {
         case newItem.precipIntensity >= 0.1 && newItem.precipIntensity < 0.5 && data.cloudCover >= 0.875 && data.precipProbability >= PRECIP_NUMB:

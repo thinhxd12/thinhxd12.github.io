@@ -626,7 +626,7 @@ const monthImg = (monthImg) => {
     }
 };
 
-monthImg(new Date().getMonth()+1);
+monthImg(new Date().getMonth() + 1);
 
 
 function formatDate(date) {
@@ -876,9 +876,10 @@ const handleNextWord = () => {
         todayScheduleData.startNum++;
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
-    let indexx = dataSheets.findIndex(n => n._id == item._id);
+    let indexx = $('#wordRow').val() * 1 + autorunTime + 1;
+
     playTTSwithValue(item.text);
-    renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
+    renderFlashcard(item, todayScheduleData?.startNum, indexx);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
     if ((indexx + 1) % 50 == 0) {
         autorunTime = 50;

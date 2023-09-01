@@ -563,7 +563,7 @@ body {
 .indicateFlip {
   position: absolute;
   border: 1px solid transparent;
-  top: -15%;
+  top: -12%;
   right: 18px;
   z-index: 6;
   transition: 0.5s ease-out;
@@ -604,8 +604,8 @@ body {
   left: 12px;
   opacity: 72%;
   color: #c70000;
-  font-size: 1rem;
-  font-variant-numeric: diagonal-fractions;
+  font-size: 12px;
+  /* font-variant-numeric: diagonal-fractions; */
 }
 
 .cardName {
@@ -620,7 +620,9 @@ body {
   position: absolute;
   font-size: 11px;
   bottom: 0;
-  right: 45px;
+  right: 18px;
+  width: 60px;
+  text-align: center;
   color: #000;
   font-family: "Roslindale";
   z-index: 18;

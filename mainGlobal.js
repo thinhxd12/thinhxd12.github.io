@@ -876,10 +876,10 @@ const handleNextWord = () => {
         todayScheduleData.startNum++;
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
-    let indexx = $('#wordRow').val() * 1 + autorunTime + 1;
+    let indexx = $('#wordRow').val() * 1 + autorunTime;
 
     playTTSwithValue(item.text);
-    renderFlashcard(item, todayScheduleData?.startNum, indexx);
+    renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
     if ((indexx + 1) % 50 == 0) {
         autorunTime = 50;
@@ -983,7 +983,7 @@ const renderFlashcard = (item, progress, row) => {
                     ${row ? `<p class="cardRow"><small>No. </small>${row}</p>` : ''}
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
-                    ${progress ? `<span class="progressFlip">${progress}/9</span>` : ''}
+                    ${progress ? `<span class="progressFlip"><sup>${progress}</sup>/<sub>9</sub></span>` : ''}
                               <h1>${item.text}</h1>
                               <p class="cardPhonetic">| ${item.phonetic} |</p>                  
                     <p class="cardName">05/07/22</p>

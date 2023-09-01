@@ -1,6 +1,6 @@
 
-const PRECIP_NUMB = 0.63;
-const DEVIATION_NUMB = 1.72;
+const PRECIP_NUMB = 0.8;
+const DEVIATION_NUMB = 1.5;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
@@ -43,102 +43,82 @@ const renderWeatherPlaceSelect = (data) => {
 
 setTimeout(() => {
     getWeatherToken();
-}, 1000);
+}, 1500);
 
 
 const makePrediction = (data) => {
-    let lightRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 0.1 && item.precipProbability >= PRECIP_NUMB);
-    let medRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 0.5 && item.precipProbability >= PRECIP_NUMB);
-    let heavyRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError >= 1 && item.precipProbability >= PRECIP_NUMB);
-    let maxIndex = Math.max(lightRainIndex, medRainIndex, heavyRainIndex);
+    let lightRainIndex = data.findIndex(item => item.intensity >= 0.1 && item.probability >= PRECIP_NUMB);
+    let medRainIndex = data.findIndex(item => item.intensity >= 0.5 && item.probability >= PRECIP_NUMB);
+    let heavyRainIndex = data.findIndex(item => item.intensity >= 1 && item.probability >= PRECIP_NUMB);
+    let endRainIndex = data.findLastIndex(item => item.intensity >= 0.09 && item.intensity < 0.1 && item.probability >= PRECIP_NUMB);
     let mainItem = {};
-
-    function checkCurrent() {
-        let item = data[0].precipIntensity - DEVIATION_NUMB * data[0].precipIntensityError;
-        return item >= 1 ? 'Heavy rain' : item >= 0.5 ? 'Rain' : 'Light rain';
-    }
-
-    function countTimeStart(index) {
-        if (index == 0) {
-            return 0;
-        }
-        else {
-            let start = data[0].time;
-            let time = data[lightRainIndex].time;
-            return Math.floor((time - start) / 60);
-        }
-    }
-    function countTimeEnd() {
-        let endRainIndex = data.findIndex(item => item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError < 0.1 && item.precipProbability >= PRECIP_NUMB);
-        if (endRainIndex > -1) {
-            let start = data[0].time;
-            let time = data[endRainIndex].time;
-            return Math.floor((time - start) / 60);
-        }
-        else return -1;
-    }
+    endRainIndex >= 0 ? mainItem.end = data[endRainIndex].diffTime : mainItem.end = -1;
     switch (true) {
-        case maxIndex == -1:
-            mainItem['type'] = 0;
-            mainItem['start'] = 0;
-            mainItem['end'] = -1;
+        case lightRainIndex == -1:
+            mainItem.type = 'No rain';
             break;
-        case maxIndex == 0:
-            mainItem['type'] = checkCurrent();
-            mainItem['start'] = countTimeStart(maxIndex);
-            mainItem['end'] = countTimeEnd();
+        case lightRainIndex >= 0:
+            mainItem.type = 'Light rain';
             break;
-        case maxIndex == heavyRainIndex:
-            mainItem['type'] = 'Heavy rain';
-            mainItem['start'] = countTimeStart(maxIndex);
-            mainItem['end'] = countTimeEnd();
+        case medRainIndex >= 0:
+            mainItem.type = 'Rain'
             break;
-        case maxIndex == medRainIndex:
-            mainItem['type'] = 'Rain';
-            mainItem['start'] = countTimeStart(maxIndex);
-            mainItem['end'] = countTimeEnd();
-            break;
-        case maxIndex == lightRainIndex:
-            mainItem['type'] = 'Light rain';
-            mainItem['start'] = countTimeStart(maxIndex);
-            mainItem['end'] = countTimeEnd();
+        case heavyRainIndex >= 0:
+            mainItem.type = 'Heavy rain'
             break;
         default:
             break;
     }
+    lightRainIndex >= 0 ? mainItem.start = data[lightRainIndex].diffTime : mainItem.start = -1;
+    function makeText(start, end) {
+        switch (true) {
+            case start == 0 && end < 0:
+                return `for the hour.`
+            case start > 0:
+                return `starting in ${start} min.`
+            case end > 0:
+                return `stopping in ${end} min.`
+            default:
+                break;
+        }
+    }
 
     function createText() {
-        if (mainItem.type == 0) {
-            return `Next hour: No rain anywhere in the area.`
-        }
-        else {
-            if (mainItem.start == 0 && mainItem.end == -1) {
-                return `${mainItem.type} for the hour.`;
-            }
-            else if (mainItem.end > 0) {
-                return `${mainItem.type} stopping in ${mainItem.end} min.`;
-            }
-            else if (mainItem.start > 0) {
-                return `${mainItem.type} starting in ${mainItem.start} min.`;
-            }
+        switch (mainItem.type) {
+            case 'No rain':
+                return `Next hour: No rain anywhere in the area.`
+            case 'Light rain':
+                return `Light rain ${makeText(mainItem.start, mainItem.end)}`;
+            case 'Rain':
+                return `Rain ${makeText(mainItem.start, mainItem.end)}`;
+
+            case 'Heavy rain':
+                return `Heavy rain ${makeText(mainItem.start, mainItem.end)}`;
+
+            default:
+                break;
         }
 
     }
-    return createText();
+
+    $('.weatherPredict').text(createText());
 }
 // makePrediction(data);
 
 const drawChartRain = (data) => {
-    const xValues = data.map(item => {
-        let diff = item.time - data[0].time
-        return diff / 60;
+    let newData = data.map((item, index) => {
+        let newItem = { diffTime: 0, intensity: 0, probability: 0 }
+        let newIntensity = item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError;
+        newItem.diffTime = (item.time - data[0].time) / 60;
+        newItem.intensity = newIntensity >= 0 ? newIntensity.toFixed(3) * 1 : 0;
+        newItem.probability = item.precipProbability;
+        return newItem;
     })
 
-    const yValues = data.map(item => {
-        // 95% = DEVIATION_NUMB* standard deviation occur
-        let newData = item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError;
-        return newData >= 0 ? newData.toFixed(3) : 0
-    })
+    const xValues = newData.map(item => item.diffTime);
+    const yValues = newData.map(item => item.intensity);
+    makePrediction(newData);
+
     new Chart("rainChart", {
         type: "line",
         data: {
@@ -261,7 +241,7 @@ const cleanDataCurrently = (data, offset) => {
     // console.log(CURRENT_HOUR);
 
     // 95% = DEVIATION_NUMB* standard deviation occur
-    let newPrecipIntensity = (data.precipIntensity - DEVIATION_NUMB * data.precipIntensityError).toFixed(3) * 1;
+    let newPrecipIntensity = (data.precipIntensity - DEVIATION_NUMB * 1.2 * data.precipIntensityError).toFixed(3) * 1;
     let newItem = {
         icon: data.icon,
         summary: data.summary,
@@ -525,7 +505,6 @@ const fetchPirateApi = () => {
         .then(data => {
             // console.log(data);
             renderCurrentlyData(data.currently, data.offset);
-            $('.weatherPredict').text(makePrediction(data.minutely.data));
             drawChartRain(data.minutely.data);
             renderHourTimeline(data.hourly.data);
         })

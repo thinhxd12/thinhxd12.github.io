@@ -119,117 +119,79 @@ const drawChartRain = (data) => {
     const yValues = newData.map(item => item.intensity);
     makePrediction(newData);
 
+    const chartData = {
+        labels: xValues,
+        datasets: [
+            {
+                label: '',
+                data: yValues,
+                backgroundColor: "#52a0c1bf",
+                borderColor: "#009bff",
+                fill: true,
+                tension: 0.1,
+                pointRadius: 0,
+                borderWidth: 1,
+            }
+        ]
+    };
+
     new Chart("rainChart", {
         type: "line",
-        data: {
-            labels: xValues,
-            datasets: [{
-                fill: true,
-                lineTension: 0,
-                backgroundColor: "#52a0c1bf",
-                borderColor: "rgba(0,0,255,0.1)",
-                data: yValues,
-            }]
-        },
+        data: chartData,
         options: {
-            responsive: true,
-            legend: { display: false },
+            plugins: {
+                legend: { display: false },
+            },
             scales: {
-                xAxes: [{
-                    gridLines: {
-                        // display: false,
-                        drawTicks: true,
+                y: {
+                    min: 0,
+                    max: 1.5,
+                    border: { dash: [1, 2] },
+                    grid: {
+                        drawTicks: 0,
                     },
                     ticks: {
-                        callback: function (value, index, ticks) {
-                            return index == 0 ? '' : index % 10 === 0 ? value + ' min' : null;
+                        stepSize: 0.5,
+                        callback: (value, index, values) => {
+                            switch (value) {
+                                case 0:
+                                    return 'LIGHT';
+                                case 0.5:
+                                    return 'MED';
+                                case 1:
+                                    return 'HEAVY';
+                                default:
+                                    null;
+                            }
                         },
-                        maxRotation: 0,
-                        fontColor: "#000",
-                        fontSize: 9,
-                        autoSkip: false,
-                        labelOffset: -3
-                    },
-                }],
-                yAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawTicks: true
+                        font: {
+                            size: 9,
+                        },
+                        color: 'black'
+
+                    }
+                },
+                x: {
+                    grid: {
+                        display: 1,
+                        drawOnChartArea: 0,
+                        tickLength: 5,
+                        tickWidth: 1,
+                        tickColor: '#000000a3',
                     },
                     ticks: {
-                        display: false,
-                        // stepSize: 0.1,
-                        min: 0,
-                        max: 1.5
-                    },
-                    // type: 'logarithmic',
-                }]
-            },
-            elements: {
-                point: {
-                    radius: 0
+                        callback: (value, index, values) => {
+                            return value == 0 ? '' : value % 10 === 0 ? value + 'min' : null;
+                        },
+                        font: {
+                            size: 9,
+                        },
+                        color: 'black'
+                    }
                 }
-            },
-            annotation: {
-
-                annotations: [{
-                    type: 'line',
-                    mode: 'horizontal',
-                    scaleID: 'y-axis-0',
-                    value: '1',
-                    borderDash: [1, 1],
-                    label: {
-                        backgroundColor: 'transparent',
-                        fontColor: '#000',
-                        content: "HEAVY",
-                        fontSize: 10,
-                        enabled: true,
-                        yAdjust: -10,
-                        xAdjust: -160
-                    },
-                    borderColor: '#000',
-                    borderWidth: 1,
-                },
-                {
-                    type: 'line',
-                    mode: 'horizontal',
-                    scaleID: 'y-axis-0',
-                    value: '0.5',
-                    borderDash: [1, 1],
-                    label: {
-                        backgroundColor: 'transparent',
-                        fontColor: '#000',
-                        content: "MED",
-                        fontSize: 10,
-                        enabled: true,
-                        yAdjust: -10,
-                        xAdjust: -165
-                    },
-                    borderColor: '#000',
-                    borderWidth: 1,
-                },
-                {
-                    type: 'line',
-                    mode: 'horizontal',
-                    scaleID: 'y-axis-0',
-                    value: '0',
-                    label: {
-                        backgroundColor: 'transparent',
-                        fontColor: '#000',
-                        content: "LIGHT",
-                        fontSize: 10,
-                        enabled: true,
-                        yAdjust: -10,
-                        xAdjust: -160
-                    },
-                },
-
-                ],
-                drawTime: "afterDraw",
-
             }
         }
-    });
+    })
 }
 
 const cleanDataCurrently = (data, offset) => {

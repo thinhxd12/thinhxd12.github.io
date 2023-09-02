@@ -154,6 +154,12 @@ const fetchRenderImgBackground = (numb) => {
     })
 }
 
+
+
+window.addEventListener("storage", () => { alert("D") });
+
+
+
 let slideImgIndex = 0;
 
 const showImage = (n) => {
@@ -672,3 +678,4 @@ const renderRssTheconversation = () => {
     })
   })
 }
+

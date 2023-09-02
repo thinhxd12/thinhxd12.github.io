@@ -43,7 +43,7 @@ const renderWeatherPlaceSelect = (data) => {
 
 setTimeout(() => {
     getWeatherToken();
-}, 1500);
+}, 2000);
 
 
 const makePrediction = (data) => {

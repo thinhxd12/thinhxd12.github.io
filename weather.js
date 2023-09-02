@@ -1,6 +1,6 @@
 
 const PRECIP_NUMB = 0.8;
-const DEVIATION_NUMB = 1.5;
+const DEVIATION_NUMB = 1.8;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
@@ -109,93 +109,135 @@ let myRainChart;
 
 const drawChartRain = (data) => {
     let newData = data.map((item, index) => {
-        let newItem = { diffTime: 0, intensity: 0, probability: 0 }
-        let newIntensity = item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError;
-        newItem.diffTime = (item.time - data[0].time) / 60;
-        newItem.intensity = newIntensity >= 0 ? newIntensity.toFixed(3) * 1 : 0;
-        newItem.probability = item.precipProbability;
-        return newItem;
+      let newItem = { diffTime: 0, intensity: 0, probability: 0 }
+      let newIntensity = item.precipIntensity - DEVIATION_NUMB * item.precipIntensityError;
+      newItem.diffTime = (item.time - data[0].time) / 60;
+      newItem.intensity = newIntensity >= 0 ? newIntensity.toFixed(3) * 1 : 0;
+      newItem.probability = item.precipProbability;
+      return newItem;
     })
-
+  
     const xValues = newData.map(item => item.diffTime);
     const yValues = newData.map(item => item.intensity);
+    const zValues = newData.map(item => item.probability);
     makePrediction(newData);
-
+  
     const chartData = {
-        labels: xValues,
-        datasets: [
-            {
-                label: '',
-                data: yValues,
-                backgroundColor: "#52a0c1bf",
-                borderColor: "#009bff",
-                fill: true,
-                tension: 0.1,
-                pointRadius: 0,
-                borderWidth: 1,
-            }
-        ]
+      labels: xValues,
+      datasets: [
+        {
+          label: '',
+          data: yValues,
+          backgroundColor: "#52a0c1bf",
+          borderColor: "#009bff",
+          fill: true,
+          tension: 0.1,
+          pointRadius: 0,
+          borderWidth: 1,
+          yAxisID: 'y',
+        },
+        {
+          label: '',
+          data: zValues,
+          borderColor: "red",
+          fill: false,
+          tension: 0.1,
+          pointRadius: 0,
+          borderWidth: 1,
+          yAxisID: 'y1',
+        },
+      ]
     };
-
+  
     if (myRainChart) myRainChart.destroy();
+  
     myRainChart = new Chart("rainChart", {
-        type: "line",
-        data: chartData,
-        options: {
-            plugins: {
-                legend: { display: false },
+      type: "line",
+      data: chartData,
+      options: {
+        plugins: {
+          legend: { display: false },
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 1.5,
+            type: 'linear',
+            display: true,
+            position: 'left',
+            border: { dash: [1, 2] },
+            grid: {
+              drawTicks: 0
             },
-            scales: {
-                y: {
-                    min: 0,
-                    max: 1.5,
-                    border: { dash: [1, 2] },
-                    grid: {
-                        drawTicks: 0,
-                    },
-                    ticks: {
-                        stepSize: 0.5,
-                        callback: (value, index, values) => {
-                            switch (value) {
-                                case 0:
-                                    return 'LIGHT';
-                                case 0.5:
-                                    return 'MED';
-                                case 1:
-                                    return 'HEAVY';
-                                default:
-                                    null;
-                            }
-                        },
-                        font: {
-                            size: 9,
-                        },
-                        color: 'black'
-
-                    }
-                },
-                x: {
-                    grid: {
-                        display: 1,
-                        drawOnChartArea: 0,
-                        tickLength: 5,
-                        tickWidth: 1,
-                        tickColor: '#000000a3',
-                    },
-                    ticks: {
-                        callback: (value, index, values) => {
-                            return value == 0 ? '' : value % 10 === 0 ? value + 'min' : null;
-                        },
-                        font: {
-                            size: 9,
-                        },
-                        color: 'black'
-                    }
+            ticks: {
+              stepSize: 0.5,
+              callback: (value, index, values) => {
+                switch (value) {
+                  case 0:
+                    return 'LIGHT';
+                  case 0.5:
+                    return 'MED';
+                  case 1:
+                    return 'HEAVY';
+                  default:
+                    null;
                 }
+              },
+              font: {
+                size: 9,
+              },
+              color: 'black'
+  
             }
+          },
+          x: {
+            border: { display: 0, },
+            grid: {
+              display: 1,
+              drawOnChartArea: 0,
+              tickLength: 5,
+              tickWidth: 1,
+              tickColor: '#000000a3',
+            },
+            ticks: {
+              callback: (value, index, values) => {
+                return value == 0 ? '' : value % 10 === 0 ? value + 'min' : null;
+              },
+              font: {
+                size: 9,
+              },
+              color: 'black'
+            }
+          },
+          y1: {
+            min: 0,
+            max: 1,
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+              display: 1,
+              drawOnChartArea: 0,
+              tickLength: 3,
+              tickWidth: 1,
+  
+            },
+            ticks: {
+              stepSize: 0.1,
+              callback: (value, index, values) => {
+                return value == 0 ? '0' : value * 100 + '%';
+              },
+              font: {
+                size: 9,
+              },
+              color: 'black'
+  
+            },
+          },
         }
+      }
     })
-}
+  }
 
 const cleanDataCurrently = (data, offset) => {
     const time = new Date(data.time * 1000);

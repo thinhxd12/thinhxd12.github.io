@@ -361,8 +361,8 @@ const renderCalendar = (data) => {
     }
 
     // renderCalendarProgress---------------
-
-    if (date.getTime() > endDay.getTime() || date.getTime() < startDay.getTime()) {
+    let checkValidWeek = (date.getDate() > endDay.getDate() && date.getMonth() == endDay.getMonth()) || (date.getDate() < startDay.getDate() && date.getMonth() == startDay.getMonth());
+    if (checkValidWeek) {
         document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="25px">';
     } else document.getElementById('dateProgress').innerHTML = `
                       <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>

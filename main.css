@@ -2105,6 +2105,7 @@ div#contentBody {
   border-radius: 3px;
   outline: none;
   cursor: pointer;
+  background: 0;
 }
 
 .weatherPlace option {

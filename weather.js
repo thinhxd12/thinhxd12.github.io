@@ -27,7 +27,7 @@ const renderWeatherPlaceSelect = (data) => {
     weatherPlace.innerHTML = `
     <select id="weatherPlaces">
         ${Object.keys(placeObj).map((item, index) => {
-        return `<option value="${index}" ${index == 0 ? 'selected' : ''}>
+        return `<option class="weatherPlaceOption" value="${index}" ${index == 0 ? 'selected' : ''}>
                 <span>${Object.keys(placeObj[item])}</span>
                 </option>`
     }).join('')

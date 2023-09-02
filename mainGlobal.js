@@ -943,13 +943,11 @@ const playTTSwithValue = (val, render = true) => {
 };
 
 const textToSpeech = (text, render) => {
-    const voices = window.speechSynthesis.getVoices();
-    let utterance = new SpeechSynthesisUtterance();
-    utterance.lang = "en";
-    utterance.voice = voices[4];
-    utterance.rate = 0.9;
-    utterance.text = text;
-    window.speechSynthesis.speak(utterance);
+    const audioEl = document.getElementById("tts-audio");
+    audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
+    audioEl.volume = 1;
+    audioEl.play();
+
     if (render) {
         let transUrl = `https://myapp-9r5h.onrender.com/example?text=${text}&from=en&to=vi`;
         fetch(transUrl)
@@ -970,6 +968,8 @@ const renderFlashcard = (item, progress, row) => {
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
     cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`).substring(1);
+    let meaningTTS = item.meaning.replace(/\s\-\w+\-/g, "-");
+
     const flashCardContent = document.getElementById("flashCardContent");
     flashCardContent.innerHTML = `
                 <div class="item">
@@ -1008,10 +1008,16 @@ const renderFlashcard = (item, progress, row) => {
     }
 
     flipTimer1 = setTimeout(hoverIn, 4000);
+    setTimeout(() => {
+        const audioEl = document.getElementById("tts-audio");
+        audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
+        audioEl.volume = 1;
+        audioEl.play();
+    }, 4100);
     flipTimer2 = setTimeout(hoverOut, 7000);
 };
 
-const hoverIn = () => {
+const hoverIn = (text) => {
     $('.item-wrapper').addClass('item-hover');
 };
 

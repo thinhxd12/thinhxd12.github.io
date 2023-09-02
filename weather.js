@@ -105,6 +105,8 @@ const makePrediction = (data) => {
 }
 // makePrediction(data);
 
+let myRainChart;
+
 const drawChartRain = (data) => {
     let newData = data.map((item, index) => {
         let newItem = { diffTime: 0, intensity: 0, probability: 0 }
@@ -135,7 +137,8 @@ const drawChartRain = (data) => {
         ]
     };
 
-    new Chart("rainChart", {
+    if (myRainChart) myRainChart.destroy();
+    myRainChart = new Chart("rainChart", {
         type: "line",
         data: chartData,
         options: {

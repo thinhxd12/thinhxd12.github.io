@@ -944,7 +944,8 @@ const playTTSwithValue = (val, render = true) => {
 
 const textToSpeech = (text, render) => {
     const audioEl = document.getElementById("tts-audio");
-    audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
+    // audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
+    audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`
     audioEl.volume = 1;
     audioEl.play();
 
@@ -1008,7 +1009,8 @@ const renderFlashcard = (item, progress, row) => {
     flipTimer1 = setTimeout(hoverIn, 4000);
     flipTimer2 = setTimeout(() => {
         const audioEl = document.getElementById("tts-audio");
-        audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
+        // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
+        audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`
         audioEl.volume = 1;
         audioEl.play();
     }, 4100);

@@ -958,17 +958,15 @@ const textToSpeech = (text, render) => {
     }
 }
 
-let flipTimer1;
-let flipTimer2;
+let flipTimer1, flipTimer2, flipTimer3;
 
 const renderFlashcard = (item, progress, row) => {
-    clearTimeout(flipTimer1);
-    clearTimeout(flipTimer2);
+    clearTimeout(flipTimer1, flipTimer2, flipTimer3);
 
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
     cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`).substring(1);
-    let meaningTTS = item.meaning.replace(/\s\-\w+\-/g, "-");
+    let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, "-");
 
     const flashCardContent = document.getElementById("flashCardContent");
     flashCardContent.innerHTML = `
@@ -1008,13 +1006,13 @@ const renderFlashcard = (item, progress, row) => {
     }
 
     flipTimer1 = setTimeout(hoverIn, 4000);
-    setTimeout(() => {
+    flipTimer2 = setTimeout(() => {
         const audioEl = document.getElementById("tts-audio");
         audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
         audioEl.volume = 1;
         audioEl.play();
     }, 4100);
-    flipTimer2 = setTimeout(hoverOut, 7000);
+    flipTimer3 = setTimeout(hoverOut, 7000);
 };
 
 const hoverIn = (text) => {

@@ -135,17 +135,30 @@ body {
   position: relative;
 }
 
-.mainFixedOrnament {
-  width: 100%;
+.bottomLeftOrnament{
+  width: 90px;
   height: 90px;
   position: absolute;
   bottom: 0;
+  left: 0;
   z-index: 33;
-  background-image: url("./img/bottom-left-corner.png"),
-    url("./img/bottom-right-corner.png");
-  background-position: left bottom, right bottom;
+  background-image: url("./img/bottom-left-corner.png");
+  background-position: left bottom;
   background-repeat: no-repeat;
-  background-size: 90px 90px, 90px 90px;
+  background-size: 90px 90px;
+}
+
+.bottomRightOrnament{
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 33;
+  background-image: url("./img/bottom-right-corner.png");
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: 90px 90px;
 }
 
 .imageContainer {

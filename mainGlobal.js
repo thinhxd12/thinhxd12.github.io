@@ -179,6 +179,7 @@ const autocomplete = (inp) => {
             }
         }
         else if (e.keyCode >= 49 && e.keyCode <= 57) {
+            e.preventDefault();
             x[e.keyCode - 49].click();
         }
     });

@@ -141,7 +141,7 @@ const autocomplete = (inp) => {
 
                 b = document.createElement("a");
                 b.setAttribute("class", "my-item");
-                b.innerHTML = item.text;
+                b.innerHTML = i + 1 + '. ' + item.text;
                 b.addEventListener("click", function (e) {
                     inp.value = '';
                     playTTSwithValue(item.text);
@@ -177,6 +177,9 @@ const autocomplete = (inp) => {
             if (currentFocus > -1) {
                 if (x) x[currentFocus].click();
             }
+        }
+        else if (e.keyCode >= 49 && e.keyCode <= 57) {
+            x[e.keyCode - 49].click();
         }
     });
 

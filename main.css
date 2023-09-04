@@ -547,9 +547,9 @@ body {
   z-index: 2;
   padding: 18px;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  background-image: url("./img/vangogh.jpg");
+  background-image: url("./img/napoleon.jpg");
   background-size: 120%;
-  background-position: center center;
+  background-position: center top;
 }
 
 .item-back::after {

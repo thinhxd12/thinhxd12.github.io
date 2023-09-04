@@ -141,7 +141,7 @@ const autocomplete = (inp) => {
 
                 b = document.createElement("a");
                 b.setAttribute("class", "my-item");
-                b.innerHTML = i + 1 + '. ' + item.text;
+                b.innerHTML = `<small><small>${i + 1}</small></small> ${item.text}`;
                 b.addEventListener("click", function (e) {
                     inp.value = '';
                     playTTSwithValue(item.text);

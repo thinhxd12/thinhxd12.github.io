@@ -464,14 +464,21 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 210px;
+  position: relative;
+}
+
+.flashCardContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 185px;
+  width: 100%;
 }
 
 #flashCardContent {
   width: 100%;
   display: flex;
   justify-content: center;
-  min-height: 150px;
-  border: 1px solid transparent;
 }
 
 .item {
@@ -555,8 +562,8 @@ body {
   display: block;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 255, 0, 0) 0%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(255, 255, 0, 0) 20%,
+    rgba(0, 0, 0, 0.9) 110%
   );
 }
 
@@ -671,27 +678,40 @@ body {
 /* -----------input search----------- */
 .myInputContainer {
   width: 100%;
-  height: 25px;
+  height: 45px;
   transition: all 0.5s ease;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  z-index: 77;
+  background-image: url("./img/input-left-corner.png"),
+    url("./img/input-right-corner.png");
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat, no-repeat;
+  background-size: contain, contain;
+}
+
+.myInputContent {
   background: #070707;
   border-top: 0.1px solid #b5a9941f;
   border-bottom: 0.1px solid #b5a9941f;
-}
-
-.myInputContainer .inputOrnamentCorner {
-  height: 190%;
-  z-index: 5;
-  border: 1px solid transparent;
+  width: 100%;
+  border-radius: 30px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .myInput {
   flex-grow: 1;
   box-sizing: inherit;
-  background: transparent;
   color: #fff;
+  background: transparent;
+
   height: 25px;
   padding: 0 6px;
   font-size: 11px;

@@ -211,25 +211,10 @@ const showTab = (n) => {
   $(`#tab${tabIndex}`).show();
   $('.footerBtn').removeClass("footerBtnActive");
   $(`.tabButton[name="tab${tabIndex}"]`).addClass("footerBtnActive");
-  if (tabIndex == 1) {
-    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-    $('.toogleItemLeft').addClass('toogleItemShowLeft');
-  }
-  else {
-    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-  }
 
-  switch (n) {
-    case 1:
-      break;
-    case 2:
-      fetchAndRenderCalendarData();
-      break;
-    case 3:
-      break;
-    default:
-      break;
-  }
+  if (tabIndex == 2) fetchAndRenderCalendarData();
+  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+
 }
 
 $(document).keydown(function (e) {

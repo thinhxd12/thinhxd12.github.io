@@ -970,7 +970,7 @@ const renderFlashcard = (item, progress, row) => {
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
     cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`).substring(1);
-    let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, "-");
+    let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, ", ");
 
     const flashCardContent = document.getElementById("flashCardContent");
     flashCardContent.innerHTML = `

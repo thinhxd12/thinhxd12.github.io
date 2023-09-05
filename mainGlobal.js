@@ -917,18 +917,18 @@ const playTTSwithValue = (val, render = true) => {
     let newText = val.length > 4 ? val.slice(0, -2) : val;
     const regId = new RegExp('<div id="ring-links-box">((.|\n)+?)</div>', 'gi');
     const regText = new RegExp(`(${newText}\\w*)`, 'gi');
+    const audioEl = document.getElementById("tts-audio");
 
     $.get(urlEngAmerica, function (html) {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
-            $('#tts-audio').attr('src', mp3Link);
-            const audioEl = document.getElementById("tts-audio");
+            audioEl.pause();
             audioEl.volume = 1;
+            audioEl.src = mp3Link;
             audioEl.play();
             if (render) {
                 let headword = $(html).find('.webtop-g').html();
                 // let meaning = $(html).find('#entryContent').html();
-
                 let meaning = $(html).find('.sn-gs').each(function () {
                     $(this).html($(this).html().replace(regId, ''));
                     $('span.x', this).each(function () {
@@ -942,15 +942,14 @@ const playTTSwithValue = (val, render = true) => {
             textToSpeech(val, render);
         }
     });
-    // textToSpeech(val, render);
-
 };
 
 const textToSpeech = (text, render) => {
     const audioEl = document.getElementById("tts-audio");
-    // audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
-    audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`
+    audioEl.pause();
     audioEl.volume = 1;
+    // audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
+    audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`;
     audioEl.play();
 
     if (render) {
@@ -966,8 +965,8 @@ const textToSpeech = (text, render) => {
 let flipTimer1, flipTimer2, flipTimer3;
 
 const renderFlashcard = (item, progress, row) => {
+    const audioEl = document.getElementById("tts-audio");
     clearTimeout(flipTimer1, flipTimer2, flipTimer3);
-
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
     let cardMeaning = item.meaning.replace(/\s\-(.+?)\-/g, `\n【 $1 】\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`);
     cardMeaning = cardMeaning.replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`).substring(1);
@@ -1009,14 +1008,14 @@ const renderFlashcard = (item, progress, row) => {
         }, 1000)
     }
 
-    flipTimer1 = setTimeout(hoverIn, 4000);
-    flipTimer2 = setTimeout(() => {
-        const audioEl = document.getElementById("tts-audio");
-        // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
-        audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`
+    flipTimer1 = setTimeout(() => {
+        audioEl.pause();
         audioEl.volume = 1;
+        // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
+        audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`;
         audioEl.play();
-    }, 4100);
+    }, 3500);
+    flipTimer2 = setTimeout(hoverIn, 4000);
     flipTimer3 = setTimeout(hoverOut, 7000);
 };
 

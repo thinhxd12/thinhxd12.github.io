@@ -513,10 +513,10 @@ body {
   background-size: 100%;
 }
 
-.item-wrapper:hover .indicateFlip,
+/* .item-wrapper:hover .indicateFlip,
 .item-hover .indicateFlip {
   top: -30%;
-}
+} */
 
 /* @-webkit-keyframes bounce {
   0% {

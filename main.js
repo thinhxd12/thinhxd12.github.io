@@ -244,9 +244,9 @@ $(document).keydown(function (e) {
         showSlides(slideIndex += -1);
       }
       break;
-    case 78:
-      fetchAndRenderMonthImg();
-      break;
+    // case 78:
+    //   fetchAndRenderMonthImg();
+    //   break;
 
     default:
       break;

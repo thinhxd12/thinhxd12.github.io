@@ -149,7 +149,7 @@ const fetchRenderImgBackground = (numb) => {
       $('#imgSrcBlurred').attr('src', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
 
-      $('#contentImg').attr('src', imgSrcGet);
+      $('#contentImg').css('background-image', `url(${imgSrcGet})`);
       $('.calendarCardImg').css('background-image', `url(${imgSrcGet})`);
     })
 }

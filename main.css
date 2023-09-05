@@ -513,23 +513,6 @@ body {
   background-size: 100%;
 }
 
-/* .item-wrapper:hover .indicateFlip,
-.item-hover .indicateFlip {
-  top: -30%;
-} */
-
-/* @-webkit-keyframes bounce {
-  0% {
-    top: 21%;
-  }
-  50% {
-    top: -18%;
-  }
-  100% {
-    top: -15%;
-  }
-} */
-
 .item-wrapper:hover .cardRow,
 .item-hover .cardRow {
   color: #fff;
@@ -562,7 +545,7 @@ body {
   display: block;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 255, 0, 0) 20%,
+    rgb(0 0 0 / 33%) 20%,
     rgba(0, 0, 0, 0.9) 110%
   );
 }
@@ -1425,25 +1408,36 @@ body {
   display: none;
 }
 
+.contentImg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.contentImg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgb(0 0 0 / 33%) 20%,
+    rgba(0, 0, 0, 0.9) 110%
+  );
+}
+
 .contentImg:hover {
   opacity: 0.78;
 }
 
-.contentImg {
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  display: none;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-  box-shadow: 0 0 99px black inset;
-  mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
-  -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 1) 27%, transparent 100%);
-}
-
-.contentBody > div {
+.contentText {
   width: 100%;
 }
 
@@ -2098,7 +2092,7 @@ div#contentBody {
   display: none;
 }
 
-@-webkit-keyframes moveBg {
+@keyframes moveBg {
   0% {
     background-position-x: 0;
   }

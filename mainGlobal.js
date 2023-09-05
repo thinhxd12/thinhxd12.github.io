@@ -578,7 +578,7 @@ const fetchAndRenderMonthImg = () => {
         text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
         $('.calendarCardImg').css('background-image', `url(${jsImageP.u})`);
-        $('#contentImg').attr('src', jsImageL.u);
+        $('#contentImg').css('background-image', `url(${jsImageP.u})`);
     })
 }
 

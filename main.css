@@ -1444,7 +1444,7 @@ body {
 div#quoteBody,
 div#contentBody {
   width: 100%;
-  padding: 6px 3px;
+  padding: 3px;
 }
 
 #quoteBody .wordType {

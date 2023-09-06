@@ -280,7 +280,7 @@ const renderCalendar = (data) => {
     $('div.weekDate').eq(todaysWeekDay).css('color', '#fff');
     $('div.weekDate').eq(todaysWeekDay).css('text-shadow', '0px 2px 2px #000000d1');
 
-    // monthImg(todaysMonth + 1);
+    $('#calendarHeader').css('background-image', `url("./img/${todaysMonth + 1}.jpg")`);
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
     let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
@@ -588,50 +588,6 @@ const fetchAndRenderMonthImg = () => {
 // setInterval(() => {
 //     fetchAndRenderMonthImg();
 // }, 360000);
-
-const monthImg = (monthImg) => {
-    switch (monthImg) {
-        case 1:
-            $('#calendarHeader').css('background-image', 'url("./img/1.jpg")');
-            break;
-        case 2:
-            $('#calendarHeader').css('background-image', 'url("./img/2.jpg")');
-            break;
-        case 3:
-            $('#calendarHeader').css('background-image', 'url("./img/3.jpg")');
-            break;
-        case 4:
-            $('#calendarHeader').css('background-image', 'url("./img/4.jpg")');
-            break;
-        case 5:
-            $('#calendarHeader').css('background-image', 'url("./img/5.jpg")');
-            break;
-        case 6:
-            $('#calendarHeader').css('background-image', 'url("./img/6.jpg")');
-            break;
-        case 7:
-            $('#calendarHeader').css('background-image', 'url("./img/7.jpg")');
-            break;
-        case 8:
-            $('#calendarHeader').css('background-image', 'url("./img/8.jpg")');
-            break;
-        case 9:
-            $('#calendarHeader').css('background-image', 'url("./img/9.jpg")');
-            break;
-        case 10:
-            $('#calendarHeader').css('background-image', 'url("./img/10.jpg")');
-            break;
-        case 11:
-            $('#calendarHeader').css('background-image', 'url("./img/11.jpg")');
-            break;
-        case 12:
-            $('#calendarHeader').css('background-image', 'url("./img/12.jpg")');
-            break;
-    }
-};
-
-monthImg(new Date().getMonth() + 1);
-
 
 function formatDate(date) {
     var d = new Date(date),

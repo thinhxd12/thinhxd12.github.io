@@ -1439,12 +1439,18 @@ body {
 
 .contentText {
   width: 100%;
+  margin-top: 6px;
 }
 
-div#quoteBody,
+div#quoteBody {
+  width: 100%;
+  padding: 0 3px;
+  margin: 3px 0;
+}
+
 div#contentBody {
   width: 100%;
-  padding: 3px;
+  padding: 0 3px;
 }
 
 #quoteBody .wordType {

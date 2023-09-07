@@ -29,10 +29,10 @@ const renderTomatoTick = () => {
       $('#tomatoText').show();
       $('#tomatoText').text(timeCount / 60 + 'm');
       timeCount = timeCount - t;
-      // const audioEl = document.getElementById("tts-audio");
-      // audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-      // audioEl.volume = 0.01;
-      // audioEl.play();
+      const audioEl = document.getElementById("tts-audio");
+      audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+      audioEl.volume = 0.01;
+      audioEl.play();
     }
     else {
       $('#tomatoText').text('');
@@ -48,8 +48,8 @@ const renderTomatoTick = () => {
 const startHandler = () => {
   $('#tomatoText').show();
   $('#tomatoButton').css('margin-right', '6px');
-  const audioEl = document.getElementById("tts-audio");
-  audioEl.pause();
+  // const audioEl = document.getElementById("tts-audio");
+  // audioEl.pause();
 
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
@@ -59,9 +59,9 @@ const startHandler = () => {
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
     $('#tomatoText').toggleClass('tomatoFocus');
-    audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
-    audioEl.volume = 1;
-    audioEl.play();
+    // audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
+    // audioEl.volume = 1;
+    // audioEl.play();
     $('.toogleItemLeft').removeClass('toogleItemShowLeft');
     $('.footerBtn').removeClass("footerBtnActive");
     setTimeout(() => {
@@ -192,6 +192,23 @@ $('.footerBtn').click(function (e) {
   }
 });
 
+const showLastTimeLog = () => {
+  let time = sessionStorage.getItem('lastTime');
+  let date1 = new Date(time * 1);
+  let date2 = new Date();
+  let diff = date2.getTime() - date1.getTime();
+  let msec = diff;
+  let dd = Math.floor(msec / (1000 * 3600 * 24));
+  msec -= dd * 1000 * 3600 * 24;
+  let hh = Math.floor(msec / 1000 / 60 / 60);
+  msec -= hh * 1000 * 60 * 60;
+  let mm = Math.floor(msec / 1000 / 60);
+  msec -= mm * 1000 * 60;
+  let resMsg = dd > 0 ? dd + ' days ago' : hh > 0 ? hh + ' hours ago' : mm + ' minutes ago';
+  $('.timeLog').html('Last closed ' + resMsg);
+}
+
+
 let tabIndex = 1;
 const showTab = (n) => {
   tabIndex = n;
@@ -206,7 +223,10 @@ const showTab = (n) => {
   $('.footerBtn').removeClass("footerBtnActive");
   $(`.tabButton[name="tab${tabIndex}"]`).addClass("footerBtnActive");
 
-  if (tabIndex == 2) fetchAndRenderCalendarData();
+  if (tabIndex == 2) {
+    fetchAndRenderCalendarData();
+    showLastTimeLog();
+  }
   $('.toogleItemLeft').removeClass('toogleItemShowLeft');
 
 }

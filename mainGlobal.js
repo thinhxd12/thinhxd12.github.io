@@ -224,6 +224,37 @@ const getTotalDoneWord = (text) => {
 
 getTotalDoneWord('passed');
 
+
+const getLastTimeLog = () => {
+    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getLogTime'
+    fetch(url).then(res => res.json())
+        .then(data => {
+            // console.log(data.time);
+            sessionStorage.setItem('lastTime', data.time);
+            let date1 = new Date(data.time * 1);
+            let date2 = new Date();
+            let diff = date2.getTime() - date1.getTime();
+            let msec = diff;
+            let dd = Math.floor(msec / (1000 * 3600 * 24));
+            msec -= dd * 1000 * 3600 * 24;
+            let hh = Math.floor(msec / 1000 / 60 / 60);
+            msec -= hh * 1000 * 60 * 60;
+            let mm = Math.floor(msec / 1000 / 60);
+            msec -= mm * 1000 * 60;
+            let resMsg = dd > 0 ? dd + ' days ago' : hh > 0 ? hh + ' hours ago' : mm + ' minutes ago';
+
+            $('.timeLog').html('Last closed ' + resMsg);
+        })
+}
+
+getLastTimeLog();
+
+window.addEventListener('beforeunload', function (e) {
+    let date = new Date().getTime();
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/logTime?time=${date}`
+    fetch(url).then(res => res.json())
+});
+
 let dataCalendar = [];
 
 const fetchAndRenderCalendarData = () => {

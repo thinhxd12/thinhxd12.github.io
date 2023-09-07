@@ -1290,8 +1290,14 @@ body {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: calc(100% - 172px);
+  height: calc(100% - 180px);
   border-top: 1px solid #17181a8a;
+}
+
+.timeLog {
+  color: #ededed;
+  font-size: 9px;
+  text-align: right;
 }
 
 .tableHistory {

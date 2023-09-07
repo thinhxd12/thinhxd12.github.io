@@ -29,10 +29,10 @@ const renderTomatoTick = () => {
       $('#tomatoText').show();
       $('#tomatoText').text(timeCount / 60 + 'm');
       timeCount = timeCount - t;
-      const audioEl = document.getElementById("tts-audio");
-      audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-      audioEl.volume = 0.01;
-      audioEl.play();
+      // const audioEl = document.getElementById("tts-audio");
+      // audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+      // audioEl.volume = 0.01;
+      // audioEl.play();
     }
     else {
       $('#tomatoText').text('');

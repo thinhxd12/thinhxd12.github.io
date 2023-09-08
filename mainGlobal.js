@@ -548,7 +548,7 @@ const commitNewWork = (row, numb) => {
         </div>
     </div>
     <div class="calendarItemContent">
-        <input class="calendarItemInput" value="${row} - ${row + 49}" autocomplete="off" id="commitHistoryItemRow"
+        <input class="calendarItemInput" value="${row} - ${row + 199}" autocomplete="off" id="commitHistoryItemRow"
         onmouseover="this.focus()" onmouseout="this.blur()">
         <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemFromD" autocomplete="off"
         onmouseover="this.focus()" onmouseout="this.blur()">

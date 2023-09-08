@@ -639,6 +639,7 @@ body {
 
 .flip-card-back-content {
   z-index: 66;
+  width: 85%;
 }
 
 .flip-card-back-content img {

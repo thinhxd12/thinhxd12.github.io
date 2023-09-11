@@ -205,7 +205,7 @@ const showLastTimeLog = () => {
   let mm = Math.floor(msec / 1000 / 60);
   msec -= mm * 1000 * 60;
   let resMsg = dd > 0 ? dd + ' days ago' : hh > 0 ? hh + ' hours ago' : mm + ' minutes ago';
-  $('.timeLog').html('Last closed ' + resMsg);
+  $('.timeLog').html('Last opened ' + resMsg);
 }
 
 

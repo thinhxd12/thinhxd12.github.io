@@ -243,7 +243,7 @@ const getLastTimeLog = () => {
             msec -= mm * 1000 * 60;
             let resMsg = dd > 0 ? dd + ' days ago' : hh > 0 ? hh + ' hours ago' : mm + ' minutes ago';
             $('.timeLog').html('Last opened ' + resMsg);
-            
+
             let date = new Date().getTime();
             let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/logTime?time=${date}`
             fetch(url).then(res => res.json())
@@ -605,8 +605,6 @@ const fetchAndRenderMonthImg = () => {
         let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
         text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
         $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
-        $('.calendarCardImg').css('background-image', `url(${jsImageP.u})`);
-        $('#contentImg').css('background-image', `url(${jsImageP.u})`);
     })
 }
 
@@ -761,10 +759,10 @@ const setWordList = async (item, num) => {
     handleToggleSwitchMoon();
     $('#tab1').show();
     $('#tab2').hide();
-    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
+    $('.toogleItemRight').removeClass('toogleItemShowRight');
     $('.footerBtn').removeClass("footerBtnActive");
     setTimeout(() => {
-        $('.toogleItemLeft').addClass('toogleItemShowLeft');
+        $('.toogleItemRight').addClass('toogleItemShowRight');
         $('.footerBtnToggleLeft').addClass("footerBtnActive");
     }, 500);
 }
@@ -780,7 +778,7 @@ const setWordListHandy = async () => {
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.blur();
-    $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
+    $('.toogleItemRight').toggleClass('toogleItemShowRight');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
     startHandler();
@@ -1016,8 +1014,10 @@ const renderExplain = (headword, meaning) => {
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
-      <button class="closeBtn" onclick="handleDelete()">
-         <img src="./img/close_circle.png" width="15" height="15">
+      <button class="closeBtn closeBtnSVG" onclick="handleDelete()">
+      <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
+        <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
+      </svg>
       </button>
       </div>
       <div class="explainBody">
@@ -1033,8 +1033,10 @@ const renderExplainGG = (headword, meaning) => {
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
-      <button class="closeBtn" onclick="handleDelete()">
-         <img src="./img/close_circle.png" width="15" height="15">
+      <button class="closeBtn closeBtnSVG" onclick="handleDelete()">
+      <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
+        <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
+      </svg>
       </button>
       </div>
       <div class="explainBody">

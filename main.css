@@ -13,8 +13,7 @@
 }
 
 @font-face {
-  src: url("./fonts/Roslindale-DisplayCondensedLightItalic-Testing.woff2")
-    format("woff2");
+  src: url("./fonts/Roslindale-DisplayCondensedLightItalic-Testing.woff2") format("woff2");
   font-family: "Roslindale";
   font-weight: normal;
   font-style: italic;
@@ -28,47 +27,42 @@
 }
 
 @font-face {
-  src: url("./fonts/family/imperial/imperial-normal-400.6131cd77b6e216c7693ed925f4309ffc.woff2")
-    format("woff2");
+  src: url("./fonts/family/imperial/imperial-normal-400.6131cd77b6e216c7693ed925f4309ffc.woff2") format("woff2");
   font-family: "nyt-imperial";
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./fonts/family/cheltenham-small/cheltenham-small-normal-400.108ce298d451197b23fefceb3e36959f.woff2")
-    format("woff2");
+  src: url("./fonts/family/cheltenham-small/cheltenham-small-normal-400.108ce298d451197b23fefceb3e36959f.woff2") format("woff2");
   font-family: "nyt-cheltenham-small";
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./fonts/family/cheltenham/cheltenham-normal-300.7ea91ebd036309e1fe756ee3aab272da.woff2")
-    format("woff2");
+  src: url("./fonts/family/cheltenham/cheltenham-normal-300.7ea91ebd036309e1fe756ee3aab272da.woff2") format("woff2");
   font-family: "nyt-cheltenham";
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./fonts/family/cheltenham/cheltenham-normal-400.a3ed7afe3eaa0a873f3fbd379f8c491b.woff2")
-    format("woff2");
+  src: url("./fonts/family/cheltenham/cheltenham-normal-400.a3ed7afe3eaa0a873f3fbd379f8c491b.woff2") format("woff2");
   font-family: "nyt-cheltenham";
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
-  src: url("./fonts/family/cheltenham/cheltenham-normal-700.530cfb72378419eedb60da7e266ad5f1.woff2")
-    format("woff2");
+  src: url("./fonts/family/cheltenham/cheltenham-normal-700.530cfb72378419eedb60da7e266ad5f1.woff2") format("woff2");
   font-family: "nyt-cheltenham";
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  src: url("./fonts/family/cheltenham/cheltenham-italic-700.f99a0459024509f157a3352e5de4f873.woff2")
-    format("woff2");
+  src: url("./fonts/family/cheltenham/cheltenham-italic-700.f99a0459024509f157a3352e5de4f873.woff2") format("woff2");
   font-family: "nyt-cheltenham";
   font-weight: 700;
   font-style: italic;
@@ -113,8 +107,8 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #17181a;
-  border-right: 1px solid #17181a;
+  border-left: 1px solid #343434;
+  border-right: 1px solid #343434;
   overflow: hidden;
 }
 
@@ -133,19 +127,6 @@ body {
 .mainFixedBottom {
   width: 100%;
   position: relative;
-}
-
-.bottomLeftOrnament {
-  width: 90px;
-  height: 90px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 33;
-  background-image: url("./img/bottom-left-corner.png");
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  background-size: 90px 90px;
 }
 
 .bottomRightOrnament {
@@ -301,7 +282,7 @@ body {
 }
 
 #imgDesc .main-description__authors .main-description__author {
-  background: #17181a;
+  background: #343434;
   padding: 4px 15px 4px 4px;
   display: inline-flex;
   justify-content: flex-start;
@@ -312,6 +293,7 @@ body {
   margin: 0;
   margin-right: 5px;
 }
+
 #imgDesc .main-description__authors img {
   width: 1.5vw;
   height: 1.5vw;
@@ -319,6 +301,7 @@ body {
   object-fit: fill;
   margin-right: 5px;
 }
+
 #imgDesc .main-description__text-content,
 #imgDesc .main-description__text-content a {
   letter-spacing: -0.25px;
@@ -355,8 +338,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-left: 1px solid #17181a;
-  border-right: 1px solid #17181a;
+  border-left: 1px solid #343434;
+  border-right: 1px solid #343434;
 }
 
 .mainContent::-webkit-scrollbar {
@@ -364,28 +347,36 @@ body {
 }
 
 .footerBtnContainer {
-  border-top: 1px solid #17181a;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border-top: 1px solid #343434;
+  display: flex;
   align-items: center;
-  justify-items: center;
-  position: relative;
+  justify-content: center;
+  background: #3f3222;
+
 }
 
 .footerBtn {
-  height: 35px;
-  width: 100%;
+  height: 30px;
+  flex-grow: 1;
   border: 0;
   outline: 0;
   font-family: "Roslindale";
   font-weight: normal;
   font-size: 11px;
   letter-spacing: 0.3px;
-  background: #070707;
   cursor: pointer;
-  color: #636363;
+  color: #7c7b7a;
+  background: none;
   transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   z-index: 99;
+}
+
+.footerBtnDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #7c7b7a;
+  display: block;
 }
 
 .footerBtnActive {
@@ -412,10 +403,10 @@ body {
 
 .toogleItemRight {
   position: absolute;
-  bottom: 125px;
+  bottom: 130px;
   right: -30px;
   z-index: 9;
-  width: 45px;
+  width: 50px;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   overflow: hidden;
   display: flex;
@@ -494,7 +485,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  background: #dfdbd5;
+  background: #070707;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   display: flex;
   flex-direction: column;
@@ -543,23 +534,21 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgb(0 0 0 / 33%) 20%,
-    rgba(0, 0, 0, 0.9) 110%
-  );
+  background: radial-gradient(circle at 50% 50%,
+      rgb(0 0 0 / 33%) 20%,
+      rgba(0, 0, 0, 0.9) 110%);
 }
 
 .flip-card-front-content {
   padding: 2em;
   text-align: center;
+  color: #fff;
 }
 
 .flip-card-front-content h1 {
   font-size: 33px;
   font-family: "Roslindale";
   letter-spacing: 1.5px;
-  text-shadow: 0 2px 2px #00000030;
 }
 
 .flip-card-front-content .cardPhonetic {
@@ -576,7 +565,6 @@ body {
   right: 18px;
   z-index: 6;
   transition: 0.5s ease-out;
-  /* animation: bounce 1.5s cubic-bezier(0.12, 0.18, 0.24, 1.44); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -614,7 +602,6 @@ body {
   opacity: 72%;
   color: #c70000;
   font-size: 12px;
-  /* font-variant-numeric: diagonal-fractions; */
 }
 
 .cardName {
@@ -668,7 +655,7 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: -10px;
+  bottom: -8px;
   left: 0;
   z-index: 77;
   background-image: url("./img/input-left-corner.png"),
@@ -717,6 +704,7 @@ body {
   align-items: center;
   flex-grow: 1;
 }
+
 .transInputContent input {
   flex-grow: 1;
 }
@@ -727,14 +715,17 @@ body {
 
 /* ---------------buttonSwitch--------- */
 .buttonSwitch {
-  font-size: 4.5px;
+  width: 23px;
+  height: 23px;
+  margin: 6px 6px 9px;
 }
 
 .toggle-switch {
   position: relative;
-  height: 5em;
+  height: 100%;
+  width: 100%;
   padding: 0;
-  border-radius: 2.5em;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   transition: 0.7s;
@@ -758,7 +749,7 @@ body {
 .roundBtnBody {
   position: absolute;
   z-index: 0;
-  height: 98%;
+  height: 95%;
   aspect-ratio: 1;
   border-radius: 50%;
   background-image: radial-gradient(#ffcc33 30%, #fc9601);
@@ -829,8 +820,9 @@ body {
 
 .inputWordRow {
   position: absolute;
-  top: -12px;
-  right: -45px;
+  top: -9px;
+  z-index: -1;
+  right: 7px;
   opacity: 0;
   text-align: center;
   outline: 0;
@@ -920,7 +912,7 @@ body {
 /* calendar */
 .calendarContainer {
   width: 100%;
-  height: calc(100vh - 35px);
+  height: calc(100vh - 31px);
 }
 
 .calendarCard {
@@ -952,7 +944,7 @@ body {
 }
 
 .calendarCardContent .weekTitle {
-  border-bottom: 1px solid #17181a38;
+  border-bottom: 1px solid #34343438;
 }
 
 .weekDate {
@@ -975,18 +967,7 @@ body {
   height: calc(100vh - 245px);
   overflow: hidden;
   position: relative;
-}
-
-.calendarCardImg {
-  background-size: 120% 120%;
-  background-position: center top;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
+  background: linear-gradient(45deg, #403222, #202020);
 }
 
 .calendarCardContent {
@@ -1142,7 +1123,8 @@ body {
 .todayWeekDay {
   color: #fff;
 }
-.weekDay td > div {
+
+.weekDay td>div {
   min-height: 18px;
   display: flex;
   flex-direction: column;
@@ -1151,7 +1133,7 @@ body {
   position: relative;
 }
 
-.weekDay td > div > span {
+.weekDay td>div>span {
   cursor: default;
   position: relative;
 }
@@ -1240,8 +1222,9 @@ body {
   font-size: 10px;
   font-family: "Rubik", sans-serif;
   padding: 3px;
-  color: #17181a;
+  color: #343434;
 }
+
 .calendarItemContent {
   display: flex;
   justify-content: center;
@@ -1255,7 +1238,7 @@ body {
 }
 
 .calendarItemInput {
-  border: 0.5px solid #17181a3d;
+  border: 0.5px solid #3434343d;
   background: transparent;
   padding: 1px 9px;
   font-size: 12px;
@@ -1265,7 +1248,7 @@ body {
 }
 
 .calendarItemInput::placeholder {
-  color: #17181ac2;
+  color: #343434c2;
 }
 
 .calendarItemContent label {
@@ -1284,6 +1267,7 @@ body {
 .calendarItemInput:not(:last-child) {
   margin-right: 5px;
 }
+
 /* ------------historytable----------- */
 .calendarCardContentBottom {
   display: flex;
@@ -1292,7 +1276,7 @@ body {
   align-items: center;
   width: 100%;
   height: calc(100% - 180px);
-  border-top: 1px solid #17181a8a;
+  border-top: 1px solid #3434348a;
 }
 
 .timeLog {
@@ -1407,50 +1391,34 @@ body {
 
 /* ------------searchInput------------ */
 .contentBody {
-  height: calc(100vh - 245px);
+  height: calc(100vh - 241px);
   overflow-y: scroll;
   position: relative;
   background-size: cover;
   background-position: center;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #403222, #202020);
+}
+
+.contentBodyImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./img/noise.png");
+  backdrop-filter: blur(15px) brightness(0.6);
 }
 
 .contentBody::-webkit-scrollbar {
   display: none;
 }
 
-.contentImg {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center top;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  display: none;
-}
-
-.contentImg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgb(0 0 0 / 33%) 20%,
-    rgba(0, 0, 0, 0.9) 110%
-  );
-}
-
-.contentImg:hover {
-  opacity: 0.78;
-}
-
 .contentText {
   width: 100%;
   margin-top: 6px;
+  z-index: 33;
+  position: absolute;
 }
 
 div#quoteBody {
@@ -1540,13 +1508,12 @@ div#contentBody {
 
 /* ----------------explaincontent---------- */
 .explainContainer {
-  background: #dfdbd5;
   font-family: "nyt-cheltenham";
   font-weight: 400;
   font-style: normal;
-  font-size: 11px;
-  border-radius: 1px;
+  font-size: 12px;
   -webkit-font-smoothing: antialiased;
+  color: #fff;
 }
 
 .explainHeader {
@@ -1573,6 +1540,25 @@ div#contentBody {
   display: flex;
   background: transparent;
   justify-content: center;
+  border-radius: 50%;
+}
+
+.closeBtnSVG {
+  background: #1c1b19;
+  transition: all 0.3s ease;
+  border: 0.3px solid #503f2b;
+}
+
+.closeBtnSVG:hover {
+  background: #2c261e;
+}
+
+.closeBtnSVG svg path {
+  fill: #3a3124;
+}
+
+.closeBtnSVG:hover svg path {
+  fill: #785c3a;
 }
 
 .wordType span.z,
@@ -1623,7 +1609,7 @@ div#contentBody {
 }
 
 .wordType .pos {
-  color: #17181a;
+  color: #a5a3a3;
   font-style: italic;
   font-weight: bold;
   font-size: 10px;
@@ -1651,20 +1637,20 @@ div#contentBody {
 .wordMeaning li.sn-g:not(:last-child) {
   margin-bottom: 2px;
   padding-bottom: 2px;
-  border-bottom: 1px solid #17181a;
+  border-bottom: 1px solid #343434;
 }
 
 .wordNearby {
   margin-top: 2px;
   padding-top: 2px;
-  border-top: 1px solid #17181a;
+  border-top: 1px solid #343434;
 }
 
 .wordNearby li {
   border: 0;
 }
 
-.wordMeaning span.sensenum + .def {
+.wordMeaning span.sensenum+.def {
   display: inline;
 }
 
@@ -1727,12 +1713,12 @@ div#contentBody {
 }
 
 .wordMeaning a.Ref {
-  color: #17181a;
+  color: #343434;
   font-weight: bold;
   text-decoration: none;
 }
 
-.wordMeaning span.sn-g > span.def {
+.wordMeaning span.sn-g>span.def {
   display: block;
 }
 
@@ -1758,7 +1744,7 @@ div#contentBody {
 }
 
 .wordNearby .hwd pos {
-  color: #17181a;
+  color: #343434;
   font-style: italic;
   font-weight: normal;
   font-size: 9px;
@@ -1768,25 +1754,40 @@ div#contentBody {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: none;
   cursor: pointer;
   outline: 0;
-  border: 0;
-  margin-right: 3px;
+  margin-right: 6px;
+  margin-bottom: 3px;
   vertical-align: middle;
-  width: 25px;
-  height: 23px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #1c1b19;
+  transition: all 0.3s ease;
+  border: 0.3px solid #503f2b;
+}
+
+.quoteBtn .quoteSVG path {
+  fill: #3a3124;
+}
+
+.quoteBtn:hover .quoteSVG path {
+  fill: #785c3a;
 }
 
 .quoteBtn img {
   vertical-align: middle;
 }
 
+.quoteBtn:hover {
+  background: #2c261e;
+}
+
 /* ------------translate----- */
 .transItem {
   background: #f0f0f0;
   width: 100%;
-  border: 1px solid #17181a;
+  border: 1px solid #343434;
   border-radius: 1px;
   padding: 0 9px 3px;
   margin-bottom: 3px;
@@ -1989,24 +1990,24 @@ div#contentBody {
 
 /* ----------responsive------------ */
 @media only screen and (max-width: 618px) {
+
   .imageView,
   .imageDesc,
   .mainImageBlurred {
     display: none;
   }
-  .contentImg {
-    display: block;
-  }
+
   .main {
     background: #070707;
   }
 
-  .contentBody > div {
+  .contentBody>div {
     position: absolute;
     top: 0;
     left: 0;
   }
 }
+
 @media only screen and (max-width: 1280px) {
   .imageDesc {
     display: none;
@@ -2069,6 +2070,7 @@ div#contentBody {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -2078,6 +2080,7 @@ div#contentBody {
   0% {
     transform: translateY(-9%);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -2087,6 +2090,7 @@ div#contentBody {
   from {
     -webkit-transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
   }
@@ -2113,9 +2117,11 @@ div#contentBody {
   0% {
     background-position-x: 0;
   }
+
   50% {
     background-position-x: right;
   }
+
   100% {
     background-position-x: 0;
   }
@@ -2270,7 +2276,7 @@ div#contentBody {
   background: #f5f9fa;
   padding: 1px 3px;
   border-radius: 12px;
-  border: 1px solid #17181a4f;
+  border: 1px solid #3434344f;
 }
 
 .windItemShow {
@@ -2278,7 +2284,7 @@ div#contentBody {
   background: #f5f9fa;
   padding: 1px 3px;
   border-radius: 12px;
-  border: 1px solid #17181a4f;
+  border: 1px solid #3434344f;
   align-items: center;
   justify-content: center;
 }

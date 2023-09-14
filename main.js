@@ -59,14 +59,11 @@ const startHandler = () => {
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
     $('#tomatoText').toggleClass('tomatoFocus');
-    // audioEl.src = 'https://mobcup.net/va/66kjwO3ODzg';
-    // audioEl.volume = 1;
-    // audioEl.play();
     $('.toogleItemLeft').removeClass('toogleItemShowLeft');
     $('.footerBtn').removeClass("footerBtnActive");
     setTimeout(() => {
-      $('.toogleItemLeft').addClass('toogleItemShowLeft');
-      $('.footerBtnToggleLeft').addClass("footerBtnActive");
+      $('.toogleItemRight').addClass('toogleItemShowRight');
+      $('.footerBtnToggleRight').addClass("footerBtnActive");
     }, 500);
     showDesktopNotification();
   }, 360000);
@@ -149,8 +146,6 @@ const fetchRenderImgBackground = (numb) => {
       $('#imgSrcBlurred').attr('src', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
 
-      $('#contentImg').css('background-image', `url(${imgSrcGet})`);
-      $('.calendarCardImg').css('background-image', `url(${imgSrcGet})`);
     })
 }
 
@@ -268,11 +263,6 @@ $(document).keydown(function (e) {
 });
 
 
-
-$('.footerBtnToggleLeft').click(function (e) {
-  $('.toogleItemLeft').toggleClass('toogleItemShowLeft');
-});
-
 let rightBtnSwitch = false;
 showRightToggleItem = () => {
   if (rightBtnSwitch) {
@@ -337,23 +327,35 @@ const fetchGetQuote = (num) => {
       let body = `
       <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
         <div class="explainHeader">
-        <button class="closeBtn" onclick="handleDeleteQuote()">
-           <img src="./img/close_circle.png" width="15" height="15">
+        <button class="closeBtn closeBtnSVG" onclick="handleDeleteQuote()">
+          <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
+            <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
+          </svg>
         </button>
         </div>
         <div class="explainBody">
           <div class="wordType">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <img src="./img/left.png" height="16">
+            <svg width="14" height="14" style="margin-right: 2px;" class="quoteSVG" viewBox="-0.084 0 0.356 0.356" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
+            <path d="M.158.324A.019.019 0 0 1 .144.318L.016.19a.019.019 0 0 1 0-.027L.144.035a.019.019 0 0 1 .027.027L.057.177l.114.114a.019.019 0 0 1-.013.033z"/>
+            </svg>
           </button>
           <button class="quoteBtn" onclick="checkQuote(${!data.check})">
-            ${data.check ? '<img src="./img/star.png" width="15">' : '<img src="./img/star-outline.png" width="15">'}
+            ${data.check ? `<svg width="15" height="15" viewBox="0 0 0.45 0.45" xmlns="http://www.w3.org/2000/svg">
+            <path d="M.412.189C.414.18.406.168.397.168L.29.153.242.056C.24.052.238.05.235.049.226.043.214.047.209.056L.161.154.054.169C.048.169.045.171.043.175a.019.019 0 0 0 0 .026L.12.276.101.383c0 .004 0 .007.002.011.006.009.017.013.026.007L.225.35l.096.051C.323.403.327.403.33.403h.004A.02.02 0 0 0 .349.381L.33.274.407.199A.01.01 0 0 0 .413.19z" fill="#785c3a"/>
+            </svg>` : `<svg width="15" height="15" class="quoteSVG" viewBox="0 0 0.45 0.45" xmlns="http://www.w3.org/2000/svg">
+            <path d="M.412.189C.414.18.406.168.397.168L.29.153.242.056C.24.052.238.05.235.049.226.043.214.047.209.056L.161.154.054.169C.048.169.045.171.043.175a.019.019 0 0 0 0 .026L.12.276.101.383c0 .004 0 .007.002.011.006.009.017.013.026.007L.225.35l.096.051C.323.403.327.403.33.403h.004A.02.02 0 0 0 .349.381L.33.274.407.199A.01.01 0 0 0 .413.19z"/>
+            </svg>`}
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <img src="./img/right.png" height="16">
+            <svg width="15" height="15" style="margin-left: 2px;" class="quoteSVG" viewBox="-1.444 0 9.6 9.6" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.837 8.625 1.2 7.988l3.056-3.075L1.2 1.837l.637-.637 3.675 3.712-3.675 3.713Z"/>
+            </svg>
           </button>
           <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
-            <img src="./img/clipboard-none.png" height="16">
+            <svg width="17" height="17" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#0D0D0D"/>
+            </svg>
           </button>
           </div>
           <div id="quoteContent">${data.value}</div>
@@ -378,7 +380,9 @@ const checkQuote = (check) => {
 const copyQuote = () => {
   let textToCopy = $('#quoteContent').text();
   navigator.clipboard.writeText(textToCopy).then((res) => {
-    $('#clipboardBtn').html('<img src="./img/clipboard.png" width="16">')
+    $('#clipboardBtn').html(`<svg width="17" height="17" viewBox="0 0 0.45 0.45" fill="#785c3a" xmlns="http://www.w3.org/2000/svg">
+    <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#785c3a"/>
+  </svg>`)
   })
 }
 
@@ -386,8 +390,10 @@ const renderRssNews = () => {
   document.getElementById('quoteBody').innerHTML = `
   <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
   <div class="explainHeader">
-  <button class="closeBtn" onclick="handleDeleteQuote()">
-     <img src="./img/close_circle.png" width="15" height="15">
+  <button class="closeBtn closeBtnSVG" onclick="handleDeleteQuote()">
+  <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
+    <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
+  </svg>
   </button>
   </div>
   <div class="explainBody">

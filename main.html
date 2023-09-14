@@ -14,7 +14,6 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
     </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
 </head>
 
 <body>
@@ -63,7 +62,7 @@
               </div>
             </div>
             <div class="contentBody">
-              <div class="contentImg" id="contentImg"></div>
+              <div class="contentBodyImg"></div>
               <div class="contentText">
                 <div id="quoteBody"></div>
                 <div id="contentBody"></div>
@@ -73,7 +72,6 @@
           <div class="wordNumContainer">
             <div class="wordNum" id="wordNum">229</div>
           </div>
-          <div class="bottomLeftOrnament"></div>
           <div class="bottomRightOrnament"></div>
         </div>
       </div>
@@ -100,7 +98,6 @@
               </div>
             </div>
             <div class="calendarBody">
-              <div class="calendarCardImg"></div>
               <div class="calendarCardContent">
                 <table id="dayNumber">
                   <thead>
@@ -170,33 +167,21 @@
       </div>
       <div class="mainFixedBottom">
         <div class="footerBtnContainer">
-          <button class="footerBtn footerBtnToggleLeft">
-            Excellence
-          </button>
           <button class="footerBtn tabButton footerBtnActive" name="tab1">
             Amor fati
           </button>
+          <div class="footerBtnDot"></div>
           <button class="footerBtn tabButton" name="tab2">
             Übermensch
           </button>
+          <div class="footerBtnDot"></div>
           <button class="footerBtn tabButton" name="tab3">
             Caelus
           </button>
+          <div class="footerBtnDot"></div>
           <button class="footerBtn footerBtnToggleRight">
             Conmodus
           </button>
-        </div>
-        <div class="buttonSwitch toogleItemLeft">
-          <div class="toggle-switch">
-            <button class="round-button" id="autoPlayBtn">
-              <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
-              <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
-              <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
-              <div class="roundBtnBody" id="roundBtnBody"></div>
-            </button>
-            <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
-              onchange="setWordListHandy(this.value)">
-          </div>
         </div>
         <div class="toogleItemRight">
           <div class="itemRightBtn" onclick="fetchGetQuote(0)">
@@ -258,6 +243,18 @@
             <div id="tomatoButton">
               <img src="./img/tomato.png" width="26">
               <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
+            </div>
+          </div>
+          <div class="buttonSwitch">
+            <div class="toggle-switch">
+              <button class="round-button" id="autoPlayBtn">
+                <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
+                <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
+                <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
+                <div class="roundBtnBody" id="roundBtnBody"></div>
+              </button>
+              <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off"
+                onchange="setWordListHandy(this.value)">
             </div>
           </div>
         </div>

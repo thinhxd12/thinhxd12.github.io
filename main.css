@@ -1239,7 +1239,7 @@ body {
   font-size: 10px;
   font-family: "Rubik", sans-serif;
   padding: 3px;
-  color: #343434;
+  color: #070707b1;
 }
 
 .calendarItemContent {
@@ -1265,7 +1265,7 @@ body {
 }
 
 .calendarItemInput::placeholder {
-  color: #343434c2;
+  color: #070707b1;
 }
 
 .calendarItemContent label {
@@ -1494,8 +1494,10 @@ div#contentBody {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #0909090d;
+  border: 0.3px solid #503f2b;
   transition: all 0.3s ease;
+  background: none;
+
 }
 
 .close-btn img {
@@ -1509,7 +1511,7 @@ div#contentBody {
 
 .close-btn:hover {
   box-shadow: 0 3px 6px rgb(0, 0, 0, 0.3);
-  background: #ffffff;
+  background: #cecece86;
 }
 
 /* ----------------explaincontent---------- */

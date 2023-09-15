@@ -1721,7 +1721,7 @@ div#contentBody {
 }
 
 .wordMeaning a.Ref {
-  color: #343434;
+  color: #a5a3a3;
   font-weight: bold;
   text-decoration: none;
 }
@@ -1752,7 +1752,7 @@ div#contentBody {
 }
 
 .wordNearby .hwd pos {
-  color: #343434;
+  color: #a5a3a3;
   font-style: italic;
   font-weight: normal;
   font-size: 9px;

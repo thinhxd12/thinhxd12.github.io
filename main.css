@@ -122,6 +122,8 @@ body {
 .mainFixedContent {
   width: 100%;
   height: 100%;
+  background: linear-gradient(45deg, #403222, #202020);
+
 }
 
 .mainFixedBottom {
@@ -412,13 +414,13 @@ body {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   opacity: 0;
 }
 
 .toogleItemShowRight {
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  right: 0;
+  right: -6px;
   opacity: 1;
 }
 
@@ -434,17 +436,26 @@ body {
   width: 22px;
   height: 22px;
   margin: 0 1px 3px 0;
-  border-radius: 18px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
-  border: 0.5px solid #afa98f;
-  background: #000;
+  border: 0.3px solid #503f2b;
+  background: #1c1b19;
   box-shadow: 1px 2px 3px #000000d1;
 }
 
+.itemRightBtn svg path {
+  fill: #3a3124;
+}
+
+.itemRightBtn:hover svg path {
+  fill: #785c3a;
+}
+
 .itemRightBtn:hover {
+  background: #2c261e;
   transform: translateX(-5px);
 }
 
@@ -832,8 +843,9 @@ body {
   margin-right: 3px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
     0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
-  border: 1.5px solid #000;
-  background: #dfddd1;
+  border: none;
+  background: none;
+  color: #fff;
   display: inline-block;
   font-size: 8px;
   font-weight: bold;
@@ -853,6 +865,11 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  transition: all 1s ease;
+}
+
+.tomatoContent:hover {
+  transform: translateX(-5px);
 }
 
 #tomatoButton {
@@ -1254,6 +1271,7 @@ body {
 .calendarItemContent label {
   margin-left: 6px;
   cursor: pointer;
+  color: #070707b1;
 }
 
 .calendarItemContent label:first-of-type {
@@ -1394,18 +1412,6 @@ body {
   height: calc(100vh - 241px);
   overflow-y: scroll;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(45deg, #403222, #202020);
-}
-
-.contentBodyImg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: url("./img/noise.png");
   backdrop-filter: blur(15px) brightness(0.6);
 }

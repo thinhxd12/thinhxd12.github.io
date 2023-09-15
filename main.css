@@ -107,8 +107,8 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #343434;
-  border-right: 1px solid #343434;
+  border-left: 1px solid #503f2b;
+  border-right: 1px solid #503f2b;
   overflow: hidden;
 }
 
@@ -515,11 +515,6 @@ body {
   background-size: 100%;
 }
 
-.item-wrapper:hover .cardRow,
-.item-hover .cardRow {
-  color: #fff;
-}
-
 .item-back {
   position: absolute;
   width: 100%;
@@ -610,7 +605,7 @@ body {
   position: absolute;
   top: 6px;
   left: 12px;
-  opacity: 72%;
+  font-family: "Roslindale";
   color: #c70000;
   font-size: 12px;
 }
@@ -630,7 +625,7 @@ body {
   right: 18px;
   width: 60px;
   text-align: center;
-  color: #000;
+  color: #fff;
   font-family: "Roslindale";
   z-index: 18;
 }
@@ -1487,7 +1482,6 @@ div#contentBody {
   width: 13px;
   height: 13px;
   outline: 0;
-  border: 0;
   cursor: pointer;
   margin-left: 6px;
   display: flex;
@@ -1497,7 +1491,6 @@ div#contentBody {
   border: 0.3px solid #503f2b;
   transition: all 0.3s ease;
   background: none;
-
 }
 
 .close-btn img {
@@ -1608,11 +1601,12 @@ div#contentBody {
 
 .wordType .preWord {
   margin-right: 3px;
+  color: #a5a3a3;
 }
 
 .wordType .h {
   display: inline-block;
-  font-size: 13px;
+  font-size: 15px;
   margin-right: 3px;
 }
 
@@ -1793,14 +1787,15 @@ div#contentBody {
 
 /* ------------translate----- */
 .transItem {
-  background: #f0f0f0;
   width: 100%;
-  border: 1px solid #343434;
   border-radius: 1px;
-  padding: 0 9px 3px;
+  padding: 0 12px 6px;
   margin-bottom: 3px;
   font-family: "basier", sans-serif;
   font-size: 12px;
+  color: #fff;
+  border-bottom: 1px solid #503f2b;
+  position: relative;
 }
 
 .transItemHeader {
@@ -1808,6 +1803,10 @@ div#contentBody {
   justify-content: space-between;
   font-size: 12px;
   padding: 3px;
+  position: absolute;
+  z-index: 99;
+  right: 0;
+  top: -9px;
 }
 
 .transItemHeader .close-btn {
@@ -1902,17 +1901,20 @@ div#contentBody {
   border-radius: 50%;
   outline: 0;
   border: 0;
-  width: 21px;
-  height: 21px;
+  width: 23px;
+  height: 23px;
   cursor: pointer;
   transition: box-shadow 0.1s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: 0;
+  border: 0.3px solid #503f2b;
 }
 
 .sound-btn:hover {
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.3);
+  background: #cecece86;
 }
 
 .transItemType {

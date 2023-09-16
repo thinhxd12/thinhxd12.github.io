@@ -214,6 +214,64 @@ const autocomplete = (inp) => {
 
 autocomplete(document.getElementById("searchInput"));
 
+$(document).keydown(function (e) {
+    if ($(e.target).is('input,select')) return;
+    let x = document.getElementsByClassName('my-item');
+    if (e.keyCode >= 49 && e.keyCode <= 57 && x.length > 0) {
+        e.preventDefault();
+        x[e.keyCode - 49].click();
+        return;
+    }
+    if (e.keyCode == 8) {
+        textInput = textInput.slice(0, -1);
+    };
+    if (e.key.length == 1) textInput += e.key;
+    $('#searchInput').val(textInput);
+
+    let a = document.createElement("DIV");
+    a.setAttribute("id", "autocomplete-list");
+    a.setAttribute("class", "autocomplete-items");
+    document.getElementById('contentBody').innerHTML = '';
+    document.getElementById('contentBody').appendChild(a);
+    if (textInput.length > 2) {
+        let arrFilter = dataSheets.filter(item => item.text.search(`^${textInput}.*$`) > -1);
+        if (arrFilter.length == 0) {
+            $('#transInput').val(textInput);
+        }
+        for (i = 0; i < arrFilter.length; i++) {
+            let item = arrFilter[i]
+            let b = document.createElement("a");
+            b.setAttribute("class", "my-item");
+            b.innerHTML = `<small><small>${i + 1}</small></small> ${item.text}`;
+            b.addEventListener("click", function (e) {
+                $('#searchInput').val('');
+                $('#transInput').val('');
+                textInput = '';
+                playTTSwithValue(item.text);
+                renderFlashcard(item);
+                if (item.numb > 1) {
+                    handleCheckItem(item._id);
+                    let objIndex = dataSheets.findIndex((obj => obj._id == item._id));
+                    dataSheets[objIndex].numb += -1;
+                    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+                }
+                else {
+                    handleArchivedItem(item._id, item.text);
+                }
+                closeAllLists();
+            });
+            a.appendChild(b);
+        }
+    }
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i]) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+})
 
 const getTotalDoneWord = (text) => {
     fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/countCollection?collection=${text}`)

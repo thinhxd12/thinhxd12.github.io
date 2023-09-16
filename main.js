@@ -226,11 +226,11 @@ const showTab = (n) => {
 
 }
 
+var textInput = '';
 $(document).keydown(function (e) {
-  // console.log(e.keyCode);
   if (e.keyCode == 27) {
     handleDelete();
-    $('#searchInput').focus();
+    textInput = '';
   }
   if ($(e.target).is('input,select')) return;
   switch (e.keyCode) {
@@ -253,10 +253,6 @@ $(document).keydown(function (e) {
         showSlides(slideIndex += -1);
       }
       break;
-    // case 78:
-    //   fetchAndRenderMonthImg();
-    //   break;
-
     default:
       break;
   }

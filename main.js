@@ -228,7 +228,7 @@ const showTab = (n) => {
 
 var textInput = '';
 $(document).keydown(function (e) {
-  if (e.keyCode == 27) {
+  if (e.keyCode == 27 || e.keyCode == 32) {
     handleDelete();
     textInput = '';
   }

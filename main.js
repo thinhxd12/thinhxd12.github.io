@@ -229,11 +229,15 @@ const showTab = (n) => {
 
 var textInput = '';
 $(document).keydown(function (e) {
-  if (e.keyCode == 27 || e.keyCode == 32) {
+  if (e.keyCode == 27) {
     handleDelete();
     textInput = '';
   }
   if ($(e.target).is('input,select')) return;
+  if (e.keyCode == 32) {
+    handleDelete();
+    textInput = '';
+  }
   switch (e.keyCode) {
     case 37:
       showTab(tabIndex += -1);

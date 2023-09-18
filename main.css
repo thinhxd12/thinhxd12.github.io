@@ -122,7 +122,8 @@ body {
 .mainFixedContent {
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #202020, #403222);
+  background-size: 270%;
+  background-position: center bottom;
 }
 
 .mainFixedBottom {
@@ -984,7 +985,7 @@ body {
 
 .calendarBody {
   position: relative;
-  background: linear-gradient(45deg, #202020, #403222);
+  background: linear-gradient(12deg, #403222, #161616);
 }
 
 .calendarCardContent {
@@ -1407,7 +1408,7 @@ body {
   overflow-y: scroll;
   position: relative;
   background: url("./img/noise.png");
-  backdrop-filter: blur(15px) brightness(0.6);
+  backdrop-filter: blur(9px) brightness(0.3);
 }
 
 .contentBody::-webkit-scrollbar {

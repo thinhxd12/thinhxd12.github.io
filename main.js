@@ -146,6 +146,7 @@ const fetchRenderImgBackground = (numb) => {
       $('#imgSrcBlurred').attr('src', imgSrcGet);
       $('#imgDesc').html(imgDescGet);
 
+      $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
     })
 }
 

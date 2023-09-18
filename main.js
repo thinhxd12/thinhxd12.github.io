@@ -233,12 +233,12 @@ $(document).keydown(function (e) {
     handleDelete();
     textInput = '';
   }
-  if ($(e.target).is('input,select')) return;
-  if (e.keyCode == 32) {
-    handleDelete();
-    textInput = '';
-  }
+  else if ($(e.target).is('input,select')) return;
   switch (e.keyCode) {
+    case 32:
+      handleDelete();
+      textInput = '';
+      break;
     case 37:
       showTab(tabIndex += -1);
       break;

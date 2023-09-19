@@ -337,7 +337,7 @@ const fetchGetQuote = (num) => {
         <div class="explainBody">
           <div class="wordType">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <svg width="14" height="14" style="margin-right: 2px;" class="quoteSVG" viewBox="-0.084 0 0.356 0.356" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
+            <svg width="13" height="13" style="margin-right: 2px;" class="quoteSVG" viewBox="-0.084 0 0.356 0.356" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
             <path d="M.158.324A.019.019 0 0 1 .144.318L.016.19a.019.019 0 0 1 0-.027L.144.035a.019.019 0 0 1 .027.027L.057.177l.114.114a.019.019 0 0 1-.013.033z"/>
             </svg>
           </button>
@@ -349,12 +349,12 @@ const fetchGetQuote = (num) => {
             </svg>`}
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <svg width="15" height="15" style="margin-left: 2px;" class="quoteSVG" viewBox="-1.444 0 9.6 9.6" xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="14" style="margin-left: 2px;" class="quoteSVG" viewBox="-1.444 0 9.6 9.6" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.837 8.625 1.2 7.988l3.056-3.075L1.2 1.837l.637-.637 3.675 3.712-3.675 3.713Z"/>
             </svg>
           </button>
           <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
-            <svg width="17" height="17" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="15" height="15" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#0D0D0D"/>
             </svg>
           </button>

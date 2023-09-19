@@ -439,7 +439,7 @@ body {
   align-items: center;
   transition: all 1s ease;
   border: 0.3px solid #503f2b;
-  background: #1c1b19;
+  background: #070707;
   box-shadow: 1px 2px 3px #000000d1;
 }
 
@@ -1571,7 +1571,7 @@ div#contentBody {
 }
 
 .closeBtnSVG {
-  background: #1c1b19;
+  background: #070707;
   transition: all 0.3s ease;
   border: 0.3px solid #503f2b;
 }
@@ -1786,11 +1786,12 @@ div#contentBody {
   outline: 0;
   margin-right: 6px;
   margin-bottom: 3px;
+  padding-bottom: 1px;
   vertical-align: middle;
   width: 21px;
   height: 21px;
   border-radius: 50%;
-  background: #1c1b19;
+  background: #070707;
   transition: all 0.3s ease;
   border: 0.3px solid #503f2b;
 }

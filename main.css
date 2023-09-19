@@ -203,9 +203,6 @@ body {
   transform: scaleX(-1);
 }
 
-.contentBody {
-  position: relative;
-}
 
 .mainImageBlurred {
   display: block;
@@ -661,26 +658,55 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: -8px;
+  bottom: -9px;
   left: 0;
   z-index: 77;
-  background-image: url("./img/input-left-corner.png"),
-    url("./img/input-right-corner.png");
-  background-position: left bottom, right bottom;
-  background-repeat: no-repeat, no-repeat;
-  background-size: contain, contain;
 }
 
-.myInputContent {
+.myInputLeftOrnament {
+  width: 12px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url("./img/input-left-corner.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 99;
+}
+
+.myInputRightOrnament {
+  width: 12px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-image: url("./img/input-right-corner.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 99;
+}
+
+.myInputCenterOrnament {
+  width: 100%;
+  height: 24px;
+  position: absolute;
+  left: 0;
+  top: 9px;
   background: #070707;
+  z-index: 0;
+}
+
+
+.myInputContent {
   border-top: 0.1px solid #b5a9941f;
   border-bottom: 0.1px solid #b5a9941f;
-  width: 99%;
-  border-radius: 30px;
+  width: 100%;
   height: 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 99;
 }
 
 .myInput {
@@ -688,9 +714,8 @@ body {
   box-sizing: inherit;
   color: #fff;
   background: transparent;
-
   height: 25px;
-  padding: 0 6px;
+  padding: 0 9px;
   font-size: 11px;
   border: 0;
   outline: 0;
@@ -702,6 +727,7 @@ body {
   cursor: pointer;
   opacity: 0;
   transition: all 0.3s ease;
+  margin-right: 6px;
 }
 
 .transInputContent {
@@ -1408,7 +1434,7 @@ body {
   overflow-y: scroll;
   position: relative;
   background: url("./img/noise.png");
-  backdrop-filter: blur(9px) brightness(0.3);
+  backdrop-filter: blur(9px) brightness(0.2);
 }
 
 .contentBody::-webkit-scrollbar {

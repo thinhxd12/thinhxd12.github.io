@@ -220,6 +220,7 @@ $(document).keydown(function (e) {
     if (e.keyCode >= 49 && e.keyCode <= 57 && x.length > 0) {
         e.preventDefault();
         x[e.keyCode - 49].click();
+        textInput='';
         return;
     }
     if (e.keyCode == 8) {

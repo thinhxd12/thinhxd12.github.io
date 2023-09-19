@@ -452,7 +452,7 @@ body {
 }
 
 .itemRightBtn:hover {
-  background: #2c261e;
+  background: #000000;
   transform: translateX(-5px);
 }
 
@@ -1577,7 +1577,7 @@ div#contentBody {
 }
 
 .closeBtnSVG:hover {
-  background: #2c261e;
+  background: #000000;
 }
 
 .closeBtnSVG svg path {
@@ -1809,7 +1809,7 @@ div#contentBody {
 }
 
 .quoteBtn:hover {
-  background: #2c261e;
+  background: #000000;
 }
 
 /* ------------translate----- */

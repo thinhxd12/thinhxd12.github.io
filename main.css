@@ -129,6 +129,7 @@ body {
 .mainFixedBottom {
   width: 100%;
   position: relative;
+  z-index: 99;
 }
 
 .bottomRightOrnament {
@@ -2177,7 +2178,7 @@ div#contentBody {
   background-color: #fdfdfd;
   background-size: cover;
   background-position: top left;
-  width: 398px;
+  width: 358px;
   min-height: 100%;
   overflow: hidden;
   position: absolute;

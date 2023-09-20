@@ -215,18 +215,18 @@ const autocomplete = (inp) => {
 autocomplete(document.getElementById("searchInput"));
 
 $(document).keydown(function (e) {
-    if ($(e.target).is('input,select')) return;
+    if ($(e.target).is("input,select")) return;
     let x = document.getElementsByClassName('my-item');
     if (e.keyCode >= 49 && e.keyCode <= 57 && x.length > 0) {
         e.preventDefault();
         x[e.keyCode - 49].click();
-        textInput='';
+        textInput = '';
         return;
     }
     if (e.keyCode == 8) {
         textInput = textInput.slice(0, -1);
     };
-    if (e.key.length == 1) textInput += e.key;
+    if (e.key.length == 1 && e.keyCode !== 32) textInput += e.key;
     $('#searchInput').val(textInput);
 
     let a = document.createElement("DIV");

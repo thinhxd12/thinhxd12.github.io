@@ -230,7 +230,8 @@ const showTab = (n) => {
 var textInput = '';
 $(document).keydown(function (e) {
   if (e.keyCode == 27 || (e.keyCode == 32 && !$(e.target).is("input,select"))) {
-    handleDelete();
+    $('#searchInput').val('');
+    $('#transInput').val('');
     textInput = '';
   }
   switch (e.keyCode) {

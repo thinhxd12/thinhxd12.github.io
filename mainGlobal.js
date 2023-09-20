@@ -1027,7 +1027,7 @@ const renderFlashcard = (item, progress, row) => {
                     <div class="flip-card-front-content">
                     ${progress ? `<span class="progressFlip"><sup>${progress}</sup>/<sub>9</sub></span>` : ''}
                               <h1>${item.text}</h1>
-                              <p class="cardPhonetic">| ${item.phonetic} |</p>                  
+                              <p class="cardPhonetic">${item.phonetic}</p>                  
                     <p class="cardName">05/07/22</p>
                     </div>
                     </div>
@@ -1178,7 +1178,7 @@ const renderTranslate = (arr) => {
         <p class="transItemTranslation" onclick="addTextToCell('-${arr.translation}')">${arr.translation}</p>
         <p>Translation of <b id="tlword">${arr.word}</b></p>
         <div class="transItemPhonetic">
-          <p>| <span id="tlTranscript">${arr.wordTranscription}</span> |</p>
+          <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
           <button class="sound-btn" onclick="playTTSwithValue('${arr.word}',false)">
             <img src="./img/volume.png" width="15">
           </button>

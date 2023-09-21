@@ -1716,6 +1716,10 @@ div#contentBody {
   font-style: italic;
 }
 
+.wordMeaning span.x b {
+  color: #f90000;
+}
+
 .wordMeaning span.x::before {
   content: "";
   display: inline-block;

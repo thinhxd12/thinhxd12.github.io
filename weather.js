@@ -1,6 +1,6 @@
 
-const PRECIP_NUMB = 0.8;
-const DEVIATION_NUMB = 1.85;
+const PRECIP_NUMB = 0.6;
+const DEVIATION_NUMB = 0.6;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';
@@ -511,8 +511,9 @@ const fetchPirateApi = () => {
     fetch(url).then(res => res.json())
         .then(data => {
             // console.log(data);
-            let newCurrent = { ...data.currently, ...data.minutely.data[0] }
-            renderCurrentlyData(newCurrent, data.offset);
+            // let newCurrent = { ...data.currently, ...data.minutely.data[0] }
+            // renderCurrentlyData(newCurrent, data.offset);
+            renderCurrentlyData(data.currently, data.offset);
             drawChartRain(data.minutely.data);
             renderHourTimeline(data.hourly.data);
         })

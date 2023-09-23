@@ -110,6 +110,8 @@ const fetchStartupData = () => {
 }
 
 fetchStartupData();
+// getLocalSheetData();
+
 
 const autocomplete = (inp) => {
     var currentFocus;
@@ -810,7 +812,7 @@ const setWordList = async (item, num) => {
     wordList = [];
     autorunTime = 0;
     let index = num == 1 ? item.startIndex1 : item.startIndex2;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.value = index;
     wordRow.blur();
@@ -834,7 +836,7 @@ const setWordListHandy = async () => {
     wordList = [];
     autorunTime = 0;
     let index = wordRow.value;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.blur();
     $('.toogleItemRight').toggleClass('toogleItemShowRight');
@@ -934,7 +936,7 @@ const handleNextWord = () => {
 
 const handleCheckItem = (id) => {
     // console.log('check');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}&col=hoctuvung`, mongoFetchOp)
         .then(res => res.json())
         .catch(err => console.log(err))
 }
@@ -942,7 +944,7 @@ const handleCheckItem = (id) => {
 const handleArchivedItem = (id, text) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=hoctuvung`, mongoFetchOp)
         .then(res => res.json()).then(data => {
             console.log(text);
             getTotalDoneWord('passed');
@@ -1341,7 +1343,7 @@ const setEditWord = () => {
     dataSheets[objIndex].numb = newdata.numb;
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=hoctuvung`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
@@ -1362,7 +1364,7 @@ const setEditWord = () => {
 
 const setDeleteWord = () => {
     // console.log('delete');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}&col=hoctuvung`, mongoFetchOp)
         .then(res => res.json())
         .then(data => {
             $('#inputEditWord').val('');
@@ -1437,7 +1439,7 @@ const handleAddTextEnd = () => {
         data.phonetic = $('#tlTranscript').text();
         data.meaning = $('#addNewW').val();
         data.numb = 210;
-        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText';
+        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=hoctuvung';
         fetch(url, {
             ...mongoFetchOp,
             method: 'POST',

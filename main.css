@@ -510,7 +510,7 @@ body {
 
 .item-hover .item-back,
 .item-wrapper:hover .item-back {
-  background-size: 100%;
+  background-size: 101%;
 }
 
 .item-back {
@@ -523,11 +523,11 @@ body {
   align-items: flex-start;
   color: #000;
   z-index: 2;
-  padding: 18px;
+  padding: 18px 18px 18px 72px;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  background-image: url("./img/napoleon.jpg");
-  background-size: 120%;
-  background-position: center top;
+  background-image: url("./img/nietzsche.jpg");
+  background-size: 118%;
+  background-position: right bottom;
 }
 
 .item-back::after {
@@ -539,14 +539,15 @@ body {
   height: 100%;
   display: block;
   background: radial-gradient(circle at 50% 50%,
-      rgb(0 0 0 / 33%) 20%,
+      rgb(0 0 0 / 18%) 20%,
       rgba(0, 0, 0, 0.9) 110%);
 }
 
 .flip-card-front-content {
-  padding: 2em;
+  /* padding: 2em; */
   text-align: center;
   color: #fff;
+  padding: 18px 18px 18px 72px;
 }
 
 .flip-card-front-content h1 {
@@ -566,7 +567,7 @@ body {
   position: absolute;
   border: 1px solid transparent;
   top: -12%;
-  right: 12px;
+  left: 9px;
   z-index: 6;
   transition: 0.5s ease-out;
   display: flex;
@@ -602,7 +603,7 @@ body {
 .progressFlip {
   position: absolute;
   top: 6px;
-  left: 12px;
+  right: 12px;
   font-family: "Roslindale";
   color: #c70000;
   font-size: 12px;
@@ -620,7 +621,7 @@ body {
   position: absolute;
   font-size: 11px;
   bottom: 0;
-  right: 12px;
+  left: 9px;
   width: 60px;
   text-align: center;
   color: #fff;
@@ -1624,7 +1625,7 @@ div#contentBody {
   font-style: italic;
 }
 
-.wordMeaning span.x b{
+.wordMeaning span.x b {
   color: #f90000;
   font-size: 12px;
   font-family: "nyt-cheltenham-small";
@@ -1659,7 +1660,7 @@ div#contentBody {
 
 
 .sn-g .thumb {
-  width: 120px;
+  width: 100px;
   height: auto;
   display: block;
   margin: 6px 0;

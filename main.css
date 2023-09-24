@@ -1588,7 +1588,7 @@ div#contentBody {
   fill: #785c3a;
 }
 
-.wordType span.z,
+/* .wordType span.z,
 .wordType .oxford3000,
 .wordType span.hm,
 .wordType .academic,
@@ -1623,14 +1623,15 @@ div#contentBody {
 
 .wordMeaning img {
   border: none;
-}
+} */
 
 .wordType .preWord {
   margin-right: 3px;
   color: #a5a3a3;
+  font-size: 11px;
 }
 
-.wordType .h {
+.wordType h2 {
   display: inline-block;
   font-size: 15px;
   margin-right: 3px;
@@ -1643,56 +1644,37 @@ div#contentBody {
   font-size: 10px;
 }
 
-.wordMeaning li,
-.wordMeaning ol,
-.wordNearby ul,
-.wordNearby li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.wordMeaning span.cf {
-  font-weight: bold;
-}
-
-.wordMeaning span.heading {
-  margin-right: 3px;
-}
-
-.wordOrigin,
 .wordType,
-.wordMeaning li.sn-g:not(:last-child) {
-  margin-bottom: 2px;
-  padding-bottom: 2px;
+.sn-g:not(:last-child) {
+  margin-bottom: 3px;
+  padding-bottom: 3px;
   border-bottom: 1px solid #343434;
 }
 
-.wordNearby {
-  margin-top: 2px;
-  padding-top: 2px;
-  border-top: 1px solid #343434;
-}
-
-.wordNearby li {
-  border: 0;
-}
-
-.wordMeaning span.sensenum+.def {
-  display: inline;
-}
-
-.wordMeaning .sense .lbl {
+.sn-g span.x {
+  display: block;
+  font-size: 12px;
+  font-family: "nyt-cheltenham-small";
+  font-weight: 400;
+  line-height: 12px;
+  margin: 2px 0;
   font-style: italic;
 }
 
-.wordMeaning .sensenum {
-  margin-top: 2px;
+.sn-g span.x::before {
+  content: "";
+  display: inline-block;
+  margin-right: 2px;
+  width: 15px;
+  height: 15px;
+  background: url("./img/clover.png");
+  background-size: contain;
+  vertical-align: bottom;
+  transform: rotate(18deg);
 }
 
-.wordMeaning .num,
-.wordMeaning .sensenum {
-  margin-right: 2px;
+.sn-g .num {
+  margin-right: 4px;
   font-weight: 600;
   display: inline-block;
   width: 11px;
@@ -1706,80 +1688,26 @@ div#contentBody {
   border: 1px solid rgb(112, 112, 112);
 }
 
-.wordMeaning span.x {
+
+.sn-g .thumb {
+  width: 100px;
+  height: auto;
   display: block;
+  margin: 6px 0;
+}
+
+.xr-gs {
+  font-weight: bold;
   font-size: 12px;
-  font-family: "nyt-cheltenham-small";
-  font-weight: 400;
-  line-height: 12px;
-  margin: 2px 0;
-  font-style: italic;
-}
-
-.wordMeaning span.x b {
-  color: #f90000;
-}
-
-.wordMeaning span.x::before {
-  content: "";
-  display: inline-block;
-  margin-right: 2px;
-  width: 15px;
-  height: 15px;
-  background: url("./img/clover.png");
-  background-size: contain;
-  vertical-align: bottom;
-  transform: rotate(18deg);
-}
-
-.wordMeaning span.cl {
-  font-family: "nyt-cheltenham";
-  font-weight: 700;
-  font-style: italic;
-  font-size: 13.5px;
-}
-
-.wordMeaning span.prefix {
-  text-transform: uppercase;
-  display: inline-block;
-}
-
-.wordMeaning a.Ref {
-  color: #a5a3a3;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.wordMeaning span.sn-g>span.def {
+  margin: 3px 0;
   display: block;
+  text-transform: uppercase;
+  color: #fff;
 }
 
-.wordOrigin span.p span {
-  font-style: italic;
-  font-weight: bold;
-}
-
-.wordNearby a {
-  color: black;
-  text-decoration: none;
-}
-
-.wordNearby h4 {
-  display: none;
-}
-
-.wordNearby .hwd {
-  margin: 0;
-  font-size: 11px;
-  font-family: system-ui;
-  font-weight: bolder;
-}
-
-.wordNearby .hwd pos {
+.xr-gs small {
   color: #a5a3a3;
-  font-style: italic;
-  font-weight: normal;
-  font-size: 9px;
+  text-transform: lowercase;
 }
 
 .quoteBtn {

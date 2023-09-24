@@ -94,7 +94,7 @@ const getAllData = async (text) => {
 
 const fetchStartupData = () => {
     // console.log('fetch all data');
-    getAllData('hoctuvung').then(data => {
+    getAllData('hoctuvung2').then(data => {
         localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(data));
         //save to array script
@@ -111,7 +111,6 @@ const fetchStartupData = () => {
 
 fetchStartupData();
 // getLocalSheetData();
-
 
 const autocomplete = (inp) => {
     var currentFocus;
@@ -146,7 +145,7 @@ const autocomplete = (inp) => {
                 b.innerHTML = `<small><small>${i + 1}</small></small> ${item.text}`;
                 b.addEventListener("click", function (e) {
                     inp.value = '';
-                    playTTSwithValue(item.text);
+                    playTTSwithValue(item);
                     renderFlashcard(item);
                     if (item.numb > 1) {
                         handleCheckItem(item._id);
@@ -250,7 +249,7 @@ $(document).keydown(function (e) {
                 $('#searchInput').val('');
                 $('#transInput').val('');
                 textInput = '';
-                playTTSwithValue(item.text);
+                playTTSwithValue(item);
                 renderFlashcard(item);
                 if (item.numb > 1) {
                     handleCheckItem(item._id);
@@ -812,7 +811,7 @@ const setWordList = async (item, num) => {
     wordList = [];
     autorunTime = 0;
     let index = num == 1 ? item.startIndex1 : item.startIndex2;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung2`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.value = index;
     wordRow.blur();
@@ -836,7 +835,7 @@ const setWordListHandy = async () => {
     wordList = [];
     autorunTime = 0;
     let index = wordRow.value;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung2`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.blur();
     $('.toogleItemRight').toggleClass('toogleItemShowRight');
@@ -900,7 +899,7 @@ function stop() {
     //update progress
     setTimeout(() => {
         setWordListHandy();
-        getAllData('hoctuvung').then(data => {
+        getAllData('hoctuvung2').then(data => {
             localStorage.removeItem('sheetData');
             localStorage.setItem('sheetData', JSON.stringify(data));
             //save to array script
@@ -925,7 +924,7 @@ const handleNextWord = () => {
     }
     let indexx = $('#wordRow').val() * 1 + autorunTime;
 
-    playTTSwithValue(item.text);
+    playTTSwithValue(item);
     renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
     if ((indexx + 1) % 50 == 0) {
@@ -936,7 +935,7 @@ const handleNextWord = () => {
 
 const handleCheckItem = (id) => {
     // console.log('check');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}&col=hoctuvung`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}&col=hoctuvung2`, mongoFetchOp)
         .then(res => res.json())
         .catch(err => console.log(err))
 }
@@ -944,7 +943,7 @@ const handleCheckItem = (id) => {
 const handleArchivedItem = (id, text) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=hoctuvung`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=hoctuvung2`, mongoFetchOp)
         .then(res => res.json()).then(data => {
             console.log(text);
             getTotalDoneWord('passed');
@@ -955,54 +954,44 @@ const handleArchivedItem = (id, text) => {
 
 
 
-const playTTSwithValue = (val, render = true) => {
-    let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
-    let newText = val.length > 4 ? val.slice(0, -2) : val;
-    const regId = new RegExp('<div id="ring-links-box">((.|\n)+?)</div>', 'gi');
-    const regText = new RegExp(`(${newText}\\w*)`, 'gi');
+const playTTSwithValue = (item) => {
     const audioEl = document.getElementById("tts-audio");
-
-    $.get(urlEngAmerica, function (html) {
-        let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
-        if (mp3Link) {
-            audioEl.pause();
-            audioEl.volume = 1;
-            audioEl.src = mp3Link;
-            audioEl.play();
-            if (render) {
-                let headword = $(html).find('.webtop-g').html();
-                // let meaning = $(html).find('#entryContent').html();
-                let meaning = $(html).find('.sn-gs').each(function () {
-                    $(this).html($(this).html().replace(regId, ''));
-                    $('span.x', this).each(function () {
-                        $(this).html($(this).text().replace(regText, `<b style="color:#f90000">$1</b>`));
-                    });
-                }).html()
-                renderExplain(headword, meaning);
-            }
-        }
-        else {
-            textToSpeech(val, render);
-        }
-    });
+    audioEl.volume = 1;
+    if (item.sound?.length > 0) {
+        audioEl.pause();
+        audioEl.src = item.sound;
+        audioEl.play();
+        renderExplain(item.text, item.class, item.definitions, "contentBody");
+    }
+    else {
+        textToSpeech(item.text);
+    }
 };
 
-const textToSpeech = (text, render) => {
+const playTTSwithValueSound = (src) => {
+    const audioEl = document.getElementById("tts-audio");
+    audioEl.volume = 1;
+    if (src.length > 0) {
+        audioEl.pause();
+        audioEl.src = src;
+        audioEl.play();
+    }
+}
+
+const textToSpeech = (text) => {
+    console.log(text);
     const audioEl = document.getElementById("tts-audio");
     audioEl.pause();
     audioEl.volume = 1;
     // audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
     audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`;
     audioEl.play();
-
-    if (render) {
-        let transUrl = `https://myapp-9r5h.onrender.com/example?text=${text}&from=en&to=vi`;
-        fetch(transUrl)
-            .then(res => res.json())
-            .then(data => {
-                renderExplainGG(text, data.examples)
-            })
-    }
+    let transUrl = `https://myapp-9r5h.onrender.com/example?text=${text}&from=en&to=vi`;
+    fetch(transUrl)
+        .then(res => res.json())
+        .then(data => {
+            renderExplainGG(text, data.examples)
+        })
 }
 
 let flipTimer1, flipTimer2, flipTimer3;
@@ -1072,8 +1061,8 @@ const hoverOut = () => {
     $('.item-wrapper').removeClass('item-hover');
 };
 
-const renderExplain = (headword, meaning) => {
-    const contentBody = document.getElementById("contentBody");
+const renderExplain = (text, type, definitions, divId) => {
+    let contentBody = document.getElementById(divId);
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
@@ -1084,12 +1073,16 @@ const renderExplain = (headword, meaning) => {
       </button>
       </div>
       <div class="explainBody">
-        <div class="wordType"><span class="preWord">Definitions of</span>${headword}</div>
-        ${meaning ? `<div class="wordMeaning">${meaning}</div>` : ""}
+        <div class="wordType"><span class="preWord">Definitions of</span><h2>${text}</h2><span class="pos">${type}</span></div>
+        ${definitions.map((item, index) => {
+        return `<div class="sn-g"><span class="num">${index + 1}</span>${item}</div>`
+    }).join('')
+        }
       </div>
     </div>  
       `;
 };
+
 
 const renderExplainGG = (headword, meaning) => {
     const contentBody = document.getElementById("contentBody");
@@ -1156,8 +1149,9 @@ const handleTranslate = async () => {
 };
 
 const renderTranslate = (arr) => {
-    let quoteBody = document.getElementById("quoteBody");
+    const quoteBody = document.getElementById("quoteBody");
     quoteBody.innerHTML = "";
+    renderEditWordDefinition(arr.word, "contentBody");
     if (arr.translation) {
         quoteBody.innerHTML = `
     <div class="transItem">
@@ -1183,7 +1177,7 @@ const renderTranslate = (arr) => {
         <p>Translation of <b id="tlword">${arr.word}</b></p>
         <div class="transItemPhonetic">
           <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
-          <button class="sound-btn" onclick="playTTSwithValue('${arr.word}',false)">
+          <button class="sound-btn" id="tranSoundBtn">
             <img src="./img/volume.png" width="15">
           </button>
         </div>
@@ -1206,6 +1200,10 @@ const renderTranslate = (arr) => {
             }
     </div>`;
     }
+
+    $("#tranSoundBtn").click(function (e) {
+        playTTSwithValueSound(textData.sound);
+    });
 };
 
 const renderEditWord = () => {
@@ -1227,7 +1225,7 @@ const renderEditWord = () => {
             <input class="transItemInput" placeholder="find edit text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
         <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
         </div>
         <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
@@ -1327,33 +1325,87 @@ const setInputEditWordResult = (item) => {
     $('#inputEditWordPhonetic').val(item.phonetic);
     $('#inputEditWordMeaning').val(item.meaning);
     $('#inputEditWordNumb').val(item.numb);
+    renderEditWordDefinition(item.text, "editContentDiv");
 }
+
+const handleRenderEditWordDefinition = e => {
+    if (e.keyCode == 13) renderEditWordDefinition(e.target.value, "editContentDiv")
+}
+
+let textData = { text: '', sound: '', class: '', definitions: [] }
+
+const renderEditWordDefinition = (val, divId) => {
+    let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let newText = val.length > 4 ? val.slice(0, -2) : val;
+    const regText = new RegExp(`(${newText}\\w*)`, 'gi');
+    textData.text = val;
+    textData.definitions = [];
+    $.get(urlEngAmerica, function (html) {
+        let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
+        if (mp3Link) {
+            textData.sound = mp3Link;
+            let headword = $(html).find('.webtop-g h2').html();
+            textData.text = headword;
+            let classT = $(html).find('.pos').html();
+            textData.class = classT;
+            let img = $(html).find('img.thumb').attr('src')
+            $(html).find('.h-g > .sn-gs > .sn-g').each(function () {
+                let def = '';
+                if (img) def += `<img class="thumb" src="${img}">`
+                def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').html() + '</span>' : '';
+                let xr = $(this).find('.xr-gs').text();
+                if (xr) {
+                    let txt = xr.split(" ");
+                    txt = txt.map((item, index) => {
+                        return index == 0 ? item : `<small>${item}</small>`
+                    }).join(" ")
+                    def += '<span class="xr-gs">' + txt + '</span>';
+                }
+                $(this).find('>.x-gs .x').each(function () {
+                    $(this).html($(this).text().replace(regText, `<b style="color:#f90000">$1</b>`));
+                    def += '<span class="x">' + $(this).html() + '</span>';
+                });
+                textData.definitions.push(def);
+            })
+        }
+        renderExplain(textData.text, textData.class, textData.definitions, divId);
+    });
+};
 
 const setEditWord = () => {
     let newdata = {
         text: $('#inputEditWordText').val(),
         phonetic: $('#inputEditWordPhonetic').val(),
         meaning: $('#inputEditWordMeaning').val(),
-        numb: $('#inputEditWordNumb').val() * 1
+        numb: $('#inputEditWordNumb').val() * 1,
+        sound: textData.sound,
+        class: textData.class,
+        definitions: textData.definitions
     }
+
     let objIndex = dataSheets.findIndex((obj => obj._id == editId));
     dataSheets[objIndex].text = newdata.text;
     dataSheets[objIndex].phonetic = newdata.phonetic;
     dataSheets[objIndex].meaning = newdata.meaning;
     dataSheets[objIndex].numb = newdata.numb;
+    dataSheets[objIndex].sound = newdata.sound;
+    dataSheets[objIndex].class = newdata.class;
+    dataSheets[objIndex].definitions = newdata.definitions;
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=hoctuvung`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=hoctuvung2`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
-        getAllData('hoctuvung').then(data => {
+        getAllData('hoctuvung2').then(data => {
             $('#inputEditWordText').val('');
             $('#inputEditWordPhonetic').val('');
             $('#inputEditWordMeaning').val('');
             $('#inputEditWordNumb').val('');
+            $('#editContentDiv').html('');
+
             localStorage.removeItem('sheetData');
             localStorage.setItem('sheetData', JSON.stringify(data));
             //save to array script
@@ -1364,11 +1416,13 @@ const setEditWord = () => {
 
 const setDeleteWord = () => {
     // console.log('delete');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}&col=hoctuvung`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}&col=hoctuvung2`, mongoFetchOp)
         .then(res => res.json())
         .then(data => {
             $('#inputEditWord').val('');
             $('#inputEditWordText').val('');
+            $('#editContentDiv').html('');
+
             dataSheets = dataSheets.filter(obj => obj._id !== editId);
             localStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
@@ -1435,18 +1489,23 @@ const handleAddNewText = () => {
 const handleAddTextEnd = () => {
     let data = {};
     if (addNewW.value.length > 0) {
-        data.text = $('#tlword').text();
+        data.text = textData.text;
         data.phonetic = $('#tlTranscript').text();
         data.meaning = $('#addNewW').val();
         data.numb = 210;
-        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=hoctuvung';
+        data.sound = textData.sound;
+        data.definitions = textData.definitions;
+        data.class = textData.class;
+        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=hoctuvung2';
         fetch(url, {
             ...mongoFetchOp,
             method: 'POST',
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
             $('#addNewW').val('');
-            getAllData('hoctuvung').then(data => {
+            $('#contentBody').html('');
+
+            getAllData('hoctuvung2').then(data => {
                 localStorage.removeItem('sheetData');
                 localStorage.setItem('sheetData', JSON.stringify(data));
                 //save to array script

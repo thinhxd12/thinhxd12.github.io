@@ -1588,43 +1588,6 @@ div#contentBody {
   fill: #785c3a;
 }
 
-/* .wordType span.z,
-.wordType .oxford3000,
-.wordType span.hm,
-.wordType .academic,
-.wordMeaning span.gram,
-.wordMeaning span.sym_first,
-.wordMeaning span.sep,
-.wordMeaning span.wrap,
-.wordMeaning .shcut,
-.wordMeaning .idm-g,
-.wordMeaning .idm-gs,
-.wordMeaning .collapse,
-.wordMeaning div#ring-links-box,
-.wordMeaning .dictlinks,
-.wordMeaning div.top-container,
-.wordMeaning .pron-link,
-.wordMeaning span.dr-g,
-.wordMeaning span.reg,
-.wordMeaning span.xr,
-.wordMeaning .copyright,
-.wordMeaning span.gramGrp,
-.wordOrigin span.ox-enlarge-label,
-.wordOrigin span.box_title,
-.wordMeaning span.ox-enlarge-label {
-  display: none;
-}
-
-.wordMeaning a {
-  text-decoration: none;
-  color: #000;
-  cursor: default;
-}
-
-.wordMeaning img {
-  border: none;
-} */
-
 .wordType .preWord {
   margin-right: 3px;
   color: #a5a3a3;
@@ -1659,6 +1622,12 @@ div#contentBody {
   line-height: 12px;
   margin: 2px 0;
   font-style: italic;
+}
+
+.wordMeaning span.x b{
+  color: #f90000;
+  font-size: 12px;
+  font-family: "nyt-cheltenham-small";
 }
 
 .sn-g span.x::before {

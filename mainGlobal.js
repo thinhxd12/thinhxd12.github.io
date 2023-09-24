@@ -216,54 +216,79 @@ const autocomplete = (inp) => {
 autocomplete(document.getElementById("searchInput"));
 
 $(document).keydown(function (e) {
-    if ($(e.target).is("input,select") || e.key.length > 1) return;
+    if ($(e.target).is("input,select")) {
+        if (e.keyCode == 27) {
+            $('#searchInput').val('');
+            $('#transInput').val('');
+            textInput = '';
+            return;
+        }
+        return;
+    };
+    if (e.keyCode == 27 || e.keyCode == 32) {
+        $('#searchInput').val('');
+        $('#transInput').val('');
+        textInput = '';
+        closeAllLists();
+        return;
+    }
     let x = document.getElementsByClassName('my-item');
     if (e.keyCode >= 49 && e.keyCode <= 57 && x.length > 0) {
         x[e.keyCode - 49].click();
         textInput = '';
         return;
     }
-    if (e.keyCode == 8) {
-        textInput = textInput.slice(0, -1);
-    };
-    if (e.key.length == 1 && e.keyCode !== 32) {
+    if (e.keyCode >= 65 && e.keyCode <= 90) {
         textInput += e.key;
         $('#searchInput').val(textInput);
-    }
+        renderResult();
 
-    let a = document.createElement("DIV");
-    a.setAttribute("id", "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    document.getElementById('contentBody').innerHTML = '';
-    document.getElementById('contentBody').appendChild(a);
-    if (textInput.length > 2) {
-        let arrFilter = dataSheets.filter(item => item.text.search(`^${textInput}.*$`) > -1);
-        if (arrFilter.length == 0) {
-            $('#transInput').val(textInput);
-        }
-        for (i = 0; i < arrFilter.length; i++) {
-            let item = arrFilter[i]
-            let b = document.createElement("a");
-            b.setAttribute("class", "my-item");
-            b.innerHTML = `<small><small>${i + 1}</small></small> ${item.text}`;
-            b.addEventListener("click", function (e) {
-                $('#searchInput').val('');
-                $('#transInput').val('');
-                textInput = '';
-                playTTSwithValue(item);
-                renderFlashcard(item);
-                if (item.numb > 1) {
-                    handleCheckItem(item._id);
-                    let objIndex = dataSheets.findIndex((obj => obj._id == item._id));
-                    dataSheets[objIndex].numb += -1;
-                    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    }
+    if (e.keyCode == 8) {
+        textInput = textInput.slice(0, -1);
+        $('#searchInput').val(textInput);
+        renderResult();
+    };
+
+    function renderResult(params) {
+        const contentBody = document.getElementById('contentBody');
+        if (textInput.length > 2) {
+            let arrFilter = dataSheets.filter(item => item.text.search(`^${textInput}.*$`) > -1);
+            if (arrFilter.length == 0) {
+                $('#transInput').val(textInput);
+                contentBody.innerHTML = '';
+            }
+            else {
+                contentBody.innerHTML = '';
+                let a = document.createElement("DIV");
+                a.setAttribute("class", "autocomplete-items");
+                contentBody.appendChild(a);
+                for (i = 0; i < arrFilter.length; i++) {
+                    let item = arrFilter[i]
+                    let b = document.createElement("a");
+                    b.setAttribute("class", "my-item");
+                    b.innerHTML = `<small><small>${i + 1}</small></small> ${item.text}`;
+                    b.addEventListener("click", function (e) {
+                        $('#searchInput').val('');
+                        $('#transInput').val('');
+                        textInput = '';
+                        playTTSwithValue(item);
+                        renderFlashcard(item);
+                        if (item.numb > 1) {
+                            handleCheckItem(item._id);
+                            let objIndex = dataSheets.findIndex((obj => obj._id == item._id));
+                            dataSheets[objIndex].numb += -1;
+                            localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+                        }
+                        else {
+                            handleArchivedItem(item._id, item.text);
+                        }
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
                 }
-                else {
-                    handleArchivedItem(item._id, item.text);
-                }
-                closeAllLists();
-            });
-            a.appendChild(b);
+            }
+
         }
     }
     function closeAllLists(elmnt) {
@@ -274,6 +299,7 @@ $(document).keydown(function (e) {
             }
         }
     }
+
 })
 
 const getTotalDoneWord = (text) => {

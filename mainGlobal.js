@@ -216,10 +216,9 @@ const autocomplete = (inp) => {
 autocomplete(document.getElementById("searchInput"));
 
 $(document).keydown(function (e) {
-    if ($(e.target).is("input,select")) return;
+    if ($(e.target).is("input,select") || e.key.length > 1) return;
     let x = document.getElementsByClassName('my-item');
     if (e.keyCode >= 49 && e.keyCode <= 57 && x.length > 0) {
-        e.preventDefault();
         x[e.keyCode - 49].click();
         textInput = '';
         return;
@@ -227,8 +226,10 @@ $(document).keydown(function (e) {
     if (e.keyCode == 8) {
         textInput = textInput.slice(0, -1);
     };
-    if (e.key.length == 1 && e.keyCode !== 32) textInput += e.key;
-    $('#searchInput').val(textInput);
+    if (e.key.length == 1 && e.keyCode !== 32) {
+        textInput += e.key;
+        $('#searchInput').val(textInput);
+    }
 
     let a = document.createElement("DIV");
     a.setAttribute("id", "autocomplete-list");
@@ -979,7 +980,6 @@ const playTTSwithValueSound = (src) => {
 }
 
 const textToSpeech = (text) => {
-    console.log(text);
     const audioEl = document.getElementById("tts-audio");
     audioEl.pause();
     audioEl.volume = 1;

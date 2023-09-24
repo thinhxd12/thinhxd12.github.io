@@ -1344,15 +1344,15 @@ const renderEditWordDefinition = (val, divId) => {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
             textData.sound = mp3Link;
-            let headword = $(html).find('.webtop-g h2').html();
+            let headword = $(html).find('.webtop-g h2').text();
             textData.text = headword;
-            let classT = $(html).find('.pos').html();
+            let classT = $(html).find('.pos').text();
             textData.class = classT;
             let img = $(html).find('img.thumb').attr('src')
-            $(html).find('.h-g > .sn-gs > .sn-g').each(function () {
+            $(html).find('.h-g > .sn-gs > .sn-g').each(function (index) {
                 let def = '';
-                if (img) def += `<img class="thumb" src="${img}">`
-                def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').html() + '</span>' : '';
+                if (img && index == 0) def += `<img class="thumb" src="${img}">`
+                def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').text() + '</span>' : '';
                 let xr = $(this).find('.xr-gs').text();
                 if (xr) {
                     let txt = xr.split(" ");

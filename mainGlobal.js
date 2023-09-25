@@ -1375,7 +1375,7 @@ const renderEditWordDefinition = (val, divId) => {
             let classT = $(html).find('.pos').html();
             textData.class = classT;
             let img = $(html).find('img.thumb').attr('src')
-            $(html).find('.h-g > .sn-gs > .sn-g').each(function (index) {
+            $(html).find('.h-g > .sn-gs .sn-g').each(function (index) {
                 let def = '';
                 if (img && index == 0) def += `<img class="thumb" src="${img}">`
                 def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').text() + '</span>' : '';

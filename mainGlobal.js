@@ -1101,7 +1101,10 @@ const renderExplain = (text, type, definitions, divId) => {
       <div class="explainBody">
         <div class="wordType"><span class="preWord">Definitions of</span><h2>${text}</h2><span class="pos">${type}</span></div>
         ${definitions.map((item, index) => {
-        return `<div class="sn-g"><span class="num">${index + 1}</span>${item}</div>`
+        return `<div class="sn-g">
+        ${definitions.length > 1 ? `<span class="num">${index + 1}</span>` : ''}
+        ${item}
+        </div>`
     }).join('')
         }
       </div>
@@ -1381,11 +1384,9 @@ const renderEditWordDefinition = (val, divId) => {
                 def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').text() + '</span>' : '';
                 let xr = $(this).find('.xr-gs').text();
                 if (xr) {
-                    let txt = xr.split(" ");
-                    txt = txt.map((item, index) => {
-                        return index == 0 ? item : `<small>${item}</small>`
-                    }).join(" ")
-                    def += '<span class="xr-gs">' + txt + '</span>';
+                    $(this).find('.xr-gs').each(function () {
+                        def += '<span class="xr-gs">' + $(this).find('.prefix').text() + " " + '<small>' + $(this).find('.Ref').text() + '</small>' + '</span>';
+                    })
                 }
                 $(this).find('>.x-gs .x').each(function () {
                     $(this).html($(this).text().replace(regText, `<b style="color:#f90000">$1</b>`));

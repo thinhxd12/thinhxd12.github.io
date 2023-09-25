@@ -530,21 +530,7 @@ body {
   background-position: right bottom;
 }
 
-.item-back::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  background: radial-gradient(circle at 50% 50%,
-      rgb(0 0 0 / 18%) 20%,
-      rgba(0, 0, 0, 0.9) 110%);
-}
-
 .flip-card-front-content {
-  /* padding: 2em; */
   text-align: center;
   color: #fff;
   padding: 18px 18px 18px 72px;

@@ -909,7 +909,7 @@ function play() {
     isTimerStarted = true;
     handleNextWord();
     if (autorunTime < 49) {
-        currentTimeout = setTimeout(play, 8000);
+        currentTimeout = setTimeout(play, 7000);
         autorunTime++;
     } else stop();
 }
@@ -1065,7 +1065,7 @@ const renderFlashcard = (item, progress, row) => {
             document.getElementById("indicateFlip").innerHTML = `
       ${newNumb == 0 ? '<img src="./img/cup.png" width="42px">' : newNumb}
       `;
-        }, 1000)
+        }, 500)
     }
 
     flipTimer1 = setTimeout(() => {
@@ -1074,9 +1074,9 @@ const renderFlashcard = (item, progress, row) => {
         // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
         audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`;
         audioEl.play();
-    }, 3500);
-    flipTimer2 = setTimeout(hoverIn, 4000);
-    flipTimer3 = setTimeout(hoverOut, 7000);
+    }, 2500);
+    flipTimer2 = setTimeout(hoverIn, 3000);
+    flipTimer3 = setTimeout(hoverOut, 5000);
 };
 
 const hoverIn = (text) => {
@@ -1127,7 +1127,7 @@ const renderExplainGG = (headword, meaning) => {
       <div class="explainBody">
         <div class="wordType"><span class="preWord">Definitions of</span><h2 class="h">${headword}</h2></div>
         <div class="wordMeaning">
-        ${meaning.map(item => {
+        ${meaning.map((item, index) => {
         return `<span class="x">${item}</span>`
     }).join('')
         }
@@ -1476,7 +1476,6 @@ const renderFrequency = (num) => {
                     style="background-color: rgb(218,220,224);border-radius: 1px;height: 6px;margin: 1px;width: 10px;">
                   </span>
               </div>`;
-            break;
         case 1:
             return `<div class="transFrequency">
                 <span
@@ -1489,7 +1488,6 @@ const renderFrequency = (num) => {
                     style="background-color: rgb(26,115,232);border-radius: 1px;height: 6px;margin: 1px;width: 10px;">
                   </span>
               </div>`;
-            break;
         default:
             return `<div class="transFrequency">
                 <span

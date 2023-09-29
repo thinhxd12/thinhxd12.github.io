@@ -1602,7 +1602,7 @@ div#contentBody {
   border-bottom: 1px solid #343434;
 }
 
-.sn-g span.x {
+span.x {
   display: block;
   font-size: 12px;
   font-family: "nyt-cheltenham-small";
@@ -1612,13 +1612,13 @@ div#contentBody {
   font-style: italic;
 }
 
-.wordMeaning span.x b {
+span.x b {
   color: #f90000;
   font-size: 12px;
   font-family: "nyt-cheltenham-small";
 }
 
-.sn-g span.x::before {
+span.x::before {
   content: "";
   display: inline-block;
   margin-right: 2px;

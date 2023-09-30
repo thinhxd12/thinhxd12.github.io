@@ -147,6 +147,7 @@ const fetchRenderImgBackground = (numb) => {
       $('#imgDesc').html(imgDescGet);
 
       $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
+      $('.calendarBody').css('background-image', 'url(' + imgSrcGet + ')');
     })
 }
 

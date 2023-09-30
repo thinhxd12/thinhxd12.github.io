@@ -999,12 +999,11 @@ body {
 
 .calendarBody {
   position: relative;
-  background: linear-gradient(12deg, #403222, #161616);
 }
 
-.calendarCardContent {
+.calendarBodyContainer{
   background: url("./img/noise.png");
-  backdrop-filter: blur(15px) brightness(0.6);
+  backdrop-filter: blur(9px) brightness(0.3);
 }
 
 .calendarCardContent table {
@@ -1202,7 +1201,7 @@ body {
 .dayIndicate2 {
   display: inline-block;
   position: absolute;
-  right: -13px;
+  right: -10px;
   bottom: 1px;
   width: 3px;
   height: 3px;
@@ -1227,7 +1226,7 @@ body {
 }
 
 .dayIndicate2 {
-  right: -17px;
+  right: -14px;
 }
 
 #todayReset {

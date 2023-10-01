@@ -439,10 +439,11 @@ const renderCalendar = (data) => {
 
         return item;
     });
-    let startDayIndex = monthDateArr.findIndex(item => item.date === startDay.getDate() && item.month === startDay.getMonth())
+    let startDayIndex = monthDateArr.findIndex(item => item.date === startDay.getDate() && item.month === startDay.getMonth());
+    let endDayIndex = monthDateArr.findIndex(item => item.date === endDay.getDate() && item.month === endDay.getMonth());
     // console.log(todayData);
     monthDateArr.map((item, index) => {
-        if (index >= startDayIndex && index <= startDayIndex + 5) {
+        if (index >= startDayIndex && index <= endDayIndex) {
             item["indicate"] = true;
             item["time1"] = data[index - startDayIndex].time1;
             item["time2"] = data[index - startDayIndex].time2;

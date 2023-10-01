@@ -1001,7 +1001,7 @@ body {
   position: relative;
 }
 
-.calendarBodyContainer{
+.calendarBodyContainer {
   background: url("./img/noise.png");
   backdrop-filter: blur(9px) brightness(0.3);
 }
@@ -1201,7 +1201,7 @@ body {
 .dayIndicate2 {
   display: inline-block;
   position: absolute;
-  right: -10px;
+  right: -12px;
   bottom: 1px;
   width: 3px;
   height: 3px;
@@ -1226,7 +1226,7 @@ body {
 }
 
 .dayIndicate2 {
-  right: -14px;
+  right: -17px;
 }
 
 #todayReset {

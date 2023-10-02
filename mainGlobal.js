@@ -109,8 +109,8 @@ const fetchStartupData = () => {
     })
 }
 
-fetchStartupData();
-// getLocalSheetData();
+// fetchStartupData();
+getLocalSheetData();
 
 const autocomplete = (inp) => {
     var currentFocus;
@@ -441,12 +441,14 @@ const renderCalendar = (data) => {
     });
     let startDayIndex = monthDateArr.findIndex(item => item.date === startDay.getDate() && item.month === startDay.getMonth());
     let endDayIndex = monthDateArr.findIndex(item => item.date === endDay.getDate() && item.month === endDay.getMonth());
-    // console.log(todayData);
+    console.log(data);
+    console.log(new Date(data[1].date));
+    console.log(endDayIndex);
     monthDateArr.map((item, index) => {
         if (index >= startDayIndex && index <= endDayIndex) {
             item["indicate"] = true;
-            item["time1"] = data[index - startDayIndex].time1;
-            item["time2"] = data[index - startDayIndex].time2;
+            item["time1"] = data[index - startDayIndex].time1 || data[5 + index - endDayIndex].time1;
+            item["time2"] = data[index - startDayIndex].time2 || data[5 + index - endDayIndex].time2;
             return item;
         }
         return item;
@@ -464,6 +466,7 @@ const renderCalendar = (data) => {
       <tr class="weekDay">
         ${monthDateArr[i]
                 .map((item, index) => {
+                    console.log(item);
                     return `
                 <td>
                     <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : (index == todaysWeekDay && item.class !== '' ? `todayWeekDay ${item.class}` : `${item.class}`)}" >

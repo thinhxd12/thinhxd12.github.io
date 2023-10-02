@@ -92,7 +92,19 @@ const getAllData = async (text) => {
     return res.json();
 }
 
+const wakeupServer = async () => {
+    let url = `https://myapp-9r5h.onrender.com/wakeup`;
+    await fetch(url)
+        .then(res => res.text())
+        .then(data => {
+            if (data == 'ok!') {
+                $(".serverDot").css("background", "#8c8373");
+            }
+        })
+}
+
 const fetchStartupData = () => {
+    wakeupServer();
     // console.log('fetch all data');
     getAllData('hoctuvung2').then(data => {
         localStorage.removeItem('sheetData');
@@ -108,6 +120,9 @@ const fetchStartupData = () => {
         getRenderLocalHistoryData();
     })
 }
+
+
+
 
 fetchStartupData();
 // getLocalSheetData();
@@ -464,7 +479,6 @@ const renderCalendar = (data) => {
       <tr class="weekDay">
         ${monthDateArr[i]
                 .map((item, index) => {
-                    console.log(item);
                     return `
                 <td>
                     <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : (index == todaysWeekDay && item.class !== '' ? `todayWeekDay ${item.class}` : `${item.class}`)}" >

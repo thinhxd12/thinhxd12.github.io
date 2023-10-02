@@ -911,6 +911,17 @@ body {
   color: white;
 }
 
+.serverDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #070707;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 36;
+}
+
 .wordNumContainer {
   display: flex;
   position: absolute;

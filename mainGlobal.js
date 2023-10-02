@@ -104,7 +104,6 @@ const wakeupServer = async () => {
 }
 
 const fetchStartupData = () => {
-    wakeupServer();
     // console.log('fetch all data');
     getAllData('hoctuvung2').then(data => {
         localStorage.removeItem('sheetData');
@@ -121,10 +120,8 @@ const fetchStartupData = () => {
     })
 }
 
-
-
-
 fetchStartupData();
+wakeupServer();
 // getLocalSheetData();
 
 const autocomplete = (inp) => {

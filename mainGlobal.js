@@ -441,9 +441,7 @@ const renderCalendar = (data) => {
     });
     let startDayIndex = monthDateArr.findIndex(item => item.date === startDay.getDate() && item.month === startDay.getMonth());
     let endDayIndex = monthDateArr.findIndex(item => item.date === endDay.getDate() && item.month === endDay.getMonth());
-    console.log(data);
-    console.log(new Date(data[1].date));
-    console.log(endDayIndex);
+    // console.log(monthDateArr);
     monthDateArr.map((item, index) => {
         if (index >= startDayIndex && index <= endDayIndex) {
             item["indicate"] = true;

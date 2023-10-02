@@ -109,8 +109,8 @@ const fetchStartupData = () => {
     })
 }
 
-// fetchStartupData();
-getLocalSheetData();
+fetchStartupData();
+// getLocalSheetData();
 
 const autocomplete = (inp) => {
     var currentFocus;

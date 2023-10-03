@@ -1392,7 +1392,7 @@ const renderEditWordDefinition = (val, divId) => {
         let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
         if (mp3Link) {
             textData.sound = mp3Link;
-            let headword = $(html).find('.webtop-g h2').html();
+            let headword = $(html).find('.webtop-g h2').contents()[0].textContent;
             textData.text = headword;
             let classT = $(html).find('.pos').html();
             textData.class = classT;

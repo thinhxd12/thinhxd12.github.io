@@ -94,13 +94,13 @@ const getAllData = async (text) => {
 
 const wakeupServer = async () => {
     let url = urlCors+`https://myapp-9r5h.onrender.com/wakeup`;
+    $(".serverDot").toggle( "serverDotToggle" );
     await fetch(url)
         .then(res => res.text())
         .then(data => {
             if (data == 'ok!') {
                 $(".serverDot").toggle( "serverDotToggle" );
                 $(".serverDot").css("background", "#8c8373");
-                $(".serverDot").toggle( "serverDotToggle" );
             }
         })
 }

@@ -920,6 +920,11 @@ body {
   bottom: 24px;
   right: 24px;
   z-index: 36;
+  cursor: pointer;
+}
+
+.serverDotToggle{
+  background: #070707;
 }
 
 .wordNumContainer {

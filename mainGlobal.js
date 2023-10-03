@@ -93,15 +93,21 @@ const getAllData = async (text) => {
 }
 
 const wakeupServer = async () => {
-    let url = `https://myapp-9r5h.onrender.com/wakeup`;
+    let url = urlCors+`https://myapp-9r5h.onrender.com/wakeup`;
     await fetch(url)
         .then(res => res.text())
         .then(data => {
             if (data == 'ok!') {
+                $(".serverDot").toggle( "serverDotToggle" );
                 $(".serverDot").css("background", "#8c8373");
+                $(".serverDot").toggle( "serverDotToggle" );
             }
         })
 }
+
+$(".serverDot").click(function (e) { 
+    wakeupServer();
+});
 
 const fetchStartupData = () => {
     // console.log('fetch all data');

@@ -1759,6 +1759,7 @@ span.x::before {
   margin-left: 6px;
   margin-bottom: 3px;
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .translateInputCheck {

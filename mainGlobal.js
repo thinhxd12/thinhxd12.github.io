@@ -93,32 +93,32 @@ const getAllData = async (text) => {
 }
 
 const wakeupServer = async () => {
-    let url = urlCors+`https://myapp-9r5h.onrender.com/wakeup`;
-    $(".serverDot").toggle( "serverDotToggle" );
+    let url = URL_CORS + `https://myapp-9r5h.onrender.com/wakeup`;
+    $(".serverDot").toggle("serverDotToggle");
     await fetch(url)
         .then(res => res.text())
         .then(data => {
             if (data == 'ok!') {
-                $(".serverDot").toggle( "serverDotToggle" );
+                $(".serverDot").toggle("serverDotToggle");
                 $(".serverDot").css("background", "#8c8373");
             }
         })
 }
 
-$(".serverDot").click(function (e) { 
+$(".serverDot").click(function (e) {
     wakeupServer();
 });
 
 const fetchStartupData = () => {
     // console.log('fetch all data');
-    getAllData('hoctuvung2').then(data => {
+    getAllData(CURRENT_COLLECTION.collection).then(data => {
         localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(data));
         //save to array script
         getLocalSheetData();
     })
 
-    getAllData('history').then(data => {
+    getAllData(CURRENT_COLLECTION.history).then(data => {
         localStorage.removeItem('historyData');
         localStorage.setItem('historyData', JSON.stringify(data));
         //save to array script
@@ -327,7 +327,7 @@ const getTotalDoneWord = (text) => {
         })
 }
 
-getTotalDoneWord('passed');
+getTotalDoneWord(CURRENT_COLLECTION.pass);
 
 
 const getLastTimeLog = () => {
@@ -360,7 +360,7 @@ getLastTimeLog();
 let dataCalendar = [];
 
 const fetchAndRenderCalendarData = () => {
-    getAllData('schedule').then(data => {
+    getAllData(CURRENT_COLLECTION.schedule).then(data => {
         data = data.sort((a, b) => new Date(a.date) - new Date(b.date))
         renderCalendar(data);
     })
@@ -618,15 +618,14 @@ const setNewHistoryItem = () => {
         "data": res
     }
 
-    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem';
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem?col=${CURRENT_COLLECTION.schedule}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
         $('#calendarContent').html('');
-
-        getAllData('history').then(data => {
+        getAllData(CURRENT_COLLECTION.history).then(data => {
             localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
             //save to array script
@@ -667,14 +666,14 @@ const commitHistoryItem = (row, numb) => {
         toD: $('#commitHistoryItemToD').val()
     };
     let id = dataHistory.find(item => item.index == numb)._id
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}&row=${row}`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdateHistory?id=${id}&row=${row}&col=${CURRENT_COLLECTION.history}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
         $('#calendarContent').html('');
-        getAllData('history').then(data => {
+        getAllData(CURRENT_COLLECTION.history).then(data => {
             localStorage.removeItem('historyData');
             localStorage.setItem('historyData', JSON.stringify(data));
             //save to array script
@@ -697,7 +696,7 @@ const fetchAndRenderMonthImg = () => {
     batchQuery["lc"] = "en-US";
     batchQuery["ctry"] = "us";
     const baseUrl = "https://arc.msn.com/v3/Delivery/Placement?" + new URLSearchParams(batchQuery).toString();
-    fetch(urlCors + baseUrl).then(res => res.json()).then(data => {
+    fetch(URL_CORS + baseUrl).then(res => res.json()).then(data => {
         let itemStr = data["batchrsp"]["items"][0].item;
         let itemObj = JSON.parse(itemStr)["ad"];
         let title = itemObj["title_text"]?.tx;
@@ -778,7 +777,7 @@ const importSchedule = (reset = false) => {
             time2: 0
         })
     }
-    let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule';
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/createSchedule?col=${CURRENT_COLLECTION.schedule}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
@@ -820,7 +819,7 @@ const updateScheduleItem = () => {
         time1: $('#firstRowReset').val() * 1 || 0,
         time2: $('#secondRowReset').val() * 1 || 0
     }
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleItem?id=${todayData._id}`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleItem?col=${CURRENT_COLLECTION.schedule}&id=${todayData._id}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
@@ -857,7 +856,7 @@ const setWordList = async (item, num) => {
     wordList = [];
     autorunTime = 0;
     let index = num == 1 ? item.startIndex1 : item.startIndex2;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung2`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=${CURRENT_COLLECTION.collection}`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.value = index;
     wordRow.blur();
@@ -881,7 +880,7 @@ const setWordListHandy = async () => {
     wordList = [];
     autorunTime = 0;
     let index = wordRow.value;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=hoctuvung2`
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=${CURRENT_COLLECTION.collection}`
     await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
     wordRow.blur();
     $('.toogleItemRight').toggleClass('toogleItemShowRight');
@@ -945,7 +944,7 @@ function stop() {
     //update progress
     setTimeout(() => {
         setWordListHandy();
-        getAllData('hoctuvung2').then(data => {
+        getAllData(CURRENT_COLLECTION.collection).then(data => {
             localStorage.removeItem('sheetData');
             localStorage.setItem('sheetData', JSON.stringify(data));
             //save to array script
@@ -957,7 +956,7 @@ function stop() {
 
 const updateScheduleProgress = (id, val) => {
     // console.log('updateScheduleProgress');
-    const url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleProgress?id=${id}&val=${val}`
+    const url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/updateScheduleProgress?id=${id}&val=${val}&col=${CURRENT_COLLECTION.schedule}`
     fetch(url, mongoFetchOp).then(res => res.json())
 }
 
@@ -981,7 +980,7 @@ const handleNextWord = () => {
 
 const handleCheckItem = (id) => {
     // console.log('check');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}&col=hoctuvung2`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/handleCheck?id=${id}&col=${CURRENT_COLLECTION.collection}`, mongoFetchOp)
         .then(res => res.json())
         .catch(err => console.log(err))
 }
@@ -989,10 +988,10 @@ const handleCheckItem = (id) => {
 const handleArchivedItem = (id, text) => {
     let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
     const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=hoctuvung2`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=${CURRENT_COLLECTION.collection}&pass=${CURRENT_COLLECTION.pass}`, mongoFetchOp)
         .then(res => res.json()).then(data => {
             console.log(text);
-            getTotalDoneWord('passed');
+            getTotalDoneWord(CURRENT_COLLECTION.pass);
         })
     dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
@@ -1318,7 +1317,6 @@ const renderProxySelect = () => {
     contentBody.innerHTML = `
       <div class="transItem">
        <div class="transItemHeader">
-            <span>Select cors proxy server</span>
             <div style="display: flex;">
                 <button class="close-btn" onclick="selectProxy()">
                     <img src="./img/complete.png" width="13">
@@ -1346,11 +1344,47 @@ const handleThisCheckbox = (e) => {
 
 const selectProxy = () => {
     let val = document.querySelector('.translateInputCheck:checked').value;
-    val == proxyArr.length - 1 ? urlCors = '' : urlCors = proxyArr[val].link;
+    val == proxyArr.length - 1 ? URL_CORS = '' : URL_CORS = proxyArr[val].link;
     proxyArr.forEach((item, index) => index != val ? item.active = false : item.active = true)
     handleDelete();
 }
 
+
+const renderCollectionSelect = () => {
+    let contentBody = document.getElementById("contentBody");
+    contentBody.innerHTML = `
+      <div class="transItem">
+       <div class="transItemHeader">
+            <div style="display: flex;">
+                <button class="close-btn" onclick="selectCollection()">
+                    <img src="./img/complete.png" width="13">
+                </button>
+                <button class="close-btn" onclick="handleDelete()">
+                  <img src="./img/close.png" width="9">
+                </button>
+            </div>
+        </div>
+        ${collectionsArr.map((item, index) => {
+        return `<div class="transItemContent">
+                    <label>
+                    <input type="checkbox" ${item.active ? 'checked' : ''} onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
+                        ${item.name}
+                    </label>
+                </div>`
+    }).join('')
+        }
+        </div>`;
+};
+
+const selectCollection = () => {
+    let val = document.querySelector('.translateInputCheck:checked').value;
+    CURRENT_COLLECTION = collectionsArr[val];
+    collectionsArr.forEach((item, index) => index != val ? item.active = false : item.active = true)
+    handleDelete();
+    fetchStartupData();
+    getTotalDoneWord(CURRENT_COLLECTION.pass);
+    fetchAndRenderCalendarData();
+}
 
 let editId;
 const handleChangeEditInput = (e) => {
@@ -1383,7 +1417,7 @@ const handleRenderEditWordDefinition = e => {
 let textData = { text: '', sound: '', class: '', definitions: [] }
 
 const renderEditWordDefinition = (val, divId) => {
-    let urlEngAmerica = urlCors + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let urlEngAmerica = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
     let newText = val.length > 4 ? val.slice(0, -2) : val;
     const regText = new RegExp(`(${newText}\\w*)`, 'gi');
     textData.text = val;
@@ -1439,13 +1473,13 @@ const setEditWord = () => {
     dataSheets[objIndex].definitions = newdata.definitions;
     localStorage.setItem('sheetData', JSON.stringify(dataSheets));
 
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=hoctuvung2`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=${CURRENT_COLLECTION.collection}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
         body: JSON.stringify(newdata)
     }).then(res => res.json()).then(data => {
-        getAllData('hoctuvung2').then(data => {
+        getAllData(CURRENT_COLLECTION.collection).then(data => {
             $('#inputEditWordText').val('');
             $('#inputEditWordPhonetic').val('');
             $('#inputEditWordMeaning').val('');
@@ -1462,7 +1496,7 @@ const setEditWord = () => {
 
 const setDeleteWord = () => {
     // console.log('delete');
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}&col=hoctuvung2`, mongoFetchOp)
+    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/delete?id=${editId}&col=${CURRENT_COLLECTION.collection}`, mongoFetchOp)
         .then(res => res.json())
         .then(data => {
             $('#inputEditWord').val('');
@@ -1540,7 +1574,7 @@ const handleAddTextEnd = () => {
         data.sound = textData.sound;
         data.definitions = textData.definitions;
         data.class = textData.class;
-        let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=hoctuvung2';
+        let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=${CURRENT_COLLECTION.collection}`;
         fetch(url, {
             ...mongoFetchOp,
             method: 'POST',
@@ -1549,7 +1583,7 @@ const handleAddTextEnd = () => {
             $('#addNewW').val('');
             $('#contentBody').html('');
 
-            getAllData('hoctuvung2').then(data => {
+            getAllData(CURRENT_COLLECTION.collection).then(data => {
                 localStorage.removeItem('sheetData');
                 localStorage.setItem('sheetData', JSON.stringify(data));
                 //save to array script

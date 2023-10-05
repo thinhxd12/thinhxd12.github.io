@@ -5,8 +5,27 @@ const proxyArr = [
   { link: "https://api.codetabs.com/v1/proxy?quest=", active: false },
   { link: "none", active: false }
 ]
-let urlCors = proxyArr[0].link;
-const mainPageUrl = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
+let URL_CORS = proxyArr[0].link;
+const collectionsArr = [
+  {
+    name: "english",
+    collection: "hoctuvung2",
+    pass: "passed",
+    history: "history",
+    schedule: "schedule",
+    active: true
+  },
+  {
+    name: "日本語",
+    collection: "hoctuvung1",
+    pass: "passed1",
+    history: "history1",
+    schedule: "schedule1",
+    active: false
+  },
+]
+let CURRENT_COLLECTION = collectionsArr[0];
+const MAIN_PAGE_URL = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 
 
 
@@ -114,7 +133,7 @@ $('#tomatoText').click(function (e) {
 let historyImgArr = [];
 
 const fetchImgLinkArr = () => {
-  $.get(urlCors + mainPageUrl, function (html) {
+  $.get(URL_CORS + MAIN_PAGE_URL, function (html) {
     historyImgArr = $(html).find('.also__item > a').map(function () {
       return $(this).attr('href');
     }).get();
@@ -125,7 +144,7 @@ const fetchImgLinkArr = () => {
 fetchImgLinkArr();
 
 const fetchRenderImgBackground = (numb) => {
-  fetch(urlCors + historyImgArr[numb]).then(res => res.text())
+  fetch(URL_CORS + historyImgArr[numb]).then(res => res.text())
     .then(data => {
       let regMainImg = new RegExp('<div class="main-image">\n<img srcset="((.|\n)+?) 800w,', 'i');
       let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
@@ -418,7 +437,7 @@ const renderRssNews = () => {
 }
 
 const renderRssNYT = () => {
-  $.get(urlCors + 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', function (data) {
+  $.get(URL_CORS + 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -463,7 +482,7 @@ const renderRssNYT = () => {
 }
 
 const renderRssNikkei = () => {
-  $.get(urlCors + 'https://asia.nikkei.com/rss/feed/nar', function (data) {
+  $.get(URL_CORS + 'https://asia.nikkei.com/rss/feed/nar', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -496,7 +515,7 @@ const renderRssNikkei = () => {
 }
 
 const renderRssSCMP = () => {
-  $.get(urlCors + 'https://www.scmp.com/rss/91/feed', function (data) {
+  $.get(URL_CORS + 'https://www.scmp.com/rss/91/feed', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -541,7 +560,7 @@ const renderRssSCMP = () => {
 }
 
 const renderRssAlJaz = () => {
-  $.get(urlCors + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
+  $.get(URL_CORS + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -591,7 +610,7 @@ const renderRssAlJaz = () => {
 }
 
 const renderRssYahoo = () => {
-  $.get(urlCors + 'https://www.yahoo.com/news/rss', function (data) {
+  $.get(URL_CORS + 'https://www.yahoo.com/news/rss', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -634,7 +653,7 @@ const renderRssYahoo = () => {
 }
 
 const renderRssTheconversation = () => {
-  $.get(urlCors + 'https://theconversation.com/ca/articles.atom', function (data) {
+  $.get(URL_CORS + 'https://theconversation.com/ca/articles.atom', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">
@@ -681,7 +700,7 @@ const renderRssTheconversation = () => {
 }
 
 const renderRssWSP = () => {
-  $.get(urlCors + 'https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2', function (data) {
+  $.get(URL_CORS + 'https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2', function (data) {
     // console.log(data);
     document.getElementById('contentBody').innerHTML += `
     <div class="rssCardHeader">

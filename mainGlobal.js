@@ -112,8 +112,9 @@ $(".serverDot").click(function (e) {
 const fetchStartupData = () => {
     // console.log('fetch all data');
     getAllData(CURRENT_COLLECTION.collection).then(data => {
+        let newdata = data.sort((a, b) => a._id - b._id);
         localStorage.removeItem('sheetData');
-        localStorage.setItem('sheetData', JSON.stringify(data));
+        localStorage.setItem('sheetData', JSON.stringify(newdata));
         //save to array script
         getLocalSheetData();
     })

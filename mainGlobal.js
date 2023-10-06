@@ -887,9 +887,7 @@ const setWordListHandy = async () => {
     $('.toogleItemRight').toggleClass('toogleItemShowRight');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    setTimeout(() => {
-        startHandler();
-    }, 300);
+    startHandler();
     $('.toogleItemRight').removeClass('toogleItemShowRight');
     $('.toogleItemRight').addClass('toogleItemShowRight');
 }

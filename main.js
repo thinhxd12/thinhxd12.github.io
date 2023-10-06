@@ -40,18 +40,21 @@ let tickTimeout = null;
 
 const renderTomatoTick = () => {
   let timeCount = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
-
   function tick() {
+    let count = 0;
     let t = 60;
     if (timeCount > 0) {
       tickTimeout = setTimeout(tick, t * 1000);
       $('#tomatoText').show();
       $('#tomatoText').text(timeCount / 60 + 'm');
       timeCount = timeCount - t;
-      const audioEl = document.getElementById("tts-audio");
-      audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-      audioEl.volume = 0.01;
-      audioEl.play();
+      if (count > 0) {
+        const audioEl = document.getElementById("tts-audio");
+        audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+        audioEl.volume = 0.01;
+        audioEl.play();
+      }
+      count++;
     }
     else {
       $('#tomatoText').text('');

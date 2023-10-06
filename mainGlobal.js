@@ -856,9 +856,15 @@ const setWordList = async (item, num) => {
     const wordRow = document.getElementById("wordRow");
     wordList = [];
     autorunTime = 0;
-    let index = num == 1 ? item.startIndex1 : item.startIndex2;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=${CURRENT_COLLECTION.collection}`
-    await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
+    let index = num == 1 ? item.startIndex1 * 1 : item.startIndex2 * 1;
+    await getAllData(CURRENT_COLLECTION.collection).then(data => {
+        let newdata = data.sort((a, b) => a._id - b._id);
+        localStorage.removeItem('sheetData');
+        localStorage.setItem('sheetData', JSON.stringify(newdata));
+        //save to array script
+        getLocalSheetData();
+    })
+    wordList = dataSheets.slice(index, index + 50);
     wordRow.value = index;
     wordRow.blur();
     handleToggleSwitchSun();
@@ -880,9 +886,15 @@ const setWordListHandy = async () => {
     const wordRow = document.getElementById("wordRow");
     wordList = [];
     autorunTime = 0;
-    let index = wordRow.value;
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/getRangeList?start=${index}&total=50&coll=${CURRENT_COLLECTION.collection}`
-    await fetch(url, mongoFetchOp).then(res => res.json()).then(data => wordList = data);
+    let index = wordRow.value * 1;
+    await getAllData(CURRENT_COLLECTION.collection).then(data => {
+        let newdata = data.sort((a, b) => a._id - b._id);
+        localStorage.removeItem('sheetData');
+        localStorage.setItem('sheetData', JSON.stringify(newdata));
+        //save to array script
+        getLocalSheetData();
+    })
+    wordList = dataSheets.slice(index, index + 50);
     wordRow.blur();
     $('.toogleItemRight').toggleClass('toogleItemShowRight');
     handleToggleSwitchSun();
@@ -946,8 +958,9 @@ function stop() {
     setTimeout(() => {
         setWordListHandy();
         getAllData(CURRENT_COLLECTION.collection).then(data => {
+            let newdata = data.sort((a, b) => a._id - b._id);
             localStorage.removeItem('sheetData');
-            localStorage.setItem('sheetData', JSON.stringify(data));
+            localStorage.setItem('sheetData', JSON.stringify(newdata));
             //save to array script
             getLocalSheetData();
         });
@@ -1486,9 +1499,9 @@ const setEditWord = () => {
             $('#inputEditWordMeaning').val('');
             $('#inputEditWordNumb').val('');
             $('#editContentDiv').html('');
-
+            let newdata = data.sort((a, b) => a._id - b._id);
             localStorage.removeItem('sheetData');
-            localStorage.setItem('sheetData', JSON.stringify(data));
+            localStorage.setItem('sheetData', JSON.stringify(newdata));
             //save to array script
             getLocalSheetData();
         });
@@ -1585,8 +1598,9 @@ const handleAddTextEnd = () => {
             $('#contentBody').html('');
 
             getAllData(CURRENT_COLLECTION.collection).then(data => {
+                let newdata = data.sort((a, b) => a._id - b._id);
                 localStorage.removeItem('sheetData');
-                localStorage.setItem('sheetData', JSON.stringify(data));
+                localStorage.setItem('sheetData', JSON.stringify(newdata));
                 //save to array script
                 getLocalSheetData();
             });

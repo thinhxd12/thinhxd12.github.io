@@ -617,11 +617,17 @@ body {
 
 .flip-card-back-content {
   z-index: 66;
-  width: 85%;
+  width: 72%;
+  max-height: 100%;
+  overflow: scroll;
+}
+
+.flip-card-back-content::-webkit-scrollbar {
+  display: none;
 }
 
 .flip-card-back-content img {
-  transform: rotate(18deg);
+  transform: rotate(-18deg);
   vertical-align: sub;
   margin-left: 6px;
 }
@@ -923,7 +929,7 @@ body {
   cursor: pointer;
 }
 
-.serverDotToggle{
+.serverDotToggle {
   background: #070707;
 }
 
@@ -1642,7 +1648,7 @@ span.x::before {
   background: url("./img/clover.png");
   background-size: contain;
   vertical-align: bottom;
-  transform: rotate(18deg);
+  transform: rotate(-18deg);
 }
 
 .sn-g .num {

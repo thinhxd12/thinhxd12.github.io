@@ -957,13 +957,6 @@ function stop() {
     //update progress
     setTimeout(() => {
         setWordListHandy();
-        getAllData(CURRENT_COLLECTION.collection).then(data => {
-            let newdata = data.sort((a, b) => a._id - b._id);
-            localStorage.removeItem('sheetData');
-            localStorage.setItem('sheetData', JSON.stringify(newdata));
-            //save to array script
-            getLocalSheetData();
-        });
     }, 2000);
 }
 

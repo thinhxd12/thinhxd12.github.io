@@ -1,6 +1,6 @@
 
-const PRECIP_NUMB = 0.6;
-const DEVIATION_NUMB = 0.95;
+const PRECIP_NUMB = 0.8;
+const DEVIATION_NUMB = 1.2;
 let placeObj = {};
 let API_WEATHER_KEY = '';
 let LAT_LONG = '';

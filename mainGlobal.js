@@ -1445,7 +1445,7 @@ const renderEditWordDefinition = (val, divId) => {
                 let xr = $(this).find('.xr-gs').text();
                 if (xr) {
                     $(this).find('.xr-gs').each(function () {
-                        def += '<span class="xr-gs">' + $(this).find('.prefix').text() + " " + '<small>' + $(this).find('.Ref').text() + '</small>' + '</span>';
+                        def += '<span class="xr-gs">' + $(this).find('.prefix').text() + " " + '<small>' + $(this).find('.prefix').next().text() + '</small>' + '</span>';
                     })
                 }
                 $(this).find('>.x-gs .x').each(function () {

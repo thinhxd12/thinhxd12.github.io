@@ -341,7 +341,7 @@ const fetchGetQuote = (num) => {
   fetch(ggquote + `?action=getBookmark&num=${num}`).then(res => res.json())
     .then(data => {
       let body = `
-      <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
+      <div class="explainContainer">
         <div class="explainHeader">
         <button class="closeBtn closeBtnSVG" onclick="handleDeleteQuote()">
           <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">

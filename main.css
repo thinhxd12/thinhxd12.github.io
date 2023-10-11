@@ -29,72 +29,72 @@
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-200-normal.woff) format("woff");
-  font-style: normal;
-  font-weight: 200;
-}
-
-@font-face {
-  font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-200-italic.woff) format("woff");
-  font-style: italic;
-  font-weight: 200;
-}
-
-@font-face {
-  font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-300-normal.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-normal-300.ttf");
   font-style: normal;
   font-weight: 300;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-300-italic.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-italic-300.ttf");
   font-style: italic;
   font-weight: 300;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-400-normal.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-normal-400.ttf");
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-400-italic.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-italic-400.ttf");
   font-style: italic;
   font-weight: 400;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-500-normal.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-normal-500.ttf");
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-500-italic.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-italic-500.ttf");
   font-style: italic;
   font-weight: 500;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-700-normal.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-normal-700.ttf");
   font-style: normal;
   font-weight: 700;
 }
 
 @font-face {
   font-family: "nyt-cheltenham";
-  src: url(//typeface.nyt.com/fonts/nyt-cheltenham-700-italic.woff) format("woff");
+  src: url("./fonts/cheltenham/cheltenham-italic-700.ttf");
   font-style: italic;
   font-weight: 700;
+}
+
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-normal-500.ttf");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-italic-500.ttf");
+  font-style: italic;
+  font-weight: 500;
 }
 
 
@@ -335,7 +335,7 @@ body {
 #imgDesc .main-description__text-content,
 #imgDesc .main-description__text-content a {
   letter-spacing: -0.25px;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #989da7;
   font-family: "basier", sans-serif;
   mix-blend-mode: difference;
@@ -1496,8 +1496,8 @@ body {
 }
 
 #quoteContent {
-  font-size: 0.9rem;
-  line-height: 0.9rem;
+  font-size: 0.785rem;
+  line-height: 1.1rem;
   padding: 6px;
   background: #fff;
   color: #363636;
@@ -1553,7 +1553,7 @@ div#contentBody {
 .my-item:hover {
   background-color: #ffffff;
   color: #48c78e;
-  font-weight: 600;
+  font-weight: 500;
   margin-left: 2px;
   border-left: 2px solid #48c78e;
   transition: all 0.3s ease;
@@ -1591,10 +1591,10 @@ div#contentBody {
 
 /* ----------------explaincontent---------- */
 .explainContainer {
-  font-family: "nyt-cheltenham";
+  font-family: "nyt-imperial";
   font-weight: 400;
   font-style: normal;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   -webkit-font-smoothing: antialiased;
   color: #fff;
 }
@@ -1604,10 +1604,6 @@ div#contentBody {
   top: 0;
   display: flex;
   justify-content: flex-end;
-}
-
-.explainBody {
-  /* padding: 6px; */
 }
 
 .closeBtn {
@@ -1654,12 +1650,14 @@ div#contentBody {
   display: inline-block;
   font-size: 1rem;
   margin-right: 3px;
+  font-family: "nyt-cheltenham";
+  font-weight: 500;
 }
 
 .wordType .pos {
   color: #a5a3a3;
   font-style: italic;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 10px;
 }
 
@@ -1672,9 +1670,9 @@ div#contentBody {
 
 span.x {
   display: block;
-  font-size: 0.875rem;
-  font-family: "nyt-cheltenham";
-  font-weight: 400;
+  font-size: 0.75rem;
+  font-family: "nyt-imperial";
+  font-weight: 500;
   line-height: 16px;
   margin: 2px 0;
   font-style: italic;
@@ -1682,8 +1680,8 @@ span.x {
 
 span.x b {
   color: #f90000;
-  font-size: 0.9rem;
-  font-family: "nyt-cheltenham";
+  font-size: 0.8rem;
+  font-family: "nyt-imperial";
 }
 
 span.x::before {
@@ -1700,7 +1698,7 @@ span.x::before {
 
 .sn-g .num {
   margin-right: 4px;
-  font-weight: 600;
+  font-weight: 400;
   display: inline-block;
   width: 11px;
   height: 11px;
@@ -1722,8 +1720,8 @@ span.x::before {
 }
 
 .xr-gs {
-  font-weight: bold;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 0.8rem;
   margin: 3px 0;
   display: block;
   text-transform: uppercase;
@@ -1925,7 +1923,7 @@ span.x::before {
   font-family: "nyt-cheltenham";
   font-weight: 400;
   font-style: normal;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   border-radius: 1px;
   -webkit-font-smoothing: antialiased;
   margin-bottom: 6px;

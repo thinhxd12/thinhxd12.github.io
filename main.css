@@ -1507,13 +1507,11 @@ body {
 
 div#quoteBody {
   width: 100%;
-  padding: 0 3px;
   margin: 3px 0;
 }
 
 div#contentBody {
   width: 100%;
-  padding: 0 3px;
 }
 
 #quoteBody .wordType {
@@ -1598,7 +1596,10 @@ div#contentBody {
   font-style: normal;
   font-size: 0.75rem;
   -webkit-font-smoothing: antialiased;
-  color: #fff;
+  padding: 0 3px 3px;
+  background: url("./img/paper.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .explainHeader {
@@ -1644,7 +1645,7 @@ div#contentBody {
 
 .wordType .preWord {
   margin-right: 3px;
-  color: #a5a3a3;
+  color: #181818;
   font-size: 11px;
 }
 
@@ -1654,10 +1655,11 @@ div#contentBody {
   margin-right: 3px;
   font-family: "nyt-cheltenham";
   font-weight: 500;
+  color: #000;
 }
 
 .wordType .pos {
-  color: #a5a3a3;
+  color: #727272;
   font-style: italic;
   font-weight: 500;
   font-size: 10px;
@@ -1665,7 +1667,6 @@ div#contentBody {
 
 .wordType,
 .sn-g:not(:last-child) {
-  margin-bottom: 3px;
   padding-bottom: 3px;
   border-bottom: 1px solid #343434;
 }
@@ -1721,11 +1722,11 @@ span.x::before {
   margin: 3px 0;
   display: block;
   text-transform: uppercase;
-  color: #fff;
+  color: #181818;
 }
 
 .xr-gs small {
-  color: #a5a3a3;
+  color: #727272;
   text-transform: lowercase;
 }
 
@@ -1806,7 +1807,6 @@ span.x::before {
   margin-left: 6px;
   margin-bottom: 3px;
   cursor: pointer;
-  text-transform: capitalize;
 }
 
 .translateInputCheck {
@@ -1915,7 +1915,6 @@ span.x::before {
 }
 
 .rssCard {
-  background: #dfdbd5;
   font-family: "nyt-cheltenham";
   font-weight: 400;
   font-style: normal;
@@ -1925,6 +1924,9 @@ span.x::before {
   margin-bottom: 6px;
   padding: 6px;
   display: flex;
+  background: url("./img/paper.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .rssCardImg {
@@ -1955,6 +1957,7 @@ span.x::before {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 6px;
 }
 
 .rssBtn {

@@ -1499,7 +1499,9 @@ body {
   font-size: 0.785rem;
   line-height: 1.1rem;
   padding: 6px;
-  background: #fff;
+  background: url("./img/paper.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #363636;
 }
 

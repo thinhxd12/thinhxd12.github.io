@@ -140,7 +140,7 @@ const fetchImgLinkArr = () => {
     historyImgArr = $(html).find('.also__item > a').map(function () {
       return $(this).attr('href');
     }).get();
-    fetchRenderImgBackground(0)
+    fetchRenderImgBackground(0);
   });
 }
 
@@ -148,29 +148,29 @@ fetchImgLinkArr();
 
 const fetchRenderImgBackground = (numb) => {
   fetch(URL_CORS + historyImgArr[numb]).then(res => res.text())
-    .then(data => {
-      let regMainImg = new RegExp('<div class="main-image">\n<img srcset="((.|\n)+?) 800w,', 'i');
-      let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
-      let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
-      let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
-      let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
-      let regMainDesc = new RegExp('<div class="main-description__text-content">((.|\n)+?)</div>', 'i');
+    .then(html => html).then(data => setImgBackground(data))
+}
 
-      let imgSrcGet = regMainImg.exec(data)[1]
-      let imgDateGet = regMainDate.exec(data)[0]
-      let imgTitleGet = regMainTitle.exec(data)[0]
-      let imgAttGet = regMainAtt.exec(data)[0]
-      let imgAuthorGet = regMainAuthor.exec(data)[0]
-      let imgTextGet = regMainDesc.exec(data)[0]
-      let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
+const setImgBackground = (data) => {
+  let regMainImg = new RegExp('<div class="main-image">(\n|.)+?src="(.+?)"', 'i');
+  let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
+  let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
+  let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
+  let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
+  let regMainDesc = new RegExp('<div class="main-description__text-content">(\n|.)+?((.|\n)+?)</div>', 'i');
+  let imgSrcGet = regMainImg.exec(data)[2];
+  let imgDateGet = regMainDate.exec(data)[0];
+  let imgTitleGet = regMainTitle.exec(data)[0];
+  let imgAttGet = regMainAtt.exec(data)[0];
+  let imgAuthorGet = regMainAuthor.exec(data)[0];
+  let imgTextGet = regMainDesc.exec(data)[0];
+  let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
 
-      $('#imgSrc').attr('src', imgSrcGet);
-      $('#imgSrcBlurred').attr('src', imgSrcGet);
-      $('#imgDesc').html(imgDescGet);
-
-      $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
-      $('.calendarBody').css('background-image', 'url(' + imgSrcGet + ')');
-    })
+  $('#imgSrc').attr('src', imgSrcGet);
+  $('#imgSrcBlurred').attr('src', imgSrcGet);
+  $('#imgDesc').html(imgDescGet);
+  $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
+  $('.calendarBody').css('background-image', 'url(' + imgSrcGet + ')');
 }
 
 let slideImgIndex = 0;

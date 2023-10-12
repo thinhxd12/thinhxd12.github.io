@@ -97,6 +97,33 @@
   font-weight: 500;
 }
 
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-normal-600.ttf");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-italic-600.ttf");
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-normal-700.ttf");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "nyt-imperial";
+  src: url("./fonts/imperial/imperial-italic-700.ttf");
+  font-style: italic;
+  font-weight: 700;
+}
 
 * {
   box-sizing: border-box;
@@ -1679,6 +1706,10 @@ span.x {
   line-height: 16px;
   margin: 2px 0;
   font-style: italic;
+}
+
+span.x b {
+  font-weight: 600;
 }
 
 span.x::before {

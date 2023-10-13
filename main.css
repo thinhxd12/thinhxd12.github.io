@@ -1774,9 +1774,13 @@ span.x::before {
   width: 21px;
   height: 21px;
   border-radius: 50%;
-  background: #070707;
+  background: transparent;
   transition: all 0.3s ease;
-  border: 0.3px solid #503f2b;
+  border: none;
+}
+
+.quoteBtn:hover {
+  transform: scale(1.1);
 }
 
 .quoteBtn .quoteSVG path {
@@ -1787,13 +1791,17 @@ span.x::before {
   fill: #785c3a;
 }
 
+.quoteBtn:hover .quoteSVG {
+  fill: #785c3a;
+}
+
 .quoteBtn img {
   vertical-align: middle;
 }
 
-.quoteBtn:hover {
+/* .quoteBtn:hover {
   background: #000000;
-}
+} */
 
 /* ------------translate----- */
 .transItem {

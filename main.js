@@ -228,7 +228,7 @@ const showLastTimeLog = () => {
 }
 
 
-let tabIndex = 1;
+var tabIndex = 1;
 const showTab = (n) => {
   tabIndex = n;
   if (n > 3) {
@@ -352,24 +352,17 @@ const fetchGetQuote = (num) => {
         <div class="explainBody">
           <div class="wordType">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <svg width="13" height="13" style="margin-right: 2px;" class="quoteSVG" viewBox="-0.084 0 0.356 0.356" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
-            <path d="M.158.324A.019.019 0 0 1 .144.318L.016.19a.019.019 0 0 1 0-.027L.144.035a.019.019 0 0 1 .027.027L.057.177l.114.114a.019.019 0 0 1-.013.033z"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="quoteSVG" viewBox="0 0 1.04 1.04" xml:space="preserve"><path d="M.76.166v.708c0 .02-.026.034-.044.018L.292.546a.032.032 0 0 1 0-.05l.424-.35C.734.132.76.144.76.166z"/></svg>
           </button>
           <button class="quoteBtn" onclick="checkQuote(${!data.check})">
-            ${data.check ? `<svg width="15" height="15" viewBox="0 0 0.45 0.45" xmlns="http://www.w3.org/2000/svg">
-            <path d="M.412.189C.414.18.406.168.397.168L.29.153.242.056C.24.052.238.05.235.049.226.043.214.047.209.056L.161.154.054.169C.048.169.045.171.043.175a.019.019 0 0 0 0 .026L.12.276.101.383c0 .004 0 .007.002.011.006.009.017.013.026.007L.225.35l.096.051C.323.403.327.403.33.403h.004A.02.02 0 0 0 .349.381L.33.274.407.199A.01.01 0 0 0 .413.19z" fill="#785c3a"/>
-            </svg>` : `<svg width="15" height="15" class="quoteSVG" viewBox="0 0 0.45 0.45" xmlns="http://www.w3.org/2000/svg">
-            <path d="M.412.189C.414.18.406.168.397.168L.29.153.242.056C.24.052.238.05.235.049.226.043.214.047.209.056L.161.154.054.169C.048.169.045.171.043.175a.019.019 0 0 0 0 .026L.12.276.101.383c0 .004 0 .007.002.011.006.009.017.013.026.007L.225.35l.096.051C.323.403.327.403.33.403h.004A.02.02 0 0 0 .349.381L.33.274.407.199A.01.01 0 0 0 .413.19z"/>
-            </svg>`}
+            ${data.check ? `<svg width="20" height="20" viewBox="0 0 1.28 1.28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.907.123H.388a.196.196 0 0 0-.196.196v.726a.118.118 0 0 0 .188.094L.624.956a.038.038 0 0 1 .045 0l.244.183a.118.118 0 0 0 .188-.094V.319A.196.196 0 0 0 .905.123Z" fill="#f3f302"/></svg>` :
+          `<svg width="20" height="20" viewBox="0 0 1.28 1.28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.907.123H.388a.196.196 0 0 0-.196.196v.726a.118.118 0 0 0 .188.094L.624.956a.038.038 0 0 1 .045 0l.244.183a.118.118 0 0 0 .188-.094V.319A.196.196 0 0 0 .905.123Z" fill="#3a3124"/></svg>`}
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <svg width="14" height="14" style="margin-left: 2px;" class="quoteSVG" viewBox="-1.444 0 9.6 9.6" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.837 8.625 1.2 7.988l3.056-3.075L1.2 1.837l.637-.637 3.675 3.712-3.675 3.713Z"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="quoteSVG" viewBox="0 0 1.04 1.04" xml:space="preserve" transform="scale(-1 1)"><path d="M.76.166v.708c0 .02-.026.034-.044.018L.292.546a.032.032 0 0 1 0-.05l.424-.35C.734.132.76.144.76.166z"/></svg>
           </button>
           <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
-            <svg width="15" height="15" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#0D0D0D"/>
             </svg>
           </button>

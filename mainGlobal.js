@@ -869,13 +869,14 @@ const setWordList = async (item, num) => {
     wordRow.blur();
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
+    $('.city').hide();
     $('#tab1').show();
-    $('#tab2').hide();
-    $('.toogleItemRight').removeClass('toogleItemShowRight');
     $('.footerBtn').removeClass("footerBtnActive");
+    $(".tabButton[name='tab1']").addClass("footerBtnActive");
+    tabIndex = 1;
+    $('.toogleItemRight').removeClass('toogleItemShowRight');
     setTimeout(() => {
         $('.toogleItemRight').addClass('toogleItemShowRight');
-        $('.footerBtnToggleLeft').addClass("footerBtnActive");
     }, 500);
 }
 

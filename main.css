@@ -1725,8 +1725,9 @@ span.x::before {
 }
 
 .sn-g .num {
+  font-family: "nyt-cheltenham";
   margin-right: 4px;
-  font-weight: 400;
+  font-weight: 700;
   display: inline-block;
   width: 11px;
   height: 11px;

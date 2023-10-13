@@ -994,18 +994,26 @@ const handleCheckItem = (id) => {
 }
 
 const handleArchivedItem = (id, text) => {
-    let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
-    const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
-    fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=${CURRENT_COLLECTION.collection}&pass=${CURRENT_COLLECTION.pass}`, mongoFetchOp)
-        .then(res => res.json()).then(data => {
-            console.log(text);
-            getTotalDoneWord(CURRENT_COLLECTION.pass);
-        })
-    dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
-    localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    if (dataSheets.length <= 2000) {
+        fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchivedOnly?idd=${id}&col=${CURRENT_COLLECTION.collection}&pass=${CURRENT_COLLECTION.pass}`, mongoFetchOp)
+            .then(res => res.json()).then(data => {
+                console.log(text);
+                getTotalDoneWord(CURRENT_COLLECTION.pass);
+            })
+        dataSheets = dataSheets.filter(obj => obj._id !== id);
+        localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    } else {
+        let sliceArr = dataSheets.slice(-(dataSheets.length - 2000))
+        const minX = sliceArr.reduce((acc, curr) => curr.numb < acc.numb ? curr : acc, sliceArr[0] || undefined);
+        fetch(`https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndArchived?ida=${id}&idd=${minX._id}&col=${CURRENT_COLLECTION.collection}&pass=${CURRENT_COLLECTION.pass}`, mongoFetchOp)
+            .then(res => res.json()).then(data => {
+                console.log(text);
+                getTotalDoneWord(CURRENT_COLLECTION.pass);
+            })
+        dataSheets = dataSheets.filter(obj => obj._id !== minX._id);
+        localStorage.setItem('sheetData', JSON.stringify(dataSheets));
+    }
 }
-
-
 
 const playTTSwithValue = (item) => {
     const audioEl = document.getElementById("tts-audio");

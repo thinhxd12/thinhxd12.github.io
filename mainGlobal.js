@@ -94,13 +94,12 @@ const getAllData = async (text) => {
 
 const wakeupServer = async () => {
     let url = URL_CORS + `https://myapp-9r5h.onrender.com/wakeup`;
-    $(".serverDot").toggle("serverDotToggle");
+    $(".serverDot").removeClass("serverDotToggle");
     await fetch(url)
         .then(res => res.text())
         .then(data => {
             if (data == 'ok!') {
-                $(".serverDot").toggle("serverDotToggle");
-                $(".serverDot").css("background", "#8c8373");
+                $(".serverDot").addClass("serverDotToggle");
             }
         })
 }
@@ -109,27 +108,37 @@ $(".serverDot").click(function (e) {
     wakeupServer();
 });
 
-const fetchStartupData = () => {
+const fetchAndRenderCalendarData = async () => {
+    await getAllData(CURRENT_COLLECTION.schedule).then(data => {
+        data = data.sort((a, b) => new Date(a.date) - new Date(b.date))
+        renderCalendar(data);
+    })
+};
+
+const fetchStartupData = async () => {
     // console.log('fetch all data');
-    getAllData(CURRENT_COLLECTION.collection).then(data => {
+    await fetchAndRenderCalendarData();
+
+    await getAllData(CURRENT_COLLECTION.history).then(data => {
+        localStorage.removeItem('historyData');
+        localStorage.setItem('historyData', JSON.stringify(data));
+        //save to array script
+        getRenderLocalHistoryData();
+    })
+
+    await getAllData(CURRENT_COLLECTION.collection).then(data => {
         let newdata = data.sort((a, b) => a._id - b._id);
         localStorage.removeItem('sheetData');
         localStorage.setItem('sheetData', JSON.stringify(newdata));
         //save to array script
         getLocalSheetData();
     })
-
-    getAllData(CURRENT_COLLECTION.history).then(data => {
-        localStorage.removeItem('historyData');
-        localStorage.setItem('historyData', JSON.stringify(data));
-        //save to array script
-        getRenderLocalHistoryData();
-    })
 }
 
 fetchStartupData();
 wakeupServer();
 // getLocalSheetData();
+
 
 const autocomplete = (inp) => {
     var currentFocus;
@@ -359,17 +368,7 @@ const getLastTimeLog = () => {
 getLastTimeLog();
 
 let dataCalendar = [];
-
-const fetchAndRenderCalendarData = () => {
-    getAllData(CURRENT_COLLECTION.schedule).then(data => {
-        data = data.sort((a, b) => new Date(a.date) - new Date(b.date))
-        renderCalendar(data);
-    })
-};
-
-fetchAndRenderCalendarData();
-
-let todayData;
+var todayData;
 
 const renderCalendar = (data) => {
     let date = new Date();
@@ -407,10 +406,11 @@ const renderCalendar = (data) => {
         "November",
         "December",
     ];
-    document.getElementById("calendarDate").innerHTML = todaysDay;
-    document.getElementById("calendarDay").innerHTML = weekDays[todaysWeekDay];
-    document.getElementById("calendarMonth").innerHTML = monthDays[todaysMonth] + " " + todaysYear;
-    $('.dateProgressDiv').html(`${data[0].startIndex1 + 1} <span>&#8226;</span> ${data[1].startIndex2 + 50}`);
+    $("#calendarMonth").html(monthDays[todaysMonth]);
+    $("#calendarYear").html(todaysYear);
+    let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span>&#8226;</span><span>${data[1].startIndex2 + 50}</span>`;
+    $('.dateProgressDiv').html(dateProgressDivText);
+
     $('div.weekDate').eq(todaysWeekDay).css('color', '#fff');
     $('div.weekDate').eq(todaysWeekDay).css('text-shadow', '0px 2px 2px #000000d1');
 
@@ -501,45 +501,73 @@ const renderCalendar = (data) => {
 
     // renderCalendarProgress---------------
     let checkValidWeek = (date.getDate() > endDay.getDate() && date.getMonth() == endDay.getMonth()) || (date.getDate() < startDay.getDate() && date.getMonth() == startDay.getMonth());
-    if (checkValidWeek) {
-        document.getElementById('dateProgress').innerHTML = '<img src="./img/cup.png" width="25px">';
-    } else document.getElementById('dateProgress').innerHTML = `
-                      <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
-                        <span class="dateProgressImg">
-                        ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
-                        </span>
-                        <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
-                        <span class="dateProgressFraction">${todayData.time1}/9</span>
-                      </div>
-                      <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
-                        <span class="dateProgressImg">
-                        ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
-                        </span>
-                        <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
-                        <span class="dateProgressFraction">${todayData.time2}/9</span>
-                      </div>
-            `;
+    setTodayProgressHtml(checkValidWeek);
 }
 
 const renderHistorySlide = (numb) => {
     const historyTable = document.getElementById('historyTable');
     let historyTableItem = dataHistory.find(item => item.index == numb);
     let historyTableData = historyTableItem.data;
-    historyTable.innerHTML = `
+    let checkRowNum = $(".dateProgressDiv span:first-child").text();
+    if (numb == dataHistory.length - 1) {
+        historyTable.innerHTML = `
+        ${historyTableData.map((item, index) => {
+            return `
+                    <div class="tableItem">
+                      <span  ${item.fromD ? `class="term" onclick="commitNewWork(${item.row},${numb})"` : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`}>${item.row} - ${item.row + 199}</span>
+                      ${item.fromD ? `<div class="desc">
+                        <span>${item.fromD}</span>
+                        <span>${item.toD}</span>
+                      </div>` : item.row == checkRowNum ? `<div class="desc">${todayProgressHtml}</div>` : `<div class="desc"></div>`
+                }
+                    </div>
+                `
+        }).join('')
+            }
+        `;
+    }
+    else historyTable.innerHTML = `
         ${historyTableData.map((item, index) => {
         return `
                 <div class="tableItem">
                   <span  ${item.fromD ? `class="term" onclick="commitNewWork(${item.row},${numb})"` : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`}>${item.row} - ${item.row + 199}</span>
-                  ${item.fromD ? `<span class="desc">
-                    <span style="width: 90px;">${item.fromD}</span>
+                  ${item.fromD ? `<div class="desc">
+                    <span>${item.fromD}</span>
                     <span>${item.toD}</span>
-                  </span>` : '<span class="desc"></span>'}
+                  </div>` : `<div class="desc"></div>`
+            }
                 </div>
             `
     }).join('')
         }
         `;
 }
+
+var todayProgressHtml = '';
+const setTodayProgressHtml = (valid) => {
+    if (valid) {
+        todayProgressHtml = '<img src="./img/cup.png" width="25px">';
+    }
+    else {
+        todayProgressHtml = `
+        <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
+            <span class="dateProgressImg">
+            ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
+            </span>
+            <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
+            <span class="dateProgressFraction">${todayData.time1}/9</span>
+        </div>
+        <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
+            <span class="dateProgressImg">
+            ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
+            </span>
+            <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
+            <span class="dateProgressFraction">${todayData.time2}/9</span>
+        </div>
+        `;
+    }
+}
+
 
 const showSlides = (n) => {
     if (n > dataHistory.length - 1) {
@@ -619,7 +647,7 @@ const setNewHistoryItem = () => {
         "data": res
     }
 
-    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem?col=${CURRENT_COLLECTION.schedule}`;
+    let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertHistoryItem?col=${CURRENT_COLLECTION.history}`;
     fetch(url, {
         ...mongoFetchOp,
         method: 'POST',
@@ -897,12 +925,16 @@ const setWordListHandy = async () => {
     })
     wordList = dataSheets.slice(index, index + 50);
     wordRow.blur();
-    $('.toogleItemRight').toggleClass('toogleItemShowRight');
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
     startHandler();
+    $('.footerBtn').removeClass("footerBtnActive");
+    $(".tabButton[name='tab1']").addClass("footerBtnActive");
+    tabIndex = 1;
     $('.toogleItemRight').removeClass('toogleItemShowRight');
-    $('.toogleItemRight').addClass('toogleItemShowRight');
+    setTimeout(() => {
+        $('.toogleItemRight').addClass('toogleItemShowRight');
+    }, 500);
 }
 
 const handleToggleSwitchMoon = () => {

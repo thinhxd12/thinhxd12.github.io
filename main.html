@@ -74,7 +74,7 @@
           <div class="wordNumContainer">
             <div class="wordNum" id="wordNum">229</div>
           </div>
-          <div class="serverDot"></div>
+          <a class="serverDot"></a>
           <div class="bottomRightOrnament"></div>
         </div>
       </div>
@@ -83,20 +83,19 @@
           <div class="calendarCard">
             <div class="calendarHeader" id="calendarHeader">
               <div class="calendarContent">
-                <div class="topCalendarContent">
-                  <div class="dateContent" onclick="setTodayWork()">
-                    <div id="calendarDate">28</div>
-                    <div>
-                      <div id="calendarDay">Wednesday</div>
-                      <div id="calendarMonth">June/2023</div>
-                      <div class="dateProgressDiv"></div>
-                    </div>
-                  </div>
-                  <div id="topCalendarText"></div>
-                </div>
                 <div class="bottomCalendarContent">
                   <div id="bottomCalendarText"></div>
                   <div class="dateProgress" id="dateProgress"></div>
+                </div>
+                <div class="topCalendarContent">
+                  <div class="dateContent" onclick="setTodayWork()">
+                    <div class="calendarMonth">
+                      <div id="calendarMonth">June 28/2023</div>
+                      <div class="dateProgressDiv"></div>
+                    </div>
+                    <div id="calendarYear">June 28/2023</div>
+                  </div>
+                  <div id="topCalendarText"></div>
                 </div>
               </div>
             </div>

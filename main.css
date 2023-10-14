@@ -987,7 +987,7 @@ body {
 }
 
 .serverDotToggle {
-  background: #070707;
+  background: #8c8373;
 }
 
 .wordNumContainer {
@@ -1047,6 +1047,7 @@ body {
 
 .calendarContent {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1095,10 +1096,9 @@ body {
 
 .topCalendarContent,
 .bottomCalendarContent {
-  padding: 9px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .middleCalendarContent {
@@ -1162,31 +1162,36 @@ body {
   align-items: center;
   cursor: pointer;
   color: #ededed;
+  background: #070707a8;
+  padding: 3px 3px 3px 6px;
   text-shadow: 0px 1px 2px #000000d1;
+  background-image: url("./img/noise.png");
+  border-top-left-radius: 1px;
 }
+
 
 .dateContent:hover,
 .dateContent:hover #calendarDate {
   color: #fff;
 }
 
-#calendarDate {
-  font-size: 52px;
-  line-height: 52px;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-#calendarDay {
-  font-size: 17px;
+.calendarMonth {
+  display: flex;
+  flex-direction: column;
+  margin-right: 3px;
 }
 
 #calendarMonth {
-  font-size: 10px;
+  font-size: 12px;
+}
+
+#calendarYear {
+  font-size: 27px;
+  line-height: 1.5rem;
 }
 
 .dateProgressDiv {
-  font-size: 10px;
+  font-size: 8px;
   text-align: left;
 }
 
@@ -1195,9 +1200,9 @@ body {
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  margin-top: 3px;
   color: #ededed;
   text-shadow: 0px 1px 2px #000000d1;
+  margin-right: 12px;
 }
 
 .dateProgressContent span {
@@ -1206,7 +1211,6 @@ body {
 }
 
 .dateProgressImg {
-  min-width: 18px;
   margin-right: 1px;
 }
 
@@ -1217,6 +1221,7 @@ body {
 .dateProgressFraction {
   font-variant-numeric: diagonal-fractions;
   margin-left: 5px;
+  font-size: 0.85rem;
 }
 
 .normalDay {
@@ -1346,7 +1351,7 @@ body {
 }
 
 .calendarItemContent input:checked {
-  accent-color: #ac0000;
+  accent-color: #0707076c;
 }
 
 .calendarItemInput {
@@ -1421,8 +1426,8 @@ body {
   position: absolute;
   height: 45px;
   width: 18px;
-  bottom: 6px;
-  right: 6px;
+  bottom: 5px;
+  right: 21px;
   z-index: 99;
   display: flex;
   flex-direction: column;
@@ -1500,6 +1505,10 @@ body {
   padding-left: 15px;
   cursor: default;
   color: #000;
+}
+
+.desc>span:first-of-type {
+  width: 99px;
 }
 
 /* ------------searchInput------------ */
@@ -1597,7 +1606,7 @@ div#contentBody {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 0.3px solid #503f2b;
+  border: 0.3px solid #3434343d;
   transition: all 0.3s ease;
   background: none;
 }

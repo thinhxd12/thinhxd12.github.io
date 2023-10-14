@@ -518,7 +518,7 @@ const renderHistorySlide = (numb) => {
                       ${item.fromD ? `<div class="desc">
                         <span>${item.fromD}</span>
                         <span>${item.toD}</span>
-                      </div>` : item.row == checkRowNum ? `<div class="desc">${todayProgressHtml}</div>` : `<div class="desc"></div>`
+                      </div>` : item.row == checkRowNum ? `<div class="desc" id="todayProgressHtml"></div>` : `<div class="desc"></div>`
                 }
                     </div>
                 `
@@ -543,13 +543,12 @@ const renderHistorySlide = (numb) => {
         `;
 }
 
-var todayProgressHtml = '';
 const setTodayProgressHtml = (valid) => {
     if (valid) {
-        todayProgressHtml = '<img src="./img/cup.png" width="25px">';
+        $("#todayProgressHtml").html('<img src="./img/cup.png" width="25px">');
     }
     else {
-        todayProgressHtml = `
+        $("#todayProgressHtml").html(`
         <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
             <span class="dateProgressImg">
             ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
@@ -564,7 +563,7 @@ const setTodayProgressHtml = (valid) => {
             <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50}</span>
             <span class="dateProgressFraction">${todayData.time2}/9</span>
         </div>
-        `;
+        `);
     }
 }
 
@@ -578,7 +577,7 @@ const showSlides = (n) => {
     if (n < 1) {
         slideIndex = 0;
     }
-    renderHistorySlide(slideIndex)
+    renderHistorySlide(slideIndex);
 }
 
 $('#historyTableBtnLeft').click(function (e) {

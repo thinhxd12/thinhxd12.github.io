@@ -170,6 +170,7 @@ const setImgBackground = (data) => {
   $('#imgSrcBlurred').attr('src', imgSrcGet);
   $('#imgDesc').html(imgDescGet);
   $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
+  $('.calendarFooterBlurImg').css('background-image', 'url(' + imgSrcGet + ')');
 }
 
 let slideImgIndex = 0;

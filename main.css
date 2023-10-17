@@ -1043,7 +1043,6 @@ body {
   height: 270px;
   width: 100%;
   background-size: cover;
-  background-position: center;
   position: relative;
 }
 
@@ -1062,7 +1061,7 @@ body {
 
 .calendarCardContent {
   background: #f5f5f5;
-  padding: 25px 35px 5px;
+  padding: 25px;
   background-image: url(/img/noise.png);
 }
 
@@ -1085,7 +1084,6 @@ body {
 
 .calendarBody {
   position: relative;
-  height: 140px;
 }
 
 .calendarCardContent table {
@@ -1336,7 +1334,7 @@ body {
 
 .calendarFooter {
   min-height: calc(100vh - 410px);
-  padding-top: 6px;
+  padding-top: calc(100vh - 575px);
   position: relative;
   overflow: hidden;
 }
@@ -1455,7 +1453,7 @@ body {
   position: absolute;
   height: 45px;
   width: 18px;
-  bottom: 5px;
+  bottom: 8px;
   right: 21px;
   z-index: 99;
   display: flex;
@@ -1486,7 +1484,7 @@ body {
 .tableItem {
   width: 100%;
   display: flex;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   justify-content: center;
 }
 

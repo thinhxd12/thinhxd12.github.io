@@ -1026,8 +1026,8 @@ body {
 .calendarCard {
   font-family: "Rubik", sans-serif;
   height: 100%;
-  font-size: 0.75rem;
-  color: #070707b1;
+  width: 100%;
+  position: relative;
 }
 
 #calendarContent {
@@ -1039,7 +1039,8 @@ body {
 }
 
 .calendarHeader {
-  height: 210px;
+  height: 270px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -1054,31 +1055,26 @@ body {
   z-index: 99;
 }
 
-.calendarHeader::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #0000001f;
-}
-
 #calendarContent {
   width: 100%;
 }
 
-.calendarCardContent .weekTitle {
-  border-bottom: 1px solid #34343438;
+.calendarCardContent{
+  background: #f5f5f5;
+  padding: 25px 35px 5px;
+  background-image: url(/img/noise.png);
 }
 
 .weekDate {
-  height: 30px;
-  font-size: 13px;
+  height: 21px;
+  font-size: 12px;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff38;
+  color: #383838bd;
   cursor: default;
+  font-weight: bold;
 }
 
 .weekTitle td:first-of-type span {
@@ -1090,17 +1086,13 @@ body {
   position: relative;
 }
 
-.calendarBodyContainer {
-  background: url("./img/noise.png");
-  backdrop-filter: blur(9px) brightness(0.3);
-}
-
 .calendarCardContent table {
-  height: 171px;
+  height: 100px;
   border-collapse: collapse;
   width: 100%;
   text-align: center;
-  background: #0707075c;
+  font-size: 0.75rem;
+  color: #91838354;
 }
 
 .topCalendarContent,
@@ -1169,9 +1161,19 @@ body {
 .dateContent {
   display: flex;
   align-items: center;
+  flex-direction: column;
   cursor: pointer;
-  color: #ededed;
-  padding: 3px 3px 3px 6px;
+  color: #d7d8da;
+  position: absolute;
+  top: 220px;
+  right: 30px;
+  z-index: 99;
+  background: #232426;
+  background-image: url(/img/noise.png);
+  width: 81px;
+  height: 75px;
+  justify-content: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -1180,22 +1182,18 @@ body {
   color: #fff;
 }
 
-.calendarMonth {
-  display: flex;
-  flex-direction: column;
-  margin-right: 3px;
-}
-
 #calendarMonth {
   font-size: 15px;
   text-shadow: 0px 2px 3px #000000d1;
+  text-transform: uppercase;
+  margin-bottom: 3px;
 }
 
 #calendarYear {
   font-size: 30px;
   line-height: 1.5rem;
   text-shadow: 0px 2px 3px #000000d1;
-
+  margin-bottom: 3px;
 }
 
 .dateProgressDiv {
@@ -1234,12 +1232,13 @@ body {
 }
 
 .normalDay {
-  color: #ffffff38;
+  color: #383838bd;
   text-align: center;
-}
+  font-weight: bold;
+} 
 
 .todayWeekDay {
-  color: #fff;
+  color: #000000;
 }
 
 .weekDay td>div {
@@ -1269,25 +1268,24 @@ body {
   margin-top: -1px;
   width: 12px;
   height: 3px;
-  background: #ffffff38;
+  background: #ac0000;
   border-radius: 2px;
 }
 
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  top: -4px;
+  top: -3px;
   display: block;
-  background-image: linear-gradient(to top left, #ac0000, #000);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  z-index: -1;
-  box-shadow: 0px 1px 2px #000000d1;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid #383838;
+  z-index: 10;
 }
 
 .weekDay .todayDay {
-  color: #fff;
+  color: #000000;
 }
 
 .dayIndicate1,
@@ -1332,6 +1330,10 @@ body {
 
 #todayReset {
   cursor: pointer;
+}
+
+.calendarFooter{
+  margin-top: 6px;
 }
 
 .calendarItem {

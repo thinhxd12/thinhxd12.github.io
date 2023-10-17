@@ -81,23 +81,21 @@
       <div id="tab2" class="city" style="display: none;">
         <div class="calendarContainer">
           <div class="calendarCard">
-            <div class="calendarHeader" id="calendarHeader">
+            <div class="calendarHeader">
               <div class="calendarContent">
                 <div class="bottomCalendarContent">
                   <div id="bottomCalendarText"></div>
                   <div class="dateProgress" id="dateProgress"></div>
                 </div>
                 <div class="topCalendarContent">
-                  <div class="dateContent" onclick="setTodayWork()">
-                    <div class="calendarMonth">
-                      <div id="calendarMonth">June 28/2023</div>
-                      <div class="dateProgressDiv"></div>
-                    </div>
-                    <div id="calendarYear">June 28/2023</div>
-                  </div>
                   <div id="topCalendarText"></div>
                 </div>
               </div>
+            </div>
+            <div class="dateContent" onclick="setTodayWork()">
+              <div id="calendarMonth">June 28/2023</div>
+              <div id="calendarYear">June 28/2023</div>
+              <div class="dateProgressDiv"></div>
             </div>
             <div class="calendarBody">
               <div class="calendarBodyContainer">
@@ -131,22 +129,22 @@
                     <tbody id="htmlDate"></tbody>
                   </table>
                 </div>
-                <div class="calendarCardContentBottom">
-                  <div class="tableHistory">
-                    <div id="historyTable"></div>
-                    <div class="historyBtnContainer">
-                      <button id="historyTableBtnRight" class="historyBtn">
-                        <img src="./img/right.png">
-                      </button>
-                      <button id="historyTableBtnLeft" class="historyBtn">
-                        <img src="./img/left.png">
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div id="calendarContent"></div>
-                <div class="timeLog"></div>
               </div>
+            </div>
+            <div class="calendarFooter">
+              <div class="tableHistory">
+                <div id="historyTable"></div>
+                <div class="historyBtnContainer">
+                  <button id="historyTableBtnRight" class="historyBtn">
+                    <img src="./img/right.png">
+                  </button>
+                  <button id="historyTableBtnLeft" class="historyBtn">
+                    <img src="./img/left.png">
+                  </button>
+                </div>
+              </div>
+              <div id="calendarContent"></div>
+              <div class="timeLog"></div>
             </div>
           </div>
         </div>

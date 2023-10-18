@@ -410,9 +410,7 @@ const renderCalendar = (data) => {
     $("#calendarYear").html(todaysYear);
     let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span>&#8226;</span><span>${data[1].startIndex2 + 50}</span>`;
     $('.dateProgressDiv').html(dateProgressDivText);
-
-    $('div.weekDate').eq(todaysWeekDay).css('color', '#000000');
-
+    // $('div.weekDate').eq(todaysWeekDay).css('color', '#000000');
     $('.calendarHeader').css('background-image', `url("./img/${todaysMonth + 1}.jpg")`);
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();

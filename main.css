@@ -1350,7 +1350,7 @@ body {
 }
 
 .calendarFooterQuote {
-  height: 35px;
+  height: 33px;
   background-image: url(/img/paper.jpeg);
   background-size: cover;
   background-position: center top;
@@ -1359,6 +1359,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding-left: 3px;
+  margin: 1px 0;
 }
 
 .calendarFooterQuote p {

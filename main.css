@@ -1070,9 +1070,8 @@ body {
 }
 
 .calendarCardContent {
-  background: #fefefe;
-  padding: 25px;
-  background-image: url(/img/noise.png);
+  background: #fffffff6;
+  padding: 25px 25px 15px;
 }
 
 .weekDate {
@@ -1088,7 +1087,7 @@ body {
 }
 
 .weekTitle td:first-of-type span {
-  color: #ac0000;
+  color: #f90000;
   font-weight: bold;
 }
 
@@ -1103,7 +1102,8 @@ body {
   width: 100%;
   text-align: center;
   font-size: 0.75rem;
-  color: #91838354;
+  color: #0000004a;
+  font-weight: bold;
 }
 
 .topCalendarContent,
@@ -1267,7 +1267,7 @@ body {
 }
 
 .sundayDay {
-  color: #ac0000;
+  color: #f90000;
   font-weight: bold;
 }
 
@@ -1276,10 +1276,10 @@ body {
 .weekDay .endDay::after {
   content: "";
   display: block;
-  margin-top: -1px;
+  margin-top: -2px;
   width: 12px;
   height: 3px;
-  background: #ac0000;
+  background: #f90000;
   border-radius: 2px;
 }
 
@@ -1345,9 +1345,27 @@ body {
 
 .calendarFooter {
   min-height: calc(100vh - 410px);
-  padding-top: calc(100vh - 575px);
   position: relative;
   overflow: hidden;
+}
+
+.calendarFooterQuote {
+  height: 35px;
+  background-image: url(/img/paper.jpeg);
+  background-size: cover;
+  background-position: center top;
+  position: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 3px;
+}
+
+.calendarFooterQuote p {
+  font-size: 0.58em;
+  font-family: "nyt-cheltenham";
+  color: #000;
+  line-height: 1.35em;
 }
 
 .calendarFooterBlurImg {
@@ -1457,7 +1475,6 @@ body {
   left: 0;
   width: 100%;
   display: flex;
-  margin-top: 2px;
   flex-direction: column;
   align-items: center;
 }

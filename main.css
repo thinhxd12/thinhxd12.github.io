@@ -1071,7 +1071,7 @@ body {
 
 .calendarCardContent {
   background: #fffffff6;
-  padding: 25px 25px 15px;
+  padding: 25px 25px 10px;
 }
 
 .weekDate {
@@ -1176,7 +1176,7 @@ body {
   cursor: pointer;
   color: #d7d8da;
   position: absolute;
-  top: 225px;
+  top: 220px;
   right: 27px;
   z-index: 99;
   background: #232426;
@@ -1221,6 +1221,7 @@ body {
   color: #ededed;
   text-shadow: 0px 1px 2px #000000d1;
   margin-right: 12px;
+  font-size: 0.725rem;
 }
 
 .dateProgressContent span {
@@ -1350,7 +1351,7 @@ body {
 }
 
 .calendarFooterQuote {
-  height: 33px;
+  /* height: 33px; */
   background-image: url(/img/paper.jpeg);
   background-size: cover;
   background-position: center top;
@@ -1366,7 +1367,6 @@ body {
   font-size: 0.58em;
   font-family: "nyt-cheltenham";
   color: #000;
-  line-height: 1.35em;
 }
 
 .calendarFooterBlurImg {
@@ -1479,9 +1479,8 @@ body {
 
 .historyBtnContainer {
   position: absolute;
-  height: 45px;
   width: 18px;
-  bottom: 0;
+  bottom: 2px;
   right: 0;
   z-index: 99;
   display: flex;
@@ -1525,9 +1524,13 @@ body {
   position: relative;
   background: #0707075c;
   cursor: default;
+  height: 18px;
+  font-size: 0.725rem;
 }
 
 .term_not_complete {
+  height: 18px;
+  font-size: 0.725rem;
   width: 100px;
   display: flex;
   align-items: center;

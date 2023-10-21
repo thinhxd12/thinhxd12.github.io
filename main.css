@@ -1774,6 +1774,7 @@ span.x {
 
 span.x b {
   font-weight: 600;
+  color: #f90000;
 }
 
 span.x::before {

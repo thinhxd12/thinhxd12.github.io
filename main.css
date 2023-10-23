@@ -1463,7 +1463,7 @@ body {
   font-family: "Rubik", sans-serif;
   position: relative;
   z-index: 1;
-  margin: 1px 0;
+  margin: 2px 0;
 }
 
 #historyTable {
@@ -1872,7 +1872,7 @@ span.x::before {
 .transItem {
   width: 100%;
   border-radius: 1px;
-  padding: 0 12px 6px;
+  padding: 21px 12px 6px;
   margin-bottom: 3px;
   font-family: "basier", sans-serif;
   font-size: 0.75rem;
@@ -1889,7 +1889,7 @@ span.x::before {
   position: absolute;
   z-index: 99;
   right: 0;
-  top: -9px;
+  top: 0;
 }
 
 .transItemHeader .close-btn {
@@ -1902,6 +1902,15 @@ span.x::before {
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
+  background: rgba(9, 9, 9, 0.3);
+  box-shadow: 0 1px 1dvb rgb(0, 0, 0, 0.3);
+  border-bottom: 1px solid #111;
+  transition: all 0.3s ease;
+  margin-bottom: 3px;
+}
+
+.transItemContent:hover {
+  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.3);
 }
 
 .transItemContent label {
@@ -1923,29 +1932,25 @@ span.x::before {
 
 #inputEditWord {
   border: 0;
-  margin-bottom: 6px;
   box-shadow: none;
-  border-radius: 6px;
 }
 
 .transItemInput {
   box-sizing: inherit;
-  background: rgba(9, 9, 9, 0.05);
   width: 100%;
   padding: 3px 9px;
-  height: 21px;
+  height: 25px;
   font-size: 11px;
-  margin-bottom: 9px;
   border: 0;
   outline: 0;
-  box-shadow: 0 1px 1dvb rgb(0, 0, 0, 0.3);
-  border-bottom: 1px solid #111;
-  transition: all 0.3s ease;
+  background: transparent;
   color: #a5a3a3;
 }
 
-.transItemInput:hover {
-  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.3);
+.editEnterBtn {
+  height: 18px;
+  cursor: pointer;
+  margin-right: 6px;
 }
 
 .transItemInput:focus {

@@ -904,8 +904,6 @@ const setWordList = async (item, num) => {
     }, 500);
 }
 
-
-
 const setWordListHandy = async () => {
     // console.log('setWordListHandy');
     const wordRow = document.getElementById("wordRow");
@@ -1316,6 +1314,7 @@ const renderEditWord = () => {
         </div>
         <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
+            <img src="./img/center.png" onclick="handleRenderEditWordDefinitionHandy()" class="editEnterBtn" id="editEnterBtn">
         </div>
         <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
@@ -1455,6 +1454,11 @@ const setInputEditWordResult = (item) => {
 
 const handleRenderEditWordDefinition = e => {
     if (e.keyCode == 13) renderEditWordDefinition(e.target.value, "editContentDiv")
+}
+
+const handleRenderEditWordDefinitionHandy = () => {
+    let val = $('#inputEditWordText').val();
+    renderEditWordDefinition(val, "editContentDiv");
 }
 
 let textData = { text: '', sound: '', class: '', definitions: [] }

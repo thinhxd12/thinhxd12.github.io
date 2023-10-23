@@ -923,7 +923,6 @@ const setWordListHandy = async () => {
     wordRow.blur();
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
-    startHandler();
     $('.footerBtn').removeClass("footerBtnActive");
     $(".tabButton[name='tab1']").addClass("footerBtnActive");
     tabIndex = 1;

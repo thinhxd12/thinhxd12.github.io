@@ -919,6 +919,7 @@ const setWordListHandy = async () => {
     })
     wordList = dataSheets.slice(index, index + 50);
     wordRow.blur();
+    startHandler();
     handleToggleSwitchSun();
     handleToggleSwitchMoon();
     $('.footerBtn').removeClass("footerBtnActive");
@@ -928,6 +929,12 @@ const setWordListHandy = async () => {
     setTimeout(() => {
         $('.toogleItemRight').addClass('toogleItemShowRight');
     }, 500);
+}
+
+const handleChangeWordRow = (e) => {
+    if (e.keyCode == 13) {
+        setWordListHandy();
+    }
 }
 
 const handleToggleSwitchMoon = () => {

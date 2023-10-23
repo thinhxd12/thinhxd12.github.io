@@ -1071,7 +1071,7 @@ body {
 
 .calendarCardContent {
   background: #fffffff6;
-  padding: 25px 25px 10px;
+  padding: 18px 21px 0;
 }
 
 .weekDate {
@@ -1093,7 +1093,6 @@ body {
 
 .calendarBody {
   position: relative;
-  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.25), 0 0.1em 0.5em 1px rgba(0, 0, 0, 0.35), 0 1em 2em 1px rgba(0, 0, 0, 0.15);
 }
 
 .calendarCardContent table {
@@ -1174,17 +1173,16 @@ body {
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  color: #d7d8da;
+  color: #f4f4f4;
   position: absolute;
-  top: 220px;
+  top: 218px;
   right: 27px;
   z-index: 99;
   background: #232426;
-  background-image: url(/img/noise.png);
   width: 81px;
   height: 72px;
   justify-content: center;
-  box-shadow: 2px -3px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -1351,22 +1349,23 @@ body {
 }
 
 .calendarFooterQuote {
-  /* height: 33px; */
-  background-image: url(/img/paper.jpeg);
-  background-size: cover;
-  background-position: center top;
+  background: #fffffff6;
   position: inherit;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 3px;
-  margin: 1px 0;
+  padding: 0 18px 6px 30px;
 }
 
 .calendarFooterQuote p {
   font-size: 0.58em;
   font-family: "nyt-cheltenham";
   color: #000;
+}
+
+.calendarFooterQuote p:first-child {
+  border-top: 1px solid #383838;
+  padding-top: 3px;
 }
 
 .calendarFooterBlurImg {

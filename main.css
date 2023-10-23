@@ -1229,6 +1229,7 @@ body {
 
 .dateProgressImg {
   margin-right: 1px;
+  min-width: 18px;
 }
 
 .dateProgressContent:hover {
@@ -1556,13 +1557,17 @@ body {
   background-color: #fafafa17;
   display: flex;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 20px;
   cursor: default;
   color: #000;
 }
 
 .desc>span:first-of-type {
-  width: 99px;
+  width: 110px;
+}
+
+#todayProgressHtml {
+  padding-left: 0;
 }
 
 /* ------------searchInput------------ */

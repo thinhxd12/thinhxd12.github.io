@@ -48,12 +48,12 @@ const renderTomatoTick = () => {
       $('#tomatoText').show();
       $('#tomatoText').text(timeCount / 60 + 'm');
       timeCount = timeCount - t;
-      if (count > 0) {
-        const audioEl = document.getElementById("tts-audio");
-        audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-        audioEl.volume = 0.01;
-        audioEl.play();
-      }
+      // if (count > 0) {
+      //   const audioEl = document.getElementById("tts-audio");
+      //   audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
+      //   audioEl.volume = 0.01;
+      //   audioEl.play();
+      // }
       count++;
     }
     else {
@@ -66,18 +66,14 @@ const renderTomatoTick = () => {
   tick();
 }
 
-
 const startHandler = () => {
   $('#tomatoText').show();
   $('#tomatoButton').css('margin-right', '6px');
   // const audioEl = document.getElementById("tts-audio");
   // audioEl.pause();
-
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
-
   renderTomatoTick();
-
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
     $('#tomatoText').toggleClass('tomatoFocus');
@@ -88,6 +84,10 @@ const startHandler = () => {
       $('.footerBtnToggleRight').addClass("footerBtnActive");
     }, 500);
     showDesktopNotification();
+    const audioEl = document.getElementById("tts-audio");
+    audioEl.src = "./sound/iPhone DJ Remix Ringtone 2019.mp3";
+    audioEl.volume = 1;
+    audioEl.play();
   }, 360000);
 }
 

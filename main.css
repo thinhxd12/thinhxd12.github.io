@@ -1071,7 +1071,7 @@ body {
 
 .calendarCardContent {
   background: #fffffff6;
-  padding: 18px 21px 0;
+  padding: 21px 21px 1px;
 }
 
 .weekDate {
@@ -1175,14 +1175,14 @@ body {
   cursor: pointer;
   color: #f4f4f4;
   position: absolute;
-  top: 218px;
-  right: 27px;
+  top: 221px;
+  right: 21px;
   z-index: 99;
   background: #232426;
   width: 81px;
   height: 72px;
   justify-content: center;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px -3px 12px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -1364,6 +1364,7 @@ body {
   font-size: 0.58em;
   font-family: "nyt-cheltenham";
   color: #000;
+  text-align: center;
 }
 
 .calendarFooterBlurImg {

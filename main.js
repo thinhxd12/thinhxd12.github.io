@@ -67,6 +67,7 @@ const renderTomatoTick = () => {
 }
 
 const startHandler = () => {
+  const timeCount = parseInt(START_SECOND, 10) * 1000 + 60 * parseInt(START_MINUTES, 10) * 1000;
   $('#tomatoText').show();
   $('#tomatoButton').css('margin-right', '6px');
   // const audioEl = document.getElementById("tts-audio");
@@ -88,7 +89,7 @@ const startHandler = () => {
     audioEl.src = "./sound/iPhone DJ Remix Ringtone 2019.mp3";
     audioEl.volume = 1;
     audioEl.play();
-  }, 360000);
+  }, timeCount);
 }
 
 const resetHandler = () => {
@@ -114,6 +115,7 @@ const showDesktopNotification = () => {
 
   notification.onclose = (event) => {
     resetHandler();
+    startAutoPlayWord();
   };
 }
 

@@ -372,7 +372,6 @@ var todayData;
 
 const renderCalendar = (data) => {
     let date = new Date();
-    const todaysDay = date.getDate();
     const todaysMonth = date.getMonth();
     const todaysWeekDay = date.getDay();
     const todaysYear = date.getFullYear();
@@ -408,7 +407,7 @@ const renderCalendar = (data) => {
     ];
     $("#calendarMonth").html(monthDays[todaysMonth]);
     $("#calendarYear").html(todaysYear);
-    let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span>&#8226;</span><span>${data[1].startIndex2 + 50}</span>`;
+    let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
     $('.dateProgressDiv').html(dateProgressDivText);
     // $('div.weekDate').eq(todaysWeekDay).css('color', '#000000');
     $('.calendarHeader').css('background-image', `url("./img/${todaysMonth + 1}.jpg")`);
@@ -544,7 +543,7 @@ const setTodayProgressHtml = (valid) => {
     if (valid) {
         $("#todayProgressHtml").html('<img src="./img/cup.png" width="25px">');
     }
-    else {
+    else if (todayData) {
         $("#todayProgressHtml").html(`
         <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
             <span class="dateProgressImg">
@@ -956,18 +955,19 @@ let isTimerStarted = false;
 const autoPlayBtn = document.getElementById("autoPlayBtn");
 
 autoPlayBtn.addEventListener("click", () => {
+    startAutoPlayWord();
+});
+
+const startAutoPlayWord = () => {
+    if (todayScheduleData?.startNum >= 9) return;
     if (isTimerStarted == false && wordList.length > 0) {
         handleToggleSwitchSun();
         play();
-        $('#tab1').show();
-        $('#tab2').hide();
-        $('.footerBtn').removeClass("footerBtnActive");
-        $('.footerBtnToggleLeft').addClass("footerBtnActive");
     } else if (isTimerStarted == true && autorunTime > 1) {
         handleToggleSwitchMoon();
         pause();
     }
-});
+}
 
 function play() {
     isTimerStarted = true;

@@ -959,7 +959,7 @@ autoPlayBtn.addEventListener("click", () => {
 });
 
 const startAutoPlayWord = () => {
-    if (todayScheduleData?.startNum >= 9) return;
+    if (todayScheduleData?.startNum > 9) return;
     if (isTimerStarted == false && wordList.length > 0) {
         handleToggleSwitchSun();
         play();

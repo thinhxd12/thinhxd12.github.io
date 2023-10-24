@@ -1472,12 +1472,47 @@ let textData = { text: '', sound: '', class: '', definitions: [] }
 
 const renderEditWordDefinition = (val, divId) => {
     let urlEngAmerica = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${val}`;
+    let urlEnglish = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/english/direct/?q=${val}`;
     let newText = val.length > 4 ? val.slice(0, -2) : val;
     const regText = new RegExp(`(${newText}\\w*)`, 'gi');
     textData.text = val;
     textData.definitions = [];
+
+    function getTextData(val) {
+        console.log('english');
+        $.get(urlEnglish, function (html) {
+            let mp3Link = $(html).find('.audio_play_button.pron-us').attr('data-src-mp3');
+            if (mp3Link) {
+                textData.sound = mp3Link;
+                let headword = $(html).find('.webtop h1').contents()[0].textContent;
+                textData.text = headword;
+                let classT = $(html).find('.pos').html();
+                textData.class = classT;
+                let img = $(html).find('img.thumb').attr('src')
+                $(html).find('ol:first').find('.sense').each(function (index) {
+                    let def = '';
+                    if (img && index == 0) def += `<img class="thumb" src="${img}">`
+                    def += $(this).find('.def').html() ? '<span class="def">' + $(this).find('.def').text() + '</span>' : '';
+                    let xr = $(this).find('.xrefs').text();
+                    if (xr) {
+                        $(this).find('span.xrefs').each(function () {
+                            def += '<span class="xr-gs">' + $(this).find('.prefix').text() + " " + '<small>' + $(this).find('.prefix').next().text() + '</small>' + '</span>';
+                        })
+                    }
+                    $(this).find('span.x').each(function () {
+                        $(this).html($(this).text().replace(regText, `<b>$1</b>`));
+                        def += '<span class="x">' + $(this).html() + '</span>';
+                    });
+                    textData.definitions.push(def);
+                })
+                renderExplain(textData.text, textData.class, textData.definitions, divId);
+
+            }
+        });
+    }
+
     $.get(urlEngAmerica, function (html) {
-        let mp3Link = $(html).find('.audio_play_button').attr('data-src-mp3');
+        let mp3Link = $(html).find('.audio_play_button,.pron-us').attr('data-src-mp3');
         if (mp3Link) {
             textData.sound = mp3Link;
             let headword = $(html).find('.webtop-g h2').contents()[0].textContent;
@@ -1485,7 +1520,7 @@ const renderEditWordDefinition = (val, divId) => {
             let classT = $(html).find('.pos').html();
             textData.class = classT;
             let img = $(html).find('img.thumb').attr('src')
-            $(html).find('.h-g > .sn-gs .sn-g').each(function (index) {
+            $(html).find('.sn-gs:first').find('.sn-g').each(function (index) {
                 let def = '';
                 if (img && index == 0) def += `<img class="thumb" src="${img}">`
                 def += $(this).find('> .def').html() ? '<span class="def">' + $(this).find('> .def').text() + '</span>' : '';
@@ -1496,13 +1531,14 @@ const renderEditWordDefinition = (val, divId) => {
                     })
                 }
                 $(this).find('>.x-gs .x').each(function () {
-                    $(this).html($(this).text().replace(regText, `<b style="color:#f90000">$1</b>`));
+                    $(this).html($(this).text().replace(regText, `<b>$1</b>`));
                     def += '<span class="x">' + $(this).html() + '</span>';
                 });
                 textData.definitions.push(def);
             })
+            renderExplain(textData.text, textData.class, textData.definitions, divId);
         }
-        renderExplain(textData.text, textData.class, textData.definitions, divId);
+        else getTextData(val);
     });
 };
 

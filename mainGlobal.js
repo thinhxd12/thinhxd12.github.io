@@ -930,11 +930,9 @@ const setWordListHandy = async () => {
     }, 500);
 }
 
-const handleChangeWordRow = (e) => {
-    if (e.keyCode == 13) {
-        setWordListHandy();
-    }
-}
+$("input#wordRow").change(function () {
+    setWordListHandy();
+});
 
 const handleToggleSwitchMoon = () => {
     $("#roundBtnBody").addClass("roundBtnBodyToggle");

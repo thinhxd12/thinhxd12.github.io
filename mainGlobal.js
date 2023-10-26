@@ -957,7 +957,6 @@ autoPlayBtn.addEventListener("click", () => {
 });
 
 const startAutoPlayWord = () => {
-    if (todayScheduleData?.startNum > 9) return;
     if (isTimerStarted == false && wordList.length > 0) {
         handleToggleSwitchSun();
         play();
@@ -1052,7 +1051,7 @@ const playTTSwithValue = (item) => {
         audioEl.pause();
         audioEl.src = item.sound;
         audioEl.play();
-        renderExplain(item.text, item.class, item.definitions, "contentBody");
+        renderExplain(item.text, item.class, item.definitions, item.sound, "contentBody");
     }
     else {
         textToSpeech(item.text);
@@ -1151,11 +1150,20 @@ const hoverOut = () => {
     $('.item-wrapper').removeClass('item-hover');
 };
 
-const renderExplain = (text, type, definitions, divId) => {
-    let contentBody = document.getElementById(divId);
+const renderExplain = (text, type, definitions, sound, divId) => {
+    const contentBody = document.getElementById(divId);
+    const audioEl = document.getElementById("tts-audio");
+
+
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
+      <button class="soundBtnSVG" id="explainTextSoundBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 0.64 0.64" xml:space="preserve">
+            <path d="M.32.08C.271.08.244.122.221.15a.104.104 0 0 1-.066.03H.12a.04.04 0 0 0-.04.04v.2c0 .022.018.04.04.04h.035c.022 0 .052.014.066.03.024.028.05.07.099.07A.04.04 0 0 0 .36.52v-.4A.04.04 0 0 0 .32.08zM.16.42H.12v-.2h.04v.2zm.16.1C.292.52.275.492.251.464A.133.133 0 0 0 .2.429V.21A.126.126 0 0 0 .251.175C.275.148.292.12.32.12v.4zM.489.491.461.463a.202.202 0 0 0 0-.285L.489.15a.242.242 0 0 1 0 .342zM.417.217a.145.145 0 0 1 0 .205L.389.394a.105.105 0 0 0 0-.149L.417.217z" style="fill:#0b1719"/>
+        </svg>
+      </button>
+
       <button class="closeBtn closeBtnSVG" onclick="handleDelete()">
       <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
         <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
@@ -1174,6 +1182,13 @@ const renderExplain = (text, type, definitions, divId) => {
       </div>
     </div>  
       `;
+
+    $("#explainTextSoundBtn").click(function (e) {
+        audioEl.pause();
+        audioEl.volume = 1;
+        audioEl.src = sound;
+        audioEl.play();
+    });
 };
 
 
@@ -1503,7 +1518,7 @@ const renderEditWordDefinition = (val, divId) => {
                     });
                     textData.definitions.push(def);
                 })
-                renderExplain(textData.text, textData.class, textData.definitions, divId);
+                renderExplain(textData.text, textData.class, textData.definitions, textData.sound, divId);
 
             }
         });
@@ -1534,7 +1549,7 @@ const renderEditWordDefinition = (val, divId) => {
                 });
                 textData.definitions.push(def);
             })
-            renderExplain(textData.text, textData.class, textData.definitions, divId);
+            renderExplain(textData.text, textData.class, textData.definitions, textData.sound, divId);
         }
         else getTextData(val);
     });

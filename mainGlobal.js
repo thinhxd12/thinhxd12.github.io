@@ -970,7 +970,7 @@ function play() {
     isTimerStarted = true;
     handleNextWord();
     if (autorunTime < 49) {
-        currentTimeout = setTimeout(play, 7000);
+        currentTimeout = setTimeout(play, 7500);
         autorunTime++;
     } else stop();
 }

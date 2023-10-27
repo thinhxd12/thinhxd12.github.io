@@ -1465,7 +1465,7 @@ body {
   font-family: "Rubik", sans-serif;
   position: relative;
   z-index: 1;
-  margin: 2px 0;
+  margin: 3px 0;
 }
 
 #historyTable {
@@ -1747,6 +1747,17 @@ div#contentBody {
   position: absolute;
   right: 21px;
   top: 2px;
+
+}
+
+.soundBtnSVG svg {
+  width: 14px;
+  height: 15px;
+  transition: all 0.3s ease;
+}
+
+.soundBtnSVG:hover svg {
+  width: 15px;
 }
 
 .wordType .preWord {

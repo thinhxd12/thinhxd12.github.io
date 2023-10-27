@@ -48,12 +48,6 @@ const renderTomatoTick = () => {
       $('#tomatoText').show();
       $('#tomatoText').text(timeCount / 60 + 'm');
       timeCount = timeCount - t;
-      // if (count > 0) {
-      //   const audioEl = document.getElementById("tts-audio");
-      //   audioEl.src = 'https://mobcup.net/va/Eebd354329c9608a5b5544cb04c7996b9';
-      //   audioEl.volume = 0.01;
-      //   audioEl.play();
-      // }
       count++;
     }
     else {
@@ -70,8 +64,6 @@ const startHandler = () => {
   const timeCount = parseInt(START_SECOND, 10) * 1000 + 60 * parseInt(START_MINUTES, 10) * 1000;
   $('#tomatoText').show();
   $('#tomatoButton').css('margin-right', '6px');
-  // const audioEl = document.getElementById("tts-audio");
-  // audioEl.pause();
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
   renderTomatoTick();
@@ -149,30 +141,20 @@ const fetchImgLinkArr = () => {
 fetchImgLinkArr();
 
 const fetchRenderImgBackground = (numb) => {
-  fetch(URL_CORS + historyImgArr[numb]).then(res => res.text())
-    .then(html => html).then(data => setImgBackground(data))
-}
-
-const setImgBackground = (data) => {
-  let regMainImg = new RegExp('<div class="main-image">(\n|.)+?src="(.+?)"', 'i');
-  let regMainDate = new RegExp('<span class="main-description__share-date round_btn">((.|\n)+?)</span>', 'i');
-  let regMainTitle = new RegExp('<h1 class="main-description__title">((.|\n)+?)</h1>', 'i');
-  let regMainAtt = new RegExp('<div class="main-description__attr">((.|\n)+?)</div>', 'i');
-  let regMainAuthor = new RegExp('<ul class="main-description__authors">((.|\n)+?)</ul>', 'i');
-  let regMainDesc = new RegExp('<div class="main-description__text-content">(\n|.)+?((.|\n)+?)</div>', 'i');
-  let imgSrcGet = regMainImg.exec(data)[2];
-  let imgDateGet = regMainDate.exec(data)[0];
-  let imgTitleGet = regMainTitle.exec(data)[0];
-  let imgAttGet = regMainAtt.exec(data)[0];
-  let imgAuthorGet = regMainAuthor.exec(data)[0];
-  let imgTextGet = regMainDesc.exec(data)[0];
-  let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
-
-  $('#imgSrc').attr('src', imgSrcGet);
-  $('#imgSrcBlurred').attr('src', imgSrcGet);
-  $('#imgDesc').html(imgDescGet);
-  $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
-  $('.calendarFooterBlurImg').css('background-image', 'url(' + imgSrcGet + ')');
+  $.get(URL_CORS + historyImgArr[numb], function (html) {
+    let imgSrcGet = $(html).find('.main-image img').attr('src');
+    let imgDateGet = $(html).find('.main-description__share-date');
+    let imgTitleGet = $(html).find('.main-description__title');
+    let imgAttGet = $(html).find('.main-description__attr');
+    let imgAuthorGet = $(html).find('.main-description__authors');
+    let imgTextGet = $(html).find('.main-description__text-content');
+    let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
+    $('#imgSrc').attr('src', imgSrcGet);
+    $('#imgSrcBlurred').attr('src', imgSrcGet);
+    $('#imgDesc').html(imgDateGet).append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
+    $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
+    $('.calendarFooterBlurImg').css('background-image', 'url(' + imgSrcGet + ')');
+  })
 }
 
 let slideImgIndex = 0;

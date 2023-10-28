@@ -157,8 +157,8 @@ const autocomplete = (inp) => {
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
-        document.getElementById('contentBody').innerHTML = '';
-        document.getElementById('contentBody').appendChild(a);
+        document.getElementById('searchContainer').innerHTML = '';
+        document.getElementById('searchContainer').appendChild(a);
 
         if (val.length > 2) {
             let arrFilter = dataSheets.filter(item => item.text.search(`^${val}.*$`) > -1);
@@ -279,7 +279,7 @@ $(document).keydown(function (e) {
     };
 
     function renderResult(params) {
-        const contentBody = document.getElementById('contentBody');
+        const contentBody = document.getElementById('searchContainer');
         if (textInput.length > 2) {
             let arrFilter = dataSheets.filter(item => item.text.search(`^${textInput}.*$`) > -1);
             if (arrFilter.length == 0) {
@@ -1005,7 +1005,6 @@ const handleNextWord = () => {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
     let indexx = $('#wordRow').val() * 1 + autorunTime;
-
     playTTSwithValue(item);
     renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
@@ -1051,7 +1050,7 @@ const playTTSwithValue = (item) => {
         audioEl.pause();
         audioEl.src = item.sound;
         audioEl.play();
-        renderExplain(item.text, item.class, item.definitions, item.sound, "contentBody");
+        renderExplain(item.text, item.class, item.definitions, item.sound, "explainContainer");
     }
     else {
         textToSpeech(item.text);
@@ -1153,8 +1152,6 @@ const hoverOut = () => {
 const renderExplain = (text, type, definitions, sound, divId) => {
     const contentBody = document.getElementById(divId);
     const audioEl = document.getElementById("tts-audio");
-
-
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
@@ -1163,8 +1160,7 @@ const renderExplain = (text, type, definitions, sound, divId) => {
             <path d="M.32.08C.271.08.244.122.221.15a.104.104 0 0 1-.066.03H.12a.04.04 0 0 0-.04.04v.2c0 .022.018.04.04.04h.035c.022 0 .052.014.066.03.024.028.05.07.099.07A.04.04 0 0 0 .36.52v-.4A.04.04 0 0 0 .32.08zM.16.42H.12v-.2h.04v.2zm.16.1C.292.52.275.492.251.464A.133.133 0 0 0 .2.429V.21A.126.126 0 0 0 .251.175C.275.148.292.12.32.12v.4zM.489.491.461.463a.202.202 0 0 0 0-.285L.489.15a.242.242 0 0 1 0 .342zM.417.217a.145.145 0 0 1 0 .205L.389.394a.105.105 0 0 0 0-.149L.417.217z" style="fill:#0b1719"/>
         </svg>
       </button>
-
-      <button class="closeBtn closeBtnSVG" onclick="handleDelete()">
+      <button class="closeBtn closeBtnSVG" onclick="handleDelete('${divId}')">
       <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
         <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
       </svg>
@@ -1193,11 +1189,11 @@ const renderExplain = (text, type, definitions, sound, divId) => {
 
 
 const renderExplainGG = (headword, meaning) => {
-    const contentBody = document.getElementById("contentBody");
+    const contentBody = document.getElementById("explainContainer");
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
-      <button class="closeBtn closeBtnSVG" onclick="handleDelete()">
+      <button class="closeBtn closeBtnSVG" onclick="handleDelete('explainContainer')">
       <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
         <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
       </svg>
@@ -1216,18 +1212,8 @@ const renderExplainGG = (headword, meaning) => {
       `;
 };
 
-const handleDelete = () => {
-    document.getElementById("transInput").value = "";
-    const element = document.getElementById("addNewW");
-    if (element) {
-        element.value = "";
-    }
-    const element1 = document.getElementById("passInput");
-    if (element1) {
-        element1.value = "";
-    }
-    document.getElementById("searchInput").value = "";
-    document.getElementById("contentBody").innerHTML = "";
+const handleDelete = (divId) => {
+    document.getElementById(`${divId}`).innerHTML = "";
 };
 
 const handleChangeTransInput = (e) => {
@@ -1257,11 +1243,11 @@ const handleTranslate = async () => {
 };
 
 const renderTranslate = (arr) => {
-    const quoteBody = document.getElementById("quoteBody");
-    quoteBody.innerHTML = "";
-    renderEditWordDefinition(arr.word, "contentBody");
+    const contentBody = document.getElementById("transContainer");
+    contentBody.innerHTML = "";
+    renderEditWordDefinition(arr.word, "explainContainer");
     if (arr.translation) {
-        quoteBody.innerHTML = `
+        contentBody.innerHTML = `
     <div class="transItem">
         <div class="transItemHeader">
           <span></span>
@@ -1272,7 +1258,7 @@ const renderTranslate = (arr) => {
             <button class="close-btn" onclick="handleAddNewText()">
               <img src="./img/chain.png" width="12">
             </button>
-            <button class="close-btn" onclick="handleDeleteQuote();">
+            <button class="close-btn" onclick="handleDelete('transContainer')">
               <img src="./img/close.png" width="9">
             </button>
           </div>
@@ -1315,7 +1301,7 @@ const renderTranslate = (arr) => {
 };
 
 const renderEditWord = () => {
-    let contentBody = document.getElementById("contentBody");
+    let contentBody = document.getElementById("editContainer");
     contentBody.innerHTML = `
       <div class="transItem">
        <div class="transItemHeader">
@@ -1324,7 +1310,7 @@ const renderEditWord = () => {
             <button class="close-btn" onclick="setEditWord()">
                 <img src="./img/complete.png" width="13">
             </button>
-            <button class="close-btn" onclick="handleDelete();">
+            <button class="close-btn" onclick="handleDelete('editContainer')">
                 <img src="./img/close.png" width="9">
             </button>
             </div>
@@ -1350,7 +1336,7 @@ const renderEditWord = () => {
 };
 
 const renderDeleteWord = () => {
-    let contentBody = document.getElementById("contentBody");
+    let contentBody = document.getElementById("editContainer");
     contentBody.innerHTML = `
       <div class="transItem">
        <div class="transItemHeader">
@@ -1359,7 +1345,7 @@ const renderDeleteWord = () => {
                 <button class="close-btn" onclick="setDeleteWord()">
                   <img src="./img/bin.png" width="15">
                 </button>
-                <button class="close-btn" onclick="handleDelete();">
+                <button class="close-btn" onclick="handleDelete('editContainer')">
                   <img src="./img/close.png" width="9">
                 </button>
             </div>
@@ -1375,7 +1361,7 @@ const renderDeleteWord = () => {
 };
 
 const renderProxySelect = () => {
-    let contentBody = document.getElementById("contentBody");
+    let contentBody = document.getElementById("editContainer");
     contentBody.innerHTML = `
       <div class="transItem">
        <div class="transItemHeader">
@@ -1383,7 +1369,7 @@ const renderProxySelect = () => {
                 <button class="close-btn" onclick="selectProxy()">
                     <img src="./img/complete.png" width="13">
                 </button>
-                <button class="close-btn" onclick="handleDelete()">
+                <button class="close-btn" onclick="handleDelete('editContainer')">
                   <img src="./img/close.png" width="9">
                 </button>
             </div>
@@ -1408,12 +1394,12 @@ const selectProxy = () => {
     let val = document.querySelector('.translateInputCheck:checked').value;
     val == proxyArr.length - 1 ? URL_CORS = '' : URL_CORS = proxyArr[val].link;
     proxyArr.forEach((item, index) => index != val ? item.active = false : item.active = true)
-    handleDelete();
+    handleDelete('editContainer');
 }
 
 
 const renderCollectionSelect = () => {
-    let contentBody = document.getElementById("contentBody");
+    let contentBody = document.getElementById("editContainer");
     contentBody.innerHTML = `
       <div class="transItem">
        <div class="transItemHeader">
@@ -1421,7 +1407,7 @@ const renderCollectionSelect = () => {
                 <button class="close-btn" onclick="selectCollection()">
                     <img src="./img/complete.png" width="13">
                 </button>
-                <button class="close-btn" onclick="handleDelete()">
+                <button class="close-btn" onclick="handleDelete('editContainer')">
                   <img src="./img/close.png" width="9">
                 </button>
             </div>
@@ -1442,7 +1428,7 @@ const selectCollection = () => {
     let val = document.querySelector('.translateInputCheck:checked').value;
     CURRENT_COLLECTION = collectionsArr[val];
     collectionsArr.forEach((item, index) => index != val ? item.active = false : item.active = true)
-    handleDelete();
+    handleDelete('editContainer');
     fetchStartupData();
     getTotalDoneWord(CURRENT_COLLECTION.pass);
     fetchAndRenderCalendarData();
@@ -1473,12 +1459,29 @@ const setInputEditWordResult = (item) => {
 }
 
 const handleRenderEditWordDefinition = e => {
-    if (e.keyCode == 13) renderEditWordDefinition(e.target.value, "editContentDiv")
+    if (e.keyCode == 13) {
+        renderEditWordDefinition(e.target.value, "editContentDiv");
+        handleFindPhoneticText(e.target.value);
+    }
 }
 
 const handleRenderEditWordDefinitionHandy = () => {
     let val = $('#inputEditWordText').val();
     renderEditWordDefinition(val, "editContentDiv");
+    handleFindPhoneticText(val);
+}
+
+const handleFindPhoneticText = text => {
+    let transUrl = URL_CORS + `https://myapp-9r5h.onrender.com/trans?text=${text}&from=en&to=vi`;
+    fetch(transUrl)
+        .then(res => res.json())
+        .then(data => {
+            if (data.wordTranscription) {
+                document.getElementById('inputEditWordPhonetic').value = data.wordTranscription;
+            }
+        }).catch(err => {
+            console.log(err);
+        })
 }
 
 let textData = { text: '', sound: '', class: '', definitions: [] }
@@ -1610,8 +1613,6 @@ const setDeleteWord = () => {
             localStorage.setItem('sheetData', JSON.stringify(dataSheets));
         })
 }
-
-
 
 const addTextToCell = (text) => {
     const addNewW = document.getElementById("addNewW");

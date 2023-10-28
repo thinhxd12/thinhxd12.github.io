@@ -1365,7 +1365,6 @@ body {
   font-size: 0.58em;
   font-family: "nyt-cheltenham";
   color: #000;
-  text-align: center;
 }
 
 .calendarFooterBlurImg {
@@ -1694,6 +1693,7 @@ div#contentBody {
   font-size: 0.75rem;
   -webkit-font-smoothing: antialiased;
   padding: 0 3px 3px;
+  margin-bottom: 3px;
   background: url("./img/paper.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -1892,10 +1892,6 @@ span.x::before {
   vertical-align: middle;
 }
 
-/* .quoteBtn:hover {
-  background: #000000;
-} */
-
 /* ------------translate----- */
 .transItem {
   width: 100%;
@@ -1905,7 +1901,6 @@ span.x::before {
   font-family: "basier", sans-serif;
   font-size: 0.75rem;
   color: #fff;
-  border-bottom: 1px solid #503f2b;
   position: relative;
 }
 

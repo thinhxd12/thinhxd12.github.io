@@ -327,7 +327,7 @@ const fetchGetQuote = (num) => {
       let body = `
       <div class="explainContainer">
         <div class="explainHeader">
-        <button class="closeBtn closeBtnSVG" onclick="handleDeleteQuote()">
+        <button class="closeBtn closeBtnSVG" onclick="handleDelete('quoteContainer')">
           <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
             <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
           </svg>
@@ -355,12 +355,8 @@ const fetchGetQuote = (num) => {
         </div>
       </div>  
         `
-      $('#quoteBody').html(body);
+      $('#quoteContainer').html(body);
     })
-}
-
-const handleDeleteQuote = () => {
-  $('#quoteBody').html('');
 }
 
 const checkQuote = (check) => {
@@ -380,10 +376,10 @@ const copyQuote = () => {
 }
 
 const renderRssNews = () => {
-  document.getElementById('quoteBody').innerHTML = `
+  document.getElementById('rssHeaderContainer').innerHTML = `
   <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
   <div class="explainHeader">
-  <button class="closeBtn closeBtnSVG" onclick="handleDeleteQuote()">
+  <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssHeaderContainer')">
   <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
     <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
   </svg>
@@ -419,9 +415,9 @@ const renderRssNews = () => {
 const renderRssNYT = () => {
   $.get(URL_CORS + 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+    <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -444,7 +440,7 @@ const renderRssNYT = () => {
         diffRes = days + ' day ago'
       }
 
-      document.getElementById('contentBody').innerHTML += `
+      document.getElementById('rssContainer').innerHTML += `
         <div class="rssCard">
           ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`: ''}
@@ -464,9 +460,9 @@ const renderRssNYT = () => {
 const renderRssNikkei = () => {
   $.get(URL_CORS + 'https://asia.nikkei.com/rss/feed/nar', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -476,7 +472,7 @@ const renderRssNikkei = () => {
       let title = el.find("title").text();
       fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
         .then(html => {
-          document.getElementById('contentBody').innerHTML += `
+          document.getElementById('rssContainer').innerHTML += `
             <div class="rssCard">
                 ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                   </div>`: ''}
@@ -497,9 +493,9 @@ const renderRssNikkei = () => {
 const renderRssSCMP = () => {
   $.get(URL_CORS + 'https://www.scmp.com/rss/91/feed', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -522,7 +518,7 @@ const renderRssSCMP = () => {
         diffRes = days + ' day ago'
       }
 
-      document.getElementById('contentBody').innerHTML += `
+      document.getElementById('rssContainer').innerHTML += `
         <div class="rssCard">
           ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`: ''}
@@ -542,9 +538,9 @@ const renderRssSCMP = () => {
 const renderRssAlJaz = () => {
   $.get(URL_CORS + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -569,7 +565,7 @@ const renderRssAlJaz = () => {
 
       fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
         .then(html => {
-          document.getElementById('contentBody').innerHTML += `
+          document.getElementById('rssContainer').innerHTML += `
             <div class="rssCard">
                 ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                   </div>`: ''}
@@ -592,9 +588,9 @@ const renderRssAlJaz = () => {
 const renderRssYahoo = () => {
   $.get(URL_CORS + 'https://www.yahoo.com/news/rss', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -616,7 +612,7 @@ const renderRssYahoo = () => {
         diffRes = days + ' day ago'
       }
 
-      document.getElementById('contentBody').innerHTML += `
+      document.getElementById('rssContainer').innerHTML += `
         <div class="rssCard">
           ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`: ''}
@@ -635,9 +631,9 @@ const renderRssYahoo = () => {
 const renderRssTheconversation = () => {
   $.get(URL_CORS + 'https://theconversation.com/ca/articles.atom', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -661,7 +657,7 @@ const renderRssTheconversation = () => {
 
       fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
         .then(html => {
-          document.getElementById('contentBody').innerHTML += `
+          document.getElementById('rssContainer').innerHTML += `
           <div class="rssCard">
               ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                 </div>`: ''}
@@ -682,9 +678,9 @@ const renderRssTheconversation = () => {
 const renderRssWSP = () => {
   $.get(URL_CORS + 'https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2', function (data) {
     // console.log(data);
-    document.getElementById('contentBody').innerHTML += `
+    document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete()">
+        <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <img src="./img/close_circle.png" width="15" height="15">
     </button>
     </div>`
@@ -707,7 +703,7 @@ const renderRssWSP = () => {
         diffRes = days + ' day ago'
       }
 
-      document.getElementById('contentBody').innerHTML += `
+      document.getElementById('rssContainer').innerHTML += `
         <div class="rssCard">
           ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`: ''}

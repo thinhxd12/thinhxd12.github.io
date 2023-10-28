@@ -2122,12 +2122,6 @@ span.x::before {
   .main {
     background: #070707;
   }
-
-  .contentBody>div {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 }
 
 @media only screen and (max-width: 1280px) {

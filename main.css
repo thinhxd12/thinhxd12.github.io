@@ -465,9 +465,20 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8015581232492998) 93%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgb(0 0 0 / 84%) 96%);
 }
 
+.cornerButton::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #7c7b7a;
+  position: absolute;
+  left: -1.5px;
+  top: 13.5px;
+}
 
 /* -------------flip card---------------------*/
 .contentHeader {
@@ -780,9 +791,8 @@ body {
 
 .tomatoText {
   position: absolute;
-  bottom: -4px;
-  right: 3px;
-  border: 0.3px solid #3a3124;
+  bottom: 5px;
+  right: 0px;
   font-size: 8px;
   font-family: "basier", sans-serif;
   border-radius: 3px;
@@ -840,7 +850,7 @@ body {
 
 .buttonsContainer {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   right: -60px;
   z-index: 1;
   cursor: default;
@@ -872,7 +882,8 @@ body {
 .fncButton {
   display: inline-block;
   font-size: 0.85rem;
-  color: #3a3124;
+  color: #a09481;
+  /* color: #7c7b7a; */
   cursor: pointer;
   width: 1rem;
   height: 1rem;
@@ -884,16 +895,18 @@ body {
 }
 
 .fncButton:hover {
-  color: #785c3a;
+  color: #b6a893;
   background: #000000;
+  box-shadow: 0px 0px 3px #000000d1;
 }
 
 .fncButton svg path {
-  fill: #3a3124;
+  fill: #a09481;
+
 }
 
 .fncButton:hover svg path {
-  fill: #785c3a;
+  fill: #b6a893;
 }
 
 

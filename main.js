@@ -63,18 +63,14 @@ const renderTomatoTick = () => {
 const startHandler = () => {
   const timeCount = parseInt(START_SECOND, 10) * 1000 + 60 * parseInt(START_MINUTES, 10) * 1000;
   $('#tomatoText').show();
-  $('#tomatoButton').css('margin-right', '6px');
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
   renderTomatoTick();
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
-    $('#tomatoText').toggleClass('tomatoFocus');
-    $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-    $('.footerBtn').removeClass("footerBtnActive");
+    $('.buttonsContainer').removeClass('buttonsContainerShow');
     setTimeout(() => {
-      $('.toogleItemRight').addClass('toogleItemShowRight');
-      $('.footerBtnToggleRight').addClass("footerBtnActive");
+      $('.buttonsContainer').addClass('buttonsContainerShow');
     }, 500);
     showDesktopNotification();
     const audioEl = document.getElementById("tts-audio");
@@ -88,7 +84,6 @@ const resetHandler = () => {
   clearTimeout(tickTimeout);
   clearTimeout(timerTimeout);
   $('#tomatoText').hide();
-  $('#tomatoButton').css('margin-right', '0px');
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
 }
@@ -119,7 +114,7 @@ if (Notification.permission !== "granted") {
   })
 }
 
-$('#tomatoButton img').click(function (e) {
+$('#tomatoButton').click(function (e) {
   startHandler();
 });
 
@@ -230,8 +225,6 @@ const showTab = (n) => {
     fetchAndRenderCalendarData();
     showLastTimeLog();
   }
-  $('.toogleItemLeft').removeClass('toogleItemShowLeft');
-
 }
 
 var textInput = '';
@@ -262,29 +255,13 @@ $(document).keydown(function (e) {
   }
 });
 
-
-let rightBtnSwitch = false;
-showRightToggleItem = () => {
-  if (rightBtnSwitch) {
-    $('.toogleItemRight').removeClass('toogleItemShowRight');
-    rightBtnSwitch = false;
-  } else {
-    $('.toogleItemRight').addClass('toogleItemShowRight');
-    rightBtnSwitch = true;
-  }
-}
-
-$('.footerBtnToggleRight').click(function (e) {
-  showRightToggleItem();
+$('.bottomRightOrnament').mouseover(function () {
+  $('.buttonsContainer').removeClass('buttonsContainerShow');
+  $('.buttonsContainer').addClass('buttonsContainerShow');
 });
 
-$('.toogleItemRight').mouseover(function () {
-  $('.toogleItemRight').removeClass('toogleItemShowRight');
-  $('.toogleItemRight').addClass('toogleItemShowRight');
-});
-
-$('.toogleItemRight').mouseleave(function () {
-  $('.toogleItemRight').removeClass('toogleItemShowRight');
+$('.bottomRightOrnament').mouseleave(function () {
+  $('.buttonsContainer').removeClass('buttonsContainerShow');
 });
 
 

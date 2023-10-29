@@ -444,75 +444,30 @@ body {
   color: #fff;
 }
 
-.footerPlusContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
 
-.toogleItemLeft {
-  position: absolute;
-  bottom: 9px;
-  left: 21px;
-  opacity: 0;
-  z-index: 0;
-  transition: all 0.72s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-}
-
-.toogleItemRight {
-  position: absolute;
-  bottom: 99px;
-  right: -21px;
-  z-index: 9;
-  width: 45px;
-  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0;
-}
-
-.toogleItemShowRight {
-  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  right: -6px;
-  opacity: 1;
-}
-
-.toogleItemShowLeft {
-  opacity: 1;
-  bottom: 70px;
-  left: 45px;
-  z-index: 34;
-}
-
-.itemRightBtn {
+.cornerButton {
+  width: 90px;
+  height: 30px;
+  background: url(/img/sunset.jpg);
+  background-size: 105%;
+  background-position: center bottom;
+  position: relative;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   cursor: pointer;
-  width: 22px;
-  height: 22px;
-  margin: 0 1px 3px 0;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 1s ease;
-  border: 0.3px solid #503f2b;
-  background: #070707;
-  box-shadow: 1px 2px 3px #000000d1;
 }
 
-.itemRightBtn svg path {
-  fill: #3a3124;
+.cornerButton:hover {
+  background-size: 100%;
 }
 
-.itemRightBtn:hover svg path {
-  fill: #785c3a;
+.cornerButton::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8015581232492998) 93%);
 }
 
-.itemRightBtn:hover {
-  background: #000000;
-  transform: translateX(-5px);
-}
 
 /* -------------flip card---------------------*/
 .contentHeader {
@@ -798,180 +753,48 @@ body {
 }
 
 /* ---------------buttonSwitch--------- */
-.buttonSwitch {
-  width: 23px;
-  height: 23px;
-  margin: 6px 6px 12px;
-}
-
-.toggle-switch {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  transition: 0.7s;
-  justify-content: center;
-}
-
-.toggle-switch .round-button {
-  cursor: pointer;
-  background: 0;
-  border: 0;
-  outline: 0;
-  position: relative;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  transition: 0.5s;
-  transition-timing-function: ease-in-out;
-  animation: rotating 18s linear infinite;
-}
-
-.roundBtnBody {
-  position: absolute;
-  z-index: 0;
-  height: 95%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background-image: radial-gradient(#ffcc33 30%, #fc9601);
-  box-shadow: 0 0 12px #ffcc33;
-}
-
-.roundBtnDiv1 {
-  height: 91%;
-  aspect-ratio: 1;
-  position: absolute;
-  z-index: 1;
-  background-image: radial-gradient(transparent 80%, #fc9601);
-  transform: rotateZ(30deg);
-  transition: 0.5s;
-}
-
-.roundBtnDiv2 {
-  height: 91%;
-  aspect-ratio: 1;
-  position: absolute;
-  z-index: 1;
-  background-image: radial-gradient(transparent 80%, #fc9601);
-  transform: rotateZ(60deg);
-  transition: 0.5s;
-}
-
-.roundBtnDiv3 {
-  height: 91%;
-  aspect-ratio: 1;
-  position: absolute;
-  z-index: 1;
-  background-image: radial-gradient(transparent 80%, #fc9601);
-  transform: rotateZ(90deg);
-  transition: 0.5s;
-}
-
-.roundBtnBodyToggle {
-  background-image: radial-gradient(#f4f4f4, #cacaca) !important;
-  box-shadow: 0 0 12px #f4f4f4 !important;
-}
-
-.roundBtnDiv1Toggle {
-  height: 5%;
-  aspect-ratio: 1;
-  transform: rotateZ(90deg) translate(-7px, 1px) !important;
-  border-radius: 50%;
-  background-color: #cacaca;
-  transform: rotateZ(180deg);
-}
-
-.roundBtnDiv2Toggle {
-  height: 10%;
-  aspect-ratio: 1;
-  transform: rotateZ(90deg) translate(0em, 5px) !important;
-  border-radius: 50%;
-  background-color: #cacaca;
-  transform: rotateZ(180deg);
-}
-
-.roundBtnDiv3Toggle {
-  height: 15%;
-  aspect-ratio: 1;
-  transform: rotateZ(90deg) translate(-3px, -3px) !important;
-  border-radius: 50%;
-  background-color: #cacaca;
-  transform: rotateZ(180deg);
-}
-
 .inputWordRow {
   position: absolute;
-  top: -9px;
-  z-index: 54;
-  right: 5px;
-  opacity: 0;
+  bottom: 0;
+  right: 0;
   text-align: center;
   outline: 0;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   width: 25px;
   height: 12px;
-  margin-right: 3px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
     0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
-  border: none;
+  border: 0;
   background: none;
-  color: #fff;
+  color: #ececec;
   display: inline-block;
   font-size: 8px;
   font-weight: bold;
   font-family: sans-serif;
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 0.5px 3px;
-}
-
-.toggle-switch:hover .inputWordRow {
-  opacity: 1;
+  z-index: 99;
 }
 
 /* ------------tomatoclock---------- */
-.tomatoContent {
-  position: relative;
-  cursor: pointer;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  transition: all 1s ease;
-}
-
-.tomatoContent:hover {
-  transform: translateX(-5px);
-}
-
-#tomatoButton {
-  position: relative;
-}
-
-#tomatoButton img {
-  filter: drop-shadow(1px 1px 2px #000000d1);
-}
 
 .tomatoText {
   position: absolute;
-  bottom: 2px;
-  right: -6px;
-  border: 1.5px solid black;
+  bottom: -4px;
+  right: 3px;
+  border: 0.3px solid #3a3124;
   font-size: 8px;
   font-family: "basier", sans-serif;
   border-radius: 3px;
   width: 17px;
   height: 11px;
+  z-index: inherit;
   line-height: 10px;
   text-align: center;
-  background: #11aa11;
-  color: black;
-}
-
-.tomatoFocus {
-  background: #bb0000;
-  color: white;
+  background: #070707;
+  color: #b6a893;
+  display: none;
+  cursor: pointer;
 }
 
 .serverDot {
@@ -1014,6 +837,66 @@ body {
   text-align: center;
   cursor: pointer;
 }
+
+.buttonsContainer {
+  position: absolute;
+  bottom: 40px;
+  right: -60px;
+  z-index: 1;
+  cursor: default;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 3px;
+  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  opacity: 0;
+}
+
+.bottomRightOrnament:hover+.buttonsContainer,
+.buttonsContainer:hover {
+  right: 12px;
+  opacity: 1;
+  z-index: 36;
+}
+
+.buttonsContainerShow {
+  right: 12px;
+  opacity: 1;
+  z-index: 36;
+}
+
+.buttonsContainer .bx {
+  line-height: 0.9rem;
+}
+
+.fncButton {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #3a3124;
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  padding: 1px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  background: #070707;
+  box-shadow: 1px 2px 3px #000000d1;
+}
+
+.fncButton:hover {
+  color: #785c3a;
+  background: #000000;
+}
+
+.fncButton svg path {
+  fill: #3a3124;
+}
+
+.fncButton:hover svg path {
+  fill: #785c3a;
+}
+
+
 
 /* calendar */
 .calendarContainer {

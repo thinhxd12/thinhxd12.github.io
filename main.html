@@ -10,6 +10,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
   </style>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
     </script>
@@ -79,6 +80,23 @@
           </div>
           <a class="serverDot"></a>
           <div class="bottomRightOrnament"></div>
+          <div class="buttonsContainer">
+            <span class='fncButton bx bxs-quote-alt-left' onclick="fetchGetQuote(0)"></span>
+            <span class='fncButton bx bx-rss' onclick="renderRssNews()"></span>
+            <span class='fncButton bx bx-image-alt' onclick="fetchImgLinkArr()"></span>
+            <span class='fncButton bx bx-globe' onclick="renderProxySelect()"></span>
+            <span class='fncButton bx bx-collection' onclick="renderCollectionSelect()"></span>
+            <span class='fncButton bx bx-minus-circle' onclick="renderDeleteWord()"></span>
+            <span class='fncButton bx bxs-edit' onclick="renderEditWord()"></span>
+            <span class='fncButton' id="tomatoButton">
+              <svg width="14" height="14" viewBox="0 0 1.2 1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                class="iconify iconify--emojione-monotone">
+                <path
+                  d="M1.162.593C1.139.198.935.14.77.14.728.14.689.144.656.147c0-.018 0-.037.004-.059V.087C.66.08.648.075.632.075.617.075.604.08.604.087A.459.459 0 0 1 .587.15C.37.151.084.186.04.58c-.032.286.248.545.562.545s.576-.244.56-.532M.668.202.692.2.664.212.662.202.668.201M.564.205.557.22A.175.175 0 0 0 .54.206L.565.205m.423.699a.529.529 0 0 1-.386.165.542.542 0 0 1-.399-.178.39.39 0 0 1-.107-.305c.022-.2.11-.295.224-.34.11-.02.213.017.213.017S.298.205.206.507C.322.326.521.379.574.313c0 .129.094.066.141.124.061.075.083.208.153.235C.799.524.912.53.753.331.837.383.88.33.994.377.896.217.74.264.74.264S.804.206.871.208c.114.027.219.116.234.39a.417.417 0 0 1-.118.309" />
+              </svg>
+            </span>
+            <span class="tomatoText" id="tomatoText"></span>
+          </div>
         </div>
       </div>
       <div id="tab2" class="city" style="display: none;">
@@ -192,88 +210,10 @@
             Caelus
           </button>
           <div class="footerBtnDot"></div>
-          <button class="footerBtn footerBtnToggleRight">
-            Conmodus
-          </button>
-        </div>
-        <div class="toogleItemRight">
-          <div class="itemRightBtn" onclick="fetchGetQuote(0)">
-            <svg width="14" height="14" style="margin-left: 3px;" viewBox="0 0 0.56 0.56"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M.167.148.153.126C.055.193 0 .273 0 .339c0 .064.047.094.087.094.05 0 .086-.043.086-.088A.088.088 0 0 0 .117.263C.108.26.099.257.099.241c0-.02.015-.05.069-.094zm.217 0L.37.126C.273.192.217.273.217.339c0 .064.048.094.088.094A.088.088 0 0 0 .392.345.088.088 0 0 0 .334.263C.325.26.316.257.316.241c0-.02.015-.05.068-.094z" />
-            </svg>
+          <div class="cornerButton" id="autoPlayBtn">
           </div>
-          <div class="itemRightBtn" onclick="renderRssNews()">
-            <svg width="10" height="10" viewBox="0 0 0.3 0.3" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#afa98f"
-                d="M0 0.159h0.001A0.14 0.14 0 0 1 0.1 0.2a0.139 0.139 0 0 1 0.041 0.099V0.3h0.058A0.199 0.199 0 0 0 0 0.102zm0 -0.102a0.243 0.243 0 0 1 0.241 0.242V0.3h0.058A0.3 0.3 0 0 0 0.001 0H0v0.058zm0.079 0.202A0.04 0.04 0 1 1 0.039 0.219a0.04 0.04 0 0 1 0.04 0.04z" />
-            </svg>
-          </div>
-          <div class="itemRightBtn" onclick="fetchImgLinkArr()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 1.861 22.5 18.778"
-              xml:space="preserve">
-              <path fill="#afa98f"
-                d="M0 1.861v18.778h22.5V1.861H0zm1.726 1.755h19.048v15.268H1.726V3.616zM5.652 5.82c-.537 0-.989.183-1.355.549a1.842 1.842 0 0 0-.549 1.355c0 .513.183.952.549 1.318.366.366.818.549 1.355.549.513 0 .952-.183 1.318-.549.366-.366.549-.806.549-1.318 0-.537-.183-.989-.549-1.355a1.798 1.798 0 0 0-1.318-.549zm8.094.928-4.321 6.556L7.13 11.4l-3.382 4.394v1.283h15.005v-5.153l-5.006-5.176z" />
-            </svg>
-          </div>
-          <div class="itemRightBtn" onclick="renderProxySelect()">
-            <svg width="15" height="15" viewBox="0 0 0.375 0.375" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M0.024 0.188a0.164 0.164 0 1 0 0.329 0 0.164 0.164 0 0 0 -0.329 0Zm0.3 0a0.136 0.136 0 1 1 -0.271 0 0.136 0.136 0 0 1 0.271 0Z"
-                fill="#afa98f" />
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M0.117 0.188c0 0.085 0.027 0.155 0.07 0.155S0.258 0.273 0.258 0.188 0.23 0.033 0.188 0.033 0.117 0.103 0.117 0.188Zm0.112 0C0.23 0.258 0.208 0.314 0.188 0.314S0.145 0.258 0.145 0.188 0.168 0.061 0.188 0.061 0.23 0.117 0.23 0.188Z"
-                fill="#afa98f" />
-              <path
-                d="M0.068 0.103 0.086 0.081l0.006 0.005a0.179 0.179 0 0 0 0.104 0.029 0.191 0.191 0 0 0 0.092 -0.021 0.077 0.077 0 0 0 0.015 -0.011l0.019 0.021 -0.02 0.014a0.219 0.219 0 0 1 -0.106 0.025 0.198 0.198 0 0 1 -0.12 -0.035 0.114 0.114 0 0 1 -0.007 -0.006Zm0 0.17 0.019 0.021 0.006 -0.005A0.179 0.179 0 0 1 0.196 0.26c0.035 0 0.069 0.007 0.092 0.021a0.077 0.077 0 0 1 0.015 0.011L0.323 0.271A0.129 0.129 0 0 0 0.302 0.258a0.219 0.219 0 0 0 -0.106 -0.025 0.198 0.198 0 0 0 -0.12 0.035 0.114 0.114 0 0 0 -0.007 0.006ZM0.033 0.201V0.174h0.309v0.027H0.033Z"
-                fill="#afa98f" />
-            </svg>
-          </div>
-          <div class="itemRightBtn" onclick="renderCollectionSelect()">
-            <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="m14.014 12.703-2.637-6.387a.645.645 0 0 0-1.192 0l-2.637 6.387a.645.645 0 1 0 1.192.492l.537-1.3h3.008l.537 1.3a.645.645 0 0 0 .596.399.645.645 0 0 0 .595-.891Zm-4.205-2.098.972-2.354.972 2.354Zm-1.962-.559a.645.645 0 0 0-.143-.899c-.006-.004-.439-.326-1.069-1.017 1.162-1.573 1.82-3.362 2.088-4.204h.945a.645.645 0 0 0 0-1.289H6.27v-.586a.645.645 0 0 0-1.289 0v.586H1.582a.645.645 0 0 0 0 1.289h5.779c-.279.79-.792 2.036-1.576 3.175C4.865 5.88 4.523 5.09 4.52 5.083a.645.645 0 0 0-1.189.498c.017.04.426 1.003 1.549 2.459l.08.103c-1.15 1.299-2.278 2.105-2.75 2.365a.645.645 0 1 0 .617 1.132c.063-.035 1.424-.788 2.977-2.508.66.705 1.113 1.038 1.141 1.058a.645.645 0 0 0 .901-.144Z" />
-            </svg>
-          </div>
-          <div class="itemRightBtn" onclick="renderDeleteWord()">
-            <svg width="13" height="13" viewBox="0 0 0.36 0.36" xmlns="http://www.w3.org/2000/svg" fill="none">
-              <g fill="#000">
-                <path fill="#afa98f"
-                  d="M.265.117a.017.017 0 0 1 0 .024L.226.18l.039.039a.017.017 0 1 1-.024.024L.202.204.164.243A.017.017 0 1 1 .14.219L.178.18.14.141A.017.017 0 0 1 .164.117l.039.039.039-.039a.017.017 0 0 1 .024 0z">
-                </path>
-                <path fill="#afa98f"
-                  d="M.099.059a.039.039 0 0 1 .03-.014H.31a.051.051 0 0 1 .051.051v.169a.051.051 0 0 1-.051.05H.129a.039.039 0 0 1-.03-.014L.004.191a.017.017 0 0 1 0-.022l.094-.11zm.03.02a.006.006 0 0 0-.004.002L.039.18l.086.099a.006.006 0 0 0 .004.002H.31A.017.017 0 0 0 .327.264V.095A.017.017 0 0 0 .31.078H.129z"
-                  clip-rule="evenodd"></path>
-              </g>
-            </svg>
-          </div>
-          <div class="itemRightBtn" onclick="renderEditWord()">
-            <svg width="13" height="13" viewBox="0 0 1.28 1.28" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
-              style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
-              <path style="fill:none" d="M-20.48 0h25.6v16h-25.6V0z" />
-              <path fill="#afa98f"
-                d="M1.119 1.035v.084l-.673-.001.093-.084h.58ZM.967.16c.033 0 .05.002.095.041.046.038.054.068.057.101a.149.149 0 0 1-.044.114l-.639.639c-.011.01-.013.008-.02.011l-.204.052a.044.044 0 0 1-.052-.052L.212.86C.214.854.214.85.223.842.437.628.646.41.865.199A.16.16 0 0 1 .967.16ZM.32.864l-.03.03-.03.124.124-.031.03-.029L.32.864ZM.924.452.828.356l-.45.45L.472.9C.623.751.775.603.923.452ZM.981.393l.037-.04C1.051.317 1.026.245.972.241H.969a.068.068 0 0 0-.046.02L.886.298l.095.095Z"
-                style="fill-rule:nonzero" />
-            </svg>
-          </div>
-          <div class="tomatoContent" id="tomatoContent">
-            <div id="tomatoButton">
-              <img src="./img/tomato.png" width="25">
-              <span class="tomatoText tomatoFocus" id="tomatoText" style="display: none;">-</span>
-            </div>
-          </div>
-          <div class="buttonSwitch">
-            <div class="toggle-switch">
-              <button class="round-button" id="autoPlayBtn">
-                <div id="roundBtnDiv1" class="roundBtnDiv1"></div>
-                <div id="roundBtnDiv2" class="roundBtnDiv2"></div>
-                <div id="roundBtnDiv3" class="roundBtnDiv3"></div>
-                <div class="roundBtnBody" id="roundBtnBody"></div>
-              </button>
-              <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off">
-            </div>
-          </div>
+          <input class="inputWordRow" id="wordRow" name="wordRow" autocomplete="off" onmouseover="this.focus()"
+            onmouseout="this.blur()">
         </div>
       </div>
     </div>

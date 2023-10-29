@@ -897,9 +897,9 @@ const setWordList = async (item, num) => {
     $('.footerBtn').removeClass("footerBtnActive");
     $(".tabButton[name='tab1']").addClass("footerBtnActive");
     tabIndex = 1;
-    $('.toogleItemRight').removeClass('toogleItemShowRight');
+    $('.buttonsContainer').removeClass('buttonsContainerShow');
     setTimeout(() => {
-        $('.toogleItemRight').addClass('toogleItemShowRight');
+        $('.buttonsContainer').addClass('buttonsContainerShow');
     }, 500);
 }
 
@@ -924,9 +924,9 @@ const setWordListHandy = async () => {
     $('.footerBtn').removeClass("footerBtnActive");
     $(".tabButton[name='tab1']").addClass("footerBtnActive");
     tabIndex = 1;
-    $('.toogleItemRight').removeClass('toogleItemShowRight');
+    $('.buttonsContainer').removeClass('buttonsContainerShow');
     setTimeout(() => {
-        $('.toogleItemRight').addClass('toogleItemShowRight');
+        $('.buttonsContainer').addClass('buttonsContainerShow');
     }, 500);
 }
 
@@ -935,17 +935,11 @@ $("input#wordRow").change(function () {
 });
 
 const handleToggleSwitchMoon = () => {
-    $("#roundBtnBody").addClass("roundBtnBodyToggle");
-    $("#roundBtnDiv1").addClass("roundBtnDiv1Toggle");
-    $("#roundBtnDiv2").addClass("roundBtnDiv2Toggle");
-    $("#roundBtnDiv3").addClass("roundBtnDiv3Toggle");
+    $("#autoPlayBtn").css('background-image', "url('/img/sunset.jpg')");
 };
 
 const handleToggleSwitchSun = () => {
-    $("#roundBtnBody").removeClass("roundBtnBodyToggle");
-    $("#roundBtnDiv1").removeClass("roundBtnDiv1Toggle");
-    $("#roundBtnDiv2").removeClass("roundBtnDiv2Toggle");
-    $("#roundBtnDiv3").removeClass("roundBtnDiv3Toggle");
+    $("#autoPlayBtn").css('background-image', "url('/img/sunrise.jpg')");
 };
 
 let currentTimeout;

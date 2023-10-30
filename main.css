@@ -1616,18 +1616,8 @@ div#contentBody {
   background: transparent;
   position: absolute;
   right: 21px;
-  top: 2px;
-
-}
-
-.soundBtnSVG svg {
-  width: 14px;
-  height: 15px;
-  transition: all 0.3s ease;
-}
-
-.soundBtnSVG:hover svg {
-  width: 15px;
+  top: 1px;
+  font-size: 1rem;
 }
 
 .wordType .preWord {
@@ -1875,17 +1865,21 @@ span.x::before {
 
 .sound-btn {
   border-radius: 50%;
+  font-size: 1.2rem;
   outline: 0;
   border: 0;
-  width: 23px;
-  height: 23px;
+  width: 21px;
+  height: 21px;
+  padding-top: 2px;
+  line-height: 1.2rem;
   cursor: pointer;
+  vertical-align: middle;
   transition: box-shadow 0.1s ease;
   display: flex;
   justify-content: center;
   align-items: center;
   background: 0;
-  border: 0.3px solid #503f2b;
+  border: 1px solid #00000066;
 }
 
 .sound-btn:hover {

@@ -1150,9 +1150,7 @@ const renderExplain = (text, type, definitions, sound, divId) => {
     <div class="explainContainer">
       <div class="explainHeader">
       <button class="soundBtnSVG" id="explainTextSoundBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0.64 0.64" xml:space="preserve">
-            <path d="M.32.08C.271.08.244.122.221.15a.104.104 0 0 1-.066.03H.12a.04.04 0 0 0-.04.04v.2c0 .022.018.04.04.04h.035c.022 0 .052.014.066.03.024.028.05.07.099.07A.04.04 0 0 0 .36.52v-.4A.04.04 0 0 0 .32.08zM.16.42H.12v-.2h.04v.2zm.16.1C.292.52.275.492.251.464A.133.133 0 0 0 .2.429V.21A.126.126 0 0 0 .251.175C.275.148.292.12.32.12v.4zM.489.491.461.463a.202.202 0 0 0 0-.285L.489.15a.242.242 0 0 1 0 .342zM.417.217a.145.145 0 0 1 0 .205L.389.394a.105.105 0 0 0 0-.149L.417.217z" style="fill:#0b1719"/>
-        </svg>
+        <i class="bx bx-volume-full"></i>
       </button>
       <button class="closeBtn closeBtnSVG" onclick="handleDelete('${divId}')">
         <i class='bx bx-x'></i>
@@ -1243,13 +1241,13 @@ const renderTranslate = (arr) => {
           <span></span>
           <div style="display: flex;">
             <button class="close-btn" onclick="handleAddTextEnd()">
-              <img src="./img/send.png" width="10">
+                <i class='bx bx-plus'></i>
             </button>
             <button class="close-btn" onclick="handleAddNewText()">
-              <img src="./img/chain.png" width="12">
+                <i class='bx bx-expand-vertical' ></i>
             </button>
             <button class="close-btn" onclick="handleDelete('transContainer')">
-              <i class='bx bx-x'></i>
+                <i class='bx bx-x'></i>
             </button>
           </div>
         </div>
@@ -1262,7 +1260,7 @@ const renderTranslate = (arr) => {
         <div class="transItemPhonetic">
           <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
           <button class="sound-btn" id="tranSoundBtn">
-            <img src="./img/volume.png" width="15">
+            <i class='bx bx-volume-full'></i>
           </button>
         </div>
         <div>

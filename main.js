@@ -305,27 +305,22 @@ const fetchGetQuote = (num) => {
       <div class="explainContainer">
         <div class="explainHeader">
         <button class="closeBtn closeBtnSVG" onclick="handleDelete('quoteContainer')">
-          <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
-            <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
-          </svg>
+          <i class='bx bx-x'></i>
         </button>
         </div>
         <div class="explainBody">
-          <div class="wordType">
+          <div class="quoteBtnContainer">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="quoteSVG" viewBox="0 0 1.04 1.04" xml:space="preserve"><path d="M.76.166v.708c0 .02-.026.034-.044.018L.292.546a.032.032 0 0 1 0-.05l.424-.35C.734.132.76.144.76.166z"/></svg>
+            <i class='bx bxs-left-arrow'></i>
           </button>
-          <button class="quoteBtn" onclick="checkQuote(${!data.check})">
-            ${data.check ? `<svg width="20" height="20" viewBox="0 0 1.28 1.28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.907.123H.388a.196.196 0 0 0-.196.196v.726a.118.118 0 0 0 .188.094L.624.956a.038.038 0 0 1 .045 0l.244.183a.118.118 0 0 0 .188-.094V.319A.196.196 0 0 0 .905.123Z" fill="#f3f302"/></svg>` :
-          `<svg width="20" height="20" viewBox="0 0 1.28 1.28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.907.123H.388a.196.196 0 0 0-.196.196v.726a.118.118 0 0 0 .188.094L.624.956a.038.038 0 0 1 .045 0l.244.183a.118.118 0 0 0 .188-.094V.319A.196.196 0 0 0 .905.123Z" fill="#3a3124"/></svg>`}
+          <button class="quoteBtn quoteBtnBookmark" onclick="checkQuote(${!data.check})">
+            ${data.check ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>` : `<i class='bx bx-book-bookmark' ></i>`}
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="quoteSVG" viewBox="0 0 1.04 1.04" xml:space="preserve" transform="scale(-1 1)"><path d="M.76.166v.708c0 .02-.026.034-.044.018L.292.546a.032.032 0 0 1 0-.05l.424-.35C.734.132.76.144.76.166z"/></svg>
+            <i class='bx bxs-right-arrow' ></i>
           </button>
-          <button class="quoteBtn" id="clipboardBtn" onclick="copyQuote()">
-            <svg width="18" height="18" class="quoteSVG" viewBox="0 0 0.45 0.45" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#0D0D0D"/>
-            </svg>
+          <button class="quoteBtn quoteBtnClipboard" id="clipboardBtn" onclick="copyQuote()">
+            <i class='bx bx-copy'></i>
           </button>
           </div>
           <div id="quoteContent">${data.value}</div>
@@ -346,9 +341,7 @@ const checkQuote = (check) => {
 const copyQuote = () => {
   let textToCopy = $('#quoteContent').text();
   navigator.clipboard.writeText(textToCopy).then((res) => {
-    $('#clipboardBtn').html(`<svg width="17" height="17" viewBox="0 0 0.45 0.45" fill="#785c3a" xmlns="http://www.w3.org/2000/svg">
-    <path d="M.15.056A.019.019 0 0 1 .169.037h.112A.019.019 0 0 1 .3.056h.037a.037.037 0 0 1 .037.037v.281a.037.037 0 0 1-.037.037H.112A.037.037 0 0 1 .075.374v-.28A.037.037 0 0 1 .112.057h.037zm0 .037H.112v.281h.225V.093H.3v.019a.019.019 0 0 1-.019.019H.169A.019.019 0 0 1 .15.113V.094zM.262.074H.187v.019h.075V.075z" fill="#785c3a"/>
-  </svg>`)
+    $('#clipboardBtn').html(`<i class='bx bxs-copy' ></i>`)
   })
 }
 
@@ -357,9 +350,7 @@ const renderRssNews = () => {
   <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
   <div class="explainHeader">
   <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssHeaderContainer')">
-  <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
-    <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
-  </svg>
+    <i class='bx bx-x'></i>
   </button>
   </div>
   <div class="explainBody">
@@ -395,7 +386,7 @@ const renderRssNYT = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
     <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {
@@ -440,7 +431,7 @@ const renderRssNikkei = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {
@@ -473,7 +464,7 @@ const renderRssSCMP = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {
@@ -518,7 +509,7 @@ const renderRssAlJaz = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {
@@ -568,7 +559,7 @@ const renderRssYahoo = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {
@@ -611,7 +602,7 @@ const renderRssTheconversation = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("entry").each(function () {
@@ -658,7 +649,7 @@ const renderRssWSP = () => {
     document.getElementById('rssContainer').innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <img src="./img/close_circle.png" width="15" height="15">
+      <i class='bx bx-x'></i>
     </button>
     </div>`
     $(data).find("item").each(function () {

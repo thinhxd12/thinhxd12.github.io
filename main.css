@@ -460,14 +460,6 @@ body {
   background-size: 100%;
 }
 
-.cornerButton::after {
-  content: '';
-  display: block;
-  width: 90px;
-  height: 30px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgb(0 0 0 / 84%) 96%);
-}
-
 .cornerButton::before {
   content: '';
   display: block;
@@ -1078,7 +1070,7 @@ body {
   width: 81px;
   height: 72px;
   justify-content: center;
-  /* box-shadow: 0px -3px 12px rgba(0, 0, 0, 0.6); */
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -1374,7 +1366,7 @@ body {
 .historyBtnContainer {
   position: absolute;
   width: 18px;
-  bottom: 2px;
+  bottom: 3px;
   right: 0;
   z-index: 99;
   display: flex;
@@ -1386,20 +1378,9 @@ body {
   outline: none;
   border: none;
   cursor: pointer;
-  width: 18px;
-  height: 18px;
   background: none;
   transition: all 0.3s ease;
-}
-
-.historyBtn img {
-  width: 100%;
-  transform: rotate(-90deg);
-  transition: all 0.3s ease;
-}
-
-.historyBtn:hover img {
-  transform: rotate(-90deg) scale(1.2);
+  font-size: 13px;
 }
 
 .tableItem {
@@ -1491,9 +1472,6 @@ body {
   font-size: 0.785rem;
   line-height: 1.1rem;
   padding: 6px;
-  background: url("./img/paper.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
   color: #363636;
 }
 
@@ -1606,8 +1584,8 @@ div#contentBody {
   position: absolute;
   top: 0;
   right: 0;
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   outline: 0;
   border: 0;
   margin: 2px;
@@ -1616,24 +1594,19 @@ div#contentBody {
   background: transparent;
   justify-content: center;
   border-radius: 50%;
+  border: 0.3px solid #000;
 }
 
 .closeBtnSVG {
   background: #070707;
   transition: all 0.3s ease;
   border: 0.3px solid #503f2b;
+  color: #3a3124;
 }
 
 .closeBtnSVG:hover {
   background: #000000;
-}
-
-.closeBtnSVG svg path {
-  fill: #3a3124;
-}
-
-.closeBtnSVG:hover svg path {
-  fill: #785c3a;
+  color: #785c3a;
 }
 
 .soundBtnSVG {
@@ -1750,42 +1723,40 @@ span.x::before {
   text-transform: lowercase;
 }
 
-.quoteBtn {
-  display: inline-flex;
-  justify-content: center;
+.quoteBtnContainer {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
+  padding-top: 3px;
+  border-bottom: 1px solid #343434;
+}
+
+.quoteBtn i {
+  font-size: .85rem;
+}
+
+.quoteBtnBookmark i {
+  font-size: 1.35rem;
+
+}
+
+.quoteBtnClipboard i {
+  font-size: 1.2rem;
+}
+
+.quoteBtn {
   cursor: pointer;
   outline: 0;
-  margin-right: 6px;
-  margin-bottom: 3px;
-  padding-bottom: 1px;
-  vertical-align: middle;
-  width: 21px;
-  height: 21px;
   border-radius: 50%;
   background: transparent;
   transition: all 0.3s ease;
   border: none;
+  margin-right: 6px;
+  color: #3a3124;
 }
 
 .quoteBtn:hover {
-  transform: scale(1.1);
-}
-
-.quoteBtn .quoteSVG path {
-  fill: #3a3124;
-}
-
-.quoteBtn:hover .quoteSVG path {
-  fill: #785c3a;
-}
-
-.quoteBtn:hover .quoteSVG {
-  fill: #785c3a;
-}
-
-.quoteBtn img {
-  vertical-align: middle;
+  color: #785c3a;
 }
 
 /* ------------translate----- */

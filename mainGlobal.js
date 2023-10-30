@@ -602,10 +602,10 @@ const setNextMonthTable = () => {
         </div>
         <div style="display: flex;">
             <button class="close-btn" onclick="setNewHistoryItem()">
-            <img src="./img/complete.png" width="13">
+            <i class='bx bx-check'></i>
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="./img/close.png" width="9">
+            <i class='bx bx-x'></i>
             </button>
         </div>
         </div>
@@ -666,10 +666,10 @@ const commitNewWork = (row, numb) => {
         <span></span>
         <div style="display: flex;">
         <button class="close-btn" onclick="commitHistoryItem(${row},${numb})">
-            <img src="./img/complete.png" width="13">
+            <i class='bx bx-check'></i>
         </button>
         <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-            <img src="./img/close.png" width="9">
+            <i class='bx bx-x'></i>
         </button>
         </div>
     </div>
@@ -767,10 +767,10 @@ const setTodayWork = () => {
             <span>Set new week schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="importSchedule()">
-            <img src="./img/complete.png" width="13">
+            <i class='bx bx-check'></i>
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="./img/close.png" width="9">
+                <i class='bx bx-x'></i>
             </button>
             </div>
         </div>
@@ -821,10 +821,10 @@ const resetTodaySchedule = () => {
             <span>Reset today schedule!</span>
             <div style="display: flex;">
             <button class="close-btn" onclick="updateScheduleItem()">
-            <img src="./img/complete.png" width="13">
+            <i class='bx bx-check'></i>
             </button>
             <button class="close-btn" onclick="document.getElementById('calendarContent').innerHTML='';">
-                <img src="./img/close.png" width="9">
+                <i class='bx bx-x'></i>
             </button>
             </div>
         </div>
@@ -1095,7 +1095,7 @@ const renderFlashcard = (item, progress, row) => {
                         ${item.numb}
                         </span>
                     </div>
-                    ${row ? `<p class="cardRow"><small>No. </small>${row}</p>` : ''}
+                    ${row ? `<p class="cardRow">${row}</p>` : ''}
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
                     ${progress ? `<span class="progressFlip">
@@ -1155,9 +1155,7 @@ const renderExplain = (text, type, definitions, sound, divId) => {
         </svg>
       </button>
       <button class="closeBtn closeBtnSVG" onclick="handleDelete('${divId}')">
-      <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
-        <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
-      </svg>
+        <i class='bx bx-x'></i>
       </button>
       </div>
       <div class="explainBody">
@@ -1188,9 +1186,7 @@ const renderExplainGG = (headword, meaning) => {
     <div class="explainContainer">
       <div class="explainHeader">
       <button class="closeBtn closeBtnSVG" onclick="handleDelete('explainContainer')">
-      <svg width="15" height="15" viewBox="-0.112 -0.112 0.45 0.45" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close">
-        <path d="M.137.111.203.045A.019.019 0 1 0 .177.018L.111.084.044.018a.019.019 0 1 0-.026.026L.084.11.018.177a.019.019 0 1 0 .027.027L.111.138l.066.066A.019.019 0 1 0 .204.177L.137.111z"/>
-      </svg>
+        <i class='bx bx-x'></i>
       </button>
       </div>
       <div class="explainBody">
@@ -1253,7 +1249,7 @@ const renderTranslate = (arr) => {
               <img src="./img/chain.png" width="12">
             </button>
             <button class="close-btn" onclick="handleDelete('transContainer')">
-              <img src="./img/close.png" width="9">
+              <i class='bx bx-x'></i>
             </button>
           </div>
         </div>
@@ -1302,10 +1298,10 @@ const renderEditWord = () => {
             <span></span>
             <div style="display: flex;">
             <button class="close-btn" onclick="setEditWord()">
-                <img src="./img/complete.png" width="13">
+                <i class='bx bx-edit-alt' ></i>
             </button>
             <button class="close-btn" onclick="handleDelete('editContainer')">
-                <img src="./img/close.png" width="9">
+                <i class='bx bx-x'></i>
             </button>
             </div>
         </div>
@@ -1337,10 +1333,10 @@ const renderDeleteWord = () => {
             <span></span>
             <div style="display: flex;">
                 <button class="close-btn" onclick="setDeleteWord()">
-                  <img src="./img/bin.png" width="15">
+                    <i class='bx bx-trash-alt' ></i>
                 </button>
                 <button class="close-btn" onclick="handleDelete('editContainer')">
-                  <img src="./img/close.png" width="9">
+                  <i class='bx bx-x'></i>
                 </button>
             </div>
         </div>
@@ -1361,10 +1357,10 @@ const renderProxySelect = () => {
        <div class="transItemHeader">
             <div style="display: flex;">
                 <button class="close-btn" onclick="selectProxy()">
-                    <img src="./img/complete.png" width="13">
+                    <i class='bx bx-check'></i>
                 </button>
                 <button class="close-btn" onclick="handleDelete('editContainer')">
-                  <img src="./img/close.png" width="9">
+                  <i class='bx bx-x'></i>
                 </button>
             </div>
         </div>
@@ -1399,10 +1395,10 @@ const renderCollectionSelect = () => {
        <div class="transItemHeader">
             <div style="display: flex;">
                 <button class="close-btn" onclick="selectCollection()">
-                    <img src="./img/complete.png" width="13">
+                    <i class='bx bx-check'></i>
                 </button>
                 <button class="close-btn" onclick="handleDelete('editContainer')">
-                  <img src="./img/close.png" width="9">
+                  <i class='bx bx-x'></i>
                 </button>
             </div>
         </div>

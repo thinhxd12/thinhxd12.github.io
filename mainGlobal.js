@@ -108,6 +108,8 @@ $(".serverDot").click(function (e) {
     wakeupServer();
 });
 
+setInterval(wakeupServer, 840000);
+
 const fetchAndRenderCalendarData = async () => {
     await getAllData(CURRENT_COLLECTION.schedule).then(data => {
         data = data.sort((a, b) => new Date(a.date) - new Date(b.date))

@@ -1002,8 +1002,8 @@ const handleNextWord = () => {
         updateScheduleProgress(todayScheduleData._id, todayScheduleData.time);
     }
     let indexx = $('#wordRow').val() * 1 + autorunTime;
-    playTTSwithValue(item);
-    renderFlashcard(item, todayScheduleData?.startNum, indexx + 1);
+    playTTSwithValue(item, indexx + 1);
+    renderFlashcard(item, todayScheduleData?.startNum);
     item.numb > 1 ? handleCheckItem(item._id) : handleArchivedItem(item._id, item.text);
     if ((indexx + 1) % 50 == 0) {
         autorunTime = 50;
@@ -1040,14 +1040,14 @@ const handleArchivedItem = (id, text) => {
     }
 }
 
-const playTTSwithValue = (item) => {
+const playTTSwithValue = (item, row) => {
     const audioEl = document.getElementById("tts-audio");
     audioEl.volume = 1;
     if (item.sound?.length > 0) {
         audioEl.pause();
         audioEl.src = item.sound;
         audioEl.play();
-        renderExplain(item.text, item.class, item.definitions, item.sound, "explainContainer");
+        renderExplain(item.text, item.class, item.definitions, item.sound, "explainContainer", row);
     }
     else {
         textToSpeech(item.text);
@@ -1081,7 +1081,7 @@ const textToSpeech = (text) => {
 
 let flipTimer1, flipTimer2, flipTimer3;
 
-const renderFlashcard = (item, progress, row) => {
+const renderFlashcard = (item, progress) => {
     const audioEl = document.getElementById("tts-audio");
     clearTimeout(flipTimer1, flipTimer2, flipTimer3);
     let newNumb = item.numb - 1 > 0 ? item.numb - 1 : 0;
@@ -1098,7 +1098,6 @@ const renderFlashcard = (item, progress, row) => {
                         ${item.numb}
                         </span>
                     </div>
-                    ${row ? `<p class="cardRow">${row}</p>` : ''}
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
                     ${progress ? `<span class="progressFlip">
@@ -1146,12 +1145,13 @@ const hoverOut = () => {
     $('.item-wrapper').removeClass('item-hover');
 };
 
-const renderExplain = (text, type, definitions, sound, divId) => {
+const renderExplain = (text, type, definitions, sound, divId, row) => {
     const contentBody = document.getElementById(divId);
     const audioEl = document.getElementById("tts-audio");
     contentBody.innerHTML = `
     <div class="explainContainer">
       <div class="explainHeader">
+      
       <button class="soundBtnSVG" id="explainTextSoundBtn">
         <i class="bx bx-volume-full"></i>
       </button>
@@ -1160,7 +1160,7 @@ const renderExplain = (text, type, definitions, sound, divId) => {
       </button>
       </div>
       <div class="explainBody">
-        <div class="wordType"><span class="preWord">Definitions of</span><h2>${text}</h2><span class="pos">${type}</span></div>
+        <div class="wordType">${row ? `<span class="preRow">${row}. </span>` : `<span class="preWord">Definitions of</span>`}<h2>${text}</h2><span class="pos">${type}</span></div>
         ${definitions.map((item, index) => {
         return `<div class="sn-g">
         ${definitions.length > 1 ? `<span class="num">${index + 1}</span>` : ''}

@@ -258,6 +258,7 @@ $(document).keydown(function (e) {
         $('#transInput').val('');
         textInput = '';
         closeAllLists();
+        e.preventDefault();
         return;
     }
     let x = document.getElementsByClassName('my-item');

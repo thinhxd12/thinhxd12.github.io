@@ -241,6 +241,7 @@ $(document).keydown(function (e) {
       if (tabIndex == 2) {
         showSlides(slideIndex += 1);
       }
+      e.preventDefault();
       break;
     case 40:
       if (tabIndex == 2) {
@@ -249,6 +250,7 @@ $(document).keydown(function (e) {
         }
         showSlides(slideIndex += -1);
       }
+      e.preventDefault();
       break;
     default:
       break;

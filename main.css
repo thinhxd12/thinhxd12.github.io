@@ -1195,7 +1195,7 @@ body {
   display: inline-block;
   position: absolute;
   right: -6px;
-  bottom: 0px;
+  bottom: 1px;
   width: 3px;
   height: 3px;
   border-radius: 60%;
@@ -1219,15 +1219,15 @@ body {
 }
 
 .dayIndicate2 {
-  right: -11px;
+  right: -10px;
 }
 
 .todayDay .dayIndicate1 {
-  right: -9px;
+  right: -11px;
 }
 
 .todayDay .dayIndicate2 {
-  right: -14px;
+  right: -15px;
 }
 
 #todayReset {

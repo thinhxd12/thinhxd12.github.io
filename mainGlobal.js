@@ -412,8 +412,7 @@ const renderCalendar = (data) => {
     $("#calendarYear").html(todaysYear);
     let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
     $('.dateProgressDiv').html(dateProgressDivText);
-    // $('div.weekDate').eq(todaysWeekDay).css('color', '#000000');
-    $('.calendarHeader').css('background-image', `url("./img/${todaysMonth + 1}.jpg")`);
+    $('.calendarContent').css('background-image', `url("./img/${todaysMonth + 1}.jpg")`);
 
     let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
     let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
@@ -966,7 +965,7 @@ const startAutoPlayWord = () => {
 function play() {
     isTimerStarted = true;
     handleNextWord();
-    if (autorunTime < 49) {
+    if (autorunTime < wordList.length - 1) {
         currentTimeout = setTimeout(play, 7500);
         autorunTime++;
     } else stop();
@@ -1133,8 +1132,8 @@ const renderFlashcard = (item, progress) => {
         audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`;
         audioEl.play();
     }, 2500);
-    flipTimer2 = setTimeout(hoverIn, 3000);
-    flipTimer3 = setTimeout(hoverOut, 5000);
+    flipTimer2 = setTimeout(hoverIn, 3500);
+    flipTimer3 = setTimeout(hoverOut, 5500);
 };
 
 const hoverIn = (text) => {
@@ -1486,7 +1485,6 @@ const renderEditWordDefinition = (val, divId) => {
     textData.definitions = [];
 
     function getTextData(val) {
-        console.log('english');
         $.get(urlEnglish, function (html) {
             let mp3Link = $(html).find('.audio_play_button.pron-us').attr('data-src-mp3');
             if (mp3Link) {

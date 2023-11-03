@@ -1511,8 +1511,8 @@ const renderEditWordDefinition = (val, divId) => {
                     textData.definitions.push(def);
                 })
                 renderExplain(textData.text, textData.class, textData.definitions, textData.sound, divId);
-
             }
+            else textData = { text: '', sound: '', class: '', definitions: [] };
         });
     }
 

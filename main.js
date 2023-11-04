@@ -149,7 +149,7 @@ const fetchRenderImgBackground = (numb) => {
     $('#imgDesc').html(imgDateGet).append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
     $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
     $('.calendarFooterBlurImg').css('background-image', 'url(' + imgSrcGet + ')');
-    $('.item-back').css('background-image', 'url(' + imgSrcGet + ')');
+    $('.flashCardContainer').css('background-image', 'url(' + imgSrcGet + ')');
   })
 }
 

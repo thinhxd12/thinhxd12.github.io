@@ -535,7 +535,7 @@ body {
 
 .item-hover .item-back,
 .item-wrapper:hover .item-back {
-  background-size: 101%;
+  background-size: 100%;
 }
 
 .item-hover .indicateFlip,
@@ -555,9 +555,21 @@ body {
   z-index: 2;
   padding: 18px 18px 18px 72px;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  background-image: url("./img/nietzsche.jpg");
-  background-size: 118%;
-  background-position: right bottom;
+  /* background-image: url("./img/nietzsche.jpg");*/
+  /* background-position: right bottom;  */
+  background-size: 120%;
+  background-position: center;
+}
+
+.item-back::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(./img/noise.png);
+  backdrop-filter: blur(0.3px) brightness(0.72);
 }
 
 .flip-card-front-content {
@@ -654,7 +666,7 @@ body {
   color: #fff;
   text-align: left;
   white-space: break-spaces;
-  text-shadow: 0 2px 2px #00000030;
+  text-shadow: 0 2px 3px #000000b0;
 }
 
 /* -----------input search----------- */
@@ -1456,7 +1468,7 @@ body {
   overflow-y: scroll;
   position: relative;
   background: url("./img/noise.png");
-  backdrop-filter: blur(9px) brightness(0.2);
+  backdrop-filter: blur(18px) brightness(0.21);
 }
 
 .contentBody::-webkit-scrollbar {

@@ -972,7 +972,7 @@ body {
 
 .calendarCardContent {
   background: #fffffff6;
-  padding: 6px 18px 1px;
+  padding: 6px 15px 1px;
 }
 
 .weekDate {
@@ -1260,7 +1260,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 18px 6px 27px;
+  padding: 0 15px 6px 27px;
 }
 
 .calendarFooterQuote p {
@@ -1470,7 +1470,7 @@ body {
   overflow-y: scroll;
   position: relative;
   background: url("./img/noise.png");
-  backdrop-filter: blur(18px) brightness(0.21);
+  backdrop-filter: blur(9px) brightness(0.21);
 }
 
 .contentBody::-webkit-scrollbar {

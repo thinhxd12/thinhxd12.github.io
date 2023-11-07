@@ -241,8 +241,8 @@ $(document).keydown(function (e) {
     case 38:
       if (tabIndex == 2) {
         showSlides(slideIndex += 1);
+        e.preventDefault();
       }
-      e.preventDefault();
       break;
     case 40:
       if (tabIndex == 2) {
@@ -250,8 +250,8 @@ $(document).keydown(function (e) {
           $('#calendarContent').html('');
         }
         showSlides(slideIndex += -1);
+        e.preventDefault();
       }
-      e.preventDefault();
       break;
     default:
       break;

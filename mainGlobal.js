@@ -1674,8 +1674,7 @@ const handleAddTextEnd = () => {
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
             $('#addNewW').val('');
-            $('#contentBody').html('');
-
+            $('#explainContainer,#transContainer').html('');
             getAllData(CURRENT_COLLECTION.collection).then(data => {
                 let newdata = data.sort((a, b) => a._id - b._id);
                 localStorage.removeItem('sheetData');

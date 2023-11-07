@@ -108,7 +108,11 @@ $(".serverDot").click(function (e) {
     wakeupServer();
 });
 
-setInterval(wakeupServer, 840000);
+setInterval(function () {
+    wakeupServer();
+    fetchAndRenderMonthImg();
+}, 840000);
+
 
 const fetchAndRenderCalendarData = async () => {
     await getAllData(CURRENT_COLLECTION.schedule).then(data => {
@@ -731,15 +735,15 @@ const fetchAndRenderMonthImg = () => {
         let jsImageP = itemObj["image_fullscreen_001_portrait"];
         let jsImageL = itemObj["image_fullscreen_001_landscape"];
 
-        let contentTextTop = `<div class="topCalendarText">${title}</div>`;
-        title ? $('#topCalendarText').html(contentTextTop) : '';
-        let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
-        text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
-        $('#calendarHeader').css('background-image', `url(${jsImageL.u})`);
+        // let contentTextTop = `<div class="topCalendarText">${title}</div>`;
+        // title ? $('#topCalendarText').html(contentTextTop) : '';
+        // let contentTextBottom = `<div class="bottomCalendarText">${text1}</div>`;
+        // text1 ? $('#bottomCalendarText').html(contentTextBottom) : '';
+        $('.flashCardContainer').css('background-image', `url(${jsImageL.u})`);
     })
 }
 
-// fetchAndRenderMonthImg();
+fetchAndRenderMonthImg();
 
 //change monthImg every 30m
 // setInterval(() => {

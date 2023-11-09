@@ -551,14 +551,14 @@ const setTodayProgressHtml = (valid) => {
     }
     else if (todayData) {
         $("#todayProgressHtml").html(`
-        <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #fff;"' : ''}>
+        <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #000;"' : ''}>
             <span class="dateProgressImg">
             ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
             </span>
             <span onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50}</span>
             <span class="dateProgressFraction">${todayData.time1}/9</span>
         </div>
-        <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #fff;"' : ''}>
+        <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #000;"' : ''}>
             <span class="dateProgressImg">
             ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ''}
             </span>

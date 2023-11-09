@@ -570,7 +570,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url(./img/noise.png);
   backdrop-filter: blur(0.3px) brightness(0.72);
 }
 
@@ -1077,13 +1076,13 @@ body {
   flex-direction: column;
   cursor: pointer;
   position: absolute;
-  top: 186px;
+  top: 201px;
   right: 12px;
   z-index: 99;
   background: #f4f4f4bd;
   border-radius: 1px;
-  height: 70px;
-  width: 80px;
+  height: 54px;
+  width: 63px;
   justify-content: center;
   box-shadow: 0px 3px 9px #000000;
 }
@@ -1098,18 +1097,18 @@ body {
 }
 
 #calendarMonth {
-  font-size: 0.72rem;
+  font-size: 10px;
   text-transform: uppercase;
-  margin-bottom: 9px;
+  margin-bottom: 3px;
   font-weight: bold;
   font-family: 'Roslindale';
 }
 
 #calendarYear {
-  font-size: 30px;
+  font-size: 21px;
   line-height: 1.25rem;
-  margin-bottom: 6px;
   font-family: 'Roslindale';
+  margin-bottom: 2px;
   font-weight: bold;
 }
 
@@ -1124,24 +1123,26 @@ body {
   justify-content: flex-start;
   cursor: pointer;
   color: #ededed;
-  text-shadow: 0px 1px 2px #000000d1;
-  margin-right: 12px;
-  font-size: 0.725rem;
+  font-size: 0.625rem;
+  transition: all 0.3s ease;
+}
+
+.dateProgressContent:first-child {
+  margin-right: 18px;
 }
 
 .dateProgressContent span {
   display: flex;
   align-items: center;
-  text-shadow: 1px 2px 3px #000000d1;
 }
 
 .dateProgressImg {
-  margin-right: 1px;
+  margin-left: 9px;
   min-width: 18px;
 }
 
 .dateProgressContent:hover {
-  color: white;
+  text-shadow: 0px 0px 6px #000000d1;
 }
 
 .dateProgressFraction {
@@ -1263,12 +1264,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 15px 6px 27px;
+  padding: 0 15px 3px 15px;
 }
 
 .calendarFooterQuote p {
   border-top: 1px solid #383838;
-  padding-top: 3px;
+  border-bottom: 1px solid #383838;
+  padding: 3px 0;
   font-size: 0.58em;
   font-family: "nyt-cheltenham";
   color: #000;
@@ -1372,7 +1374,8 @@ body {
   font-family: "Rubik", sans-serif;
   position: relative;
   z-index: 1;
-  margin: 3px 0;
+  padding: 3px 15px;
+  background: #fffffff6;
 }
 
 #historyTable {
@@ -1386,7 +1389,7 @@ body {
   position: absolute;
   width: 18px;
   bottom: 3px;
-  right: 0;
+  right: -2px;
   z-index: 99;
   display: flex;
   flex-direction: column;
@@ -1399,13 +1402,13 @@ body {
   cursor: pointer;
   background: none;
   transition: all 0.3s ease;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .tableItem {
   width: 100%;
   display: flex;
-  margin-bottom: 1px;
+  margin-bottom: 3px;
   justify-content: center;
 }
 
@@ -1416,22 +1419,22 @@ body {
   padding: 4px 6px;
   color: #fff;
   position: relative;
-  background: #0707075c;
+  background: #161616;
   cursor: default;
   height: 18px;
-  font-size: 0.725rem;
+  font-size: 11px;
 }
 
 .term_not_complete {
   height: 18px;
-  font-size: 0.725rem;
+  font-size: 11px;
   width: 100px;
   display: flex;
   align-items: center;
   padding: 4px 6px;
-  color: #ffffff38;
+  color: #ffffff73;
   position: relative;
-  background: #0707075c;
+  background: #161616;
   cursor: pointer;
 }
 
@@ -1439,24 +1442,26 @@ body {
   color: #fff;
 }
 
-.term::after {
+.term::after,
+.term_not_complete::after {
   content: "";
   width: 6px;
   height: 10px;
   position: absolute;
-  background: #0707076c;
+  background: #161616;
   left: 100%;
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
 }
 
 .desc {
+  font-size: 11px;
   flex-grow: 1;
-  background-color: #fafafa17;
   display: flex;
   align-items: center;
   padding-left: 20px;
   cursor: default;
   color: #000;
+  box-shadow: 0px 0px 3px #0000004a inset;
 }
 
 .desc>span:first-of-type {

@@ -68,10 +68,6 @@ const startHandler = () => {
   renderTomatoTick();
   timerTimeout = setTimeout(() => {
     $('#tomatoText').hide();
-    $('.buttonsContainer').removeClass('buttonsContainerShow');
-    setTimeout(() => {
-      $('.buttonsContainer').addClass('buttonsContainerShow');
-    }, 500);
     showDesktopNotification();
     const audioEl = document.getElementById("tts-audio");
     audioEl.src = "./sound/iPhone DJ Remix Ringtone 2019.mp3";
@@ -143,7 +139,6 @@ const fetchRenderImgBackground = (numb) => {
     let imgAttGet = $(html).find('.main-description__attr');
     let imgAuthorGet = $(html).find('.main-description__authors');
     let imgTextGet = $(html).find('.main-description__text-content');
-    let imgDescGet = imgDateGet + imgTitleGet + imgAttGet + imgAuthorGet + imgTextGet;
     $('#imgSrc').attr('src', imgSrcGet);
     $('#imgSrcBlurred').attr('src', imgSrcGet);
     $('#imgDesc').html(imgDateGet).append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
@@ -257,18 +252,6 @@ $(document).keydown(function (e) {
       break;
   }
 });
-
-$('.bottomRightOrnament').mouseover(function () {
-  $('.buttonsContainer').removeClass('buttonsContainerShow');
-  $('.buttonsContainer').addClass('buttonsContainerShow');
-});
-
-$('.bottomRightOrnament').mouseleave(function () {
-  $('.buttonsContainer').removeClass('buttonsContainerShow');
-});
-
-
-
 
 
 // -------Zoomimage----------

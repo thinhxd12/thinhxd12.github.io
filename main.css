@@ -196,6 +196,16 @@ body {
   bottom: 0;
   right: 0;
   z-index: 33;
+}
+
+.bottomRightOrnament::after {
+  content: "";
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 33;
   background-image: url("./img/bottom-right-corner.png");
   background-position: right bottom;
   background-repeat: no-repeat;
@@ -795,13 +805,15 @@ body {
 
 .tomatoText {
   position: absolute;
-  bottom: 5px;
-  right: 0px;
+  z-index: 1;
+  opacity: 0;
+  bottom: 10px;
+  right: 6px;
   font-size: 8px;
   font-family: "basier", sans-serif;
   border-radius: 3px;
-  width: 17px;
-  height: 11px;
+  width: 16px;
+  height: 10px;
   z-index: inherit;
   line-height: 10px;
   text-align: center;
@@ -852,50 +864,95 @@ body {
   cursor: pointer;
 }
 
-.buttonsContainer {
-  position: absolute;
-  bottom: 30px;
-  right: -60px;
-  z-index: 1;
-  cursor: default;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 3px;
-  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  opacity: 0;
-}
-
-.bottomRightOrnament:hover+.buttonsContainer,
-.buttonsContainer:hover {
-  right: 12px;
+.bottomRightOrnament:hover .fncButton:nth-child(1) {
+  right: 4px;
+  bottom: 73px;
   opacity: 1;
   z-index: 36;
 }
 
-.buttonsContainerShow {
-  right: 12px;
+.bottomRightOrnament:hover .fncButton:nth-child(2) {
+  right: 26px;
+  bottom: 64px;
   opacity: 1;
   z-index: 36;
+  transition-delay: 50ms;
 }
 
-.buttonsContainer .bx {
-  line-height: 0.9rem;
+.bottomRightOrnament:hover .fncButton:nth-child(3) {
+  right: 48px;
+  bottom: 48px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 100ms;
+}
+
+.bottomRightOrnament:hover .fncButton:nth-child(4) {
+  right: 64px;
+  bottom: 26px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 150ms;
+}
+
+.bottomRightOrnament:hover .fncButton:nth-child(5) {
+  right: 73px;
+  bottom: 4px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 200ms;
+}
+
+.bottomRightOrnament:hover .fncButton:nth-child(6) {
+  right: 45px;
+  bottom: 24px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 250ms;
+}
+
+.bottomRightOrnament:hover .fncButton:nth-child(7) {
+  right: 28px;
+  bottom: 28px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 300ms;
+}
+
+.bottomRightOrnament:hover .fncButton:nth-child(8) {
+  right: 23px;
+  bottom: 46px;
+  opacity: 1;
+  z-index: 36;
+  transition-delay: 350ms;
+}
+
+
+.bottomRightOrnament:hover .tomatoText {
+  bottom: 47px;
+  z-index: 36;
+  opacity: 1;
+  transition-delay: 700ms;
 }
 
 .fncButton {
   display: inline-block;
+  border-radius: 27%;
+  position: inherit;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1;
   font-size: 0.85rem;
   color: #a09481;
-  /* color: #7c7b7a; */
   cursor: pointer;
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
   padding: 1px;
   border-radius: 2px;
   transition: all 0.3s ease;
   background: #070707;
-  box-shadow: 1px 2px 3px #000000d1;
+  box-shadow: 1px 2px 3px #000000a3;
+  opacity: 0;
 }
 
 .fncButton:hover {

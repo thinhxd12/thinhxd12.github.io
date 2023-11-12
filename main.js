@@ -1,10 +1,9 @@
-
 const proxyArr = [
   { link: "https://mywebapp.abcworker.workers.dev/", active: true },
   { link: "https://cors-proxy.fringe.zone/", active: false },
   { link: "https://api.codetabs.com/v1/proxy?quest=", active: false },
-  { link: "none", active: false }
-]
+  { link: "none", active: false },
+];
 let URL_CORS = proxyArr[0].link;
 const collectionsArr = [
   {
@@ -13,7 +12,7 @@ const collectionsArr = [
     pass: "passed",
     history: "history",
     schedule: "schedule",
-    active: true
+    active: true,
   },
   {
     name: "日本語",
@@ -21,13 +20,12 @@ const collectionsArr = [
     pass: "passed1",
     history: "history1",
     schedule: "schedule1",
-    active: false
+    active: false,
   },
-]
+];
 let CURRENT_COLLECTION = collectionsArr[0];
-const MAIN_PAGE_URL = "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
-
-
+const MAIN_PAGE_URL =
+  "https://www.getdailyart.com/en/21/paul-signac/the-red-buoy-saint-tropez";
 
 const START_MINUTES = "06";
 const START_SECOND = "00";
@@ -36,8 +34,6 @@ let notifyMessageFlag = false;
 let timerTimeout = null;
 let tickTimeout = null;
 
-
-
 const renderTomatoTick = () => {
   let timeCount = parseInt(START_SECOND, 10) + 60 * parseInt(START_MINUTES, 10);
   function tick() {
@@ -45,76 +41,78 @@ const renderTomatoTick = () => {
     let t = 60;
     if (timeCount > 0) {
       tickTimeout = setTimeout(tick, t * 1000);
-      $('#tomatoText').show();
-      $('#tomatoText').text(timeCount / 60 + 'm');
+      $("#tomatoText").show();
+      $("#tomatoText").html(
+        timeCount / 60 + "<i class='bx bxs-hourglass-bottom'></i>"
+      );
       timeCount = timeCount - t;
       count++;
-    }
-    else {
-      $('#tomatoText').text('');
-      $('#tomatoText').hide();
+    } else {
+      $("#tomatoText").text("");
+      $("#tomatoText").hide();
       clearTimeout(tickTimeout);
       return;
     }
   }
   tick();
-}
+};
 
 const startHandler = () => {
-  const timeCount = parseInt(START_SECOND, 10) * 1000 + 60 * parseInt(START_MINUTES, 10) * 1000;
-  $('#tomatoText').show();
+  const timeCount =
+    parseInt(START_SECOND, 10) * 1000 + 60 * parseInt(START_MINUTES, 10) * 1000;
+  $("#tomatoText").show();
   clearTimeout(timerTimeout);
   clearTimeout(tickTimeout);
   renderTomatoTick();
   timerTimeout = setTimeout(() => {
-    $('#tomatoText').hide();
+    $("#tomatoText").hide();
     showDesktopNotification();
     const audioEl = document.getElementById("tts-audio");
     audioEl.src = "./sound/iPhone DJ Remix Ringtone 2019.mp3";
     audioEl.volume = 1;
     audioEl.play();
   }, timeCount);
-}
+};
 
 const resetHandler = () => {
   clearTimeout(tickTimeout);
   clearTimeout(timerTimeout);
-  $('#tomatoText').hide();
+  $("#tomatoText").hide();
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
-}
+};
 
 const showDesktopNotification = () => {
   let bodyText = notifyMessageFlag ? "Start Focusing" : "Take a Short Break";
-  const img = 'https://cdn-icons-png.flaticon.com/512/1790/1790418.png';
+  const img = "https://cdn-icons-png.flaticon.com/512/1790/1790418.png";
   const notification = new Notification(bodyText, {
     icon: img,
-    requireInteraction: true  //requireInteraction In macos set notification Chrome to Alert not Banner
-  })
+    requireInteraction: true, //requireInteraction In macos set notification Chrome to Alert not Banner
+  });
 
-  notification.addEventListener('click', (e) => {
+  notification.addEventListener("click", (e) => {
     startHandler();
-  })
+  });
 
   notification.onclose = (event) => {
     resetHandler();
     startAutoPlayWord();
   };
-}
+};
 
 if (Notification.permission !== "granted") {
-  Notification.requestPermission().then(permission => {
+  Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
       showDesktopNotification();
     }
-  })
+  });
 }
 
-$('#tomatoButton').click(function (e) {
+$("#tomatoButton").click(function (e) {
   startHandler();
 });
 
-$('#tomatoText').click(function (e) {
+$("#tomatoText").click(function (e) {
   resetHandler();
 });
 
@@ -122,63 +120,71 @@ let historyImgArr = [];
 
 const fetchImgLinkArr = () => {
   $.get(URL_CORS + MAIN_PAGE_URL, function (html) {
-    historyImgArr = $(html).find('.also__item > a').map(function () {
-      return $(this).attr('href');
-    }).get();
+    historyImgArr = $(html)
+      .find(".also__item > a")
+      .map(function () {
+        return $(this).attr("href");
+      })
+      .get();
     fetchRenderImgBackground(0);
   });
-}
+};
 
 fetchImgLinkArr();
 
 const fetchRenderImgBackground = (numb) => {
   $.get(URL_CORS + historyImgArr[numb], function (html) {
-    let imgSrcGet = $(html).find('.main-image img').attr('src');
-    let imgDateGet = $(html).find('.main-description__share-date');
-    let imgTitleGet = $(html).find('.main-description__title');
-    let imgAttGet = $(html).find('.main-description__attr');
-    let imgAuthorGet = $(html).find('.main-description__authors');
-    let imgTextGet = $(html).find('.main-description__text-content');
-    $('#imgSrc').attr('src', imgSrcGet);
-    $('#imgSrcBlurred').attr('src', imgSrcGet);
-    $('#imgDesc').html(imgDateGet).append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
-    $('.mainFixedContent').css('background-image', 'url(' + imgSrcGet + ')');
-    $('.calendarFooterBlurImg').css('background-image', 'url(' + imgSrcGet + ')');
+    let imgSrcGet = $(html).find(".main-image img").attr("src");
+    let imgDateGet = $(html).find(".main-description__share-date");
+    let imgTitleGet = $(html).find(".main-description__title");
+    let imgAttGet = $(html).find(".main-description__attr");
+    let imgAuthorGet = $(html).find(".main-description__authors");
+    let imgTextGet = $(html).find(".main-description__text-content");
+    $("#imgSrc").attr("src", imgSrcGet);
+    $("#imgSrcBlurred").attr("src", imgSrcGet);
+    $("#imgDesc")
+      .html(imgDateGet)
+      .append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
+    $(".mainFixedContent").css("background-image", "url(" + imgSrcGet + ")");
+    $(".calendarFooterBlurImg").css(
+      "background-image",
+      "url(" + imgSrcGet + ")"
+    );
     // $('.flashCardContainer').css('background-image', 'url(' + imgSrcGet + ')');
-  })
-}
+  });
+};
 
 let slideImgIndex = 0;
 
 const showImage = (n) => {
   if (n > historyImgArr.length - 1) {
-    slideImgIndex = 0
+    slideImgIndex = 0;
   }
   if (n < 0) {
     slideImgIndex = historyImgArr.length - 1;
   }
   fetchRenderImgBackground(slideImgIndex);
-}
+};
 
-$('.imgBtnLeft').click(function (e) {
-  showImage(slideImgIndex += -1);
+$(".imgBtnLeft").click(function (e) {
+  showImage((slideImgIndex += -1));
 });
 
-$('.imgBtnRight').click(function (e) {
-  showImage(slideImgIndex += 1);
+$(".imgBtnRight").click(function (e) {
+  showImage((slideImgIndex += 1));
 });
 
-$('.footerBtn').click(function (e) {
-  $('.footerBtn').removeClass("footerBtnActive");
+$(".footerBtn").click(function (e) {
+  $(".footerBtn").removeClass("footerBtnActive");
   $(this).addClass("footerBtnActive");
   switch (this.name) {
-    case 'tab1':
+    case "tab1":
       showTab(1);
       break;
-    case 'tab2':
+    case "tab2":
       showTab(2);
       break;
-    case 'tab3':
+    case "tab3":
       showTab(3);
       break;
     default:
@@ -187,7 +193,7 @@ $('.footerBtn').click(function (e) {
 });
 
 const showLastTimeLog = () => {
-  let time = sessionStorage.getItem('lastTime');
+  let time = sessionStorage.getItem("lastTime");
   let date1 = new Date(time * 1);
   let date2 = new Date();
   let diff = date2.getTime() - date1.getTime();
@@ -198,53 +204,57 @@ const showLastTimeLog = () => {
   msec -= hh * 1000 * 60 * 60;
   let mm = Math.floor(msec / 1000 / 60);
   msec -= mm * 1000 * 60;
-  let resMsg = dd > 0 ? dd + ' days ago' : hh > 0 ? hh + ' hours ago' : mm + ' minutes ago';
-  $('.timeLog').html('Last opened ' + resMsg);
-}
-
+  let resMsg =
+    dd > 0
+      ? dd + " days ago"
+      : hh > 0
+      ? hh + " hours ago"
+      : mm + " minutes ago";
+  $(".timeLog").html("Last opened " + resMsg);
+};
 
 var tabIndex = 1;
 const showTab = (n) => {
   tabIndex = n;
   if (n > 3) {
-    tabIndex = 1
+    tabIndex = 1;
   }
   if (n < 1) {
     tabIndex = 3;
   }
-  $('.city').hide();
+  $(".city").hide();
   $(`#tab${tabIndex}`).show();
-  $('.footerBtn').removeClass("footerBtnActive");
+  $(".footerBtn").removeClass("footerBtnActive");
   $(`.tabButton[name="tab${tabIndex}"]`).addClass("footerBtnActive");
 
   if (tabIndex == 2) {
     fetchAndRenderCalendarData();
     showLastTimeLog();
   }
-}
+};
 
-var textInput = '';
+var textInput = "";
 $(document).keydown(function (e) {
   if ($(e.target).is("input,select")) return;
   switch (e.keyCode) {
     case 37:
-      showTab(tabIndex += -1);
+      showTab((tabIndex += -1));
       break;
     case 39:
-      showTab(tabIndex += 1);
+      showTab((tabIndex += 1));
       break;
     case 38:
       if (tabIndex == 2) {
-        showSlides(slideIndex += 1);
+        showSlides((slideIndex += 1));
         e.preventDefault();
       }
       break;
     case 40:
       if (tabIndex == 2) {
         if (slideIndex == dataHistory.length) {
-          $('#calendarContent').html('');
+          $("#calendarContent").html("");
         }
-        showSlides(slideIndex += -1);
+        showSlides((slideIndex += -1));
         e.preventDefault();
       }
       break;
@@ -252,7 +262,6 @@ $(document).keydown(function (e) {
       break;
   }
 });
-
 
 // -------Zoomimage----------
 
@@ -276,17 +285,19 @@ $(".zoom_image")
           ((e.pageX - $(this).offset().left) / $(this).width()) * 100 +
           "% " +
           ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +
-          "%"
+          "%",
       });
   });
 
 //get quote from sheets
 
-const ggquote = 'https://script.google.com/macros/s/AKfycbwoQdwSwrevYk3Ml_61iehDX0NBqsbG5VBQqWoFZcLPPFfWMCed2rgd-JBitqXaymak/exec';
+const ggquote =
+  "https://script.google.com/macros/s/AKfycbwoQdwSwrevYk3Ml_61iehDX0NBqsbG5VBQqWoFZcLPPFfWMCed2rgd-JBitqXaymak/exec";
 
 const fetchGetQuote = (num) => {
-  fetch(ggquote + `?action=getBookmark&num=${num}`).then(res => res.json())
-    .then(data => {
+  fetch(ggquote + `?action=getBookmark&num=${num}`)
+    .then((res) => res.json())
+    .then((data) => {
       let body = `
       <div class="explainContainer">
         <div class="explainHeader">
@@ -300,7 +311,11 @@ const fetchGetQuote = (num) => {
             <i class='bx bxs-left-arrow'></i>
           </button>
           <button class="quoteBtn quoteBtnBookmark" onclick="checkQuote(${!data.check})">
-            ${data.check ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>` : `<i class='bx bx-book-bookmark' ></i>`}
+            ${
+              data.check
+                ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>`
+                : `<i class='bx bx-book-bookmark' ></i>`
+            }
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
             <i class='bx bxs-right-arrow' ></i>
@@ -312,27 +327,28 @@ const fetchGetQuote = (num) => {
           <div id="quoteContent">${data.value}</div>
         </div>
       </div>  
-        `
-      $('#quoteContainer').html(body);
-    })
-}
+        `;
+      $("#quoteContainer").html(body);
+    });
+};
 
 const checkQuote = (check) => {
-  fetch(ggquote + `?action=setBookmark&check=${check}`).then(res => res.text())
-    .then(data => {
-      fetchGetQuote(0)
-    })
-}
+  fetch(ggquote + `?action=setBookmark&check=${check}`)
+    .then((res) => res.text())
+    .then((data) => {
+      fetchGetQuote(0);
+    });
+};
 
 const copyQuote = () => {
-  let textToCopy = $('#quoteContent').text();
+  let textToCopy = $("#quoteContent").text();
   navigator.clipboard.writeText(textToCopy).then((res) => {
-    $('#clipboardBtn').html(`<i class='bx bxs-copy' ></i>`)
-  })
-}
+    $("#clipboardBtn").html(`<i class='bx bxs-copy' ></i>`);
+  });
+};
 
 const renderRssNews = () => {
-  document.getElementById('rssHeaderContainer').innerHTML = `
+  document.getElementById("rssHeaderContainer").innerHTML = `
   <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
   <div class="explainHeader">
   <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssHeaderContainer')">
@@ -363,41 +379,49 @@ const renderRssNews = () => {
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVR4Ae1WA7AdMRRNbQxrM8krd5Pa7XjqjqtBjWFt22PWdke1bSWpbXNU5Ja76eJh36/+mVkF55y9uQHKRCaC8AmhrIJXrac4magYXisZPiAZPR58QRuyRjEyCfoCR+LCnVA2wWg3TXRTX59SvG4CV9xGLtepXlIyfAw6R3wdBe5A8UuM1tQN70UpbFx3QcNT/KKFi0lG7/h0fKJsvAzGVXI6OOiCfJGcbNDXay8u0LjAaFEz2bLoyr0eHR4qjrsct6wcKEFcrlOxoOR4uOZ472FiN2j+aCxYrL3ZSDFy/ovTFCGsqtU8I2uTNj8a6YLTZshTEjdzq24MewzJKQS4UJtW9Ah9dxQxNOcAU+eyFavgVfH0etOyuVHEuFyxYi7J6AvXMNu0LxiYa4zNepQmALfbAJmHJCerjQhMR2mCYHiB2wBeBhFYZRiYm7YIMDrbqQX7CxIcz3IWCkbXoTRBC252aWltJGzaz4jAc0iYqMX1YpZXc790aXHSC4m6Vcvqj4+GiQHRhx/3NjQ+XmGxUt8rjxnOXl+uQ0mKmsYOS54bBvY6p0cbj8XonuK0Rqri8JeaS/3Cz2lzY4qQbR4m3itGR12vWbNwosKwmAmb9NQczzx4V/k5veWzHb8VNt2iGJkRuh1DG0bWGKue46JnYaf03TQMx9FeNrn4I/G8cIHS/IbzKK9VskGVAmELRZ/ohfEBM+E8AScUCJEzAXXnccqiDZVNRn85ZjGyP+xYDsmsBRfpvgO/bLfx4qKNWznEd0A+oIyEFt0ERyc4A6KMhqpXuYSwyUwjSf4PfAZay1f064LokgAAAABJRU5ErkJggg==">  
     </button>
   </div>
-  </div>`
-}
+  </div>`;
+};
 
 const renderRssNYT = () => {
-  $.get(URL_CORS + 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', function (data) {
-    // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+  $.get(
+    URL_CORS + "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
     <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let img = el.find('media\\:content, content').attr('url')
-      let link = el.find("link").text();
-      let title = el.find("title").text();
-      let pubDate = el.find("pubDate").text();
-      let description = el.find("description").text();
+    </div>`;
+      $(data)
+        .find("item")
+        .each(function () {
+          const el = $(this);
+          let img = el.find("media\\:content, content").attr("url");
+          let link = el.find("link").text();
+          let title = el.find("title").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
 
-      document.getElementById('rssContainer').innerHTML += `
+          document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
-          </div>`: ''}
+          ${
+            img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+          }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">
@@ -406,30 +430,38 @@ const renderRssNYT = () => {
               <p class="rssCardDescription">${description}</p>
             </div>
         </div>
-      `
-    })
-  })
-}
+      `;
+        });
+    }
+  );
+};
 
 const renderRssNikkei = () => {
-  $.get(URL_CORS + 'https://asia.nikkei.com/rss/feed/nar', function (data) {
+  $.get(URL_CORS + "https://asia.nikkei.com/rss/feed/nar", function (data) {
     // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+    document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let link = el.find("link").text();
-      let title = el.find("title").text();
-      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
-        .then(html => {
-          document.getElementById('rssContainer').innerHTML += `
+    </div>`;
+    $(data)
+      .find("item")
+      .each(function () {
+        const el = $(this);
+        let link = el.find("link").text();
+        let title = el.find("title").text();
+        fetch("https://jsonlink.io/api/extract?url=" + link)
+          .then((res) => res.json())
+          .then((html) => {
+            document.getElementById("rssContainer").innerHTML += `
             <div class="rssCard">
-                ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                  </div>`: ''}
+                ${
+                  html.images[0]
+                    ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                  </div>`
+                    : ""
+                }
                 <div class="rssCardText">
                   <a href="${link}" target="_blank">
                     <p class="rssCardTitle">${title}</p>
@@ -437,45 +469,50 @@ const renderRssNikkei = () => {
                   </a>
                 </div>
             </div>
-        `
-        })
-
-    })
-  })
-}
+        `;
+          });
+      });
+  });
+};
 
 const renderRssSCMP = () => {
-  $.get(URL_CORS + 'https://www.scmp.com/rss/91/feed', function (data) {
+  $.get(URL_CORS + "https://www.scmp.com/rss/91/feed", function (data) {
     // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+    document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let img = el.find("enclosure").last().attr('url')
-      let link = el.find("link").text();
-      let title = el.find("title").text();
-      let pubDate = el.find("pubDate").text();
-      let description = el.find("description").text();
+    </div>`;
+    $(data)
+      .find("item")
+      .each(function () {
+        const el = $(this);
+        let img = el.find("enclosure").last().attr("url");
+        let link = el.find("link").text();
+        let title = el.find("title").text();
+        let pubDate = el.find("pubDate").text();
+        let description = el.find("description").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+        let dt1 = new Date(pubDate);
+        let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+        let diff = dt2.getTime() - dt1.getTime();
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        let diffRes = hours + 1 + " hours ago";
+        if (hours >= 24) {
+          let days = Math.floor(hours / 24);
+          diffRes = days + " day ago";
+        }
 
-      document.getElementById('rssContainer').innerHTML += `
+        document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
-          </div>`: ''}
+          ${
+            img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+          }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">
@@ -484,45 +521,54 @@ const renderRssSCMP = () => {
               <p class="rssCardDescription">${description}</p>
             </div>
         </div>
-      `
-    })
-  })
-}
+      `;
+      });
+  });
+};
 
 const renderRssAlJaz = () => {
-  $.get(URL_CORS + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
-    // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+  $.get(
+    URL_CORS + "https://www.aljazeera.com/xml/rss/all.xml",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let img = el.find("enclosure").last().attr('url')
-      let link = el.find("link").text();
-      let title = el.find("title").text();
-      let pubDate = el.find("pubDate").text();
-      let description = el.find("description").text();
+    </div>`;
+      $(data)
+        .find("item")
+        .each(function () {
+          const el = $(this);
+          let img = el.find("enclosure").last().attr("url");
+          let link = el.find("link").text();
+          let title = el.find("title").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
 
-      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
-        .then(html => {
-          document.getElementById('rssContainer').innerHTML += `
+          fetch("https://jsonlink.io/api/extract?url=" + link)
+            .then((res) => res.json())
+            .then((html) => {
+              document.getElementById("rssContainer").innerHTML += `
             <div class="rssCard">
-                ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                  </div>`: ''}
+                ${
+                  html.images[0]
+                    ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                  </div>`
+                    : ""
+                }
                 <div class="rssCardText">
                   <p class="rssCardDate">${diffRes}</p>
                   <a href="${link}" target="_blank">
@@ -531,45 +577,50 @@ const renderRssAlJaz = () => {
                   <p class="rssCardDescription">${description}</p>
                 </div>
             </div>
-        `
-        })
-
-
-    })
-  })
-}
+        `;
+            });
+        });
+    }
+  );
+};
 
 const renderRssYahoo = () => {
-  $.get(URL_CORS + 'https://www.yahoo.com/news/rss', function (data) {
+  $.get(URL_CORS + "https://www.yahoo.com/news/rss", function (data) {
     // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+    document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let link = el.find("link").text();
-      let img = el.find('media\\:content, content').attr('url')
-      let title = el.find("title").text();
-      let pubDate = el.find("pubDate").text();
+    </div>`;
+    $(data)
+      .find("item")
+      .each(function () {
+        const el = $(this);
+        let link = el.find("link").text();
+        let img = el.find("media\\:content, content").attr("url");
+        let title = el.find("title").text();
+        let pubDate = el.find("pubDate").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+        let dt1 = new Date(pubDate);
+        let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+        let diff = dt2.getTime() - dt1.getTime();
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        let diffRes = hours + 1 + " hours ago";
+        if (hours >= 24) {
+          let days = Math.floor(hours / 24);
+          diffRes = days + " day ago";
+        }
 
-      document.getElementById('rssContainer').innerHTML += `
+        document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
-          </div>`: ''}
+          ${
+            img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+          }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">
@@ -577,44 +628,53 @@ const renderRssYahoo = () => {
               </a>
             </div>
         </div>
-      `
-    })
-  })
-}
+      `;
+      });
+  });
+};
 
 const renderRssTheconversation = () => {
-  $.get(URL_CORS + 'https://theconversation.com/ca/articles.atom', function (data) {
-    // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+  $.get(
+    URL_CORS + "https://theconversation.com/ca/articles.atom",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("entry").each(function () {
-      const el = $(this);
-      let link = el.find("link").attr('href');
-      let title = el.find("title").text();
-      let pubDate = el.find("published").text();
-      let description = el.find("summary").text();
+    </div>`;
+      $(data)
+        .find("entry")
+        .each(function () {
+          const el = $(this);
+          let link = el.find("link").attr("href");
+          let title = el.find("title").text();
+          let pubDate = el.find("published").text();
+          let description = el.find("summary").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
 
-      fetch('https://jsonlink.io/api/extract?url=' + link).then(res => res.json())
-        .then(html => {
-          document.getElementById('rssContainer').innerHTML += `
+          fetch("https://jsonlink.io/api/extract?url=" + link)
+            .then((res) => res.json())
+            .then((html) => {
+              document.getElementById("rssContainer").innerHTML += `
           <div class="rssCard">
-              ${html.images[0] ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                </div>`: ''}
+              ${
+                html.images[0]
+                  ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                </div>`
+                  : ""
+              }
               <div class="rssCardText">
                 <p class="rssCardDate">${diffRes}</p>
                 <a href="${link}" target="_blank">
@@ -623,44 +683,54 @@ const renderRssTheconversation = () => {
                 <p class="rssCardDescription">${description}</p>
               </div>
           </div>
-      `
-        })
-    })
-  })
-}
+      `;
+            });
+        });
+    }
+  );
+};
 
 const renderRssWSP = () => {
-  $.get(URL_CORS + 'https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2', function (data) {
-    // console.log(data);
-    document.getElementById('rssContainer').innerHTML += `
+  $.get(
+    URL_CORS +
+      "https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
         <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
-    </div>`
-    $(data).find("item").each(function () {
-      const el = $(this);
-      let link = el.find("link").text();
-      let img = el.find('media\\:thumbnail, content').attr('url')
-      let title = el.find("title").text();
-      let pubDate = el.find("pubDate").text();
-      let description = el.find("description").text();
+    </div>`;
+      $(data)
+        .find("item")
+        .each(function () {
+          const el = $(this);
+          let link = el.find("link").text();
+          let img = el.find("media\\:thumbnail, content").attr("url");
+          let title = el.find("title").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
 
-      let dt1 = new Date(pubDate);
-      let dt2 = new Date(new Date().toISOString());
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
 
-      let diff = (dt2.getTime() - dt1.getTime());
-      let hours = Math.floor(diff / (1000 * 60 * 60));
-      let diffRes = hours + 1 + ' hours ago';
-      if (hours >= 24) {
-        let days = Math.floor(hours / 24);
-        diffRes = days + ' day ago'
-      }
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
 
-      document.getElementById('rssContainer').innerHTML += `
+          document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${img ? `<div class="rssCardImg" style="background-image: url('${img}');">
-          </div>`: ''}
+          ${
+            img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+          }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">
@@ -669,7 +739,8 @@ const renderRssWSP = () => {
               <p class="rssCardDescription">${description}</p>
             </div>
         </div>
-      `
-    })
-  })
-}
+      `;
+        });
+    }
+  );
+};

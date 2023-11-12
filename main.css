@@ -794,9 +794,9 @@ body {
 /* ------------tomatoclock---------- */
 
 #tomatoText {
-  font-size: 8px;
+  font-size: 9px;
   font-family: "basier", sans-serif;
-  line-height: 8px;
+  line-height: 9px;
   text-align: center;
   padding: 3px 0;
   display: none;
@@ -843,6 +843,46 @@ body {
   padding: 0.5px 3px;
   text-align: center;
   cursor: pointer;
+}
+
+.fncButton:nth-child(1) {
+  background-image: url(/img/images-btn/appolo.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(2) {
+  background-image: url(/img/images-btn/ares.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(3) {
+  background-image: url(/img/images-btn/artemis.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(4) {
+  background-image: url(/img/images-btn/athena.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(5) {
+  background-image: url(/img/images-btn/dionysus.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(6) {
+  background-image: url(/img/images-btn/hephaetus.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(7) {
+  background-image: url(/img/images-btn/poseidon.png);
+  background-size: cover;
+}
+
+.fncButton:nth-child(8) {
+  background-image: url(/img/images-btn/zeus.png);
+  background-size: cover;
 }
 
 .bottomRightOrnament:hover .fncButton:nth-child(1) {
@@ -938,21 +978,8 @@ body {
 }
 
 .fncButton:hover {
-  color: #b6a893;
-  background: #000000;
   box-shadow: 0px 0px 3px #000000d1;
 }
-
-.fncButton svg path {
-  fill: #a09481;
-
-}
-
-.fncButton:hover svg path {
-  fill: #b6a893;
-}
-
-
 
 /* calendar */
 .calendarContainer {

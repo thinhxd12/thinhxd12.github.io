@@ -112,7 +112,7 @@ $(".serverDot").click(function (e) {
 
 setInterval(function () {
   wakeupServer();
-  fetchAndRenderMonthImg();
+  // fetchAndRenderMonthImg();
 }, 840000);
 
 const fetchAndRenderCalendarData = async () => {
@@ -837,7 +837,7 @@ const fetchAndRenderMonthImg = () => {
     });
 };
 
-fetchAndRenderMonthImg();
+// fetchAndRenderMonthImg();
 
 //change monthImg every 30m
 // setInterval(() => {

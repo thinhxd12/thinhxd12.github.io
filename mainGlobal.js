@@ -1363,7 +1363,7 @@ $("#transBtn").click(function (e) {
 const handleTranslate = async () => {
   const transInput = document.getElementById("transInput");
   if (/\w*/.test(transInput.value)) {
-    let transUrl = URL_CORS+`https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
+    let transUrl = `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
     fetch(transUrl)
       .then((res) => res.json())
       .then((data) => {

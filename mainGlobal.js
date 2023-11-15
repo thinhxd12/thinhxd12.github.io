@@ -1882,7 +1882,7 @@ const renderFrequency = (num) => {
 const handleAddNewText = () => {
   let addNewW = document.getElementById("addNewW");
   let newText = document.getElementById("newText");
-  addNewW.style.height = "25px";
+  addNewW.style.height = "21px";
   newText.style.opacity = "1";
   newText.style.height = "auto";
 };

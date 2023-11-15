@@ -759,6 +759,7 @@ body {
 #tomatoText {
   font-size: 9px;
   font-family: "basier", sans-serif;
+  font-weight: normal;
   line-height: 9px;
   text-align: center;
   padding: 3px 0;
@@ -799,46 +800,6 @@ body {
   z-index: 36;
   width: 60px;
   height: 60px;
-}
-
-.fncButton:nth-child(1) {
-  background-image: url(/img/images-btn/hephaetus.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(2) {
-  background-image: url(/img/images-btn/ares.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(3) {
-  background-image: url(/img/images-btn/artemis.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(4) {
-  background-image: url(/img/images-btn/athena.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(5) {
-  background-image: url(/img/images-btn/dionysus.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(6) {
-  background-image: url(/img/images-btn/poseidon.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(7) {
-  background-image: url(/img/images-btn/zeus.png);
-  background-size: cover;
-}
-
-.fncButton:nth-child(8) {
-  background-image: url(/img/images-btn/appolo.png);
-  background-size: cover;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(1) {
@@ -921,20 +882,26 @@ body {
   bottom: 41px;
   z-index: 1;
   font-size: 0.85rem;
-  color: #a09481;
+  line-height: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff80;
+  background-color: #212121;
   cursor: pointer;
   width: 16px;
   height: 16px;
   padding: 1px;
   border-radius: 2px;
   transition: all 0.3s ease;
-  background: #070707;
-  box-shadow: 1px 2px 3px #000000a3;
   opacity: 0;
+  box-shadow: 0px 0px 9px #1c1c1c;
 }
 
 .fncButton:hover {
-  box-shadow: 0px 0px 3px #000000d1;
+  box-shadow: 1px 1px 12px #121212;
+  color: #fff;
+  text-shadow: 0px 0px 6px #f4f4f4;
 }
 
 /* calendar */
@@ -1105,12 +1072,10 @@ body {
   border-radius: 1px;
   padding: 3px;
   justify-content: center;
-  /* box-shadow: 0px 3px 9px #000000; */
 }
 
 .dateContent div {
   color: #131212;
-  /* text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); */
 }
 
 .dateContent:hover div {
@@ -1122,6 +1087,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-family: 'Roslindale';
+  margin-bottom: 2px;
 }
 
 #calendarYear {
@@ -1795,8 +1761,7 @@ span.x::before {
 /* ------------translate----- */
 .transItem {
   width: 100%;
-  border-radius: 1px;
-  padding: 21px 12px 6px;
+  padding: 21px 3px 3px;
   margin-bottom: 3px;
   font-family: "nyt-imperial";
   font-size: 12px;
@@ -1821,7 +1786,7 @@ span.x::before {
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
-  border-bottom: 1px solid #b5a994;
+  border-bottom: 1px solid #00000066;
   transition: all 0.3s ease;
   margin-bottom: 5px;
 }
@@ -1852,13 +1817,11 @@ span.x::before {
   box-sizing: inherit;
   width: 100%;
   padding: 3px 9px;
-  height: 25px;
+  height: 21px;
   font-size: 11px;
   border: 0;
   outline: 0;
   background: transparent;
-  color: #a5a3a3;
-  box-shadow: 0px 0px 2px #00000012;
 }
 
 .editEnterBtn {
@@ -1889,7 +1852,7 @@ span.x::before {
 .transItemType,
 .transItemTranslation {
   font-size: 13px;
-  font-family: "basier";
+  font-family: 'Roslindale';
 }
 
 .transItemPhonetic {

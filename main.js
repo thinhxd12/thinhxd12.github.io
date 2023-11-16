@@ -42,9 +42,7 @@ const renderTomatoTick = () => {
     if (timeCount > 0) {
       tickTimeout = setTimeout(tick, t * 1000);
       $("#tomatoText").show();
-      $("#tomatoText").html(
-        timeCount / 60 + "<i class='bx bxs-hourglass-bottom'></i>"
-      );
+      $("#tomatoText").html(timeCount / 60 + "m");
       timeCount = timeCount - t;
       count++;
     } else {
@@ -146,7 +144,10 @@ const fetchRenderImgBackground = (numb) => {
       .html(imgDateGet)
       .append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
     // $(".mainFixedContent").css("background-image", "url(" + imgSrcGet + ")");
-    $(".calendarFooterBlurImg").css("background-image","url(" + imgSrcGet + ")");
+    $(".calendarFooterBlurImg").css(
+      "background-image",
+      "url(" + imgSrcGet + ")"
+    );
     // $('.flashCardContainer').css('background-image', 'url(' + imgSrcGet + ')');
   });
 };

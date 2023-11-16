@@ -515,7 +515,7 @@ body {
 
 .item-hover .indicateFlip,
 .item-wrapper:hover .indicateFlip {
-  top: -9%;
+  top: -6%;
 }
 
 .item-back {
@@ -558,7 +558,7 @@ body {
 .indicateFlip {
   position: absolute;
   border: 1px solid transparent;
-  top: -12%;
+  top: -3%;
   left: 9px;
   z-index: 6;
   transition: 0.5s ease-out;
@@ -566,22 +566,22 @@ body {
   justify-content: center;
   align-items: center;
   width: 60px;
-  height: 190px;
-  background-image: url("./img/flag.png");
+  height: 210px;
+  background-image: url("./img/newflag.png");
   background-size: cover;
+  background-position: center;
   filter: drop-shadow(3px 3px 6px #000000d1);
 }
 
 #indicateFlip {
-  margin-top: 25px;
+  margin-bottom: 3px;
   text-align: center;
   z-index: 19;
   font-size: 1em;
   font-family: "Roslindale";
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0px 1px 2px #000000d1;
-  filter: drop-shadow(3px 3px 6px #000000d1);
+  text-shadow: 0px 0px 1px #000000d1;
 }
 
 .indexFlip {
@@ -898,9 +898,13 @@ body {
   box-shadow: 0px 0px 9px #1c1c1c;
 }
 
-.fncButton:hover {
-  box-shadow: 1px 1px 12px #121212;
+.fncButtonHover {
+  transition: all 100ms ease;
+}
+
+.fncButtonHover:hover {
   color: #fff;
+  box-shadow: 1px 1px 12px #121212;
   text-shadow: 0px 0px 6px #f4f4f4;
 }
 

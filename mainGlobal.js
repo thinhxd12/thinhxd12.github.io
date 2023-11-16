@@ -1219,9 +1219,7 @@ const renderFlashcard = (item, progress) => {
                 <div class="item">
                   <div class="item-wrapper">
                     <div class="indicateFlip">
-                        <span id="indicateFlip" style="color: ${
-                          newNumb > 100 ? "#fff" : "#000"
-                        }">
+                        <span id="indicateFlip">
                         ${item.numb}
                         </span>
                     </div>

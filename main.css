@@ -513,10 +513,10 @@ body {
   background-size: 101%;
 }
 
-.item-hover .indicateFlip,
+/* .item-hover .indicateFlip,
 .item-wrapper:hover .indicateFlip {
   top: -9%;
-}
+} */
 
 .item-back {
   position: absolute;
@@ -898,11 +898,8 @@ body {
   box-shadow: 0px 0px 9px #1c1c1c;
 }
 
-.fncButtonHover {
-  transition: all 100ms ease;
-}
-
-.fncButtonHover:hover {
+.fncButton:hover {
+  transition: all 0.1s linear;
   color: #fff;
   box-shadow: 1px 1px 12px #121212;
   text-shadow: 0px 0px 6px #f4f4f4;

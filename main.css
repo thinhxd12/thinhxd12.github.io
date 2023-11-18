@@ -429,20 +429,6 @@ body {
   cursor: pointer;
 }
 
-.cornerButton:after {
-  content: "";
-  display: block;
-  width: 90px;
-  height: 30px;
-  opacity: 0.6;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 96%);
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.cornerButton:hover:after {
-  opacity: 0;
-}
-
 .cornerButton::before {
   content: '';
   display: block;
@@ -782,7 +768,7 @@ body {
 }
 
 .wordNum {
-  border: 1px solid#7c7b7a;
+  text-decoration: underline;
   padding: 1px 3px 0px;
   font-size: 8px;
   font-weight: bold;
@@ -1066,7 +1052,7 @@ body {
   flex-direction: column;
   cursor: pointer;
   position: absolute;
-  top: 216px;
+  top: 214px;
   right: 5px;
   z-index: 99;
   background: #f4f4f4;
@@ -1246,7 +1232,7 @@ body {
 }
 
 .calendarFooter:hover {
-  height: 177px;
+  height: 174px;
 }
 
 

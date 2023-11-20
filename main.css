@@ -1225,7 +1225,7 @@ body {
 }
 
 .calendarFooter {
-  height: 66px;
+  height: 63px;
   position: relative;
   overflow: hidden;
   transition: height .5s;
@@ -1242,7 +1242,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 15px;
+  padding: 0 15px 3px;
 }
 
 .calendarFooterQuote p {
@@ -1255,7 +1255,7 @@ body {
 
 .calendarFooterContainer {
   position: relative;
-  height: calc(100vh - 491px);
+  height: calc(100vh - 488px);
   width: 100%;
   overflow: hidden;
   padding: 6px 0;

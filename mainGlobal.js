@@ -366,8 +366,8 @@ const getLastTimeLog = () => {
         dd > 0
           ? dd + " days ago"
           : hh > 0
-          ? hh + " hours ago"
-          : mm + " minutes ago";
+            ? hh + " hours ago"
+            : mm + " minutes ago";
       $(".timeLog").html("Last opened " + resMsg);
 
       let date = new Date().getTime();
@@ -418,9 +418,8 @@ const renderCalendar = (data) => {
   ];
   $("#calendarMonth").html(monthDays[todaysMonth]);
   $("#calendarYear").html(todaysYear);
-  let dateProgressDivText = `<span>${
-    data[0].startIndex1 + 1
-  }</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
+  let dateProgressDivText = `<span>${data[0].startIndex1 + 1
+    }</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
   $(".dateProgressDiv").html(dateProgressDivText);
   $(".calendarContent").css(
     "background-image",
@@ -509,40 +508,35 @@ const renderCalendar = (data) => {
     htmlDate.innerHTML += `
       <tr class="weekDay">
         ${monthDateArr[i]
-          .map((item, index) => {
-            return `
+        .map((item, index) => {
+          return `
                 <td>
-                    <div ${
-                      item.date == date.getDate() &&
-                      item.month == date.getMonth()
-                        ? 'id="todayReset" onclick="resetTodaySchedule(true)"'
-                        : ""
-                    } class="${
-              item.month == date.getMonth() && index == 0
-                ? `${item.class} sundayDay`
-                : index == todaysWeekDay && item.class !== ""
+                    <div ${item.date == date.getDate() &&
+              item.month == date.getMonth()
+              ? 'id="todayReset" onclick="resetTodaySchedule(true)"'
+              : ""
+            } class="${item.month == date.getMonth() && index == 0
+              ? `${item.class} sundayDay`
+              : index == todaysWeekDay && item.class !== ""
                 ? `todayWeekDay ${item.class}`
                 : `${item.class}`
             }" >
                     <span>${item.date}
-                    ${
-                      item.indicate
-                        ? `<span class="dayIndicate1 ${
-                            item.time1
-                              ? "complete" + Math.floor(item.time1 / 3)
-                              : ""
-                          }"></span>
-                    <span class="dayIndicate2 ${
-                      item.time2 ? "complete" + Math.floor(item.time2 / 3) : ""
-                    }"></span>`
-                        : ""
-                    }
+                    ${item.indicate
+              ? `<span class="dayIndicate1 ${item.time1
+                ? "complete" + Math.floor(item.time1 / 3)
+                : ""
+              }"></span>
+                    <span class="dayIndicate2 ${item.time2 ? "complete" + Math.floor(item.time2 / 3) : ""
+              }"></span>`
+              : ""
+            }
                     </span>
                     </div>
                 </td>
             `;
-          })
-          .join("")}
+        })
+        .join("")}
       </tr>
       `;
   }
@@ -564,52 +558,48 @@ const renderHistorySlide = (numb) => {
   if (numb == dataHistory.length - 1) {
     historyTable.innerHTML = `
         ${historyTableData
-          .map((item, index) => {
-            return `
+        .map((item, index) => {
+          return `
                     <div class="tableItem">
-                      <span  ${
-                        item.fromD
-                          ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
-                          : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
-                      }>${item.row} - ${item.row + 199}</span>
-                      ${
-                        item.fromD
-                          ? `<div class="desc">
+                      <span  ${item.fromD
+              ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
+              : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
+            }>${item.row} - ${item.row + 199}</span>
+                      ${item.fromD
+              ? `<div class="desc">
                         <span>${item.fromD}</span>
                         <span>${item.toD}</span>
                       </div>`
-                          : item.row == checkRowNum
-                          ? `<div class="desc" id="todayProgressHtml"></div>`
-                          : `<div class="desc"></div>`
-                      }
+              : item.row == checkRowNum
+                ? `<div class="desc" id="todayProgressHtml"></div>`
+                : `<div class="desc"></div>`
+            }
                     </div>
                 `;
-          })
-          .join("")}
+        })
+        .join("")}
         `;
   } else
     historyTable.innerHTML = `
         ${historyTableData
-          .map((item, index) => {
-            return `
+        .map((item, index) => {
+          return `
                 <div class="tableItem">
-                  <span  ${
-                    item.fromD
-                      ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
-                      : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
-                  }>${item.row} - ${item.row + 199}</span>
-                  ${
-                    item.fromD
-                      ? `<div class="desc">
+                  <span  ${item.fromD
+              ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
+              : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
+            }>${item.row} - ${item.row + 199}</span>
+                  ${item.fromD
+              ? `<div class="desc">
                     <span>${item.fromD}</span>
                     <span>${item.toD}</span>
                   </div>`
-                      : `<div class="desc"></div>`
-                  }
+              : `<div class="desc"></div>`
+            }
                 </div>
             `;
-          })
-          .join("")}
+        })
+        .join("")}
         `;
 };
 
@@ -618,38 +608,32 @@ const setTodayProgressHtml = (valid) => {
     $("#todayProgressHtml").html('<img src="./img/cup.png" width="25px">');
   } else if (todayData) {
     $("#todayProgressHtml").html(`
-        <div class="dateProgressContent" ${
-          todayData.time1 >= 9 ? 'style="color: #000;"' : ""
-        }>
+        <div class="dateProgressContent" ${todayData.time1 >= 9 ? 'style="color: #000;"' : ""
+      }>
             <span class="dateProgressImg">
-            ${
-              todayData.time1 >= 9
-                ? '<img src="./img/check.png" width="18">'
-                : ""
-            }
+            ${todayData.time1 >= 9
+        ? '<img src="./img/check.png" width="18">'
+        : ""
+      }
             </span>
             <span onclick="setWordList(${JSON.stringify(todayData)
-              .split('"')
-              .join("&quot;")},1)">${todayData.startIndex1 + 1} - ${
-      todayData.startIndex1 + 50
-    }</span>
+        .split('"')
+        .join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50
+      }</span>
             <span class="dateProgressFraction">${todayData.time1}/9</span>
         </div>
-        <div class="dateProgressContent" ${
-          todayData.time2 >= 9 ? 'style="color: #000;"' : ""
-        }>
+        <div class="dateProgressContent" ${todayData.time2 >= 9 ? 'style="color: #000;"' : ""
+      }>
             <span class="dateProgressImg">
-            ${
-              todayData.time2 >= 9
-                ? '<img src="./img/check.png" width="18">'
-                : ""
-            }
+            ${todayData.time2 >= 9
+        ? '<img src="./img/check.png" width="18">'
+        : ""
+      }
             </span>
             <span onclick="setWordList(${JSON.stringify(todayData)
-              .split('"')
-              .join("&quot;")},2)">${todayData.startIndex2 + 1} - ${
-      todayData.startIndex2 + 50
-    }</span>
+        .split('"')
+        .join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50
+      }</span>
             <span class="dateProgressFraction">${todayData.time2}/9</span>
         </div>
         `);
@@ -766,9 +750,8 @@ const commitNewWork = (row, numb) => {
         </div>
     </div>
     <div class="calendarItemContent">
-        <input class="calendarItemInput" value="${row} - ${
-    row + 199
-  }" autocomplete="off" id="commitHistoryItemRow"
+        <input class="calendarItemInput" value="${row} - ${row + 199
+    }" autocomplete="off" id="commitHistoryItemRow"
         onmouseover="this.focus()" onmouseout="this.blur()">
         <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemFromD" autocomplete="off"
         onmouseover="this.focus()" onmouseout="this.blur()">
@@ -873,8 +856,8 @@ const setTodayWork = () => {
         </div>
             <div class="calendarItemContent">
                 <input class="calendarItemInput" value="${formatDate(
-                  new Date()
-                )}" id="newStartDay"
+    new Date()
+  )}" id="newStartDay"
                     autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
                 <input class="calendarItemInput" placeholder="101 ..." id="newStartRow"
                     autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
@@ -930,16 +913,12 @@ const resetTodaySchedule = () => {
             </div>
         </div>
         <div class="calendarItemContent">
-            <input class="calendarItemInput" placeholder="${
-              todayData.startIndex1 + 1
-            } - ${
-    todayData.startIndex1 + 50
-  }" id="firstRowReset" autocomplete="off" onmouseover="this.focus()">
-            <input class="calendarItemInput" placeholder="${
-              todayData.startIndex2 + 1
-            } - ${
-    todayData.startIndex2 + 50
-  }" id="secondRowReset" autocomplete="off" onmouseover="this.focus()">
+            <input class="calendarItemInput" placeholder="${todayData.startIndex1 + 1
+    } - ${todayData.startIndex1 + 50
+    }" id="firstRowReset" autocomplete="off" onmouseover="this.focus()">
+            <input class="calendarItemInput" placeholder="${todayData.startIndex2 + 1
+    } - ${todayData.startIndex2 + 50
+    }" id="secondRowReset" autocomplete="off" onmouseover="this.focus()">
         </div>
     </div>`;
 };
@@ -1213,7 +1192,6 @@ const renderFlashcard = (item, progress) => {
     .replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`)
     .substring(1);
   let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, ", ");
-
   const flashCardContent = document.getElementById("flashCardContent");
   flashCardContent.innerHTML = `
                 <div class="item">
@@ -1225,21 +1203,17 @@ const renderFlashcard = (item, progress) => {
                     </div>
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
-                    ${
-                      progress
-                        ? `<span class="progressFlip">
-                        ${
-                          progress >= 9
-                            ? `<img src="./img/cup.png" width="21">`
-                            : `<sup>${progress}</sup>/<sub>9</sub>`
-                        }
-                        </span>`
-                        : ""
-                    }
+                    ${progress
+      ? `<span class="progressFlip">${progress >= 9
+        ? `<img src="./img/cup.png" width="21">`
+        : `<sup>${progress}</sup>/<sub>9</sub>`
+      }</span>`
+      : ""
+    }
+                              <p class="cardTextClass">${item.class}</p>
                               <h1>${item.text}</h1>
-                              <p class="cardPhonetic">${
-                                item.phonetic
-                              }</p>                  
+                              <p class="cardPhonetic">${item.phonetic
+    }</p>                  
                     <p class="cardName">05/07/22</p>
                     </div>
                     </div>
@@ -1295,19 +1269,18 @@ const renderExplain = (text, type, definitions, sound, divId, row) => {
       </button>
       </div>
       <div class="explainBody">
-        <div class="wordType">${
-          row
-            ? `<span class="preRow">${row}. </span>`
-            : `<span class="preWord">Definitions of</span>`
-        }<h2>${text}</h2><span class="pos">${type}</span></div>
+        <div class="wordType">${row
+      ? `<span class="preRow">${row}. </span>`
+      : `<span class="preWord">Definitions of</span>`
+    }<h2>${text}</h2><span class="pos">${type}</span></div>
         ${definitions
-          .map((item, index) => {
-            return `<div class="sn-g">
+      .map((item, index) => {
+        return `<div class="sn-g">
         ${definitions.length > 1 ? `<span class="num">${index + 1}</span>` : ""}
         ${item}
         </div>`;
-          })
-          .join("")}
+      })
+      .join("")}
       </div>
     </div>  
       `;
@@ -1333,10 +1306,10 @@ const renderExplainGG = (headword, meaning) => {
         <div class="wordType"><span class="preWord">Definitions of</span><h2 class="h">${headword}</h2></div>
         <div class="wordMeaning">
         ${meaning
-          .map((item, index) => {
-            return `<span class="x">${item}</span>`;
-          })
-          .join("")}
+      .map((item, index) => {
+        return `<span class="x">${item}</span>`;
+      })
+      .join("")}
         </div>
       </div>
     </div>  
@@ -1401,9 +1374,8 @@ const renderTranslate = (arr) => {
           <input class="transItemInput" id="addNewW" autocomplete="off" onmouseover="this.focus()"
             onmouseout="this.blur()">
         </div>
-        <p class="transItemTranslation" onclick="addTextToCell('-${
-          arr.translation
-        }')">${arr.translation}</p>
+        <p class="transItemTranslation" onclick="addTextToCell('-${arr.translation
+      }')">${arr.translation}</p>
         <p>Translation of <b id="tlword">${arr.word}</b></p>
         <div class="transItemPhonetic">
           <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
@@ -1413,28 +1385,27 @@ const renderTranslate = (arr) => {
         </div>
         <div>
         ${Object.keys(arr.translations)
-          .map((item) => {
-            return `
+        .map((item) => {
+          return `
         <h5 class="transItemType" onclick="addTextToCell(' -${item}')">-${item}</h5>
         ${arr.translations[item]
-          .map((m) => {
-            return `
+              .map((m) => {
+                return `
             <div class="transItemRow">
-            <span onclick="addTextToCell('-${m.translation}')">${
-              m.translation
-            }&emsp; 
+            <span onclick="addTextToCell('-${m.translation}')">${m.translation
+                  }&emsp; 
                 ${m.synonyms
-                  .map((n, i) => {
-                    return `<small>${(i ? ", " : "") + n}</small>`;
-                  })
-                  .join("")}.</span>         
+                    .map((n, i) => {
+                      return `<small>${(i ? ", " : "") + n}</small>`;
+                    })
+                    .join("")}.</span>         
                 ${renderFrequency(m.frequency)}
             </div>`;
-          })
-          .join("")}
+              })
+              .join("")}
             `;
-          })
-          .join("")}
+        })
+        .join("")}
     </div>`;
   }
 
@@ -1518,17 +1489,16 @@ const renderProxySelect = () => {
             </div>
         </div>
         ${proxyArr
-          .map((item, index) => {
-            return `<div class="transItemContent">
+      .map((item, index) => {
+        return `<div class="transItemContent">
                     <label>
-                    <input type="checkbox" ${
-                      item.active ? "checked" : ""
-                    } onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
+                    <input type="checkbox" ${item.active ? "checked" : ""
+          } onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
                         ${item.link}
                     </label>
                 </div>`;
-          })
-          .join("")}
+      })
+      .join("")}
         </div>`;
 };
 
@@ -1562,17 +1532,16 @@ const renderCollectionSelect = () => {
             </div>
         </div>
         ${collectionsArr
-          .map((item, index) => {
-            return `<div class="transItemContent">
+      .map((item, index) => {
+        return `<div class="transItemContent">
                     <label>
-                    <input type="checkbox" ${
-                      item.active ? "checked" : ""
-                    } onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
+                    <input type="checkbox" ${item.active ? "checked" : ""
+          } onchange="handleThisCheckbox(this)" class="translateInputCheck"  value="${index}">
                         ${item.name}
                     </label>
                 </div>`;
-          })
-          .join("")}
+      })
+      .join("")}
         </div>`;
 };
 
@@ -1596,16 +1565,16 @@ const handleChangeEditInput = (e) => {
   );
   editContentDiv.innerHTML = `
       ${arrFilter
-        .map((item, index) => {
-          return `
+      .map((item, index) => {
+        return `
           <a class="my-item" onclick="setInputEditWordResult(${JSON.stringify(
-            item
-          )
+          item
+        )
             .split('"')
             .join("&quot;")});">${item.text}</a>
           `;
-        })
-        .join("")}
+      })
+      .join("")}
     `;
 };
 

@@ -541,6 +541,13 @@ body {
   font-weight: normal;
 }
 
+.flip-card-front-content .cardTextClass {
+  font-size: 11px;
+  margin: 0 0 -6px;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
 .indicateFlip {
   position: absolute;
   border: 1px solid transparent;

@@ -457,8 +457,9 @@ body {
   left: 0;
   min-height: 185px;
   width: 100%;
-  background-size: cover;
-  background-position: initial;
+  background-color: #000;
+  /* background-size: cover; */
+  /* background-position: initial; */
 }
 
 #flashCardContent {

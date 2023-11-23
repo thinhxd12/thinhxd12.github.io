@@ -543,6 +543,7 @@ body {
   margin: 0 auto;
   font-family: sans-serif;
   font-weight: normal;
+  color: #ca140c;
 }
 
 .flip-card-front-content .cardTextClass {
@@ -594,7 +595,7 @@ body {
   top: 6px;
   right: 12px;
   font-family: "Roslindale";
-  color: #c70000;
+  color: #ca140c;
   font-size: 0.9rem;
 }
 

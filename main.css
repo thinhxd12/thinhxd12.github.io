@@ -458,7 +458,8 @@ body {
   min-height: 185px;
   width: 100%;
   background: url(./img/paper.jpeg);
-  background-size: contain;
+  background-size: cover;
+  background-position-y: bottom;
 }
 
 #flashCardContent {

@@ -457,7 +457,7 @@ body {
   left: 0;
   min-height: 185px;
   width: 100%;
-  background-color: #000;
+  background: #f2f2f2;
   /* background-size: cover; */
   /* background-position: initial; */
 }
@@ -568,7 +568,7 @@ body {
   background-image: url("./img/newflag.png");
   background-size: cover;
   background-position: center;
-  filter: drop-shadow(3px 3px 6px #000000d1);
+  filter: drop-shadow(0px 0px 3px #000000d1);
 }
 
 #indicateFlip {
@@ -624,11 +624,12 @@ body {
   font-family: "Roslindale";
   letter-spacing: 1px;
   font-size: 14px;
+  font-weight: 600;
   line-height: 19px;
-  color: #fff;
+  color: #131313;
   text-align: left;
   white-space: break-spaces;
-  text-shadow: 0 2px 3px #000000b0;
+  /* text-shadow: 0 2px 3px #000000b0; */
 }
 
 /* -----------input search----------- */

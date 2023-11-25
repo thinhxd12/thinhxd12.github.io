@@ -524,6 +524,12 @@ body {
   align-items: flex-start;
 }
 
+.item-back svg {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+}
+
 .flip-card-front-content {
   text-align: center;
   color: #fff;
@@ -608,7 +614,6 @@ body {
 
 .flip-card-back-content {
   z-index: 66;
-  width: 72%;
   max-height: 100%;
   overflow: scroll;
 }

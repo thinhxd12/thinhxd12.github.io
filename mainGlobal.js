@@ -1254,10 +1254,12 @@ const hoverOut = () => {
 };
 
 function handleCheckEdit(id) {
-  let divArr = ["editContentDivAmerica",
+  let divArr = [
+    "editContentDivAmerica",
     "editContentDivEnglish",
     "editContentDivCambridge",
-    "editContentDivGoogle",]
+    "editContentDivGoogle"
+  ]
   let textDataArr = [textData1, textData2, textData3, textData4]
   for (let index in divArr) {
     if (divArr[index] != id) {
@@ -1626,86 +1628,23 @@ let textData2 = { text: "", sound: "", class: "", definitions: [] };
 let textData3 = { text: "", sound: "", class: "", definitions: [] };
 let textData4 = { text: "", sound: "", class: "", definitions: [] };
 
-function getTextDataEnglish(text, func) {
-  let urlEnglish = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/english/direct/?q=${text}`;
-  let newText = text.length > 4 ? text.slice(0, -2) : text;
-  const regText = new RegExp(`(${newText}\\w*)`, "gi");
-  document.getElementById("editContentDivEnglish").innerHTML = "";
-  textData1.text = text;
-  textData1.definitions = [];
-  $.get(urlEnglish, function (html) {
-    let mp3Link = $(html)
-      .find(".audio_play_button.pron-us")
-      .attr("data-src-mp3");
-    if (mp3Link) {
-      textData1.sound = mp3Link;
-      let headword = $(html).find(".webtop h1").contents()[0].textContent;
-      textData1.text = headword;
-      let classT = $(html).find(".pos").html();
-      textData1.class = classT;
-      let img = $(html).find("img.thumb").attr("src");
-      $(html)
-        .find("ol:first")
-        .find(".sense")
-        .each(function (index) {
-          let def = "";
-          if (img && index == 0) def += `<img class="thumb" src="${img}">`;
-          def += $(this).find(".def").html()
-            ? '<span class="def">' + $(this).find(".def").text() + "</span>"
-            : "";
-          let xr = $(this).find(".xrefs").text();
-          if (xr) {
-            $(this)
-              .find("span.xrefs")
-              .each(function () {
-                def +=
-                  '<span class="xr-gs">' +
-                  $(this).find(".prefix").text() +
-                  " " +
-                  "<small>" +
-                  $(this).find(".prefix").next().text() +
-                  "</small>" +
-                  "</span>";
-              });
-          }
-          $(this)
-            .find("span.x")
-            .each(function () {
-              $(this).html($(this).text().replace(regText, `<b>$1</b>`));
-              def += '<span class="x">' + $(this).html() + "</span>";
-            });
-          textData1.definitions.push(def);
-        });
-      func(
-        textData1.text,
-        textData1.class,
-        textData1.definitions,
-        textData1.sound,
-        "editContentDivEnglish",
-        null,
-        1
-      );
-    }
-  });
-}
-
 function getTextDataAmerica(text, func) {
   let urlEngAmerica = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${text}`;
   let newText = text.length > 4 ? text.slice(0, -2) : text;
   const regText = new RegExp(`(${newText}\\w*)`, "gi");
   document.getElementById("editContentDivAmerica").innerHTML = "";
-  textData2.text = text;
-  textData2.definitions = [];
+  textData1.text = text;
+  textData1.definitions = [];
   $.get(urlEngAmerica, function (html) {
     let mp3Link = $(html)
       .find(".audio_play_button,.pron-us")
       .attr("data-src-mp3");
     if (mp3Link) {
-      textData2.sound = mp3Link;
+      textData1.sound = mp3Link;
       let headword = $(html).find(".webtop-g h2").contents()[0].textContent;
-      textData2.text = headword;
+      textData1.text = headword;
       let classT = $(html).find(".pos").html();
-      textData2.class = classT;
+      textData1.class = classT;
       let img = $(html).find("img.thumb").attr("src");
       $(html)
         .find(".sn-gs:first")
@@ -1737,6 +1676,69 @@ function getTextDataAmerica(text, func) {
               $(this).html($(this).text().replace(regText, `<b>$1</b>`));
               def += '<span class="x">' + $(this).html() + "</span>";
             });
+          textData1.definitions.push(def);
+        });
+      func(
+        textData1.text,
+        textData1.class,
+        textData1.definitions,
+        textData1.sound,
+        "editContentDivAmerica",
+        null,
+        1
+      );
+    }
+  });
+}
+
+function getTextDataEnglish(text, func) {
+  let urlEnglish = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/english/direct/?q=${text}`;
+  let newText = text.length > 4 ? text.slice(0, -2) : text;
+  const regText = new RegExp(`(${newText}\\w*)`, "gi");
+  document.getElementById("editContentDivEnglish").innerHTML = "";
+  textData2.text = text;
+  textData2.definitions = [];
+  $.get(urlEnglish, function (html) {
+    let mp3Link = $(html)
+      .find(".audio_play_button.pron-us")
+      .attr("data-src-mp3");
+    if (mp3Link) {
+      textData2.sound = mp3Link;
+      let headword = $(html).find(".webtop h1").contents()[0].textContent;
+      textData2.text = headword;
+      let classT = $(html).find(".pos").html();
+      textData2.class = classT;
+      let img = $(html).find("img.thumb").attr("src");
+      $(html)
+        .find("ol:first")
+        .find(".sense")
+        .each(function (index) {
+          let def = "";
+          if (img && index == 0) def += `<img class="thumb" src="${img}">`;
+          def += $(this).find(".def").html()
+            ? '<span class="def">' + $(this).find(".def").text() + "</span>"
+            : "";
+          let xr = $(this).find(".xrefs").text();
+          if (xr) {
+            $(this)
+              .find("span.xrefs")
+              .each(function () {
+                def +=
+                  '<span class="xr-gs">' +
+                  $(this).find(".prefix").text() +
+                  " " +
+                  "<small>" +
+                  $(this).find(".prefix").next().text() +
+                  "</small>" +
+                  "</span>";
+              });
+          }
+          $(this)
+            .find("span.x")
+            .each(function () {
+              $(this).html($(this).text().replace(regText, `<b>$1</b>`));
+              def += '<span class="x">' + $(this).html() + "</span>";
+            });
           textData2.definitions.push(def);
         });
       func(
@@ -1744,7 +1746,7 @@ function getTextDataAmerica(text, func) {
         textData2.class,
         textData2.definitions,
         textData2.sound,
-        "editContentDivAmerica",
+        "editContentDivEnglish",
         null,
         2
       );
@@ -1835,7 +1837,6 @@ const setEditWord = () => {
     class: textData.class,
     definitions: textData.definitions,
   };
-
   let objIndex = dataSheets.findIndex((obj) => obj._id == editId);
   dataSheets[objIndex].text = newdata.text;
   dataSheets[objIndex].phonetic = newdata.phonetic;

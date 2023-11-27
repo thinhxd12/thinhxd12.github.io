@@ -1263,7 +1263,10 @@ function handleCheckEdit(id) {
     if (divArr[index] != id) {
       document.getElementById(`${divArr[index]}`).innerHTML = "";
     }
-    else textData = textDataArr[index];
+    else {
+      textData = textDataArr[index];
+      textData.sound = textData1.sound || textData2.sound;
+    }
   }
   $("#editWordBtn,#transWordBtn").show();
 }

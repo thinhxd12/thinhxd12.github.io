@@ -1604,6 +1604,12 @@ div#contentBody {
   justify-content: flex-end;
 }
 
+#editContentDivAmerica .explainHeader,
+#editContentDivEnglish .explainHeader,
+#editContentDivCambridge .explainHeader {
+  position: relative;
+}
+
 .closeBtn {
   position: absolute;
   top: 0;
@@ -1724,10 +1730,8 @@ span.x::before {
 
 
 .sn-g .thumb {
-  width: 100px;
-  height: auto;
   display: block;
-  margin: 6px 0;
+  margin: 3px 0 3px 9px;
 }
 
 .xr-gs {

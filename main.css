@@ -505,10 +505,10 @@ body {
 
 .item-back {
   position: absolute;
-  top: 3%;
+  top: 2%;
   left: 1%;
   width: 98%;
-  height: 94%;
+  height: 96%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1231,11 +1231,11 @@ body {
 }
 
 .todayDay .dayIndicate1 {
-  right: -11px;
+  right: -9px;
 }
 
 .todayDay .dayIndicate2 {
-  right: -15px;
+  right: -13px;
 }
 
 #todayReset {

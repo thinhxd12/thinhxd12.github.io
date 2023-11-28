@@ -1253,24 +1253,51 @@ const hoverOut = () => {
   $(".item-wrapper").removeClass("item-hover");
 };
 
+let textData = { text: "", sound: "", class: "", definitions: [] };
+let textData1 = { text: "", sound: "", class: "", definitions: [] };
+let textData2 = { text: "", sound: "", class: "", definitions: [] };
+let textData3 = { text: "", sound: "", class: "", definitions: [] };
+let textData4 = { text: "", sound: "", class: "", definitions: [] };
+
+const editContentDivArr = [
+  "editContentDivAmerica",
+  "editContentDivEnglish",
+  "editContentDivCambridge",
+  "editContentDivGoogle"
+];
+const textDataArr = [
+  textData1,
+  textData2,
+  textData3,
+  textData4
+];
+
 function handleCheckEdit(id) {
-  let divArr = [
-    "editContentDivAmerica",
-    "editContentDivEnglish",
-    "editContentDivCambridge",
-    "editContentDivGoogle"
-  ]
-  let textDataArr = [textData1, textData2, textData3, textData4]
-  for (let index in divArr) {
-    if (divArr[index] != id) {
-      document.getElementById(`${divArr[index]}`).innerHTML = "";
+  for (let index in editContentDivArr) {
+    if (editContentDivArr[index] != id) {
+      document.getElementById(`${editContentDivArr[index]}`).innerHTML = "";
     }
     else {
-      textData = textDataArr[index];
-      textData.sound = textData1.sound || textData2.sound;
+      textData.class = textDataArr[index].class;
+      textData.definitions = textDataArr[index].definitions;
     }
   }
   $("#editWordBtn,#transWordBtn").show();
+}
+
+function handleCheckSound(id) {
+  const audioEl = document.getElementById("tts-audio");
+  for (let index in editContentDivArr) {
+    if (editContentDivArr[index] == id) {
+      if (textDataArr[index].sound.length > 0) {
+        textData.sound = textDataArr[index].sound;
+      }
+      else textData.sound = '';
+      audioEl.src = textData.sound;
+      audioEl.play();
+    }
+  }
+  $(".checkExplainBtn").show();
 }
 
 const renderExplain = (text, type, definitions, sound, divId, row, check) => {
@@ -1280,13 +1307,17 @@ const renderExplain = (text, type, definitions, sound, divId, row, check) => {
     <div class="explainContainer">
       <div class="explainHeader">
       ${check ?
-      `<button class="soundBtnSVG checkBtnSVG" onclick="handleCheckEdit('${divId}')">
+      `<button class="closeBtn checkExplainBtn" style="display: none;" onclick="handleCheckEdit('${divId}')">
         <i class='bx bx-check'></i>
-      </button>`:
-      `<button class="soundBtnSVG" id="explainTextSoundBtn">
-        <i class="bx bx-volume-full"></i>
+      </button>
+      <button class="closeBtn soundBtnSVG" onclick="handleCheckSound('${divId}')">
+        <i class='bx bx-volume-low'></i>
+      </button>
+      `:
+      `<button class="closeBtn soundBtnSVG" id="explainTextSoundBtn">
+        <i class='bx bx-volume-low'></i>
       </button>`}
-      <button class="closeBtn closeBtnSVG" onclick="handleDelete('${divId}')">
+      <button class="closeBtn" onclick="handleDelete('${divId}')">
         <i class='bx bx-x'></i>
       </button>
       </div>
@@ -1440,6 +1471,9 @@ const renderEditWord = () => {
             <input class="transItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         <div class="transItemContent">
+            <input class="transItemInput" placeholder="" id="inputEditWordClass" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="transItemContent">
             <input class="transItemInput" placeholder="" id="inputEditWordMeaning" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         <div class="transItemContent">
@@ -1589,6 +1623,7 @@ const setInputEditWordResult = (item) => {
   editId = item._id;
   $("#inputEditWordText").val(item.text);
   $("#inputEditWordPhonetic").val(item.phonetic);
+  $("#inputEditWordClass").val(item.class);
   $("#inputEditWordMeaning").val(item.meaning);
   $("#inputEditWordNumb").val(item.numb);
   renderEditWordDefinition(item.text);
@@ -1622,11 +1657,6 @@ const handleFindPhoneticText = (text) => {
     });
 };
 
-let textData = {};
-let textData1 = { text: "", sound: "", class: "", definitions: [] };
-let textData2 = { text: "", sound: "", class: "", definitions: [] };
-let textData3 = { text: "", sound: "", class: "", definitions: [] };
-let textData4 = { text: "", sound: "", class: "", definitions: [] };
 
 function getTextDataAmerica(text, func) {
   let urlEngAmerica = URL_CORS + `https://www.oxfordlearnersdictionaries.com/search/american_english/direct/?q=${text}`;
@@ -1634,6 +1664,7 @@ function getTextDataAmerica(text, func) {
   const regText = new RegExp(`(${newText}\\w*)`, "gi");
   document.getElementById("editContentDivAmerica").innerHTML = "";
   textData1.text = text;
+  textData1.sound = '';
   textData1.definitions = [];
   $.get(urlEngAmerica, function (html) {
     let mp3Link = $(html)
@@ -1697,6 +1728,7 @@ function getTextDataEnglish(text, func) {
   const regText = new RegExp(`(${newText}\\w*)`, "gi");
   document.getElementById("editContentDivEnglish").innerHTML = "";
   textData2.text = text;
+  textData2.sound = '';
   textData2.definitions = [];
   $.get(urlEnglish, function (html) {
     let mp3Link = $(html)
@@ -1755,11 +1787,12 @@ function getTextDataEnglish(text, func) {
 }
 
 function getTextDataCambridge(text, func) {
-  let urlCambridge = URL_CORS + `https://dictionary.cambridge.org/vi/dictionary/english/${text}`;
+  let urlCambridge = URL_CORS + `https://dictionary.cambridge.org/dictionary/english/${text}`;
   let newText = text.length > 4 ? text.slice(0, -2) : text;
   const regText = new RegExp(`(${newText}\\w*)`, "gi");
   document.getElementById("editContentDivCambridge").innerHTML = "";
   textData3.text = text;
+  textData3.sound = '';
   textData3.definitions = [];
   $.get(urlCambridge, function (html) {
     let mp3Link = $(html).find("audio#audio2 source").attr("src");
@@ -1800,6 +1833,7 @@ function getTextDataGG(text, func) {
   let urlGG = `https://myapp-9r5h.onrender.com/example?text=${text}&from=en&to=vi`;
   document.getElementById("editContentDivGoogle").innerHTML = "";
   textData4.text = text;
+  textData4.sound = '';
   textData4.definitions = [];
   $.getJSON(urlGG, function (data, textStatus, jqXHR) {
     textData4.class = '';
@@ -1834,9 +1868,10 @@ const setEditWord = () => {
     meaning: $("#inputEditWordMeaning").val(),
     numb: $("#inputEditWordNumb").val() * 1,
     sound: textData.sound,
-    class: textData.class,
+    class: textData.class.length > 0 ? textData.class : $("#inputEditWordClass").val(),
     definitions: textData.definitions,
   };
+  // console.log(newdata);
   let objIndex = dataSheets.findIndex((obj) => obj._id == editId);
   dataSheets[objIndex].text = newdata.text;
   dataSheets[objIndex].phonetic = newdata.phonetic;
@@ -1856,11 +1891,7 @@ const setEditWord = () => {
     .then((res) => res.json())
     .then((data) => {
       getAllData(CURRENT_COLLECTION.collection).then((data) => {
-        $("#inputEditWordText").val("");
-        $("#inputEditWordPhonetic").val("");
-        $("#inputEditWordMeaning").val("");
-        $("#inputEditWordNumb").val("");
-        $("#editContentDiv").html("");
+        handleDelete('editContainer');
         let newdata = data.sort((a, b) => a._id - b._id);
         localStorage.removeItem("sheetData");
         localStorage.setItem("sheetData", JSON.stringify(newdata));

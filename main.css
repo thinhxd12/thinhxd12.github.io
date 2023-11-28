@@ -1589,36 +1589,29 @@ div#contentBody {
   font-weight: 400;
   font-style: normal;
   font-size: 0.75rem;
-  -webkit-font-smoothing: antialiased;
   padding: 0 3px 3px;
   margin-bottom: 3px;
   background: url("./img/paper.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.explainHeader {
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: flex-end;
-}
-
-#editContentDivAmerica .explainHeader,
-#editContentDivEnglish .explainHeader,
-#editContentDivCambridge .explainHeader {
   position: relative;
 }
 
-.closeBtn {
+.explainHeader {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.closeBtn {
   width: 14px;
   height: 14px;
   outline: 0;
   border: 0;
-  margin: 2px;
+  margin: 3px;
   cursor: pointer;
   display: flex;
   background: transparent;
@@ -1639,15 +1632,8 @@ div#contentBody {
   color: #785c3a;
 }
 
-.soundBtnSVG {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: transparent;
-  position: absolute;
-  right: 21px;
-  top: 1px;
-  font-size: 1rem;
+.soundBtnSVG i {
+  margin-left: 2px;
 }
 
 .preRow {

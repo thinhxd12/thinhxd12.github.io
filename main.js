@@ -206,8 +206,8 @@ const showLastTimeLog = () => {
     dd > 0
       ? dd + " days ago"
       : hh > 0
-      ? hh + " hours ago"
-      : mm + " minutes ago";
+        ? hh + " hours ago"
+        : mm + " minutes ago";
   $(".timeLog").html("Last opened " + resMsg);
 };
 
@@ -289,9 +289,7 @@ $(".zoom_image")
 
 //get quote from sheets
 
-const ggquote =
-  "https://script.google.com/macros/s/AKfycbwoQdwSwrevYk3Ml_61iehDX0NBqsbG5VBQqWoFZcLPPFfWMCed2rgd-JBitqXaymak/exec";
-
+const ggquote = "https://script.google.com/macros/s/AKfycbwoQdwSwrevYk3Ml_61iehDX0NBqsbG5VBQqWoFZcLPPFfWMCed2rgd-JBitqXaymak/exec";
 const fetchGetQuote = (num) => {
   fetch(ggquote + `?action=getBookmark&num=${num}`)
     .then((res) => res.json())
@@ -309,11 +307,10 @@ const fetchGetQuote = (num) => {
             <i class='bx bxs-left-arrow'></i>
           </button>
           <button class="quoteBtn quoteBtnBookmark" onclick="checkQuote(${!data.check})">
-            ${
-              data.check
-                ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>`
-                : `<i class='bx bx-book-bookmark' ></i>`
-            }
+            ${data.check
+          ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>`
+          : `<i class='bx bx-book-bookmark' ></i>`
+        }
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
             <i class='bx bxs-right-arrow' ></i>
@@ -414,12 +411,11 @@ const renderRssNYT = () => {
 
           document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${
-            img
+          ${img
               ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`
               : ""
-          }
+            }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">
@@ -454,12 +450,11 @@ const renderRssNikkei = () => {
           .then((html) => {
             document.getElementById("rssContainer").innerHTML += `
             <div class="rssCard">
-                ${
-                  html.images[0]
-                    ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                ${html.images[0]
+                ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                   </div>`
-                    : ""
-                }
+                : ""
+              }
                 <div class="rssCardText">
                   <a href="${link}" target="_blank">
                     <p class="rssCardTitle">${title}</p>
@@ -505,11 +500,10 @@ const renderRssSCMP = () => {
 
         document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${
-            img
-              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          ${img
+            ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`
-              : ""
+            : ""
           }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
@@ -561,11 +555,10 @@ const renderRssAlJaz = () => {
             .then((html) => {
               document.getElementById("rssContainer").innerHTML += `
             <div class="rssCard">
-                ${
-                  html.images[0]
-                    ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
+                ${html.images[0]
+                  ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                   </div>`
-                    : ""
+                  : ""
                 }
                 <div class="rssCardText">
                   <p class="rssCardDate">${diffRes}</p>
@@ -613,11 +606,10 @@ const renderRssYahoo = () => {
 
         document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${
-            img
-              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          ${img
+            ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`
-              : ""
+            : ""
           }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
@@ -667,12 +659,11 @@ const renderRssTheconversation = () => {
             .then((html) => {
               document.getElementById("rssContainer").innerHTML += `
           <div class="rssCard">
-              ${
-                html.images[0]
+              ${html.images[0]
                   ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
                 </div>`
                   : ""
-              }
+                }
               <div class="rssCardText">
                 <p class="rssCardDate">${diffRes}</p>
                 <a href="${link}" target="_blank">
@@ -691,7 +682,7 @@ const renderRssTheconversation = () => {
 const renderRssWSP = () => {
   $.get(
     URL_CORS +
-      "https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2",
+    "https://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2",
     function (data) {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
@@ -723,12 +714,11 @@ const renderRssWSP = () => {
 
           document.getElementById("rssContainer").innerHTML += `
         <div class="rssCard">
-          ${
-            img
+          ${img
               ? `<div class="rssCardImg" style="background-image: url('${img}');">
           </div>`
               : ""
-          }
+            }
             <div class="rssCardText">
               <p class="rssCardDate">${diffRes}</p>
               <a href="${link}" target="_blank">

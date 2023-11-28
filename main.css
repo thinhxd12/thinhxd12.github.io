@@ -505,10 +505,10 @@ body {
 
 .item-back {
   position: absolute;
-  top: 2%;
+  top: 3%;
   left: 1%;
   width: 98%;
-  height: 96%;
+  height: 94%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -516,10 +516,7 @@ body {
   z-index: 2;
   padding: 18px 9px 18px 90px;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  /* background-image: url("./img/nietzsche.jpg"); */
-  /* background-size: 105%; */
-  /* background-position: center; */
-  border: 3px solid #fff;
+  border: 2px solid #fff;
   border-style: ridge;
   align-items: flex-start;
 }

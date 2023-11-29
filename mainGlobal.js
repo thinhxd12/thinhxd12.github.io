@@ -1813,6 +1813,18 @@ function getTextDataCambridge(text, func) {
               $(this).html($(this).text().replace(regText, `<b>$1</b>`));
               def += '<span class="x">' + $(this).html() + "</span>";
             });
+            $(this).find(".def-body.ddef_b").find(".xref").each(function () {
+              let lcs = "";
+              let length = $(this).find(".lcs div.item").length;
+              $(this).find(".lcs div.item").each(function (index) {
+                if (index === length - 1) {
+                  lcs += $(this).text();
+                } else {
+                  lcs += $(this).append(", ").text();
+                }
+              })
+              def += '<span class="xr-gs">' + $(this).find(".xref-title").append(" ").text() + "<small>" + lcs + "</small>" + "</span>";
+            })
           }
           textData3.definitions.push(def);
         });

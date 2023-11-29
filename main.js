@@ -356,7 +356,7 @@ const renderRssNews = () => {
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAPFBMVEVHcEwYGBgTExMSEhITExMSEhISEhISEhISEhISEhIaGhoSEhISEhISEhIUFBQSEhIUFBQTExMSEhISEhKEQ9J+AAAAFHRSTlMADkynKmHI4tT/BvG6ITywGYyZe8Y/Bk0AAADpSURBVHgBxdLBbkURFIXhBbBwgPd/10au2xbttP0GJvtPZAf8EyGVxkkY67wya2BpsAuenGIyAYCje/a55ZdoI0m5BZmnIzCkK8lHfvJ1CyS9BoRulovBpvoOPK0FwBTrXMo46I4RFYBhIHLGTSR66EZ2oFbcLDmy5a9BJ30NK5ADJx3JAvEKcmTDoc3JCjLniV0i2VYwa6+xcyTVO8BIAMIV2BWsLeS5JGMO34JHnVuSZXbteQWpHI81NWUwVSHU8VrCc7J1fT/PqLHRXJIqliQHDoObiEuOXNZdF9351gV+JnsppRv8rQ8S0A3fpn5NfAAAAABJRU5ErkJggg==">  
     </button>
     <button class="rssBtn" onclick="renderRssNikkei()">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAdr8AdL8ggcQAbrw6jMlLk8xcnNC71etyqNbo8/qRut4AZrna6vX///+nyeXN4PDis/X7AAABQklEQVR4AWOgChBgYGQUEAAhQSBgYGBUZhARUnQUCHAUcAhNUhFgYK4wsLRaONsmabal671n6QYMzG+DLa0Wz/5hdPqo6W9jkEDppJ1Wi8+9Fvq+WPRYIkigjNPGavG9yUK3JovOeggWMD0D1LJ80+l3W38bggWEc60WT96ZdNjS9aMCSGCpgIVE42ORB49FH/3/4WXAwGAIcpgBoyEQGRsK43Q9EDAawPmMgSDSYiFcQOiqAFCVzWW4gN11A0ZjYWFDY2OoLtu7jIJ/b26fvfbuYzCfubd3sd21OPvbr9pvgZVwn9wz2e4G9/7L1huugwVE7nFdM5p73/52zl2IgN3du/c3b3nbf+G+MliAUfaQUy1Xcm7/lXvbwALMa5uFfV/dvb/n9t87EBVAlwswsygLMJo4Qz0B8o2gACMQClInZgE033H1ovn+2QAAAABJRU5ErkJggg==">  
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACwklEQVR4AbzUAQaEQBgF4CjUiI4QaA7QASIEhACCiBBdJSBAutECukUBCFnePpld7Ca1pccHmfH+fox2IA6l1NKDRnoqo/rWUqrOXhZJHU2EnSZ1xztTbFFNM+FPM9Uk6FA86gkX6Y9sw6eBcLGBfNqMt1l+3rC1CXHl2jf0ZNFPasJN6rXVz4SbzCTpk27PxSAI0DTNwjCMk0OwU8XZ+8hUVYV3TNM8O8CkurWUoCx/FkURyrJEkiSwbXt1ANd1kWUZ8jyHlHK1RAiBOI5RFAXCMISu699nUnrxVQYYCEVBFBUEEQSqpIQIRIK0gVCUkghEQEBrSFFaQ5uoUgpAS4gIIKqqkFK/bu7w8p++f3go79+5Zmbmyf4GTyKRwHq9hpnj8YhCofBn4Ha7QfH5fDAYDLSs5HI57HY7mFmtVojH42YDjC2PCHw+nwSz4vV6IZ1OiwE7aIJaqVQKz+cTVuz3e3i9XmWAseUlQ6/XA3m/32g0GvB4PMhms7heryDz+VwzMJ1OEYlE5MxmM5UJlkP95rfUoJZoUpt0u11lgLHlOcVyuQSZTCZanTqdDsjj8RARRTgc/t0JhUJQ1Go13O93kHa7rWlVq1U0m02Uy2X1n/FnYDQaaR9RRFGv16EIBoPqDhtSM0CzpNVqaVqlUkmymM/nNQN/JWDXsvszmQwulwsUsVhM0kyGwyH8fr8EH4/HWgkWiwXI+XyWiXK5XKKpStDv97US/JrwcDjADo4oG82uCdXCMgwDVpxOJwQCAa0Jbcdwu91qBjhqDCSZsBlDppvBzGw2GySTSX0M7RYRl0c0GkWlUpHjcDjUPaaaS8h2EbndbhSLRWleltPpdFouot8q/o6eGGonH0plRGc8F7XlS//qWHWAGySYgJOOTTKuAW2UDmizfAh0TBCAi4pdM04GCoAqBZ1TNUKGD3j3HAAm9vfIGp6+kgAAAABJRU5ErkJggg==">  
     </button>
     <button class="rssBtn" onclick="renderRssSCMP()">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAjUlEQVR4AWP4Q2NAZQtGLRi14O/fv/8pBkBDaGQBAhCy4PmK/6dY/5+VRUcnGCD6GXiDpXXi0RCDdMjEaSuJ88HTpUCzgHago2MwCxicGcSD0BGD94SpK6hlgRvQveiIwRvoA1pbMGrBqAWjFgz+ouIE3AJvBulwBhlUxOBPrA8oBzSvcIZYnTxqwagFAH35Im3PxoFeAAAAAElFTkSuQmCC">  
@@ -365,13 +365,13 @@ const renderRssNews = () => {
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAM1BMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADbQS4qAAAAEXRSTlMAWI8Iov/xgTwWudt0McmxRlLFJScAAADUSURBVHgBzdEFloQwAATRRioGkfufdpOHs+7TOPlxPUq6ftBbGXmnPuZtMILVmuH8WD/kAK8wSfLMqglmUFSHW0UCl2Gq5TQRwPi5A8oCMoSOKmwPROcMuBCrYwGh0QgsjbUa2FnaQa5g/cwb6E7ApxvoDZQDRLiAGOAC8h0YO13AfB9DVLgAKVyBXgLuAOVF0EtUVkHSwuwJjEB2BuhykNQ3W42p+hBWE9Cv5Q2cNlkzrSQvf+hTBcvA9pTj7soySO/1WhYgfQuM9k2QRsm/BYr+NE9POwppQTNhSQAAAABJRU5ErkJggg==">  
     </button>
     <button class="rssBtn" onclick="renderRssAlJaz()">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEX6kAD8uFz6lAr7oSj8u2L7pzT92qn////+4777nBv/9ej9yYT8wG790pf6lQz+4bv+79r8xHj+8+P7qjv+37b9zo/9z5H+6s7916P9zIn7rUL93bD8tFP/+fH7rkb6mRX905v8xnz7pC4m+LyJAAAA30lEQVR4AazSNRLDUAAD0TXKzMz2/Q+ZPn/CefWOKvF/ls1Tjstzns8L4oVAPBdG4gnFCUp5JMuLsrKQxwOW6qaWg3gkUesiygdFqCDschCKMdGoJih7GEaEqReEQzHRMtMF3FvERJGsRNgSMgLZtU8xbruD1NP6RgD7aHWAI6zYnAjCgYopnvFAoRnM0nJwalKPeswgjlCJSkCC0AhCSRNzD1oRlRHU7pxcTopSwZbIvF4OWzOyqYnHSBUGPyaRo73yJbVgkuQzIB7yvCTTJRqHR5IKielxwClN3EZvAAAI0Arm0fKq0AAAAABJRU5ErkJggg==">  
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAclBMVEX///9sbGwAAABFRUWWlpa2trYAAAAAAAAtLS2Hh4cuLi6lpaWFhYVsbGxFRUXV1dVXV1ctLS2qqqp3d3eqqqpWVlbCwsLCwsJra2v29vbr6+uWlpZWVlZ4eHizs7Ph4eHPz8////+GhoampqbR0dGzs7OhBokDAAAAJnRSTlMBR///XQfD371tjUsvh6sHX/8VewObK/////////////////8dPTLMEPAAAAEuSURBVHgBfVJHcsQwDHOo7b3ZlEVVKvn/F+PCg+viCgiFo2IJP6A2xRdsdwD7w3FdcIIGjeS8wl8ag15yXQ0Q7G/rASAx9xn/EAPBc8q/xvz+PeE/E75cKyA4TN9P+H1VCFCfTmK+WKB+TrlpgKFWYt1zKUBMPNhA5NYXBhcxUfRrC9BFxZgwexaD8yiAqDYu15454bMXjO3RmNj4q2BQK9sJhn8qWuJYp5SfiI1QzzuEjCmZzIpCikpKHEcKYKPRsmFn4anVzIJ0JueVagqoJ/cm+9/BCpet5RxSh2dzpPMBYFDTOHK+Z03w+/KvKO7l8JTUWJuGjZ7IaznB5jzc6Vs+k/fEz7KYA11qUKecGeC4IAg6Cagpt+rQwOhlQWYR1A7gvCAgEkG0AKOf9A81wB9aDk7trQAAAABJRU5ErkJggg==">  
     </button>
     <button class="rssBtn" onclick="renderRssYahoo()">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEVgAdJ8Ltrk1PeufujGpO7///+DOdxwG9b8+/7gzva0iOqZXOJmC9P07vzu5frbxvTAmu2jbOWqeOeUVOD49f1pENSWWOHo2/jr3/mlcOWRUOC7kuvWvvPYwvR2JNiIQd23jOrKq/DSuPJgXEy7AAAAsUlEQVR4Ad3SxRHDQBAEwDGImRnzD9Ijxiv/1Z9j3MWTvd70gdhXIhlCispxDWK6RAaETIvjtomNww4X9GHFgSeRj52AHWHEis1KjGRq7qXsyqaJNnKJChxk7HoD5bh1JVF9c62mHrc2E3Jx0nKsK6a7mqbga9SQE15RL6kFrjpp1E+/HONClkY53hLdxGm6ewIUojgFEnmA6aZajBs5xy0TYsMntRB7cVyt/+RQh6f6AanbCL/9Rz1bAAAAAElFTkSuQmCC">  
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUAAAACJ2IDKGAEJ2EFKWIHJ18AJ18DJ2ErSnpGYYtjeZ3Ezdrp7PF+ka6jscX////L9Dq8AAAACHRSTlMBYJnh/yAggEFSUK0AAAEaSURBVHgBTJElVEVBEIYHj2jHqTj12Y879IP1g/aEQ8MLXnB3l4L39OprVHyYuXbut/6t75JBWHpBIC+OHBoKoGSRRTgsOsggWvuHlgEEmklpA8rPX8ZHQ0CRNaDs6qcX1Rwyh0QAQf4CoDZHRI/08T2AUV6GX2YAWyxVoFzzZtmz7I25F0JQRApFoob5G0qliBxKQhXzH5SyXsBHGZhj/oWNnwoQdIuAiHfmL5cArtwCjqhYFQA4U8qlOHWvoZsti7C3tYXfPpgtfNSol/12hFcfVC7niBSKAoJStUUdUYbO2bdEqf2En4YYN54wqkCe6KdXxAkCdSQ0AhVXj71zJ0AhCToEmFkGjAFKDCxSnM+GEsgkh/8hJQcA9drEYU3H20EAAAAASUVORK5CYII=">  
     </button>
     <button class="rssBtn" onclick="renderRssTheconversation()">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACX0lEQVR4Ae1WA7AdMRRNbQxrM8krd5Pa7XjqjqtBjWFt22PWdke1bSWpbXNU5Ja76eJh36/+mVkF55y9uQHKRCaC8AmhrIJXrac4magYXisZPiAZPR58QRuyRjEyCfoCR+LCnVA2wWg3TXRTX59SvG4CV9xGLtepXlIyfAw6R3wdBe5A8UuM1tQN70UpbFx3QcNT/KKFi0lG7/h0fKJsvAzGVXI6OOiCfJGcbNDXay8u0LjAaFEz2bLoyr0eHR4qjrsct6wcKEFcrlOxoOR4uOZ472FiN2j+aCxYrL3ZSDFy/ovTFCGsqtU8I2uTNj8a6YLTZshTEjdzq24MewzJKQS4UJtW9Ah9dxQxNOcAU+eyFavgVfH0etOyuVHEuFyxYi7J6AvXMNu0LxiYa4zNepQmALfbAJmHJCerjQhMR2mCYHiB2wBeBhFYZRiYm7YIMDrbqQX7CxIcz3IWCkbXoTRBC252aWltJGzaz4jAc0iYqMX1YpZXc790aXHSC4m6Vcvqj4+GiQHRhx/3NjQ+XmGxUt8rjxnOXl+uQ0mKmsYOS54bBvY6p0cbj8XonuK0Rqri8JeaS/3Cz2lzY4qQbR4m3itGR12vWbNwosKwmAmb9NQczzx4V/k5veWzHb8VNt2iGJkRuh1DG0bWGKue46JnYaf03TQMx9FeNrn4I/G8cIHS/IbzKK9VskGVAmELRZ/ohfEBM+E8AScUCJEzAXXnccqiDZVNRn85ZjGyP+xYDsmsBRfpvgO/bLfx4qKNWznEd0A+oIyEFt0ERyc4A6KMhqpXuYSwyUwjSf4PfAZay1f064LokgAAAABJRU5ErkJggg==">  
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACB0lEQVR4Ae3TA4xkWRiA0bVtK1jbwdq2bW+wtm2Mbdu2bdu2Gv+cSaom3TepcVxfcsKHy922o3z58h3Na/zBMxxKthN5i994lAPZpR1HEwoJNlCZgzmLbhQTrOWvXT2ID4jEeh7kByKxhnvZZZUhSL3NFywiEm+yQ+3PU/zPH1zFtwSp17iRiUQJRTzDLfzDv9zNXmyxPfiCNUTGJD5iNulPHuUnIjGcj5lHZCzlObbY+cwkEi1oRpSwgqv5iEj8Ry8iMZTjydk9bCASy6jKKiJjKifzIAVExhwqsI5ILOZicnYeMwhSdelOZPTmQC5hMZFRi1YEqUEcR8724H1WEYlZNKSIoBa7czxjCFbxHwuJxEIeY4sdzBm8xEgiUYuxBF+zqf1oS9CZukSiN49wMvvnmvlTdGciLfiGOqwhMkbThvSeVyb4jwlExnLK8w0dmEhLbqBUtzGfKGEJVfiacQQFNGA+z5DtLyZQg2KCoXxGDVYQJYzmPEp9IEgV05PPaUgBfWnDjWR7l4r0YT3V+ZyBRA6vsLl/iS2Yyz98y1iqcDLZLqMCI/mK/1lIbMEbbO4xVhNbUEgHPuUp9iXbfjzHZ3SjiNiCxVxLqQ98yCwKcigkmMInHE62I/ic6QSFFOQwk7fYi1LtyXncz0Nb8Aj3cSzZjud+HmFL7z7AefiXlC9fvnwbAdT9MQ6KtWmjAAAAAElFTkSuQmCC">  
     </button>
   </div>
   </div>`;
@@ -431,41 +431,56 @@ const renderRssNYT = () => {
 };
 
 const renderRssNikkei = () => {
-  $.get(URL_CORS + "https://asia.nikkei.com/rss/feed/nar", function (data) {
-    // console.log(data);
-    document.getElementById("rssContainer").innerHTML += `
+  $.get(
+    URL_CORS + "https://abcnews.go.com/abcnews/usheadlines",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
-    $(data)
-      .find("item")
-      .each(function () {
-        const el = $(this);
-        let link = el.find("link").text();
-        let title = el.find("title").text();
-        fetch("https://jsonlink.io/api/extract?url=" + link)
-          .then((res) => res.json())
-          .then((html) => {
-            document.getElementById("rssContainer").innerHTML += `
-            <div class="rssCard">
-                ${html.images[0]
-                ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                  </div>`
-                : ""
-              }
-                <div class="rssCardText">
-                  <a href="${link}" target="_blank">
-                    <p class="rssCardTitle">${title}</p>
-                    <p class="rssCardDescription">${html.description}</p>
-                  </a>
-                </div>
+      $(data)
+        .find("item")
+        .each(function () {
+          const el = $(this);
+          let img = el.find("media\\:thumbnail, thumbnail").attr("url");
+          let link = el.find("link").text();
+          let title = el.find("title").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
+
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
+
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
+
+          document.getElementById("rssContainer").innerHTML += `
+        <div class="rssCard">
+          ${img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+            }
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
             </div>
-        `;
-          });
-      });
-  });
+        </div>
+      `;
+        });
+    }
+  );
 };
 
 const renderRssSCMP = () => {
@@ -520,12 +535,12 @@ const renderRssSCMP = () => {
 
 const renderRssAlJaz = () => {
   $.get(
-    URL_CORS + "https://www.aljazeera.com/xml/rss/all.xml",
+    URL_CORS + "https://www.newyorker.com/feed/news",
     function (data) {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -533,7 +548,7 @@ const renderRssAlJaz = () => {
         .find("item")
         .each(function () {
           const el = $(this);
-          let img = el.find("enclosure").last().attr("url");
+          let img = el.find("media\\:thumbnail, thumbnail").attr("url");
           let link = el.find("link").text();
           let title = el.find("title").text();
           let pubDate = el.find("pubDate").text();
@@ -550,98 +565,47 @@ const renderRssAlJaz = () => {
             diffRes = days + " day ago";
           }
 
-          fetch("https://jsonlink.io/api/extract?url=" + link)
-            .then((res) => res.json())
-            .then((html) => {
-              document.getElementById("rssContainer").innerHTML += `
-            <div class="rssCard">
-                ${html.images[0]
-                  ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                  </div>`
-                  : ""
-                }
-                <div class="rssCardText">
-                  <p class="rssCardDate">${diffRes}</p>
-                  <a href="${link}" target="_blank">
-                    <p class="rssCardTitle">${title}</p>
-                  </a>
-                  <p class="rssCardDescription">${description}</p>
-                </div>
+          document.getElementById("rssContainer").innerHTML += `
+        <div class="rssCard">
+          ${img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+            }
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
             </div>
-        `;
-            });
+        </div>
+      `;
         });
     }
   );
 };
 
 const renderRssYahoo = () => {
-  $.get(URL_CORS + "https://www.yahoo.com/news/rss", function (data) {
-    // console.log(data);
-    document.getElementById("rssContainer").innerHTML += `
-    <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
-      <i class='bx bx-x'></i>
-    </button>
-    </div>`;
-    $(data)
-      .find("item")
-      .each(function () {
-        const el = $(this);
-        let link = el.find("link").text();
-        let img = el.find("media\\:content, content").attr("url");
-        let title = el.find("title").text();
-        let pubDate = el.find("pubDate").text();
-
-        let dt1 = new Date(pubDate);
-        let dt2 = new Date(new Date().toISOString());
-
-        let diff = dt2.getTime() - dt1.getTime();
-        let hours = Math.floor(diff / (1000 * 60 * 60));
-        let diffRes = hours + 1 + " hours ago";
-        if (hours >= 24) {
-          let days = Math.floor(hours / 24);
-          diffRes = days + " day ago";
-        }
-
-        document.getElementById("rssContainer").innerHTML += `
-        <div class="rssCard">
-          ${img
-            ? `<div class="rssCardImg" style="background-image: url('${img}');">
-          </div>`
-            : ""
-          }
-            <div class="rssCardText">
-              <p class="rssCardDate">${diffRes}</p>
-              <a href="${link}" target="_blank">
-                <p class="rssCardTitle">${title}</p>
-              </a>
-            </div>
-        </div>
-      `;
-      });
-  });
-};
-
-const renderRssTheconversation = () => {
   $.get(
-    URL_CORS + "https://theconversation.com/ca/articles.atom",
+    URL_CORS + "https://www.theguardian.com/us-news/rss",
     function (data) {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="closeBtn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
       $(data)
-        .find("entry")
+        .find("item")
         .each(function () {
           const el = $(this);
-          let link = el.find("link").attr("href");
+          let img = el.find("media\\:content, content").attr("url");
+          let link = el.find("link").text();
           let title = el.find("title").text();
-          let pubDate = el.find("published").text();
-          let description = el.find("summary").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
 
           let dt1 = new Date(pubDate);
           let dt2 = new Date(new Date().toISOString());
@@ -654,26 +618,75 @@ const renderRssTheconversation = () => {
             diffRes = days + " day ago";
           }
 
-          fetch("https://jsonlink.io/api/extract?url=" + link)
-            .then((res) => res.json())
-            .then((html) => {
-              document.getElementById("rssContainer").innerHTML += `
-          <div class="rssCard">
-              ${html.images[0]
-                  ? `<div class="rssCardImg" style="background-image: url('${html.images[0]}');">
-                </div>`
-                  : ""
-                }
-              <div class="rssCardText">
-                <p class="rssCardDate">${diffRes}</p>
-                <a href="${link}" target="_blank">
-                  <p class="rssCardTitle">${title}</p>
-                </a>
-                <p class="rssCardDescription">${description}</p>
-              </div>
-          </div>
+          document.getElementById("rssContainer").innerHTML += `
+        <div class="rssCard">
+          ${img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+            }
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
+            </div>
+        </div>
       `;
-            });
+        });
+    }
+  );
+};
+
+const renderRssTheconversation = () => {
+  $.get(
+    URL_CORS + "https://feeds.nbcnews.com/nbcnews/public/world",
+    function (data) {
+      // console.log(data);
+      document.getElementById("rssContainer").innerHTML += `
+    <div class="rssCardHeader">
+    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+      <i class='bx bx-x'></i>
+    </button>
+    </div>`;
+      $(data)
+        .find("item")
+        .each(function () {
+          const el = $(this);
+          let img = el.find("media\\:thumbnail, thumbnail").attr("url");
+          let link = el.find("link").text();
+          let title = el.find("title").text();
+          let pubDate = el.find("pubDate").text();
+          let description = el.find("description").text();
+
+          let dt1 = new Date(pubDate);
+          let dt2 = new Date(new Date().toISOString());
+
+          let diff = dt2.getTime() - dt1.getTime();
+          let hours = Math.floor(diff / (1000 * 60 * 60));
+          let diffRes = hours + 1 + " hours ago";
+          if (hours >= 24) {
+            let days = Math.floor(hours / 24);
+            diffRes = days + " day ago";
+          }
+
+          document.getElementById("rssContainer").innerHTML += `
+        <div class="rssCard">
+          ${img
+              ? `<div class="rssCardImg" style="background-image: url('${img}');">
+          </div>`
+              : ""
+            }
+            <div class="rssCardText">
+              <p class="rssCardDate">${diffRes}</p>
+              <a href="${link}" target="_blank">
+                <p class="rssCardTitle">${title}</p>
+              </a>
+              <p class="rssCardDescription">${description}</p>
+            </div>
+        </div>
+      `;
         });
     }
   );

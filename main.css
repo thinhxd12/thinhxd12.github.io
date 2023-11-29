@@ -1611,13 +1611,9 @@ div#contentBody {
   height: 14px;
   outline: 0;
   border: 0;
-  margin: 3px;
+  margin: 3px 2px;
   cursor: pointer;
-  display: flex;
   background: transparent;
-  justify-content: center;
-  border-radius: 50%;
-  border: 0.3px solid #000;
 }
 
 .closeBtnSVG {
@@ -1625,6 +1621,8 @@ div#contentBody {
   transition: all 0.3s ease;
   border: 0.3px solid #503f2b;
   color: #3a3124;
+  border-radius: 50%;
+
 }
 
 .closeBtnSVG:hover {
@@ -1915,6 +1913,10 @@ span.x::before {
 .rssCardHeader {
   position: sticky;
   top: 0;
+  right: 0;
+  height: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .rssCard {
@@ -1960,7 +1962,7 @@ span.x::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 6px;
+  padding-top: 6px;
 }
 
 .rssBtn {

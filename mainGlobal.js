@@ -1185,7 +1185,7 @@ const renderFlashcard = (item, progress) => {
   cardMeaning = cardMeaning
     .replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`)
     .substring(1);
-  let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, ", ");
+  let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, "-");
   const flashCardContent = document.getElementById("flashCardContent");
   flashCardContent.innerHTML = `
                 <div class="item">

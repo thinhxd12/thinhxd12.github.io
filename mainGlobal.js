@@ -1195,20 +1195,13 @@ const renderFlashcard = (item, progress) => {
                         ${item.numb}
                         </span>
                     </div>
+                    ${progress ? `<span class="progressFlip">${progress >= 9 ? `<img src="./img/cup.png" width="21">` : `<sup>${progress}</sup>/<sub>9</sub>`}</span>` : ""}
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
-                    ${progress
-      ? `<span class="progressFlip">${progress >= 9
-        ? `<img src="./img/cup.png" width="21">`
-        : `<sup>${progress}</sup>/<sub>9</sub>`
-      }</span>`
-      : ""
-    }
-                              <p class="cardTextClass">${item.class}</p>
-                              <h1>${item.text}</h1>
-                              <p class="cardPhonetic">${item.phonetic
-    }</p>                  
-                    <p class="cardName">05/07/22</p>
+                      <p class="cardTextClass">${item.class}</p>
+                      <h1>${item.text}</h1>
+                      <p class="cardPhonetic">${item.phonetic}</p>                  
+                      <p class="cardName">05/07/22</p>
                     </div>
                     </div>
                     <div class="item-back">

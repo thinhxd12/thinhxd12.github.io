@@ -598,11 +598,12 @@ body {
 
 .progressFlip {
   position: absolute;
-  top: 6px;
-  right: 12px;
+  top: 12px;
+  right: 15px;
   font-family: "Roslindale";
   color: #ca140c;
-  font-size: 0.9rem;
+  font-size: 15px;
+  z-index: 6;
 }
 
 .cardName {
@@ -806,12 +807,57 @@ body {
   height: 60px;
 }
 
+
+.fncButton:nth-child(1) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 0ms;
+}
+
+.fncButton:nth-child(2) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 50ms;
+}
+
+.fncButton:nth-child(3) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 100ms;
+}
+
+.fncButton:nth-child(4) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 150ms;
+}
+
+.fncButton:nth-child(5) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 200ms;
+}
+
+.fncButton:nth-child(6) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 250ms;
+}
+
+.fncButton:nth-child(7) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 300ms;
+}
+
+.fncButton:nth-child(8) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 350ms;
+}
+
+.fncButton:nth-child(9) {
+  transition: right 0.3s ease, bottom 0.3s ease;
+  transition-delay: 100ms;
+}
+
 .buttonsContainer:hover .fncButton:nth-child(1) {
   right: 3px;
   bottom: 41px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 0ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(2) {
@@ -819,7 +865,6 @@ body {
   bottom: 41px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 50ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(3) {
@@ -827,7 +872,6 @@ body {
   bottom: 41px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 100ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(4) {
@@ -835,7 +879,6 @@ body {
   bottom: 22px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 150ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(5) {
@@ -843,7 +886,6 @@ body {
   bottom: 3px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 200ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(6) {
@@ -851,7 +893,6 @@ body {
   bottom: 3px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 250ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(7) {
@@ -859,7 +900,6 @@ body {
   bottom: 3px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 300ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(8) {
@@ -867,7 +907,6 @@ body {
   bottom: 22px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 350ms;
 }
 
 .buttonsContainer:hover .fncButton:nth-child(9) {
@@ -875,7 +914,6 @@ body {
   bottom: 22px;
   opacity: 1;
   z-index: 36;
-  transition-delay: 400ms;
 }
 
 .fncButton {
@@ -897,7 +935,7 @@ body {
   height: 16px;
   padding: 1px;
   border-radius: 2px;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   opacity: 0;
   box-shadow: 0px 0px 9px #1c1c1c;
 }

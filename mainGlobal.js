@@ -142,9 +142,9 @@ const fetchStartupData = async () => {
   });
 };
 
-// fetchStartupData();
+fetchStartupData();
 wakeupServer();
-getLocalSheetData();
+// getLocalSheetData();
 
 const autocomplete = (inp) => {
   var currentFocus;

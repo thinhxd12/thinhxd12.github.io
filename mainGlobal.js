@@ -142,9 +142,9 @@ const fetchStartupData = async () => {
   });
 };
 
-fetchStartupData();
+// fetchStartupData();
 wakeupServer();
-// getLocalSheetData();
+getLocalSheetData();
 
 const autocomplete = (inp) => {
   var currentFocus;
@@ -1275,7 +1275,6 @@ function handleCheckEdit(id) {
       textData.definitions = textDataArr[index].definitions;
     }
   }
-  $("#editWordBtn,#transWordBtn").show();
 }
 
 function handleCheckSound(id) {
@@ -1445,7 +1444,7 @@ const renderEditWord = () => {
        <div class="transItemHeader">
             <span></span>
             <div style="display: flex;">
-            <button class="close-btn" id="editWordBtn" style="display: none;" onclick="setEditWord()">
+            <button class="close-btn" onclick="setEditWord()">
                 <i class='bx bx-edit-alt' ></i>
             </button>
             <button class="close-btn" onclick="handleDelete('editContainer')">
@@ -1619,6 +1618,8 @@ const setInputEditWordResult = (item) => {
   $("#inputEditWordClass").val(item.class);
   $("#inputEditWordMeaning").val(item.meaning);
   $("#inputEditWordNumb").val(item.numb);
+  textData.definitions = item.definitions;
+  textData.sound = item.sound;
   renderEditWordDefinition(item.text);
 };
 

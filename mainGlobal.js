@@ -1271,6 +1271,7 @@ function handleCheckEdit(id) {
       document.getElementById(`${editContentDivArr[index]}`).innerHTML = "";
     }
     else {
+      textData.text = textDataArr[index].text;
       textData.class = textDataArr[index].class;
       textData.definitions = textDataArr[index].definitions;
     }
@@ -1996,6 +1997,7 @@ const handleAddTextEnd = () => {
     data.sound = textData.sound;
     data.definitions = textData.definitions;
     data.class = textData.class;
+    // console.log(data);
     let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/insertText?col=${CURRENT_COLLECTION.collection}`;
     fetch(url, {
       ...mongoFetchOp,

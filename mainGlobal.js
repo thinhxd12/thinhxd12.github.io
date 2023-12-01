@@ -1185,7 +1185,7 @@ const renderFlashcard = (item, progress) => {
   cardMeaning = cardMeaning
     .replace(/\-/g, `\n&nbsp;<img src='./img/clover.png' width="15">&nbsp;`)
     .substring(1);
-  let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, "-");
+  let meaningTTS = item.meaning.replace(/\s\-(.+?)\-/g, "+").replace(/\-/g, "+");
   const flashCardContent = document.getElementById("flashCardContent");
   flashCardContent.innerHTML = `
                 <div class="item">
@@ -1230,7 +1230,7 @@ const renderFlashcard = (item, progress) => {
   flipTimer1 = setTimeout(() => {
     audioEl.pause();
     audioEl.volume = 1;
-    // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`
+    // audioEl.src = `https://proxy.junookyo.workers.dev/?language=vi-VN&text=${meaningTTS}&speed=1`;
     audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`;
     audioEl.play();
   }, 2500);
@@ -1377,7 +1377,7 @@ const renderTranslate = (arr) => {
     <div class="transItemHeader">
       <span></span>
       <div style="display: flex;">
-        <button class="close-btn" id="transWordBtn" style="display: none;" onclick="handleAddTextEnd()">
+        <button class="close-btn" onclick="handleAddTextEnd()">
           <i class='bx bx-plus'></i>
         </button>
         <button class="close-btn" onclick="handleAddNewText()">
@@ -1445,31 +1445,37 @@ const renderEditWord = () => {
             <span></span>
             <div style="display: flex;">
             <button class="close-btn" onclick="setEditWord()">
-                <i class='bx bx-edit-alt' ></i>
+                <i class='bx bx-check'></i>
             </button>
             <button class="close-btn" onclick="handleDelete('editContainer')">
                 <i class='bx bx-x'></i>
             </button>
             </div>
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="find edit text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+        <div class="editItemContent">
+            <span class="editItemLabel">Find</span>
+            <input class="editItemInput" placeholder="find text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
+        <div class="editItemContent">
+            <span class="editItemLabel">Result</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
             <img src="./img/center.png" onclick="handleRenderEditWordDefinitionHandy()" class="editEnterBtn" id="editEnterBtn">
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        <div class="editItemContent">
+            <span class="editItemLabel">Phonetic</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordPhonetic" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordClass" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        <div class="editItemContent">
+            <span class="editItemLabel">Type</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordClass" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordMeaning" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        <div class="editItemContent">
+            <span class="editItemLabel">Meaning</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordMeaning" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
-        <div class="transItemContent">
-            <input class="transItemInput" placeholder="" id="inputEditWordNumb" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        <div class="editItemContent">
+            <span class="editItemLabel">Numb</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordNumb" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         </div>
         <div id="editContentDiv"></div>
@@ -1488,18 +1494,20 @@ const renderDeleteWord = () => {
             <span></span>
             <div style="display: flex;">
                 <button class="close-btn" onclick="setDeleteWord()">
-                    <i class='bx bx-trash-alt' ></i>
+                    <i class='bx bx-trash-alt'></i>
                 </button>
                 <button class="close-btn" onclick="handleDelete('editContainer')">
                   <i class='bx bx-x'></i>
                 </button>
             </div>
         </div>
-        <div class="transItemContent">
-          <input class="transItemInput" placeholder="find delete text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
+        <div class="editItemContent">
+          <span class="editItemLabel">Find</span>
+          <input class="editItemInput" placeholder="find delete text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
         </div>
-        <div class="transItemContent">
-          <input class="transItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        <div class="editItemContent">
+          <span class="editItemLabel">Result</span>
+          <input class="editItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         </div>
         <div id="editContentDiv"></div>

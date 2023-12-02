@@ -1244,44 +1244,23 @@ body {
   color: #383838;
 }
 
-.dayIndicate1,
-.dayIndicate2 {
-  display: inline-block;
+.dayIndicateText {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  right: -6px;
-  bottom: 1px;
-  width: 3px;
-  height: 3px;
-  border-radius: 60%;
-  background-color: #070707b1;
-  box-shadow: 0px -5px 0px #070707b1, 0px -10px 0px #070707b1;
+  right: 12px;
+  bottom: 3px;
 }
 
-.complete1 {
-  background-color: #00d566;
-  box-shadow: 0px -5px 0px #070707b1, 0px -10px 0px #070707b1;
+.todayDay .dayIndicateText {
+  right: 5px;
+  bottom: 3px;
 }
 
-.complete2 {
-  background-color: #00d566;
-  box-shadow: 0px -5px 0px #00d566, 0px -10px 0px #070707b1;
-}
-
-.complete3 {
-  background-color: #00d566;
-  box-shadow: 0px -5px 0px #00d566, 0px -10px 0px #00d566;
-}
-
-.dayIndicate2 {
-  right: -10px;
-}
-
-.todayDay .dayIndicate1 {
-  right: -12px;
-}
-
-.todayDay .dayIndicate2 {
-  right: -16px;
+.dayIndicateText span {
+  color: #00d566;
+  font-size: 8px;
+  line-height: 8px;
 }
 
 #todayReset {
@@ -1865,6 +1844,12 @@ span.x::before {
   margin-bottom: 6px;
 }
 
+.editItemInputGroup {
+  display: flex;
+  align-items: center;
+  width: 72%;
+}
+
 .editItemLabel {
   font: 13px "ClarendonRoman", Georgia, Times, serif;
   color: #525250;
@@ -1885,8 +1870,27 @@ span.x::before {
   letter-spacing: .6px;
 }
 
+.editItemInputChild {
+  flex-grow: 1;
+  border-bottom: 1px dashed #989895;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  color: #4f4f4f;
+  background: none;
+  outline: none;
+  font: 12px "SeanRegular", Courier New, Courier New, Courier6, monospace;
+  letter-spacing: .6px;
+}
+
+.editItemInputChildActive {
+  color: #000;
+  font-weight: bold;
+}
+
 .editItemArea {
   width: 72%;
+  resize: vertical;
   font: 12px "nyt-imperial", Courier New, Courier New, Courier6, monospace;
   font-weight: 400;
   color: #777;
@@ -1904,11 +1908,9 @@ span.x::before {
 }
 
 .editEnterBtn {
-  position: absolute;
-  right: 3px;
-  bottom: 3px;
   height: 17px;
   cursor: pointer;
+  margin-left: 6px;
 }
 
 .transItemInput {

@@ -511,27 +511,13 @@ const renderCalendar = (data) => {
         .map((item, index) => {
           return `
                 <td>
-                    <div ${item.date == date.getDate() &&
-              item.month == date.getMonth()
-              ? 'id="todayReset" onclick="resetTodaySchedule(true)"'
-              : ""
-            } class="${item.month == date.getMonth() && index == 0
-              ? `${item.class} sundayDay`
-              : index == todaysWeekDay && item.class !== ""
-                ? `todayWeekDay ${item.class}`
-                : `${item.class}`
-            }" >
-                    <span>${item.date}
-                    ${item.indicate
-              ? `<span class="dayIndicate1 ${item.time1
-                ? "complete" + Math.floor(item.time1 / 3)
-                : ""
-              }"></span>
-                    <span class="dayIndicate2 ${item.time2 ? "complete" + Math.floor(item.time2 / 3) : ""
-              }"></span>`
-              : ""
-            }
-                    </span>
+                    <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ""} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : index == todaysWeekDay && item.class !== "" ? `todayWeekDay ${item.class}` : `${item.class}`}" >
+                    <div>${item.date}
+                      ${item.indicate ? `<div class="dayIndicateText">
+                          <span>${item.time1}</span>
+                          <span>${item.time2}</span>
+                        </div>`: ""}
+                    </div>
                     </div>
                 </td>
             `;
@@ -1467,8 +1453,10 @@ const renderEditWord = () => {
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Result</span>
-            <input class="editItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
+            <div class="editItemInputGroup">
+            <input class="editItemInputChild" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
             <img src="./img/center.png" onclick="handleRenderEditWordDefinitionHandy()" class="editEnterBtn">
+            </div>
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Phonetic</span>
@@ -1488,8 +1476,10 @@ const renderEditWord = () => {
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Sound</span>
-            <input class="editItemInput" placeholder="" id="inputEditWordSound" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <div class="editItemInputGroup">
+            <input class="editItemInputChild" placeholder="" id="inputEditWordSound" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
             <img src="./img/center.png" id="findSoundHandyBtn" class="editEnterBtn">
+            </div>
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Explain</span>
@@ -1502,7 +1492,30 @@ const renderEditWord = () => {
         <div id="editContentDivCambridge"></div>
         <div id="editContentDivGoogle"></div>
         `;
+
+  $("#inputEditWordSound").keydown(function (e) {
+    if (e.keyCode == 13) {
+      handleFindOEDSound(e.target.value);
+    }
+  });
 };
+
+const handleFindOEDSound = (url) => {
+  if (/.+\?.+/g.test(url)) {
+    let link = url.replace(/\?.+/g, "?tab=factsheet&tl=true#39853451");
+    const audioEl = document.getElementById("tts-audio");
+    $.get(link, function (html) {
+      let mp3Link = $(html).find(".pronunciation-play-button").last().attr("data-src-mp3");
+      if (mp3Link) {
+        audioEl.src = mp3Link;
+        audioEl.play();
+        $("#inputEditWordSound").val(mp3Link);
+        $("#inputEditWordSound").addClass("editItemInputChildActive");
+      }
+    });
+  }
+  else $("#inputEditWordSound").removeClass("editItemInputChildActive");
+}
 
 const renderDeleteWord = () => {
   let contentBody = document.getElementById("editContainer");

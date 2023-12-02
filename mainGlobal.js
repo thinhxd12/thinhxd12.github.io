@@ -1168,7 +1168,8 @@ const textToSpeech = (text) => {
   audioEl.pause();
   audioEl.volume = 1;
   // audioEl.src = `https://proxy.junookyo.workers.dev/?language=en-US&text=${text}&speed=1`
-  audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`;
+  // audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=en&text=${text}`;
+  audioEl.src = `  https://ssl.gstatic.com/dictionary/static/sounds/20220808/${text}--_us_1.mp3`;
   audioEl.play();
 };
 

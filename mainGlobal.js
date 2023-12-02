@@ -248,7 +248,7 @@ const autocomplete = (inp) => {
 autocomplete(document.getElementById("searchInput"));
 
 $(document).keydown(function (e) {
-  if ($(e.target).is("input,select")) {
+  if ($(e.target).is("input,select,textarea")) {
     if (e.keyCode == 27) {
       $("#searchInput").val("");
       $("#transInput").val("");
@@ -1273,10 +1273,17 @@ function handleCheckEdit(id) {
     }
     else {
       textData.text = textDataArr[index].text;
+      $("#inputEditWordText").val(textData.text);
       textData.class = textDataArr[index].class;
+      $("#inputEditWordClass").val(textData.class);
       textData.definitions = textDataArr[index].definitions;
+      $("#inputEditWordExplain").val(textData.definitions);
     }
   }
+  $("#findSoundHandyBtn").click(function (e) {
+    console.log('find');
+    window.open(`https://www.oed.com/search/dictionary/?scope=Entries&q=${textData.text}`, '_blank');
+  });
 }
 
 function handleCheckSound(id) {
@@ -1292,6 +1299,7 @@ function handleCheckSound(id) {
     }
   }
   $(".checkExplainBtn").show();
+  $("#inputEditWordSound").val(textData.sound);
 }
 
 const renderExplain = (text, type, definitions, sound, divId, row, check) => {
@@ -1461,7 +1469,7 @@ const renderEditWord = () => {
         <div class="editItemContent">
             <span class="editItemLabel">Result</span>
             <input class="editItemInput" placeholder="" id="inputEditWordText" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()" onkeyup="handleRenderEditWordDefinition(event)">
-            <img src="./img/center.png" onclick="handleRenderEditWordDefinitionHandy()" class="editEnterBtn" id="editEnterBtn">
+            <img src="./img/center.png" onclick="handleRenderEditWordDefinitionHandy()" class="editEnterBtn">
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Phonetic</span>
@@ -1478,6 +1486,15 @@ const renderEditWord = () => {
         <div class="editItemContent">
             <span class="editItemLabel">Numb</span>
             <input class="editItemInput" placeholder="" id="inputEditWordNumb" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel">Sound</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordSound" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <img src="./img/center.png" id="findSoundHandyBtn" class="editEnterBtn">
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel">Explain</span>
+            <textarea id="inputEditWordExplain" class="editItemArea" rows="3"></textarea>
         </div>
         </div>
         <div id="editContentDiv"></div>
@@ -1883,38 +1900,38 @@ const setEditWord = () => {
     phonetic: $("#inputEditWordPhonetic").val(),
     meaning: $("#inputEditWordMeaning").val(),
     numb: $("#inputEditWordNumb").val() * 1,
-    sound: textData.sound,
-    class: textData.class.length > 0 ? textData.class : $("#inputEditWordClass").val(),
-    definitions: textData.definitions,
+    sound: $("#inputEditWordSound").val(),
+    class: $("#inputEditWordClass").val(),
+    definitions: $("#inputEditWordExplain").val(),
   };
-  // console.log(newdata);
-  let objIndex = dataSheets.findIndex((obj) => obj._id == editId);
-  dataSheets[objIndex].text = newdata.text;
-  dataSheets[objIndex].phonetic = newdata.phonetic;
-  dataSheets[objIndex].meaning = newdata.meaning;
-  dataSheets[objIndex].numb = newdata.numb;
-  dataSheets[objIndex].sound = newdata.sound;
-  dataSheets[objIndex].class = newdata.class;
-  dataSheets[objIndex].definitions = newdata.definitions;
-  localStorage.setItem("sheetData", JSON.stringify(dataSheets));
+  console.log(newdata);
+  // let objIndex = dataSheets.findIndex((obj) => obj._id == editId);
+  // dataSheets[objIndex].text = newdata.text;
+  // dataSheets[objIndex].phonetic = newdata.phonetic;
+  // dataSheets[objIndex].meaning = newdata.meaning;
+  // dataSheets[objIndex].numb = newdata.numb;
+  // dataSheets[objIndex].sound = newdata.sound;
+  // dataSheets[objIndex].class = newdata.class;
+  // dataSheets[objIndex].definitions = newdata.definitions;
+  // localStorage.setItem("sheetData", JSON.stringify(dataSheets));
 
-  let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=${CURRENT_COLLECTION.collection}`;
-  fetch(url, {
-    ...mongoFetchOp,
-    method: "POST",
-    body: JSON.stringify(newdata),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      getAllData(CURRENT_COLLECTION.collection).then((data) => {
-        handleDelete('editContainer');
-        let newdata = data.sort((a, b) => a._id - b._id);
-        localStorage.removeItem("sheetData");
-        localStorage.setItem("sheetData", JSON.stringify(newdata));
-        //save to array script
-        getLocalSheetData();
-      });
-    });
+  // let url = `https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/searchAndUpdate?id=${editId}&col=${CURRENT_COLLECTION.collection}`;
+  // fetch(url, {
+  //   ...mongoFetchOp,
+  //   method: "POST",
+  //   body: JSON.stringify(newdata),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     getAllData(CURRENT_COLLECTION.collection).then((data) => {
+  //       handleDelete('editContainer');
+  //       let newdata = data.sort((a, b) => a._id - b._id);
+  //       localStorage.removeItem("sheetData");
+  //       localStorage.setItem("sheetData", JSON.stringify(newdata));
+  //       //save to array script
+  //       getLocalSheetData();
+  //     });
+  //   });
 };
 
 const setDeleteWord = () => {

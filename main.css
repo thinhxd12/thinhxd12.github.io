@@ -1885,6 +1885,24 @@ span.x::before {
   letter-spacing: .6px;
 }
 
+.editItemArea {
+  width: 72%;
+  font: 12px "nyt-imperial", Courier New, Courier New, Courier6, monospace;
+  font-weight: 400;
+  color: #777;
+  border-top: solid 1px #aaa;
+  border-left: solid 1px #aaa;
+  border-bottom: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+  border-radius: 3px;
+  outline: 0;
+  padding: 3px;
+}
+
+.editItemArea::-webkit-scrollbar {
+  display: none;
+}
+
 .editEnterBtn {
   position: absolute;
   right: 3px;

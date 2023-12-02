@@ -1277,11 +1277,10 @@ function handleCheckEdit(id) {
       textData.class = textDataArr[index].class;
       $("#inputEditWordClass").val(textData.class);
       textData.definitions = textDataArr[index].definitions;
-      $("#inputEditWordExplain").val(textData.definitions);
+      $("#inputEditWordExplain").val(JSON.stringify(textData.definitions));
     }
   }
   $("#findSoundHandyBtn").click(function (e) {
-    console.log('find');
     window.open(`https://www.oed.com/search/dictionary/?scope=Entries&q=${textData.text}`, '_blank');
   });
 }
@@ -1645,6 +1644,8 @@ const setInputEditWordResult = (item) => {
   $("#inputEditWordClass").val(item.class);
   $("#inputEditWordMeaning").val(item.meaning);
   $("#inputEditWordNumb").val(item.numb);
+  $("#inputEditWordSound").val(item.sound);
+  $("#inputEditWordExplain").val(JSON.stringify(item.definitions));
   textData.definitions = item.definitions;
   textData.sound = item.sound;
   renderEditWordDefinition(item.text);
@@ -1696,7 +1697,7 @@ function getTextDataAmerica(text, func) {
       let headword = $(html).find(".webtop-g h2").contents()[0].textContent;
       textData1.text = headword;
       let classT = $(html).find(".pos").html();
-      textData1.class = classT;
+      textData1.class = classT || '';
       let img = $(html).find("img.thumb").attr("src");
       $(html)
         .find(".sn-gs:first")
@@ -1760,7 +1761,7 @@ function getTextDataEnglish(text, func) {
       let headword = $(html).find(".webtop h1").contents()[0].textContent;
       textData2.text = headword;
       let classT = $(html).find(".pos").html();
-      textData2.class = classT;
+      textData2.class = classT || '';
       let img = $(html).find("img.thumb").attr("src");
       $(html)
         .find("ol:first")
@@ -1819,7 +1820,7 @@ function getTextDataCambridge(text, func) {
     let mp3Link = $(html).find("audio#audio2 source").attr("src");
     if (mp3Link) {
       textData3.sound = "https://dictionary.cambridge.org/" + mp3Link;
-      let classT = $(html).find(".pos.dpos").contents()[0].textContent;
+      let classT = $(html).find(".pos.dpos").contents()[0]?.textContent;
       textData3.class = classT;
       $(html).find(".def-block.ddef_block")
         .each(function (index) {
@@ -1902,7 +1903,7 @@ const setEditWord = () => {
     numb: $("#inputEditWordNumb").val() * 1,
     sound: $("#inputEditWordSound").val(),
     class: $("#inputEditWordClass").val(),
-    definitions: $("#inputEditWordExplain").val(),
+    definitions: JSON.parse($("#inputEditWordExplain").val()),
   };
   // console.log(newdata);
   let objIndex = dataSheets.findIndex((obj) => obj._id == editId);

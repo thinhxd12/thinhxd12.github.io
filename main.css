@@ -549,6 +549,7 @@ body {
   font-size: 33px;
   font-family: "Roslindale";
   letter-spacing: 1.5px;
+  margin-bottom: 3px;
 }
 
 .flip-card-front-content .cardPhonetic {
@@ -1008,13 +1009,16 @@ body {
 
 .calendarCardContent {
   background: #fffffff6;
-  padding: 6px 15px 1px;
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
 }
 
 .weekDate {
   height: 21px;
   font-size: 12px;
-  margin-bottom: 6px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
   background-color: #161616;
   text-align: center;
   display: flex;
@@ -1037,9 +1041,8 @@ body {
 .calendarCardContent table {
   height: 100px;
   border-collapse: collapse;
-  width: 100%;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 12px;
   color: #0000004a;
   font-weight: bold;
 }
@@ -1198,11 +1201,11 @@ body {
 }
 
 .weekDay td>div {
-  min-height: 18px;
+  height: 18px;
+  width: 49px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   position: relative;
 }
 
@@ -1221,17 +1224,18 @@ body {
 .weekDay .endDay::after {
   content: "";
   display: block;
-  margin-top: -2px;
   width: 12px;
   height: 3px;
   background: #f90000;
   border-radius: 2px;
+  position: absolute;
+  bottom: 1px;
 }
 
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  top: -3px;
+  bottom: -1px;
   display: block;
   width: 18px;
   height: 18px;
@@ -1249,16 +1253,16 @@ body {
   flex-direction: column;
   position: absolute;
   right: 12px;
-  bottom: 3px;
+  bottom: 0px;
 }
 
 .todayDay .dayIndicateText {
-  right: 5px;
-  bottom: 3px;
+  right: 7px;
+  bottom: 0px;
 }
 
 .dayIndicateText span {
-  color: #00d566;
+  color: #00ad53;
   font-size: 8px;
   line-height: 8px;
 }
@@ -1298,7 +1302,7 @@ body {
 
 .calendarFooterContainer {
   position: relative;
-  height: calc(100vh - 488px);
+  height: calc(100vh - 508px);
   width: 100%;
   overflow: hidden;
   padding: 6px 0;
@@ -1734,6 +1738,7 @@ span.x::before {
 .sn-g .thumb {
   display: block;
   margin: 3px 0 3px 9px;
+  max-height: 250px;
 }
 
 .xr-gs {

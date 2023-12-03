@@ -1439,12 +1439,12 @@ const renderEditWord = () => {
        <div class="transItemHeader">
             <span></span>
             <div style="display: flex;">
-            <button class="close-btn" onclick="setEditWord()">
+            <a class="close-btn" onclick="setEditWord()">
                 <i class='bx bx-check'></i>
-            </button>
-            <button class="close-btn" onclick="handleDelete('editContainer')">
+            </a>
+            <a class="close-btn" onclick="handleDelete('editContainer')">
                 <i class='bx bx-x'></i>
-            </button>
+            </a>
             </div>
         </div>
         <div class="editItemContent">
@@ -1937,14 +1937,7 @@ const setEditWord = () => {
   })
     .then((res) => res.json())
     .then((data) => {
-      getAllData(CURRENT_COLLECTION.collection).then((data) => {
-        handleDelete('editContainer');
-        let newdata = data.sort((a, b) => a._id - b._id);
-        localStorage.removeItem("sheetData");
-        localStorage.setItem("sheetData", JSON.stringify(newdata));
-        //save to array script
-        getLocalSheetData();
-      });
+      handleDelete('editContainer');
     });
 };
 
@@ -1959,7 +1952,6 @@ const setDeleteWord = () => {
       $("#inputEditWord").val("");
       $("#inputEditWordText").val("");
       $("#editContentDiv").html("");
-
       dataSheets = dataSheets.filter((obj) => obj._id !== editId);
       localStorage.setItem("sheetData", JSON.stringify(dataSheets));
     });

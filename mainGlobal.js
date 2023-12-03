@@ -1840,7 +1840,7 @@ function getTextDataCambridge(text, func) {
           let def = "";
           let img = $(this).find(".dimg").find("amp-img").attr("src");
           if (img) def += `<img class="thumb" src="https://dictionary.cambridge.org/${img}">`;
-          let definitions = $(this).find(".def.ddef_d.db").text();
+          let definitions = $(this).find(".def.ddef_d.db").text().replace(/\n/g, '');
           def += definitions ? '<span class="def">' + definitions + "</span>" : "";
           let xs = $(this).find(".def-body.ddef_b").html();
           if (xs) {

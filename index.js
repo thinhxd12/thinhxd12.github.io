@@ -1,4 +1,8 @@
 $('#loginForm').on('submit', function (e) {
+    handleSubmit();
+});
+
+const handleSubmit = () => {
     let url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-tcfpw/endpoint/login'
     fetch(url, { method: 'POST', body: JSON.stringify({ string: $('#passInput').val() }) })
         .then(res => res.json())
@@ -13,8 +17,7 @@ $('#loginForm').on('submit', function (e) {
         }).catch(err => {
             console.log(err);
         })
-});
-
+}
 
 const getToken = (token) => {
     const decode = JSON.parse(atob(token.split('.')[1]));

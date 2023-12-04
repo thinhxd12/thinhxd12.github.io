@@ -1131,16 +1131,6 @@ const playTTSwithValue = (item, row) => {
   );
 };
 
-const playTTSwithValueSound = (src) => {
-  const audioEl = document.getElementById("tts-audio");
-  audioEl.volume = 1;
-  if (src.length > 0) {
-    audioEl.pause();
-    audioEl.src = src;
-    audioEl.play();
-  }
-};
-
 const textToSpeech = (text) => {
   const audioEl = document.getElementById("tts-audio");
   audioEl.pause();
@@ -1341,6 +1331,7 @@ const handleTranslate = async () => {
   const transInput = document.getElementById("transInput");
   if (/\w*/.test(transInput.value)) {
     let transUrl = `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
+    // let transUrl = URL_CORS + `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
     await fetch(transUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -1383,9 +1374,6 @@ const renderTranslate = (arr) => {
     <p>Translation of <b id="tlword">${arr.word}</b></p>
     <div class="transItemPhonetic">
       <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
-      <button class="sound-btn" id="tranSoundBtn">
-        <i class='bx bx-volume-full'></i>
-      </button>
     </div>
     <div>
       ${Object.keys(arr.translations)
@@ -1419,9 +1407,6 @@ const renderTranslate = (arr) => {
     `;
   }
   renderEditWordDefinition(arr.word);
-  $("#tranSoundBtn").click(function (e) {
-    playTTSwithValueSound(textData.sound);
-  });
 };
 
 const renderEditWord = () => {

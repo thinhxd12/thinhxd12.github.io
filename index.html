@@ -15,7 +15,9 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
-        </script>
+    </script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
 </head>
 
@@ -24,6 +26,7 @@
         <div class="mainContent">
             <form class="loginForm" id="loginForm" onsubmit="return false">
                 <input type="password" maxlength="6" class="myInputPass" id="passInput" autocomplete="off">
+                <a class="loginBtn" onclick="handleSubmit()"><i class='bx bx-right-arrow-circle'></i></a>
             </form>
         </div>
     </div>

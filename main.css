@@ -1157,27 +1157,20 @@ body {
   line-height: 6px;
 }
 
-.dateProgressContent {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  font-size: 0.625rem;
-  transition: all 0.3s ease;
+.weekJobDoneImg {
+  width: 11px;
+  margin-right: 2px;
 }
 
-.dateProgressContent:first-child {
-  margin-right: 18px;
+.dateProgressContent {
+  display: flex;
+  font-size: 11px;
+  cursor: pointer;
 }
 
 .dateProgressContent span {
   display: flex;
   align-items: center;
-}
-
-.dateProgressImg {
-  margin-left: 9px;
-  min-width: 12px;
 }
 
 .dateProgressContent:hover {
@@ -1262,9 +1255,13 @@ body {
 }
 
 .dayIndicateText span {
-  color: #00ad53;
+  color: #383838;
   font-size: 8px;
   line-height: 8px;
+}
+
+.todayDay .dayIndicateText span {
+  color: #00cb61;
 }
 
 #todayReset {
@@ -1493,14 +1490,16 @@ body {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: center;
   cursor: default;
   color: #000;
   box-shadow: 0px 0px 2px #00000012;
 }
 
-.desc>span:first-of-type {
-  width: 110px;
+.desc>span,
+.desc .dateProgressContent {
+  width: 50%;
+  padding-left: 18px;
 }
 
 #todayProgressHtml {

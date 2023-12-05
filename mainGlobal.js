@@ -504,7 +504,6 @@ const renderCalendar = (data) => {
   // console.log(monthDateArr);
   const htmlDate = document.getElementById("htmlDate");
   htmlDate.innerHTML = "";
-  console.log(todaysWeekDay);
   for (let i = 0; i < monthDateArr.length; i++) {
     htmlDate.innerHTML += `
       <tr class="weekDay">

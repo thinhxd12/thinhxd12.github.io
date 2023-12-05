@@ -630,17 +630,6 @@ const showSlides = (n) => {
   renderHistorySlide(slideIndex);
 };
 
-$("#historyTableBtnLeft").click(function (e) {
-  if (slideIndex == dataHistory.length) {
-    $("#calendarContent").html("");
-  }
-  showSlides((slideIndex += -1));
-});
-
-$("#historyTableBtnRight").click(function (e) {
-  showSlides((slideIndex += 1));
-});
-
 const setNextMonthTable = () => {
   const calendarContent = document.getElementById("calendarContent");
   calendarContent.innerHTML = `

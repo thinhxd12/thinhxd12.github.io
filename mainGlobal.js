@@ -504,6 +504,7 @@ const renderCalendar = (data) => {
   // console.log(monthDateArr);
   const htmlDate = document.getElementById("htmlDate");
   htmlDate.innerHTML = "";
+  console.log(todaysWeekDay);
   for (let i = 0; i < monthDateArr.length; i++) {
     htmlDate.innerHTML += `
       <tr class="weekDay">
@@ -513,7 +514,7 @@ const renderCalendar = (data) => {
                 <td>
                     <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ""} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : index == todaysWeekDay && item.class !== "" ? `todayWeekDay ${item.class}` : `${item.class}`}" >
                     <div>${item.date}
-                      ${item.indicate ? `<div class="dayIndicateText">
+                      ${item.indicate ? `<div class="dayIndicateText ${item.time1 > 0 ? "dayIndicateTextDone" : ""}">
                           <span>${item.time1}</span>
                           <span>${item.time2}</span>
                         </div>`: ""}

@@ -1255,13 +1255,22 @@ body {
 }
 
 .dayIndicateText span {
-  color: #383838;
+  color: #0000004a;
   font-size: 8px;
-  line-height: 8px;
+  line-height: 9px;
+}
+
+.dayIndicateText span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.dayIndicateTextDone span {
+  color: #383838;
 }
 
 .todayDay .dayIndicateText span {
-  color: #00cb61;
+  color: #00d566;
 }
 
 #todayReset {
@@ -1278,7 +1287,6 @@ body {
 .calendarFooter:hover {
   height: 174px;
 }
-
 
 .calendarFooterQuote {
   background: #fffffff6;

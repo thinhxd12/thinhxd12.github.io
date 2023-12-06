@@ -1254,8 +1254,8 @@ function handleCheckSound(id) {
       audioEl.play();
     }
   }
-  $(".checkExplainBtn").show();
   $("#inputEditWordSound").val(textData.sound);
+  $("#inputEditWordSound").addClass("editItemInputChildActive");
 }
 
 const renderExplain = (text, type, definitions, sound, divId, row, check) => {
@@ -1265,7 +1265,7 @@ const renderExplain = (text, type, definitions, sound, divId, row, check) => {
     <div class="explainContainer">
       <div class="explainHeader">
       ${check ?
-      `<button class="closeBtn checkExplainBtn" style="display: none;" onclick="handleCheckEdit('${divId}')">
+      `<button class="closeBtn" onclick="handleCheckEdit('${divId}')">
         <i class='bx bx-check'></i>
       </button>
       <button class="closeBtn soundBtnSVG" onclick="handleCheckSound('${divId}')">
@@ -1413,6 +1413,7 @@ const renderEditWord = () => {
             </a>
             </div>
         </div>
+        <div class="mainEditContainer">
         <div class="editItemContent">
             <span class="editItemLabel">Find</span>
             <input class="editItemInput" placeholder="find text" id="inputEditWord" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()"  onkeyup="handleChangeEditInput(event)">
@@ -1451,6 +1452,8 @@ const renderEditWord = () => {
             <span class="editItemLabel">Explain</span>
             <textarea id="inputEditWordExplain" class="editItemArea" rows="2" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
         </div>
+        </div>
+        <div class="subEditContainer">
         <div class="editItemContent">
             <span class="editItemLabel editItemLabelText">Image</span>
             <div class="editItemInputGroup">
@@ -1467,8 +1470,13 @@ const renderEditWord = () => {
             <input class="editItemInput" placeholder="" id="inputEditWordExample" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         <div class="editItemContent">
+            <span class="editItemLabel editItemLabelText">Synonym</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordSynonym" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="editItemContent">
             <span class="editItemLabel editItemLabelText">Result</span>
             <input class="editItemInput" placeholder="" id="inputEditWordItemResult" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
         </div>
         </div>
         <div id="editContentDiv"></div>
@@ -1489,10 +1497,15 @@ const makeDefinitionItem = () => {
   let image = $("#inputEditWordImage").val();
   let define = $("#inputEditWordDefine").val();
   let example = $("#inputEditWordExample").val();
+  let synonym = $("#inputEditWordSynonym").val();
   let inputText = $("#inputEditWordText").val();
   let newText = inputText.length > 4 ? inputText.slice(0, -2) : inputText;
   const regText = new RegExp(`(${newText}\\w*)`, "gi");
   let res = "";
+  if (inputText == "") {
+    $("#inputEditWordItemResult").val("Insert text!");
+    return;
+  }
   if (image !== "") {
     res += `<img class=\"thumb\" src=\"${image}\">`;
   }
@@ -1504,6 +1517,9 @@ const makeDefinitionItem = () => {
       example = example.replace(regText, `<b>$1</b>`);
     }
     res += `<span class=\"x\">${example}</span>`;
+  }
+  if (synonym !== "") {
+    res += `<span class=\"xr-gs\">synonym <small>${synonym}</small></span>`;
   }
   $("#inputEditWordItemResult").val(JSON.stringify(res));
 }

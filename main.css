@@ -1823,21 +1823,22 @@ span.x::before {
   accent-color: #0707076c;
 }
 
+.subEditContainer {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.transItem:hover .subEditContainer {
+  height: 100px;
+}
+
 .editItemContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   margin-bottom: 3px;
-}
-
-.editItemContent:nth-child(9) {
-  padding-bottom: 6px;
-  border-bottom: 1px solid #989895;
-}
-
-.editItemContent:nth-child(10) {
-  padding-top: 3px;
 }
 
 .editItemInputGroup {

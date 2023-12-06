@@ -1449,7 +1449,26 @@ const renderEditWord = () => {
         </div>
         <div class="editItemContent">
             <span class="editItemLabel">Explain</span>
-            <textarea id="inputEditWordExplain" class="editItemArea" rows="3"></textarea>
+            <textarea id="inputEditWordExplain" class="editItemArea" rows="2" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel editItemLabelText">Image</span>
+            <div class="editItemInputGroup">
+            <input class="editItemInputChild" placeholder="" id="inputEditWordImage" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+            <img src="./img/center.png" id="makeDefinitionBtn" onclick="makeDefinitionItem()" class="editEnterBtn">
+            </div>
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel editItemLabelText">Define</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordDefine" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel editItemLabelText">Example</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordExample" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
+        </div>
+        <div class="editItemContent">
+            <span class="editItemLabel editItemLabelText">Result</span>
+            <input class="editItemInput" placeholder="" id="inputEditWordItemResult" autocomplete="off" onmouseover="this.focus()" onmouseout="this.blur()">
         </div>
         </div>
         <div id="editContentDiv"></div>
@@ -1465,6 +1484,29 @@ const renderEditWord = () => {
     }
   });
 };
+
+const makeDefinitionItem = () => {
+  let image = $("#inputEditWordImage").val();
+  let define = $("#inputEditWordDefine").val();
+  let example = $("#inputEditWordExample").val();
+  let inputText = $("#inputEditWordText").val();
+  let newText = inputText.length > 4 ? inputText.slice(0, -2) : inputText;
+  const regText = new RegExp(`(${newText}\\w*)`, "gi");
+  let res = "";
+  if (image !== "") {
+    res += `<img class=\"thumb\" src=\"${image}\">`;
+  }
+  if (define !== "") {
+    res += `<span class=\"def\">${define}</span>`;
+  }
+  if (example !== "") {
+    if (inputText !== "") {
+      example = example.replace(regText, `<b>$1</b>`);
+    }
+    res += `<span class=\"x\">${example}</span>`;
+  }
+  $("#inputEditWordItemResult").val(JSON.stringify(res));
+}
 
 const handleFindOEDSound = (url) => {
   if (/.+\?.+/g.test(url)) {

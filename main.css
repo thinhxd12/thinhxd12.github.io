@@ -1828,7 +1828,16 @@ span.x::before {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
+}
+
+.editItemContent:nth-child(9) {
+  padding-bottom: 6px;
+  border-bottom: 1px solid #989895;
+}
+
+.editItemContent:nth-child(10) {
+  padding-top: 3px;
 }
 
 .editItemInputGroup {
@@ -1842,6 +1851,10 @@ span.x::before {
   color: #525250;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+.editItemLabelText {
+  text-transform: capitalize;
 }
 
 .editItemInput {

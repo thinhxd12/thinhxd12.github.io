@@ -304,19 +304,19 @@ const fetchGetQuote = (num) => {
         <div class="explainBody">
           <div class="quoteBtnContainer">
           <button class="quoteBtn" onclick="fetchGetQuote(-1)">
-            <i class='bx bxs-left-arrow'></i>
+            <i class='bx bx-chevron-left'></i>
           </button>
           <button class="quoteBtn quoteBtnBookmark" onclick="checkQuote(${!data.check})">
             ${data.check
-          ? `<i class='bx bxs-book-bookmark' style="color: #f3f302;"></i>`
-          : `<i class='bx bx-book-bookmark' ></i>`
+          ? `<i class='bx bxs-star' style="color: #ffffff;"></i>`
+          : `<i class='bx bx-star'></i>`
         }
           </button>
           <button class="quoteBtn" onclick="fetchGetQuote(1)">
-            <i class='bx bxs-right-arrow' ></i>
+            <i class='bx bx-chevron-right'></i>
           </button>
           <button class="quoteBtn quoteBtnClipboard" id="clipboardBtn" onclick="copyQuote()">
-            <i class='bx bx-copy'></i>
+            <i class='bx bx-paste'></i>
           </button>
           </div>
           <div id="quoteContent">${data.value}</div>
@@ -338,7 +338,7 @@ const checkQuote = (check) => {
 const copyQuote = () => {
   let textToCopy = $("#quoteContent").text();
   navigator.clipboard.writeText(textToCopy).then((res) => {
-    $("#clipboardBtn").html(`<i class='bx bxs-copy' ></i>`);
+    $("#clipboardBtn").html(`<i class='bx bxs-paste'></i>`);
   });
 };
 
@@ -384,7 +384,7 @@ const renderRssNYT = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;

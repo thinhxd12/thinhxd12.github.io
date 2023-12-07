@@ -751,10 +751,10 @@ body {
   text-align: center;
   outline: 0;
   transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  width: 25px;
-  height: 12px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5),
-    0px 0px 5px 0px rgba(0, 0, 0, 0.4) inset;
+  width: 27px;
+  height: 15px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6),
+    0px 0px 5px 0px rgba(0, 0, 0, 0.6) inset;
   border: 0;
   background: none;
   color: #ececec;
@@ -763,8 +763,21 @@ body {
   font-weight: bold;
   font-family: sans-serif;
   border-radius: 2px;
-  padding: 0.5px 3px;
   z-index: 99;
+}
+
+.cornerDot {
+  width: 3px;
+  height: 3px;
+  background: #ff0d00;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 1px;
+  right: 0px;
+}
+
+.cornerDotActive {
+  background: #00ff16;
 }
 
 /* ------------tomatoclock---------- */
@@ -984,7 +997,7 @@ body {
   position: relative;
   background-color: #fffffff6;
   overflow: hidden;
-  transition: height 0.5s ease;
+  transition: height 0.3s ease;
 }
 
 .calendarHeader:hover {
@@ -1621,16 +1634,22 @@ div#contentBody {
 }
 
 .closeBtnSVG {
-  background: #070707;
   transition: all 0.3s ease;
   border: 0.3px solid #503f2b;
   color: #3a3124;
   border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.closeBtnSVG i {
+  font-size: 13px;
 }
 
 .closeBtnSVG:hover {
-  background: #000000;
   color: #785c3a;
 }
 
@@ -1741,32 +1760,34 @@ span.x::before {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 3px;
+  padding: 3px;
   border-bottom: 1px solid #343434;
-}
-
-.quoteBtn i {
-  font-size: .85rem;
-}
-
-.quoteBtnBookmark i {
-  font-size: 1.35rem;
-
-}
-
-.quoteBtnClipboard i {
-  font-size: 1.2rem;
 }
 
 .quoteBtn {
   cursor: pointer;
   outline: 0;
-  border-radius: 50%;
   background: transparent;
   transition: all 0.3s ease;
   border: none;
-  margin-right: 6px;
   color: #3a3124;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+}
+
+.quoteBtn i {
+  font-size: 23px;
+}
+
+.quoteBtnBookmark i {
+  font-size: 17px;
+}
+
+.quoteBtnClipboard i {
+  font-size: 18px;
 }
 
 .quoteBtn:hover {
@@ -1826,7 +1847,7 @@ span.x::before {
 .subEditContainer {
   height: 0;
   overflow: hidden;
-  transition: height 0.5s ease;
+  transition: height 0.3s ease;
 }
 
 .transItem:hover .subEditContainer {

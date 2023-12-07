@@ -1009,6 +1009,7 @@ const startAutoPlayWord = () => {
 
 function play() {
   isTimerStarted = true;
+  $(".cornerDot").addClass(".cornerDotActive");
   handleNextWord();
   if (autorunTime < wordList.length - 1) {
     currentTimeout = setTimeout(play, 7500);
@@ -1023,6 +1024,7 @@ function pause() {
 
 function stop() {
   handleToggleSwitchMoon();
+  $(".cornerDot").removeClass(".cornerDotActive");
   autorunTime = 0;
   pause();
   //update progress

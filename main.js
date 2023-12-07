@@ -233,7 +233,7 @@ const showTab = (n) => {
 
 var textInput = "";
 $(document).keydown(function (e) {
-  if ($(e.target).is("input,select")) return;
+  if ($(e.target).is("input,select,textarea")) return;
   switch (e.keyCode) {
     case 37:
       showTab((tabIndex += -1));

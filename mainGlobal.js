@@ -1001,7 +1001,7 @@ const startAutoPlayWord = () => {
   if (isTimerStarted == false && wordList.length > 0) {
     handleToggleSwitchSun();
     play();
-  $(".cornerDot").addClass("cornerDotActive");
+    $(".cornerDot").addClass("cornerDotActive");
   } else if (isTimerStarted == true && autorunTime > 1) {
     handleToggleSwitchMoon();
     pause();
@@ -1451,8 +1451,8 @@ const renderEditWord = () => {
             </div>
         </div>
         <div class="editItemContent">
-            <span class="editItemLabel">Explain</span>
-            <textarea id="inputEditWordExplain" class="editItemArea" rows="2" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
+            <span class="editItemLabel"></span>
+            <textarea id="inputEditWordExplain" class="editItemArea" rows="3" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
         </div>
         </div>
         <div class="subEditContainer">
@@ -1523,7 +1523,7 @@ const makeDefinitionItem = () => {
   if (synonym !== "") {
     res += `<span class=\"xr-gs\">synonym <small>${synonym}</small></span>`;
   }
-  $("#inputEditWordItemResult").val(JSON.stringify(res));
+  $("#inputEditWordItemResult").val(JSON.stringify(res).slice(1).slice(0, -1));
 }
 
 const handleFindOEDSound = (url) => {

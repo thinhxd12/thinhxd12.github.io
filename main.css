@@ -1865,30 +1865,30 @@ span.x::before {
 .editItemInputGroup {
   display: flex;
   align-items: center;
-  width: 72%;
+  width: 77%;
 }
 
 .editItemLabel {
-  font: 13px "ClarendonRoman", Georgia, Times, serif;
-  color: #525250;
-  letter-spacing: 1px;
+  font: 13px "nyt-imperial";
+  color: #000000;
   text-transform: uppercase;
 }
 
 .editItemLabelText {
   text-transform: capitalize;
+  font-size: 12px;
 }
 
 .editItemInput {
-  width: 72%;
+  width: 77%;
   border-bottom: 1px dashed #989895;
   border-right: none;
   border-left: none;
   border-top: none;
-  color: #4f4f4f;
+  color: #777;
   background: none;
   outline: none;
-  font: 12px "SeanRegular", Courier New, Courier New, Courier6, monospace;
+  font: 12px "nyt-imperial";
   letter-spacing: .6px;
 }
 
@@ -1898,22 +1898,21 @@ span.x::before {
   border-right: none;
   border-left: none;
   border-top: none;
-  color: #4f4f4f;
+  color: #777;
   background: none;
   outline: none;
-  font: 12px "SeanRegular", Courier New, Courier New, Courier6, monospace;
+  font: 12px "nyt-imperial";
   letter-spacing: .6px;
 }
 
 .editItemInputChildActive {
   color: #000;
-  font-weight: bold;
 }
 
 .editItemArea {
-  width: 72%;
+  width: 77%;
   resize: vertical;
-  font: 12px "nyt-imperial", Courier New, Courier New, Courier6, monospace;
+  font: 12px "nyt-imperial";
   font-weight: 400;
   color: #777;
   border-top: solid 1px #aaa;

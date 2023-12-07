@@ -1877,7 +1877,7 @@ function getTextDataCambridge(text, func) {
             $(this).find(".def-body.ddef_b").find(".xref").each(function () {
               let lcs = "";
               let length = $(this).find(".lcs div.item").length;
-              $(this).find(".lcs div.item").each(function (index) {
+              $(this).find(".lcs div.item a").each(function (index) {
                 if (index === length - 1) {
                   lcs += $(this).text();
                 } else {

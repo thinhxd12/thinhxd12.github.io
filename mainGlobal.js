@@ -1001,6 +1001,7 @@ const startAutoPlayWord = () => {
   if (isTimerStarted == false && wordList.length > 0) {
     handleToggleSwitchSun();
     play();
+  $(".cornerDot").addClass("cornerDotActive");
   } else if (isTimerStarted == true && autorunTime > 1) {
     handleToggleSwitchMoon();
     pause();
@@ -1009,7 +1010,6 @@ const startAutoPlayWord = () => {
 
 function play() {
   isTimerStarted = true;
-  $(".cornerDot").addClass(".cornerDotActive");
   handleNextWord();
   if (autorunTime < wordList.length - 1) {
     currentTimeout = setTimeout(play, 7500);
@@ -1024,7 +1024,7 @@ function pause() {
 
 function stop() {
   handleToggleSwitchMoon();
-  $(".cornerDot").removeClass(".cornerDotActive");
+  $(".cornerDot").removeClass("cornerDotActive");
   autorunTime = 0;
   pause();
   //update progress

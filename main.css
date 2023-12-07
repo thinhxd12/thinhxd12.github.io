@@ -769,7 +769,7 @@ body {
 .cornerDot {
   width: 3px;
   height: 3px;
-  background: #ff0d00;
+  background: #b6a893;
   border-radius: 50%;
   position: absolute;
   bottom: 1px;
@@ -953,7 +953,6 @@ body {
   height: 16px;
   padding: 1px;
   border-radius: 2px;
-  /* transition: all 0.3s ease; */
   opacity: 0;
   box-shadow: 0px 0px 9px #1c1c1c;
 }
@@ -977,6 +976,8 @@ body {
   font-family: "Rubik", sans-serif;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
@@ -991,17 +992,12 @@ body {
   display: none;
 }
 
-.calendarHeader {
-  height: 270px;
-  width: 100%;
+/* .calendarHeader {
   position: relative;
-  background-color: #fffffff6;
-  overflow: hidden;
-  transition: height 0.3s ease;
-}
+} */
 
-.calendarHeader:hover {
-  height: 378px;
+.calendarHeader:hover .tableHistory {
+  height: 108px;
 }
 
 
@@ -1031,7 +1027,8 @@ body {
   background: #fffffff6;
   display: flex;
   justify-content: center;
-  padding: 6px 0;
+  padding: 6px 0 3px;
+  position: relative;
 }
 
 .weekDate {
@@ -1054,12 +1051,7 @@ body {
   font-weight: bold;
 }
 
-.calendarBody {
-  position: relative;
-}
-
 .calendarCardContent table {
-  height: 100px;
   border-collapse: collapse;
   text-align: center;
   font-size: 12px;
@@ -1139,20 +1131,20 @@ body {
   top: 208px;
   right: 5px;
   z-index: 99;
-  background: #161616;
-  border-radius: 1px;
+  background-color: #33333333;
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
   padding: 6px 3px;
   justify-content: center;
   transition: all 0.3s ease;
 }
 
 .dateContent div {
-  color: #fffffffa;
+  color: #f4f4f4;
 }
 
 .dateContent:hover div {
   color: #fff;
-  text-shadow: 0px 0px 2px #fffffffa;
 }
 
 #calendarMonth {
@@ -1208,12 +1200,16 @@ body {
   font-weight: bold;
 }
 
+.weekDay:not(:last-child) {
+  border-bottom: 1px dotted #16161636;
+}
+
 .todayWeekDay {
   color: #383838;
 }
 
 .weekDay td>div {
-  height: 18px;
+  height: 22px;
   width: 49px;
   display: flex;
   align-items: center;
@@ -1241,13 +1237,13 @@ body {
   background: #f90000;
   border-radius: 2px;
   position: absolute;
-  bottom: 1px;
+  bottom: 3px;
 }
 
 .weekDay .todayDay::before {
   content: "";
   position: absolute;
-  bottom: -1px;
+  bottom: 1px;
   display: block;
   width: 18px;
   height: 18px;
@@ -1263,9 +1259,11 @@ body {
 .dayIndicateText {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: absolute;
-  right: 12px;
+  right: 10px;
   bottom: 0px;
+  height: 22px;
 }
 
 .todayDay .dayIndicateText {
@@ -1296,14 +1294,8 @@ body {
   cursor: pointer;
 }
 
-.calendarFooter {
-  position: relative;
-  overflow: hidden;
-}
-
 .calendarFooterQuote {
   background: #fffffff6;
-  position: inherit;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1311,19 +1303,16 @@ body {
 }
 
 .calendarFooterQuote p {
-  border-top: 1px solid #383838;
-  padding: 3px 0 0;
-  font-size: 0.58em;
+  font-size: 9px;
   font-family: "nyt-cheltenham";
   color: #000;
 }
 
 .calendarFooterContainer {
   position: relative;
-  height: calc(100vh - 507px);
+  flex-grow: 1;
   width: 100%;
   overflow: hidden;
-  padding: 6px 0;
 }
 
 .calendarFooterBlurImg {
@@ -1418,16 +1407,14 @@ body {
 }
 
 .tableHistory {
-  width: 100%;
-  font-size: 0.75rem;
-  font-family: "Rubik", sans-serif;
-  position: relative;
-  z-index: 1;
-  padding: 6px 8px 0;
-  background: #fffffff6;
+  height: 0;
+  padding: 0 8px;
+  transition: height 0.3s ease;
+  background-color: #fffffff6;
 }
 
 #historyTable {
+  padding-top: 6px;
   width: 100%;
   display: flex;
   flex-direction: column;

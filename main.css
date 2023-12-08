@@ -1568,19 +1568,19 @@ div#contentBody {
 
 /* --------------button---------- */
 .close-btn {
-  width: 27px;
-  height: 18px;
+  width: 28px;
+  height: 15px;
   border-radius: 3px;
   outline: 0;
   cursor: pointer;
   border: 1px solid #989da7;
-  color: #7c7b7a;
+  color: #ececec;
   background-color: #070707;
   transition: .2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 3px;
+  margin-right: 2px;
 }
 
 .close-btn:hover {
@@ -1588,7 +1588,7 @@ div#contentBody {
 }
 
 .close-btn i {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 
@@ -1608,45 +1608,12 @@ div#contentBody {
 
 .explainHeader {
   position: absolute;
-  top: 0;
+  top: 2px;
   right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.closeBtn {
-  width: 14px;
-  height: 14px;
-  outline: 0;
-  border: 0;
-  margin: 3px 2px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.closeBtnSVG {
-  transition: all 0.3s ease;
-  border: 0.3px solid #503f2b;
-  color: #3a3124;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.closeBtnSVG i {
-  font-size: 13px;
-}
-
-.closeBtnSVG:hover {
-  color: #785c3a;
-}
-
-.soundBtnSVG i {
-  margin-left: 2px;
+  z-index: 99;
 }
 
 .preRow {

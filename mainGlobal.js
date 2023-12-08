@@ -1267,17 +1267,17 @@ const renderExplain = (text, type, definitions, sound, divId, row, check) => {
     <div class="explainContainer">
       <div class="explainHeader">
       ${check ?
-      `<button class="closeBtn" onclick="handleCheckEdit('${divId}')">
+      `<button class="close-btn" onclick="handleCheckEdit('${divId}')">
         <i class='bx bx-check'></i>
       </button>
-      <button class="closeBtn soundBtnSVG" onclick="handleCheckSound('${divId}')">
+      <button class="close-btn" onclick="handleCheckSound('${divId}')">
         <i class='bx bx-volume-low'></i>
       </button>
       `:
-      `<button class="closeBtn soundBtnSVG" id="explainTextSoundBtn">
+      `<button class="close-btn" id="explainTextSoundBtn">
         <i class='bx bx-volume-low'></i>
       </button>`}
-      <button class="closeBtn" onclick="handleDelete('${divId}')">
+      <button class="close-btn" onclick="handleDelete('${divId}')">
         <i class='bx bx-x'></i>
       </button>
       </div>

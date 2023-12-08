@@ -767,17 +767,22 @@ body {
 }
 
 .cornerDot {
-  width: 3px;
-  height: 3px;
-  background: #b6a893;
-  border-radius: 50%;
+  width: 0px;
+  height: 0px;
   position: absolute;
-  bottom: 1px;
+  bottom: 0px;
   right: 0px;
+  border-right: 3px solid #b6a893;
+  border-bottom: 3px solid #b6a893;
+  border-top: 3px solid transparent;
+  border-left: 3px solid transparent;
 }
 
 .cornerDotActive {
-  background: #00ff16;
+  border-right: 3px solid #00ff16;
+  border-bottom: 3px solid #00ff16;
+  border-top: 3px solid transparent;
+  border-left: 3px solid transparent;
 }
 
 /* ------------tomatoclock---------- */
@@ -984,17 +989,11 @@ body {
 
 #calendarContent {
   position: inherit;
-  z-index: 1;
-  height: 60px;
 }
 
 .calendarContainer::-webkit-scrollbar {
   display: none;
 }
-
-/* .calendarHeader {
-  position: relative;
-} */
 
 .calendarHeader:hover .tableHistory {
   height: 108px;
@@ -1018,10 +1017,6 @@ body {
   width: 100%;
   height: 100%;
 } */
-
-#calendarContent {
-  width: 100%;
-}
 
 .calendarCardContent {
   background: #fffffff6;
@@ -1128,8 +1123,8 @@ body {
   flex-direction: column;
   cursor: pointer;
   position: absolute;
-  top: 208px;
-  right: 5px;
+  top: 211px;
+  right: 6px;
   z-index: 99;
   background-color: #33333333;
   backdrop-filter: blur(6px);
@@ -1137,6 +1132,7 @@ body {
   padding: 6px 3px;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: 0 0 3px #0000008c;
 }
 
 .dateContent div {
@@ -1144,7 +1140,7 @@ body {
 }
 
 .dateContent:hover div {
-  color: #fff;
+  color: #ffffff;
 }
 
 #calendarMonth {
@@ -1329,7 +1325,6 @@ body {
 .calendarItem {
   background: #fffffff6;
   width: 100%;
-  height: 45px;
   padding: 0 6px 6px 6px;
   border-radius: 3px;
   margin-top: 3px;
@@ -1573,18 +1568,27 @@ div#contentBody {
 
 /* --------------button---------- */
 .close-btn {
-  width: 15px;
-  height: 15px;
+  width: 27px;
+  height: 18px;
+  border-radius: 3px;
   outline: 0;
   cursor: pointer;
-  margin: 0 3px;
-  border: none;
-  transition: all 0.3s ease;
-  background: none;
+  border: 1px solid #989da7;
+  color: #7c7b7a;
+  background-color: #070707;
+  transition: .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3px;
+}
+
+.close-btn:hover {
+  color: #fff;
 }
 
 .close-btn i {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 
@@ -1727,7 +1731,7 @@ span.x::before {
 .sn-g .thumb {
   display: block;
   margin: 3px 0 3px 9px;
-  max-height: 250px;
+  max-height: 180px;
 }
 
 .xr-gs {
@@ -1755,15 +1759,21 @@ span.x::before {
 .quoteBtn {
   cursor: pointer;
   outline: 0;
-  background: transparent;
-  transition: all 0.3s ease;
-  border: none;
-  color: #3a3124;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 21px;
+  width: 36px;
   height: 21px;
+  border-radius: 3px;
+  border: 1px solid #989da7;
+  color: #7c7b7a;
+  background-color: #070707;
+  transition: .2s ease;
+  margin-right: 3px;
+}
+
+.quoteBtn:hover {
+  color: #fff;
 }
 
 .quoteBtn i {
@@ -1778,9 +1788,6 @@ span.x::before {
   font-size: 18px;
 }
 
-.quoteBtn:hover {
-  color: #785c3a;
-}
 
 /* ------------translate----- */
 .transItem {
@@ -1839,7 +1846,7 @@ span.x::before {
 }
 
 .transItem:hover .subEditContainer {
-  height: 100px;
+  height: 90px;
 }
 
 .editItemContent {

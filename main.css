@@ -467,6 +467,22 @@ body {
   background: #000;
 }
 
+.flashCardLeftOrnament {
+  width: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.flashCardRightOrnament {
+  width: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+}
+
 #flashCardContent {
   width: 100%;
   display: flex;

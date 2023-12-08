@@ -297,7 +297,7 @@ const fetchGetQuote = (num) => {
       let body = `
       <div class="explainContainer">
         <div class="explainHeader">
-        <button class="closeBtn closeBtnSVG" onclick="handleDelete('quoteContainer')">
+        <button class="close-btn" onclick="handleDelete('quoteContainer')">
           <i class='bx bx-x'></i>
         </button>
         </div>
@@ -308,7 +308,7 @@ const fetchGetQuote = (num) => {
           </button>
           <button class="quoteBtn quoteBtnBookmark" onclick="checkQuote(${!data.check})">
             ${data.check
-          ? `<i class='bx bxs-star' style="color: #ffffff;"></i>`
+          ? `<i class='bx bxs-star' style="color: #ffc107;"></i>`
           : `<i class='bx bx-star'></i>`
         }
           </button>
@@ -346,7 +346,7 @@ const renderRssNews = () => {
   document.getElementById("rssHeaderContainer").innerHTML = `
   <div class="explainContainer" style="font-size: 12px;line-height: 1rem;">
   <div class="explainHeader">
-  <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssHeaderContainer')">
+  <button class="close-btn" onclick="handleDelete('rssHeaderContainer')">
     <i class='bx bx-x'></i>
   </button>
   </div>
@@ -384,7 +384,7 @@ const renderRssNYT = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn closeBtnSVG" onclick="handleDelete('rssContainer')">
+    <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -437,7 +437,7 @@ const renderRssNikkei = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -488,7 +488,7 @@ const renderRssSCMP = () => {
     // console.log(data);
     document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
+        <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -540,7 +540,7 @@ const renderRssAlJaz = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -593,7 +593,7 @@ const renderRssYahoo = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -646,7 +646,7 @@ const renderRssTheconversation = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-    <button class="closeBtn" onclick="handleDelete('rssContainer')">
+    <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;
@@ -700,7 +700,7 @@ const renderRssWSP = () => {
       // console.log(data);
       document.getElementById("rssContainer").innerHTML += `
     <div class="rssCardHeader">
-        <button class="closeBtn" onclick="handleDelete('rssContainer')">
+        <button class="close-btn" onclick="handleDelete('rssContainer')">
       <i class='bx bx-x'></i>
     </button>
     </div>`;

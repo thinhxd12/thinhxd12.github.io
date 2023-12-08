@@ -1733,7 +1733,7 @@ span.x::before {
   height: 21px;
   border-radius: 3px;
   border: 1px solid #989da7;
-  color: #7c7b7a;
+  color: #ececec;
   background-color: #070707;
   transition: .2s ease;
   margin-right: 3px;
@@ -1958,7 +1958,7 @@ span.x::before {
 /* -----------------------rssCard------------- */
 .rssCardHeader {
   position: sticky;
-  top: 0;
+  top: 2px;
   right: 0;
   height: 0;
   display: flex;

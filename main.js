@@ -128,7 +128,9 @@ const fetchImgLinkArr = () => {
   });
 };
 
-fetchImgLinkArr();
+if (window.innerWidth > 650) {
+  fetchImgLinkArr();
+}
 
 const fetchRenderImgBackground = (numb) => {
   $.get(URL_CORS + historyImgArr[numb], function (html) {

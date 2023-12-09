@@ -459,28 +459,9 @@ body {
 }
 
 .flashCardContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
   min-height: 185px;
   width: 100%;
   background: #000;
-}
-
-.flashCardLeftOrnament {
-  width: 15px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99;
-}
-
-.flashCardRightOrnament {
-  width: 15px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 99;
 }
 
 #flashCardContent {
@@ -528,10 +509,10 @@ body {
 
 .item-back {
   position: absolute;
-  top: 2%;
-  left: 1%;
-  width: 98%;
-  height: 96%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -539,8 +520,6 @@ body {
   z-index: 2;
   padding: 18px 9px 18px 90px;
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  border: 2px solid #fff;
-  border-style: ridge;
   align-items: flex-start;
 }
 
@@ -584,32 +563,49 @@ body {
 }
 
 .indicateFlip {
+  width: 60px;
+  height: 100%;
+  background: #000;
   position: absolute;
-  border: 1px solid transparent;
-  top: -6%;
-  left: 12px;
+  top: 0;
+  left: 15px;
   z-index: 6;
-  transition: 0.5s ease-out;
+}
+
+.indicateFlipContainer {
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+  width: 56px;
+  height: 100%;
+  background: #000;
+  margin: 0 auto;
+
+}
+
+.indicateFlipContent {
+  width: 48px;
+  height: 100%;
+  background: #de0000;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 210px;
-  background-image: url("./img/newflag.png");
-  background-size: cover;
-  background-position: center;
-  filter: drop-shadow(0px 0px 3px #000000d1);
+
 }
 
 #indicateFlip {
-  margin-bottom: 3px;
+  display: block;
+  background-color: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   text-align: center;
-  z-index: 19;
-  font-size: 1em;
+  line-height: 42px;
+  font-size: 16px;
   font-family: "Roslindale";
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0px 0px 1px #000000d1;
+  text-shadow: 0px 0px 0.6px #000000;
 }
 
 .indexFlip {
@@ -659,45 +655,30 @@ body {
   color: #fff;
   text-align: left;
   white-space: break-spaces;
-  /* text-shadow: 0 2px 3px #000000b0; */
+  cursor: default;
 }
 
 /* -----------input search----------- */
 .myInputContainer {
-  width: 100%;
-  height: 47px;
-  transition: all 0.5s ease;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: -11px;
-  left: 0;
-  z-index: 77;
+  width: 100%;
 }
 
 .myInputLeftOrnament {
-  width: 13px;
-  height: 100%;
+  z-index: 99;
+  height: 25px;
   position: absolute;
   left: 0;
   top: 0;
-  background-image: url("./img/input-left-corner.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 99;
 }
 
 .myInputRightOrnament {
-  width: 13px;
-  height: 100%;
+  z-index: 99;
+  height: 25px;
   position: absolute;
   right: 0;
   top: 0;
-  background-image: url("./img/input-right-corner.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 99;
 }
 
 .myInputCenterOrnament {
@@ -712,19 +693,8 @@ body {
   border-bottom: 1px solid #b5a9941f;
 }
 
-
-.myInputContent {
-
-  width: 100%;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 99;
-}
-
 .myInput {
-  flex-grow: 1;
+  width: 50%;
   box-sizing: inherit;
   color: #fff;
   background: transparent;
@@ -788,17 +758,17 @@ body {
   position: absolute;
   bottom: 0px;
   right: 0px;
-  border-right: 3px solid #b6a893;
-  border-bottom: 3px solid #b6a893;
-  border-top: 3px solid transparent;
-  border-left: 3px solid transparent;
+  border-right: 2px solid #b6a893;
+  border-bottom: 2px solid #b6a893;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
 }
 
 .cornerDotActive {
-  border-right: 3px solid #00ff16;
-  border-bottom: 3px solid #00ff16;
-  border-top: 3px solid transparent;
-  border-left: 3px solid transparent;
+  border-right: 2px solid #00ff16;
+  border-bottom: 2px solid #00ff16;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
 }
 
 /* ------------tomatoclock---------- */
@@ -1013,6 +983,7 @@ body {
 
 .calendarHeader:hover .tableHistory {
   height: 108px;
+  opacity: 1;
 }
 
 
@@ -1325,6 +1296,7 @@ body {
   flex-grow: 1;
   width: 100%;
   overflow: hidden;
+  background-color: #070707;
 }
 
 .calendarFooterBlurImg {
@@ -1420,6 +1392,7 @@ body {
 
 .tableHistory {
   height: 0;
+  opacity: 0;
   padding: 0 8px;
   transition: height 0.3s ease;
   background-color: #fffffff6;
@@ -1589,7 +1562,7 @@ div#contentBody {
   border-radius: 3px;
   outline: 0;
   cursor: pointer;
-  border: 1px solid #989da7;
+  border: 1px solid #d2cfc2;
   color: #ececec;
   background-color: #070707;
   transition: .2s ease;
@@ -1748,7 +1721,7 @@ span.x::before {
   width: 36px;
   height: 21px;
   border-radius: 3px;
-  border: 1px solid #989da7;
+  border: 1px solid #d2cfc2;
   color: #ececec;
   background-color: #070707;
   transition: .2s ease;

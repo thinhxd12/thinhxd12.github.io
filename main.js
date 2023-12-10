@@ -146,10 +146,7 @@ const fetchRenderImgBackground = (numb) => {
       .html(imgDateGet)
       .append(imgTitleGet, imgAttGet, imgAuthorGet, imgTextGet);
     // $(".mainFixedContent").css("background-image", "url(" + imgSrcGet + ")");
-    $(".calendarFooterBlurImg").css(
-      "background-image",
-      "url(" + imgSrcGet + ")"
-    );
+    $(".calendarCardBlurImg").css("background-image", "url(" + imgSrcGet + ")");
     // $('.flashCardContainer').css('background-image', 'url(' + imgSrcGet + ')');
   });
 };

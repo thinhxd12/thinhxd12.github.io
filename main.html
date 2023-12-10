@@ -54,14 +54,13 @@
               <div class="myInputContainer">
                 <img src="/img/input-left-corner.png" class="myInputLeftOrnament">
                 <img src="/img/input-right-corner.png" class="myInputRightOrnament">
-                  <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
-                    onmouseover="this.focus()" onmouseout="this.blur()" />
-                  <div class="transInputContent">
-                    <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off"
-                      name="transInput" onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()"
-                      onmouseout="this.blur()" />
-                    <img src="./img/center.png" height="18" class="myInputIcon" id="transBtn">
-                  </div>
+                <input class="myInput" type="text" placeholder="" id="searchInput" autocomplete="off"
+                  onmouseover="this.focus()" onmouseout="this.blur()" />
+                <div class="transInputContent">
+                  <input class="myInput" type="text" placeholder="" id="transInput" autocomplete="off" name="transInput"
+                    onkeyup="handleChangeTransInput(event)" onmouseover="this.focus()" onmouseout="this.blur()" />
+                  <img src="./img/center.png" height="18" class="myInputIcon" id="transBtn">
+                </div>
               </div>
             </div>
             <div class="contentBody">
@@ -89,75 +88,34 @@
       </div>
       <div id="tab2" class="city" style="display: none;">
         <div class="calendarContainer">
-          <div class="calendarCard">
-            <div class="calendarHeader">
-              <div class="calendarContent">
-                <div class="bottomCalendarContent">
-                  <div id="bottomCalendarText"></div>
-                  <div class="dateProgress" id="dateProgress"></div>
-                </div>
-                <div class="topCalendarContent">
-                  <div id="topCalendarText"></div>
-                </div>
-              </div>
-              <div class="tableHistory">
-                <div id="historyTable"></div>
-              </div>
-            </div>
-            <div class="dateContent" onclick="setTodayWork()">
-              <div id="calendarMonth">June 28/2023</div>
-              <div id="calendarYear">June 28/2023</div>
-              <div class="dateProgressDiv"></div>
-            </div>
-            <div class="calendarBody">
-              <div class="calendarBodyContainer">
-                <div class="calendarCardContent">
-                  <table id="dayNumber">
-                    <thead>
-                      <tr class="weekTitle">
-                        <td>
-                          <div class="weekDate"><span>Sun</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Mon</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Tue</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Wed</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Thu</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Fri</span></div>
-                        </td>
-                        <td>
-                          <div class="weekDate"><span>Sat</span></div>
-                        </td>
-                      </tr>
-                    </thead>
-                    <tbody id="htmlDate"></tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="calendarFooter">
-              <div class="calendarFooterQuote">
-                <p>The tree that is supposed to grow to a proud height can dispense with bad weather and storms. Whether
-                  misfortune and external resistance, some kinds of hatred, jealousy, stubbornness, mistrust,
-                  hardness, avarice, and violence do not belong among the favorable conditions without which any great
-                  growth. The poison of which weaker natures perish strengthens the strong — nor do they call it poison.
-                </p>
-              </div>
-            </div>
-            <div class="calendarFooterContainer">
-              <div class="calendarFooterBlurImg"></div>
-              <div id="calendarContent"></div>
-            </div>
-            <div class="timeLog"></div>
+          <div class="calendarCardBlurImg"></div>
+          <div class="calendarHeader">
+            <div class="calendarHeaderContent"></div>
+            <div class="calendarHistory" id="calendarHistory"></div>
           </div>
+          <div class="dateContent" onclick="setTodayWork()">
+            <div id="calendarMonth">June 28/2023</div>
+            <div id="calendarYear">June 28/2023</div>
+            <div class="dateProgressDiv"></div>
+          </div>
+          <div class="calendarBody">
+            <div class="calendarBodyContainer">
+              <div class="calendarBodyContent" id="calendarBodyContent"></div>
+            </div>
+          </div>
+          <div class="calendarFooter">
+            <div class="calendarFooterQuote">
+              <p>The tree that is supposed to grow to a proud height can dispense with bad weather and storms. Whether
+                misfortune and external resistance, some kinds of hatred, jealousy, stubbornness, mistrust,
+                hardness, avarice, and violence do not belong among the favorable conditions without which any great
+                growth. The poison of which weaker natures perish strengthens the strong — nor do they call it poison.
+              </p>
+            </div>
+          </div>
+          <div class="calendarFooterContainer">
+            <div id="calendarContent"></div>
+          </div>
+          <div class="timeLog"></div>
         </div>
       </div>
       <div id="tab3" class="city" style="display: none;">

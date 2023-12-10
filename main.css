@@ -192,8 +192,10 @@ body {
 
 .mainFixedBottom {
   width: 100%;
-  position: relative;
+  position: fixed;
   z-index: 99;
+  bottom: 0;
+  width: 358px;
 }
 
 
@@ -575,11 +577,10 @@ body {
 .indicateFlipContainer {
   border-left: 3px solid #fff;
   border-right: 3px solid #fff;
-  width: 56px;
+  width: 100%;
   height: 100%;
   background: #000;
   margin: 0 auto;
-
 }
 
 .indicateFlipContent {
@@ -605,7 +606,13 @@ body {
   font-family: "Roslindale";
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0px 0px 0.6px #000000;
+  text-shadow: 0px 0px 1px #000000d1;
+}
+
+#indicateFlip img {
+  height: 45px;
+  margin-top: -6px;
+  filter: drop-shadow(0 0 3px #000);
 }
 
 .indexFlip {
@@ -758,6 +765,7 @@ body {
   position: absolute;
   bottom: 0px;
   right: 0px;
+  border-bottom-right-radius: 2px;
   border-right: 2px solid #b6a893;
   border-bottom: 2px solid #b6a893;
   border-top: 2px solid transparent;
@@ -957,21 +965,11 @@ body {
 
 /* calendar */
 .calendarContainer {
-  width: 100%;
-  height: calc(100vh - 31px);
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.calendarCard {
   font-family: "Rubik", sans-serif;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  height: calc(100vh - 31px);
   position: relative;
+  overflow-y: scroll;
 }
-
 
 #calendarContent {
   position: inherit;
@@ -981,13 +979,87 @@ body {
   display: none;
 }
 
-.calendarHeader:hover .tableHistory {
-  height: 108px;
-  opacity: 1;
+.calendarHeader {
+  overflow: hidden;
 }
 
+.calendarHeader:hover .calendarHistory {
+  height: 105px;
+}
 
-.calendarContent {
+.calendarHeaderContent {
+  width: 100%;
+  height: 270px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.calendarHistory {
+  height: 0px;
+  width: 100%;
+  background-color: #fffffff6;
+  transition: height 0.2s ease;
+}
+
+.calendarHistoryContent {
+  width: 100%;
+  padding: 6px 6px 1px 6px;
+}
+
+.historyItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.historyItemDesc {
+  background: #161616;
+  width: 100px;
+  height: 18px;
+  color: #ffffff73;
+  font-size: 11px;
+  padding: 3px 6px;
+  position: relative;
+  cursor: pointer;
+}
+
+.historyItemDescComplete {
+  background: #161616;
+  color: #fff;
+  cursor: default;
+}
+
+.historyItemDesc::after {
+  content: "";
+  width: 6px;
+  height: 10px;
+  position: absolute;
+  left: 100%;
+  top: 4px;
+  background: #161616;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+.historyItemContent {
+  height: 18px;
+  flex-grow: 1;
+  cursor: default;
+  border-bottom: 1px solid #0000004a;
+  padding: 0 18px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.historyItemContent>span,
+.historyItem .dateProgressContent {
+  color: #000;
+  font-size: 11px;
+  width: 50%;
+}
+
+/* .calendarContent {
   height: 270px;
   background-size: cover;
   background-position: center center;
@@ -995,7 +1067,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   z-index: 99;
-}
+} */
 
 /* .calendarContent::after {
   content: "";
@@ -1005,42 +1077,124 @@ body {
   height: 100%;
 } */
 
-.calendarCardContent {
+/* ------------New Calendar--------------- */
+.calendarBodyContent {
   background: #fffffff6;
-  display: flex;
-  justify-content: center;
   padding: 6px 0 3px;
-  position: relative;
 }
 
-.weekDate {
-  height: 21px;
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  background-color: #161616;
-  text-align: center;
+.calendarWeek,
+.calendarDays {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f4f4f4;
-  cursor: default;
-  font-weight: bold;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.weekTitle td:first-of-type span {
-  color: #f90000;
-  font-weight: bold;
-}
-
-.calendarCardContent table {
-  border-collapse: collapse;
-  text-align: center;
+.calendarWeekDay {
+  background-color: #161616;
   font-size: 12px;
+  color: #f4f4f4;
+  font-weight: bold;
+  line-height: 21px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: default;
+  height: 21px;
+  width: 49px;
+}
+
+.calendarDays:not(:last-child) {
+  border-bottom: 1px dotted #16161636;
+}
+
+.calendarWeekDay:first-child {
+  color: #f90000;
+}
+
+.calendarDay {
+  height: 21px;
+  width: 49px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #0000004a;
   font-weight: bold;
+  font-size: 13px;
+  position: relative;
+  cursor: default;
 }
 
+.calendarThisMonthDay {
+  color: #383838;
+}
+
+.dayIndicateText {
+  display: flex;
+  flex-direction: column;
+  margin-right: -6px;
+  position: absolute;
+  right: 16px;
+}
+
+.dayIndicateText span {
+  color: #0000004a;
+  font-size: 8px;
+  line-height: 10px;
+}
+
+.dayIndicateText span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  line-height: 11px;
+}
+
+.dayIndicateTextDone span {
+  color: #383838;
+}
+
+.todayDay .dayIndicateText span {
+  color: #00d566;
+}
+
+.calendarTodayDay {
+  cursor: pointer;
+}
+
+.calendarTodayDay .dayIndicateText {
+  right: 14px;
+}
+
+.calendarTodayDay:before {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid #383838;
+  z-index: 10;
+}
+
+.calendarStartDay::after,
+.calendarEndDay::after {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 3px;
+  background: #f90000;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 2px;
+}
+
+.calendarSundayDay {
+  color: #f90000;
+}
+
+/* ------------New Calendar--------------- */
 .topCalendarContent,
 .bottomCalendarContent {
   display: flex;
@@ -1158,7 +1312,6 @@ body {
 
 .dateProgressContent {
   display: flex;
-  font-size: 11px;
   cursor: pointer;
 }
 
@@ -1168,7 +1321,7 @@ body {
 }
 
 .dateProgressContent:hover {
-  text-shadow: 0px 0px 6px #000000d1;
+  text-shadow: 0px 0px 3px #000000d1;
 }
 
 .dateProgressFraction {
@@ -1177,111 +1330,8 @@ body {
   font-size: 0.85rem;
 }
 
-.normalDay {
-  color: #383838;
-  text-align: center;
-  font-weight: bold;
-}
-
-.weekDay:not(:last-child) {
-  border-bottom: 1px dotted #16161636;
-}
-
-.todayWeekDay {
-  color: #383838;
-}
-
-.weekDay td>div {
-  height: 22px;
-  width: 49px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.weekDay td>div>span {
-  cursor: default;
-  position: relative;
-}
-
-.sundayDay {
-  color: #f90000;
-  font-weight: bold;
-}
-
-/* fix */
-.weekDay .startDay::after,
-.weekDay .endDay::after {
-  content: "";
-  display: block;
-  width: 12px;
-  height: 3px;
-  background: #f90000;
-  border-radius: 2px;
-  position: absolute;
-  bottom: 3px;
-}
-
-.weekDay .todayDay::before {
-  content: "";
-  position: absolute;
-  bottom: 1px;
-  display: block;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 1px solid #383838;
-  z-index: 10;
-}
-
-.weekDay .todayDay {
-  color: #383838;
-}
-
-.dayIndicateText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  right: 10px;
-  bottom: 0px;
-  height: 22px;
-}
-
-.todayDay .dayIndicateText {
-  right: 7px;
-  bottom: 0px;
-}
-
-.dayIndicateText span {
-  color: #0000004a;
-  font-size: 8px;
-  line-height: 9px;
-}
-
-.dayIndicateText span:first-child {
-  text-decoration: underline;
-  text-underline-offset: 1px;
-}
-
-.dayIndicateTextDone span {
-  color: #383838;
-}
-
-.todayDay .dayIndicateText span {
-  color: #00d566;
-}
-
-#todayReset {
-  cursor: pointer;
-}
-
 .calendarFooterQuote {
   background: #fffffff6;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 0 15px 3px;
 }
 
@@ -1293,21 +1343,21 @@ body {
 
 .calendarFooterContainer {
   position: relative;
-  flex-grow: 1;
   width: 100%;
   overflow: hidden;
+  /* min-height: calc(30vh); */
   background-color: #070707;
 }
 
-.calendarFooterBlurImg {
+.calendarCardBlurImg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  bottom: 0;
+  right: 0;
   filter: blur(9px) brightness(0.3);
   background-size: cover;
-  background-position: 9%;
+  z-index: -1;
 }
 
 .calendarItem {
@@ -1384,94 +1434,10 @@ body {
   color: #ededed;
   font-size: 9px;
   text-align: right;
-  z-index: 1;
+  z-index: 11;
   position: absolute;
   bottom: 0;
   right: 0;
-}
-
-.tableHistory {
-  height: 0;
-  opacity: 0;
-  padding: 0 8px;
-  transition: height 0.3s ease;
-  background-color: #fffffff6;
-}
-
-#historyTable {
-  padding-top: 6px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.tableItem {
-  width: 100%;
-  display: flex;
-  margin-bottom: 3px;
-  justify-content: center;
-}
-
-.term {
-  width: 100px;
-  display: flex;
-  align-items: center;
-  padding: 4px 6px;
-  color: #fff;
-  position: relative;
-  background: #161616;
-  cursor: default;
-  height: 18px;
-  font-size: 11px;
-  box-shadow: 0px 0px 2px #00000036;
-}
-
-.term_not_complete {
-  height: 18px;
-  font-size: 11px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  padding: 4px 6px;
-  color: #ffffff73;
-  position: relative;
-  background: #161616;
-  cursor: pointer;
-  box-shadow: 0px 0px 2px #00000036;
-}
-
-.term_not_complete:hover {
-  color: #fff;
-}
-
-.term::after,
-.term_not_complete::after {
-  content: "";
-  width: 6px;
-  height: 10px;
-  position: absolute;
-  background: #161616;
-  left: 100%;
-  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-}
-
-.desc {
-  font-size: 11px;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
-  color: #000;
-  border-bottom: 1px solid #0000004a;
-}
-
-.desc>span,
-.desc .dateProgressContent {
-  width: 50%;
-  padding-left: 18px;
-  height: 12px;
 }
 
 /* ------------searchInput------------ */
@@ -1480,8 +1446,6 @@ body {
   overflow-y: scroll;
   position: relative;
   background: #000;
-  /* background: url("./img/noise.png");
-  backdrop-filter: blur(9px) brightness(0.21); */
 }
 
 .contentBody::-webkit-scrollbar {
@@ -1569,7 +1533,6 @@ div#contentBody {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 2px;
 }
 
 .close-btn:hover {
@@ -1687,7 +1650,7 @@ span.x::before {
 .sn-g .thumb {
   display: block;
   margin: 3px 0 3px 9px;
-  max-height: 180px;
+  max-height: 150px;
 }
 
 .xr-gs {

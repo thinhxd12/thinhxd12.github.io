@@ -123,16 +123,6 @@ const fetchAndRenderCalendarData = async () => {
 };
 
 const fetchStartupData = async () => {
-  // console.log('fetch all data');
-  await fetchAndRenderCalendarData();
-
-  await getAllData(CURRENT_COLLECTION.history).then((data) => {
-    localStorage.removeItem("historyData");
-    localStorage.setItem("historyData", JSON.stringify(data));
-    //save to array script
-    getRenderLocalHistoryData();
-  });
-
   await getAllData(CURRENT_COLLECTION.collection).then((data) => {
     let newdata = data.sort((a, b) => a._id - b._id);
     localStorage.removeItem("sheetData");
@@ -140,6 +130,14 @@ const fetchStartupData = async () => {
     //save to array script
     getLocalSheetData();
   });
+  await fetchAndRenderCalendarData();
+  await getAllData(CURRENT_COLLECTION.history).then((data) => {
+    localStorage.removeItem("historyData");
+    localStorage.setItem("historyData", JSON.stringify(data));
+    //save to array script
+    getRenderLocalHistoryData();
+  });
+
 };
 
 fetchStartupData();
@@ -379,7 +377,8 @@ const getLastTimeLog = () => {
 getLastTimeLog();
 
 let dataCalendar = [];
-var todayData;
+let todayData;
+let checkValidWeek;
 
 const renderCalendar = (data) => {
   let date = new Date();
@@ -418,21 +417,13 @@ const renderCalendar = (data) => {
   ];
   $("#calendarMonth").html(monthDays[todaysMonth]);
   $("#calendarYear").html(todaysYear);
-  let dateProgressDivText = `<span>${data[0].startIndex1 + 1
-    }</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
+  let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
   $(".dateProgressDiv").html(dateProgressDivText);
-  $(".calendarContent").css(
-    "background-image",
-    `url("./img/${todaysMonth + 1}.jpg")`
-  );
+  $(".calendarHeaderContent").css("background-image", `url("./img/${todaysMonth + 1}.jpg")`);
 
   let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
   let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
-  let lastDayofMonth = new Date(
-    todaysYear,
-    todaysMonth,
-    lastDateofMonth
-  ).getDay();
+  let lastDayofMonth = new Date(todaysYear, todaysMonth, lastDateofMonth).getDay();
   let lastDateofLastMonth = new Date(todaysYear, todaysMonth, 0).getDate();
 
   let monthDateArr = [];
@@ -457,22 +448,22 @@ const renderCalendar = (data) => {
 
   monthDateArr.map((item, index) => {
     item.month == date.getMonth()
-      ? (item["class"] = "normalDay")
-      : (item["class"] = "");
+      ? (item["class"] = "calendarDay calendarThisMonthDay")
+      : (item["class"] = "calendarDay");
 
     if (item.date === date.getDate() && item.month === date.getMonth()) {
-      item["class"] += " todayDay";
+      item["class"] += " calendarTodayDay";
     }
 
     if (
       item.date === startDay.getDate() &&
       item.month === startDay.getMonth()
     ) {
-      item["class"] += " startDay";
+      item["class"] += " calendarStartDay";
     }
 
     if (item.date === endDay.getDate() && item.month === endDay.getMonth()) {
-      item["class"] += " endDay";
+      item["class"] += " calendarEndDay";
     }
 
     return item;
@@ -501,92 +492,77 @@ const renderCalendar = (data) => {
 
   // renderCalendar---------------
   monthDateArr = chunk(monthDateArr, 7);
-  // console.log(monthDateArr);
-  const htmlDate = document.getElementById("htmlDate");
-  htmlDate.innerHTML = "";
-  for (let i = 0; i < monthDateArr.length; i++) {
-    htmlDate.innerHTML += `
-      <tr class="weekDay">
-        ${monthDateArr[i]
-        .map((item, index) => {
-          return `
-                <td>
-                    <div ${item.date == date.getDate() && item.month == date.getMonth() ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ""} class="${item.month == date.getMonth() && index == 0 ? `${item.class} sundayDay` : index == todaysWeekDay && item.class !== "" ? `todayWeekDay ${item.class}` : `${item.class}`}" >
-                    <div>${item.date}
-                      ${item.indicate ? `<div class="dayIndicateText ${item.time1 > 0 ? "dayIndicateTextDone" : ""}">
-                          <span>${item.time1}</span>
-                          <span>${item.time2}</span>
-                        </div>`: ""}
-                    </div>
-                    </div>
-                </td>
-            `;
-        })
-        .join("")}
-      </tr>
-      `;
-  }
-
-  // renderCalendarProgress---------------
-  let checkValidWeek =
-    (date.getDate() > endDay.getDate() &&
-      date.getMonth() == endDay.getMonth()) ||
-    (date.getDate() < startDay.getDate() &&
-      date.getMonth() == startDay.getMonth());
-  setTodayProgressHtml(checkValidWeek);
+  const calendarBodyContent = document.getElementById("calendarBodyContent");
+  calendarBodyContent.innerHTML = `
+    <div class="calendarWeek">
+      <div class="calendarWeekDay">Sun</div>
+      <div class="calendarWeekDay">Mon</div>
+      <div class="calendarWeekDay">Tue</div>
+      <div class="calendarWeekDay">Wed</div>
+      <div class="calendarWeekDay">Thu</div>
+      <div class="calendarWeekDay">Fri</div>
+      <div class="calendarWeekDay">Sat</div>
+    </div>
+    <div class="calendarBodyContentDays">
+      ${monthDateArr.map((item, index) => {
+    return `<div class="calendarDays">
+            ${item.map((m, n) => {
+      let todayDay = m.date == date.getDate() && m.month == date.getMonth();
+      let isSunday = m.month == date.getMonth() && n == 0;
+      return `<div class="${isSunday ? m.class + ' calendarSundayDay' : m.class}" ${todayDay ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''}>
+                          <span>${m.date}</span>
+                          ${m.indicate ? `<span class="dayIndicateText ${m.time1 > 0 ? "dayIndicateTextDone" : ""}"><span>${m.time1}</span><span>${m.time2}</span></span>` : ""}
+                        </div>`
+    }).join("")
+      }
+          </div>`
+  }).join("")
+    }
+    </div>
+  `
+  checkValidWeek = (date.getDate() > endDay.getDate() && date.getMonth() == endDay.getMonth()) || (date.getDate() < startDay.getDate() && date.getMonth() == startDay.getMonth());
 };
 
 const renderHistorySlide = (numb) => {
-  const historyTable = document.getElementById("historyTable");
+  const historyTable = document.getElementById("calendarHistory");
   let historyTableItem = dataHistory.find((item) => item.index == numb);
   let historyTableData = historyTableItem.data;
-  let checkRowNum = $(".dateProgressDiv span:first-child").text();
   if (numb == dataHistory.length - 1) {
     historyTable.innerHTML = `
-        ${historyTableData
-        .map((item, index) => {
-          return `
-                    <div class="tableItem">
-                      <span  ${item.fromD
-              ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
-              : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
-            }>${item.row} - ${item.row + 199}</span>
-                      ${item.fromD
-              ? `<div class="desc">
-                        <span>${item.fromD}</span>
-                        <span>${item.toD}</span>
-                      </div>`
-              : item.row == checkRowNum
-                ? `<div class="desc" id="todayProgressHtml"></div>`
-                : `<div class="desc"></div>`
-            }
-                    </div>
-                `;
-        })
-        .join("")}
-        `;
-  } else
-    historyTable.innerHTML = `
-        ${historyTableData
-        .map((item, index) => {
-          return `
-                <div class="tableItem">
-                  <span  ${item.fromD
-              ? `class="term" onclick="commitNewWork(${item.row},${numb})"`
-              : `onclick="commitNewWork(${item.row},${numb})" class="term_not_complete"`
-            }>${item.row} - ${item.row + 199}</span>
-                  ${item.fromD
-              ? `<div class="desc">
-                    <span>${item.fromD}</span>
-                    <span>${item.toD}</span>
-                  </div>`
-              : `<div class="desc"></div>`
-            }
-                </div>
-            `;
-        })
-        .join("")}
-        `;
+      <div class="calendarHistoryContent">
+        ${historyTableData.map((item, index) => {
+      return `
+        <div class="historyItem">
+          <div class="historyItemDesc ${item.fromD ? ' historyItemDescComplete' : ''}" onclick="commitNewWork(${item.row},${numb})">${item.row} - ${item.row + 199}</div>
+          ${item.fromD ? `<div class="historyItemContent">
+          <span>${item.fromD}</span>
+          <span>${item.toD}</span>
+        </div>` :
+          item.row == todayData.startIndex1 + 1 ? `<div class="historyItemContent" id="todayProgressHtml"></div>` : `<div class="historyItemContent"></div>`
+        }
+      </div>`;
+    }).join("")
+      }
+      </div>`;
+
+  } else historyTable.innerHTML = `
+  <div class="calendarHistoryContent">
+    ${historyTableData.map((item, index) => {
+    return `
+    <div class="historyItem">
+      <div class="historyItemDesc ${item.fromD ? ' historyItemDescComplete' : ''}" onclick="commitNewWork(${item.row},${numb})">${item.row} - ${item.row + 199}</div>
+      ${item.fromD ? `<div class="historyItemContent">
+      <span>${item.fromD}</span>
+      <span>${item.toD}</span>
+    </div>`
+        : `<div class="historyItemContent"></div>`
+      }
+    </div>`;
+  }).join("")
+    }
+  </div>`;
+  // setTodayProgressHtml(false);
+  setTodayProgressHtml(checkValidWeek);
 };
 
 const setTodayProgressHtml = (valid) => {
@@ -1148,7 +1124,7 @@ const renderFlashcard = (item, progress) => {
                         <div class="indicateFlipContainer"> 
                           <div class="indicateFlipContent"> 
                           <span id="indicateFlip">
-                          ${item.numb}
+                            ${item.numb}
                           </span>
                           </div>
                         </div>
@@ -1174,13 +1150,10 @@ const renderFlashcard = (item, progress) => {
                 </div>
     
     `;
-
   if (item.numb > 0) {
     setTimeout(() => {
-      document.getElementById("indicateFlip").innerHTML = `
-      ${newNumb == 0 ? '<img src="./img/cup.png" width="42px">' : newNumb}
-      `;
-    }, 4000);
+      document.getElementById("indicateFlip").innerHTML = `${newNumb == 0 ? '<img src="./img/cup.png">' : newNumb}`;
+    }, 3000);
   }
 
   flipTimer1 = setTimeout(() => {

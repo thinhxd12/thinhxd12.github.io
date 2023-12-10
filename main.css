@@ -1059,24 +1059,6 @@ body {
   width: 50%;
 }
 
-/* .calendarContent {
-  height: 270px;
-  background-size: cover;
-  background-position: center center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 99;
-} */
-
-/* .calendarContent::after {
-  content: "";
-  display: block;
-  background: #00000015;
-  width: 100%;
-  height: 100%;
-} */
-
 /* ------------New Calendar--------------- */
 .calendarBodyContent {
   background: #fffffff6;
@@ -1154,7 +1136,7 @@ body {
   color: #383838;
 }
 
-.todayDay .dayIndicateText span {
+.calendarTodayDay .dayIndicateText span {
   color: #00d566;
 }
 

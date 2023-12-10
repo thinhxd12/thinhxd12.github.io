@@ -137,10 +137,11 @@ const fetchStartupData = async () => {
     //save to array script
     getRenderLocalHistoryData();
   });
-
 };
 
-fetchStartupData();
+setTimeout(() => {
+  fetchStartupData();
+}, 1000);
 wakeupServer();
 // getLocalSheetData();
 

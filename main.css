@@ -1345,7 +1345,6 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden;
-  /* min-height: calc(30vh); */
   background-color: #070707;
 }
 

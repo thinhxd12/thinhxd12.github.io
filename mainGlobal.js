@@ -122,16 +122,16 @@ const fetchAndRenderCalendarData = async () => {
   });
 };
 
-const fetchStartupData = async () => {
-  await getAllData(CURRENT_COLLECTION.collection).then((data) => {
+const fetchStartupData = () => {
+  getAllData(CURRENT_COLLECTION.collection).then((data) => {
     let newdata = data.sort((a, b) => a._id - b._id);
     localStorage.removeItem("sheetData");
     localStorage.setItem("sheetData", JSON.stringify(newdata));
     //save to array script
     getLocalSheetData();
   });
-  await fetchAndRenderCalendarData();
-  await getAllData(CURRENT_COLLECTION.history).then((data) => {
+  fetchAndRenderCalendarData();
+  getAllData(CURRENT_COLLECTION.history).then((data) => {
     localStorage.removeItem("historyData");
     localStorage.setItem("historyData", JSON.stringify(data));
     //save to array script
@@ -139,9 +139,7 @@ const fetchStartupData = async () => {
   });
 };
 
-setTimeout(() => {
-  fetchStartupData();
-}, 1000);
+fetchStartupData();
 wakeupServer();
 // getLocalSheetData();
 

@@ -1062,8 +1062,7 @@ body {
 }
 
 #todayProgressHtml {
-  background-color: #bdbdbd59;
-  backdrop-filter: blur(6px);
+  background-color: #E8F5E9;
 }
 
 /* ------------New Calendar--------------- */
@@ -1144,7 +1143,7 @@ body {
 }
 
 .calendarTodayDay .dayIndicateText span {
-  color: #00d566;
+  color: #00E676;
 }
 
 .calendarTodayDay {
@@ -1253,12 +1252,12 @@ body {
   flex-direction: column;
   cursor: pointer;
   position: absolute;
-  top: 211px;
-  right: 6px;
+  top: 208px;
+  right: 9px;
   z-index: 99;
   background-color: #33333333;
   backdrop-filter: blur(6px);
-  border-radius: 6px;
+  border-radius: 2px;
   padding: 6px 3px;
   justify-content: center;
   transition: all 0.3s ease;

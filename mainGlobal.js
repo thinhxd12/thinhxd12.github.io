@@ -530,6 +530,7 @@ const renderHistorySlide = (numb) => {
     historyTable.innerHTML = `
       <div class="calendarHistoryContent">
         ${historyTableData.map((item, index) => {
+      const check = item.row == todayData.startIndex1 + 1 || item.row == todayData.startIndex1 - 49;
       return `
         <div class="historyItem">
           <div class="historyItemDesc ${item.fromD ? ' historyItemDescComplete' : ''}" onclick="commitNewWork(${item.row},${numb})">${item.row} - ${item.row + 199}</div>
@@ -537,13 +538,12 @@ const renderHistorySlide = (numb) => {
           <span>${item.fromD}</span>
           <span>${item.toD}</span>
         </div>` :
-          item.row == todayData.startIndex1 + 1 ? `<div class="historyItemContent" id="todayProgressHtml"></div>` : `<div class="historyItemContent"></div>`
+          check ? `<div class="historyItemContent" id="todayProgressHtml"></div>` : `<div class="historyItemContent"></div>`
         }
       </div>`;
     }).join("")
       }
       </div>`;
-
   } else historyTable.innerHTML = `
   <div class="calendarHistoryContent">
     ${historyTableData.map((item, index) => {
@@ -560,7 +560,6 @@ const renderHistorySlide = (numb) => {
   }).join("")
     }
   </div>`;
-  // setTodayProgressHtml(false);
   setTodayProgressHtml(checkValidWeek);
 };
 
@@ -692,13 +691,9 @@ const commitNewWork = (row, numb) => {
         </div>
     </div>
     <div class="calendarItemContent">
-        <input class="calendarItemInput" value="${row} - ${row + 199
-    }" autocomplete="off" id="commitHistoryItemRow"
-        onmouseover="this.focus()" onmouseout="this.blur()">
-        <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemFromD" autocomplete="off"
-        onmouseover="this.focus()" onmouseout="this.blur()">
-        <input type="date"  data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemToD" autocomplete="off"
-        onmouseover="this.focus()" onmouseout="this.blur()">
+        <input class="calendarItemInput" value="${row} - ${row + 199}" autocomplete="off" id="commitHistoryItemRow" onmouseover="this.focus()" onmouseout="this.blur()">
+        <input type="date" data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemFromD" autocomplete="off">
+        <input type="date" data-date-format="YYYY MM DD" class="calendarItemInput" id="commitHistoryItemToD" autocomplete="off">
     </div>
     </div>`;
 };

@@ -567,12 +567,12 @@ const setTodayProgressHtml = (valid) => {
     $("#todayProgressHtml").html('<img class="weekJobDoneImg" src="./img/cup.png"><img class="weekJobDoneImg" src="./img/cup.png">');
   } else if (todayData) {
     $("#todayProgressHtml").html(`
-        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">
+        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)" ${todayData.time1 >= 9 ? "style='background: none;'" : ""}>
           <img src="/img/run.png">
           <span>&#183;</span>
           <span>${todayData.startIndex1 + 1}</span>
         </div>
-        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">
+        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)" ${todayData.time2 >= 9 ? "style='background: none;'" : ""}>
           <img src="/img/dancer.png">
           <span>&#183;</span>
           <span>${todayData.startIndex2 + 1}</span>

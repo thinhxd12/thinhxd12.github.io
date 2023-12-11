@@ -1404,7 +1404,7 @@ const renderEditWord = () => {
         </div>
         <div class="editItemContent">
             <span class="editItemLabel"></span>
-            <textarea id="inputEditWordExplain" class="editItemArea" rows="3" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
+            <textarea id="inputEditWordExplain" class="editItemArea" rows="2" onmouseover="this.focus()" onmouseout="this.blur()"></textarea>
         </div>
         </div>
         <div class="subEditContainer">

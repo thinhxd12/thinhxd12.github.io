@@ -125,13 +125,6 @@
   font-weight: 700;
 }
 
-@font-face {
-  font-family: "ClarendonRoman";
-  src: url("./fonts/clarebtrom-webfont.ttf") format('truetype');
-  font-style: normal;
-  font-weight: 300;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -599,6 +592,7 @@ body {
   background-color: #fff;
   width: 42px;
   height: 42px;
+  margin-bottom: 18px;
   border-radius: 50%;
   text-align: center;
   line-height: 42px;
@@ -1781,7 +1775,7 @@ span.x::before {
 }
 
 .editItemLabel {
-  font: 13px "nyt-imperial";
+  font-family: "nyt-imperial";
   color: #000000;
   text-transform: uppercase;
 }
@@ -1793,7 +1787,7 @@ span.x::before {
 
 .editItemInput {
   width: 77%;
-  border-bottom: 1px dashed #989895;
+  border-bottom: 1px dotted #989895;
   border-right: none;
   border-left: none;
   border-top: none;
@@ -1806,7 +1800,7 @@ span.x::before {
 
 .editItemInputChild {
   flex-grow: 1;
-  border-bottom: 1px dashed #989895;
+  border-bottom: 1px dotted #989895;
   border-right: none;
   border-left: none;
   border-top: none;
@@ -1827,13 +1821,11 @@ span.x::before {
   font: 12px "nyt-imperial";
   font-weight: 400;
   color: #777;
-  border-top: solid 1px #aaa;
-  border-left: solid 1px #aaa;
-  border-bottom: solid 1px #ccc;
-  border-right: solid 1px #ccc;
-  border-radius: 3px;
+  border: none;
   outline: 0;
   padding: 3px;
+  background: none;
+  border-bottom: 1px dotted #989895;
 }
 
 .editItemArea::-webkit-scrollbar {

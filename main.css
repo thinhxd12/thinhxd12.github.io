@@ -431,18 +431,6 @@ body {
   cursor: pointer;
 }
 
-.cornerButton::before {
-  content: '';
-  display: block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background-color: #7c7b7a;
-  position: absolute;
-  left: -1.5px;
-  top: 13.5px;
-}
-
 /* -------------flip card---------------------*/
 .contentHeader {
   display: flex;
@@ -754,23 +742,19 @@ body {
 }
 
 .cornerDot {
-  width: 0px;
-  height: 0px;
+  width: 4px;
+  height: 4px;
   position: absolute;
   bottom: 8px;
-  right: 0px;
-  border-top-right-radius: 2px;
-  border-right: 2px solid #b6a893;
-  border-top: 2px solid #b6a893;
-  border-bottom: 2px solid transparent;
-  border-left: 2px solid transparent;
+  right: 0;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 150%;
+  background: #7c7b7a;
+  z-index: 99;
 }
 
 .cornerDotActive {
-  border-right: 2px solid #00ff16;
-  border-top: 2px solid #00ff16;
-  border-bottom: 2px solid transparent;
-  border-left: 2px solid transparent;
+  background: #00ff16;
 }
 
 /* ------------tomatoclock---------- */
@@ -788,11 +772,11 @@ body {
 }
 
 .serverDot {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: #070707;
-  z-index: 36;
+  z-index: 99;
   cursor: pointer;
 }
 
@@ -1126,8 +1110,20 @@ body {
   color: #0000004a;
   font-weight: bold;
   font-size: 13px;
-  position: relative;
   cursor: default;
+  position: relative;
+}
+
+.calendarDayContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendarDayContent span {
+  line-height: 21px;
 }
 
 .calendarThisMonthDay {
@@ -1137,9 +1133,11 @@ body {
 .dayIndicateText {
   display: flex;
   flex-direction: column;
-  margin-right: -6px;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  right: 16px;
+  right: -7px;
+  top: 0;
 }
 
 .dayIndicateText span {
@@ -1158,6 +1156,11 @@ body {
   color: #383838;
 }
 
+.calendarTodayDay .dayIndicateText {
+  color: #00E676;
+  right: -14px;
+}
+
 .calendarTodayDay .dayIndicateText span {
   color: #00E676;
 }
@@ -1166,11 +1169,7 @@ body {
   cursor: pointer;
 }
 
-.calendarTodayDay .dayIndicateText {
-  right: 14px;
-}
-
-.calendarTodayDay:before {
+.calendarTodayDay::before {
   content: "";
   position: absolute;
   bottom: 1px;
@@ -1182,16 +1181,16 @@ body {
   z-index: 10;
 }
 
-.calendarStartDay::after,
-.calendarEndDay::after {
+.calendarStartDay .calendarDayContent::after,
+.calendarEndDay .calendarDayContent::after {
   content: "";
   display: block;
-  width: 13px;
+  width: 90%;
   height: 3px;
   background: #f90000;
   border-radius: 2px;
   position: absolute;
-  bottom: 2px;
+  bottom: 3px;
 }
 
 .calendarSundayDay {
@@ -1518,7 +1517,7 @@ div#contentBody {
   border-radius: 3px;
   outline: 0;
   cursor: pointer;
-  border: 1px solid #d2cfc2;
+  border: 1px solid #7c7b7a;
   color: #ececec;
   background-color: #070707;
   transition: .2s ease;

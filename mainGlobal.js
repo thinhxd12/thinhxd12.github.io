@@ -508,9 +508,11 @@ const renderCalendar = (data) => {
       let todayDay = m.date == date.getDate() && m.month == date.getMonth();
       let isSunday = m.month == date.getMonth() && n == 0;
       return `<div class="${isSunday ? m.class + ' calendarSundayDay' : m.class}" ${todayDay ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''}>
-                          <span>${m.date}</span>
-                          ${m.indicate ? `<span class="dayIndicateText ${m.time1 > 0 ? "dayIndicateTextDone" : ""}"><span>${m.time1}</span><span>${m.time2}</span></span>` : ""}
-                        </div>`
+                <div class="calendarDayContent">
+                  <span>${m.date}</span>
+                  ${m.indicate ? `<span class="dayIndicateText ${m.time1 > 0 ? "dayIndicateTextDone" : ""}"><span>${m.time1}</span><span>${m.time2}</span></span>` : ""}
+                </div>
+              </div>`
     }).join("")
       }
           </div>`
@@ -1112,7 +1114,7 @@ const renderFlashcard = (item, progress) => {
                           </div>
                         </div>
                     </div>
-                    ${progress ? `<span class="progressFlip">${progress >= 9 ? `<img src="./img/cup.png" width="21">` : `<sup>${progress}</sup>/<sub>9</sub>`}</span>` : ""}
+                    ${progress ? `<span class="progressFlip">${progress == 9 ? `<img src="./img/cup.png" width="21">` : `<sup>${progress}</sup>/<sub>9</sub>`}</span>` : ""}
                     <div class="img-overlay">
                     <div class="flip-card-front-content">
                       <p class="cardTextClass">${item.class}</p>

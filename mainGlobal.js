@@ -418,8 +418,7 @@ const renderCalendar = (data) => {
   $("#calendarYear").html(todaysYear);
   let dateProgressDivText = `<span>${data[0].startIndex1 + 1}</span><span> &#8226; </span><span>${data[1].startIndex2 + 50}</span>`;
   $(".dateProgressDiv").html(dateProgressDivText);
-  $(".calendarHeaderContent").css("background-image", `url("./img/${todaysMonth + 1}.jpg")`);
-
+  $(".calendarHeaderContent").css("background-image", `url(./img/${todaysMonth + 1}.jpg)`);
   let firstDayofMonth = new Date(todaysYear, todaysMonth, 1).getDay();
   let lastDateofMonth = new Date(todaysYear, todaysMonth + 1, 0).getDate();
   let lastDayofMonth = new Date(todaysYear, todaysMonth, lastDateofMonth).getDay();
@@ -520,15 +519,15 @@ const renderCalendar = (data) => {
     </div>
   `
   checkValidWeek = (date.getDate() > endDay.getDate() && date.getMonth() == endDay.getMonth()) || (date.getDate() < startDay.getDate() && date.getMonth() == startDay.getMonth());
+  setTodayProgressHtml(checkValidWeek);
 };
 
 const renderHistorySlide = (numb) => {
-  const historyTable = document.getElementById("calendarHistory");
+  const historyTable = document.getElementById("calendarHistoryContent");
   let historyTableItem = dataHistory.find((item) => item.index == numb);
   let historyTableData = historyTableItem.data;
   if (numb == dataHistory.length - 1) {
     historyTable.innerHTML = `
-      <div class="calendarHistoryContent">
         ${historyTableData.map((item, index) => {
       const check = item.row == todayData.startIndex1 + 1 || item.row == todayData.startIndex1 - 49;
       return `
@@ -540,7 +539,7 @@ const renderHistorySlide = (numb) => {
         </div>` :
           check ? `<div class="historyItemContent" id="todayProgressHtml"></div>` : `<div class="historyItemContent"></div>`
         }
-      </div>`;
+        </div>`;
     }).join("")
       }
       </div>`;
@@ -565,28 +564,18 @@ const renderHistorySlide = (numb) => {
 
 const setTodayProgressHtml = (valid) => {
   if (valid) {
-    $("#todayProgressHtml").html('<img class="weekJobDoneImg" src="./img/cup.png"><img class="weekJobDoneImg" src="./img/cup.png"><img class="weekJobDoneImg" src="./img/cup.png">');
+    $("#todayProgressHtml").html('<img class="weekJobDoneImg" src="./img/cup.png"><img class="weekJobDoneImg" src="./img/cup.png">');
   } else if (todayData) {
     $("#todayProgressHtml").html(`
-        <div class="dateProgressContent">
-            <span onclick="setWordList(${JSON.stringify(todayData)
-        .split('"')
-        .join("&quot;")},1)">${todayData.startIndex1 + 1} - ${todayData.startIndex1 + 50
-      }</span>
-            <span class="dateProgressFraction">${todayData.time1}/9</span>
-            <span class="dateProgressImg">
-            ${todayData.time1 >= 9 ? '<img src="./img/check.png" width="18">' : ""}
-            </span>
+        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},1)">
+          <img src="/img/run.png">
+          <span>&#183;</span>
+          <span>${todayData.startIndex1 + 1}</span>
         </div>
-        <div class="dateProgressContent">
-            <span onclick="setWordList(${JSON.stringify(todayData)
-        .split('"')
-        .join("&quot;")},2)">${todayData.startIndex2 + 1} - ${todayData.startIndex2 + 50
-      }</span>
-            <span class="dateProgressFraction">${todayData.time2}/9</span>
-            <span class="dateProgressImg">
-            ${todayData.time2 >= 9 ? '<img src="./img/check.png" width="18">' : ""}
-            </span>
+        <div class="historyItemContentBtn" onclick="setWordList(${JSON.stringify(todayData).split('"').join("&quot;")},2)">
+          <img src="/img/dancer.png">
+          <span>&#183;</span>
+          <span>${todayData.startIndex2 + 1}</span>
         </div>
         `);
   }

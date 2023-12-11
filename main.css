@@ -763,19 +763,19 @@ body {
   width: 0px;
   height: 0px;
   position: absolute;
-  bottom: 0px;
+  bottom: 8px;
   right: 0px;
-  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
   border-right: 2px solid #b6a893;
-  border-bottom: 2px solid #b6a893;
-  border-top: 2px solid transparent;
+  border-top: 2px solid #b6a893;
+  border-bottom: 2px solid transparent;
   border-left: 2px solid transparent;
 }
 
 .cornerDotActive {
   border-right: 2px solid #00ff16;
-  border-bottom: 2px solid #00ff16;
-  border-top: 2px solid transparent;
+  border-top: 2px solid #00ff16;
+  border-bottom: 2px solid transparent;
   border-left: 2px solid transparent;
 }
 
@@ -997,12 +997,12 @@ body {
 .calendarHistory {
   height: 0px;
   width: 100%;
-  background-color: #fffffff6;
   transition: height 0.2s ease;
+  overflow: hidden;
+  background-color: #fffffff6;
 }
 
 .calendarHistoryContent {
-  width: 100%;
   padding: 6px 6px 1px 6px;
 }
 
@@ -1045,8 +1045,8 @@ body {
 .historyItemContent {
   height: 18px;
   flex-grow: 1;
+  background-color: #f4f4f4;
   cursor: default;
-  border-bottom: 1px solid #0000004a;
   padding: 0 18px;
   display: grid;
   align-items: center;
@@ -1055,14 +1055,36 @@ body {
   grid-template-rows: 1fr;
 }
 
-.historyItemContent>span,
-.historyItem .dateProgressContent {
+.historyItemContent>span {
   color: #000;
   font-size: 11px;
 }
 
-#todayProgressHtml {
-  background-color: #E8F5E9;
+.historyItemContentBtn {
+  width: 60px;
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #bbbbbba3;
+  border-radius: 3px;
+  padding: 0 5px;
+  background-color: #bbbbbb1e;
+  transition: all 0.2s ease;
+}
+
+.historyItemContentBtn:hover {
+  box-shadow: 0 0 3px #00000034;
+}
+
+.historyItemContentBtn img {
+  height: 15px;
+}
+
+.historyItemContentBtn span {
+  color: #000;
+  font-size: 11px;
 }
 
 /* ------------New Calendar--------------- */
@@ -1294,28 +1316,7 @@ body {
 }
 
 .weekJobDoneImg {
-  width: 11px;
-  margin-right: 2px;
-}
-
-.dateProgressContent {
-  display: flex;
-  cursor: pointer;
-}
-
-.dateProgressContent span {
-  display: flex;
-  align-items: center;
-}
-
-.dateProgressContent:hover {
-  text-shadow: 0px 0px 1px #0000007a;
-}
-
-.dateProgressFraction {
-  font-variant-numeric: diagonal-fractions;
-  margin-left: 5px;
-  font-size: 0.85rem;
+  height: 18px;
 }
 
 .calendarFooterQuote {
@@ -1434,6 +1435,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
+  z-index: 1;
 }
 
 /* ------------searchInput------------ */

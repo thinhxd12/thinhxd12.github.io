@@ -123,13 +123,13 @@ const fetchAndRenderCalendarData = async () => {
 };
 
 const fetchStartupData = async () => {
-  getAllData(CURRENT_COLLECTION.collection).then((data) => {
-    let newdata = data.sort((a, b) => a._id - b._id);
-    localStorage.removeItem("sheetData");
-    localStorage.setItem("sheetData", JSON.stringify(newdata));
-    //save to array script
-    getLocalSheetData();
-  });
+  // getAllData(CURRENT_COLLECTION.collection).then((data) => {
+  //   let newdata = data.sort((a, b) => a._id - b._id);
+  //   localStorage.removeItem("sheetData");
+  //   localStorage.setItem("sheetData", JSON.stringify(newdata));
+  //   //save to array script
+  //   getLocalSheetData();
+  // });
   await fetchAndRenderCalendarData();
   await getAllData(CURRENT_COLLECTION.history).then((data) => {
     localStorage.removeItem("historyData");
@@ -509,7 +509,8 @@ const renderCalendar = (data) => {
       let isSunday = m.month == date.getMonth() && n == 0;
       return `<div class="${isSunday ? m.class + ' calendarSundayDay' : m.class}" ${todayDay ? 'id="todayReset" onclick="resetTodaySchedule(true)"' : ''}>
                 <div class="calendarDayContent">
-                  <span>${m.date}</span>
+                  ${m.indicate ? `<span class="dayIndicateTextHidden">${Math.max(m.time1, m.time2)}</span>` : ""}
+                  <text>${m.date}</text>
                   ${m.indicate ? `<span class="dayIndicateText ${m.time1 > 0 ? "dayIndicateTextDone" : ""}"><span>${m.time1}</span><span>${m.time2}</span></span>` : ""}
                 </div>
               </div>`
@@ -1275,12 +1276,15 @@ $("#transBtn").click(function (e) {
 const handleTranslate = async () => {
   const transInput = document.getElementById("transInput");
   if (/\w*/.test(transInput.value)) {
-    let transUrl = `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
-    // let transUrl = URL_CORS + `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=en&to=vi`;
+    let transUrl = `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=auto&to=vi`;
+    // let transUrl = URL_CORS + `https://myapp-9r5h.onrender.com/trans?text=${transInput.value}&from=auto&to=vi`;
     await fetch(transUrl)
       .then((res) => res.json())
       .then((data) => {
-        renderTranslate(data);
+        if (Object.keys(data.translations).length > 0) {
+          renderTranslate(data, true);
+        }
+        else renderTranslate(data, false);
         $("#searchInput").val("");
         $("#transInput").val("");
         textInput = "";
@@ -1291,7 +1295,7 @@ const handleTranslate = async () => {
   }
 };
 
-const renderTranslate = (arr) => {
+const renderTranslate = (arr, explain) => {
   const contentBody = document.getElementById("transContainer");
   contentBody.innerHTML = "";
   if (arr.translation) {
@@ -1321,28 +1325,22 @@ const renderTranslate = (arr) => {
       <p><span id="tlTranscript">${arr.wordTranscription}</span></p>
     </div>
     <div>
-      ${Object.keys(arr.translations)
-        .map((item) => {
-          return `
+      ${Object.keys(arr.translations).map((item) => {
+        return `
       <h5 class="transItemType" onclick="addTextToCell(' -${item}')">-${item}</h5>
-      ${arr.translations[item]
-              .map((m) => {
-                return `
+      ${arr.translations[item].map((m) => {
+          return `
       <div class="transItemRow">
-        <span onclick="addTextToCell('-${m.translation}')">${m.translation
-                  }&emsp;
-          ${m.synonyms
-                    .map((n, i) => {
-                      return `<small>${(i ? ", " : "") + n}</small>`;
-                    })
-                    .join("")}.</span>
+        <span onclick="addTextToCell('-${m.translation}')">${m.translation}&emsp;
+          ${m.synonyms.map((n, i) => {
+            return `<small>${(i ? ", " : "") + n}</small>`;
+          }).join("")}.
+        </span>
         ${renderFrequency(m.frequency)}
       </div>`;
-              })
-              .join("")}
+        }).join("")}
       `;
-        })
-        .join("")}
+      }).join("")}
     </div>
   </div>
   <div id="editContentDivAmerica"></div>
@@ -1351,7 +1349,9 @@ const renderTranslate = (arr) => {
   <div id="editContentDivGoogle"></div>
     `;
   }
-  renderEditWordDefinition(arr.word);
+  if (explain) {
+    renderEditWordDefinition(arr.word);
+  }
 };
 
 const renderEditWord = () => {
@@ -1939,7 +1939,7 @@ const setDeleteWord = () => {
 
 const addTextToCell = (text) => {
   const addNewW = document.getElementById("addNewW");
-  addNewW.value += text;
+  addNewW.value += text.toLowerCase();
 };
 
 const renderFrequency = (num) => {

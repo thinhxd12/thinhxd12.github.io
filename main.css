@@ -742,13 +742,13 @@ body {
 }
 
 .cornerDot {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   position: absolute;
-  bottom: 8px;
+  bottom: 9px;
   right: 0;
-  border-top-right-radius: 50%;
-  border-bottom-left-radius: 150%;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 6px;
   background: #7c7b7a;
   z-index: 99;
 }
@@ -1115,19 +1115,19 @@ body {
 }
 
 .calendarDayContent {
-  position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.calendarDayContent span {
-  line-height: 21px;
-}
-
 .calendarThisMonthDay {
   color: #383838;
+}
+
+.dayIndicateTextHidden {
+  font-size: 8px;
+  margin-right: 2px;
+  opacity: 0;
 }
 
 .dayIndicateText {
@@ -1135,9 +1135,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  right: -7px;
-  top: 0;
+  margin-left: 2px;
 }
 
 .dayIndicateText span {
@@ -1156,11 +1154,6 @@ body {
   color: #383838;
 }
 
-.calendarTodayDay .dayIndicateText {
-  color: #00E676;
-  right: -14px;
-}
-
 .calendarTodayDay .dayIndicateText span {
   color: #00E676;
 }
@@ -1169,28 +1162,21 @@ body {
   cursor: pointer;
 }
 
-.calendarTodayDay::before {
-  content: "";
-  position: absolute;
-  bottom: 1px;
-  display: block;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
+.calendarTodayDay text {
   border: 1px solid #383838;
-  z-index: 10;
+  padding: 2px;
+  border-radius: 3px;
+  width: 23px;
+  /* height: 18px; */
+  text-align: center;
 }
 
-.calendarStartDay .calendarDayContent::after,
-.calendarEndDay .calendarDayContent::after {
-  content: "";
-  display: block;
-  width: 90%;
-  height: 3px;
-  background: #f90000;
-  border-radius: 2px;
-  position: absolute;
-  bottom: 3px;
+.calendarStartDay text,
+.calendarEndDay text {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 1px;
+  text-decoration-color: #f90000;
 }
 
 .calendarSundayDay {
@@ -1315,6 +1301,7 @@ body {
 .calendarFooterQuote {
   background: #fffffff6;
   padding: 0 15px 3px;
+  cursor: default;
 }
 
 .calendarFooterQuote p {

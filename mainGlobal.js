@@ -96,17 +96,17 @@ const getAllData = async (text) => {
 
 const wakeupServer = async () => {
   let url = URL_CORS + `https://myapp-9r5h.onrender.com/wakeup`;
-  $(".serverDot").removeClass("serverDotToggle");
+  $(".dotNum").removeClass("dotNumActive");
   await fetch(url)
     .then((res) => res.text())
     .then((data) => {
       if (data == "ok!") {
-        $(".serverDot").addClass("serverDotToggle");
+        $(".dotNum").addClass("dotNumActive");
       }
     });
 };
 
-$(".serverDot").click(function (e) {
+$(".dotNum").click(function (e) {
   wakeupServer();
 });
 
@@ -123,13 +123,13 @@ const fetchAndRenderCalendarData = async () => {
 };
 
 const fetchStartupData = async () => {
-  // getAllData(CURRENT_COLLECTION.collection).then((data) => {
-  //   let newdata = data.sort((a, b) => a._id - b._id);
-  //   localStorage.removeItem("sheetData");
-  //   localStorage.setItem("sheetData", JSON.stringify(newdata));
-  //   //save to array script
-  //   getLocalSheetData();
-  // });
+  getAllData(CURRENT_COLLECTION.collection).then((data) => {
+    let newdata = data.sort((a, b) => a._id - b._id);
+    localStorage.removeItem("sheetData");
+    localStorage.setItem("sheetData", JSON.stringify(newdata));
+    //save to array script
+    getLocalSheetData();
+  });
   await fetchAndRenderCalendarData();
   await getAllData(CURRENT_COLLECTION.history).then((data) => {
     localStorage.removeItem("historyData");
@@ -335,7 +335,7 @@ const getTotalDoneWord = (text) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      $("#wordNum").html(data);
+      $(".dotNum").html(`${(data + "").slice(0, -2)}&#183;${(data + "").slice(-2)}`);
     });
 };
 

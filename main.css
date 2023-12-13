@@ -414,7 +414,6 @@ body {
   cursor: pointer;
   color: #7c7b7a;
   background: none;
-  transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   z-index: 99;
   position: relative;
   width: 74px;
@@ -440,7 +439,6 @@ body {
   background-size: cover;
   background-position: center bottom;
   position: relative;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   cursor: pointer;
 }
 
@@ -480,7 +478,7 @@ body {
   top: 0;
   left: 0;
   background: #070707;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: top 300ms;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -490,7 +488,7 @@ body {
 
 .item-wrapper:hover .img-overlay,
 .item-hover .img-overlay {
-  top: -100%;
+  top: 100%;
 }
 
 /* .item-hover .item-back,
@@ -515,7 +513,6 @@ body {
   color: #000;
   z-index: 2;
   padding: 18px 9px 18px 90px;
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   align-items: flex-start;
 }
 
@@ -589,25 +586,65 @@ body {
 }
 
 #indicateFlip {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #fff;
   width: 42px;
   height: 42px;
   margin-bottom: 18px;
   border-radius: 50%;
-  text-align: center;
-  line-height: 42px;
-  font-size: 16px;
-  font-family: "Roslindale";
-  font-weight: bold;
-  font-style: italic;
-  text-shadow: 0px 0px 1px #000000d1;
 }
 
 #indicateFlip img {
   height: 45px;
   margin-top: -6px;
   filter: drop-shadow(0 0 3px #000);
+}
+
+
+.numListContent {
+  width: 42px;
+  height: 18px;
+  padding-top: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.numList {
+  transition: transform 300ms;
+}
+
+.number {
+  font-size: 16px;
+  font-family: "Roslindale";
+  font-weight: bold;
+  text-shadow: 0px 0px 1px #000000d1;
+  overflow: hidden;
+  text-align: center;
+  line-height: 16px;
+  color: #000;
+  transition: opacity 500ms;
+  opacity: 0.025;
+}
+
+.numberVisible {
+  opacity: 1;
+}
+
+.numberClose {
+  opacity: 0.35;
+}
+
+.numberFar {
+  opacity: 0.15;
+}
+
+.numberDistant {
+  opacity: 0.1;
 }
 
 .indexFlip {
@@ -738,7 +775,6 @@ body {
   right: 0;
   text-align: center;
   outline: 0;
-  transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   width: 27px;
   height: 12px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6),

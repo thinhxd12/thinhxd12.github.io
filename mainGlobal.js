@@ -335,7 +335,7 @@ const getTotalDoneWord = (text) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      $(".dotNum").html(`${(data + "").slice(0, -2)}&#183;${(data + "").slice(-2)}`);
+      $(".dotNum").html(data);
     });
 };
 
@@ -1109,9 +1109,39 @@ const renderFlashcard = (item, progress) => {
                     <div class="indicateFlip">
                         <div class="indicateFlipContainer"> 
                           <div class="indicateFlipContent"> 
-                          <span id="indicateFlip">
-                            ${item.numb}
-                          </span>
+                          <div id="indicateFlip">
+                            <div class="numListContent">
+                              <div class="numList">
+                                <div class="number">0</div>
+                                <div class="number">1</div>
+                                <div class="number">2</div>
+                              </div>
+                              <div class="numList">
+                                <div class="number">0</div>
+                                <div class="number">1</div>
+                                <div class="number">2</div>
+                                <div class="number">3</div>
+                                <div class="number">4</div>
+                                <div class="number">5</div>
+                                <div class="number">6</div>
+                                <div class="number">7</div>
+                                <div class="number">8</div>
+                                <div class="number">9</div>
+                              </div>
+                              <div class="numList">
+                                <div class="number">0</div>
+                                <div class="number">1</div>
+                                <div class="number">2</div>
+                                <div class="number">3</div>
+                                <div class="number">4</div>
+                                <div class="number">5</div>
+                                <div class="number">6</div>
+                                <div class="number">7</div>
+                                <div class="number">8</div>
+                                <div class="number">9</div>
+                              </div>
+                            </div>
+                          </div>
                           </div>
                         </div>
                     </div>
@@ -1136,10 +1166,14 @@ const renderFlashcard = (item, progress) => {
                 </div>
     
     `;
+  renderIndicateFlipContent(item.numb);
   if (item.numb > 0) {
     setTimeout(() => {
-      document.getElementById("indicateFlip").innerHTML = `${newNumb == 0 ? '<img src="./img/cup.png">' : newNumb}`;
-    }, 3000);
+      if (newNumb == 0) {
+        document.getElementById("indicateFlip").innerHTML = `<img src="./img/cup.png">`;
+      }
+      else renderIndicateFlipContent(newNumb);
+    }, 2500);
   }
 
   flipTimer1 = setTimeout(() => {
@@ -1150,7 +1184,7 @@ const renderFlashcard = (item, progress) => {
     audioEl.play();
   }, 2500);
   flipTimer2 = setTimeout(hoverIn, 3500);
-  flipTimer3 = setTimeout(hoverOut, 5500);
+  flipTimer3 = setTimeout(hoverOut, 6000);
 };
 
 const hoverIn = () => {
@@ -1160,6 +1194,29 @@ const hoverIn = () => {
 const hoverOut = () => {
   $(".item-wrapper").removeClass("item-hover");
 };
+
+const renderIndicateFlipContent = (num) => {
+  let fontSize = 16;
+  let numLists = Array.from(document.getElementsByClassName('numList'));
+  const classNumList = ['numberVisible', 'numberClose', 'numberFar', 'numberFar', 'numberDistant', 'numberDistant'];
+  function getClassList(n, i2) {
+    return classNumList.find((class_, classIndex) => Math.abs(n - i2) === classIndex) || '';
+  }
+  let str = "" + num;
+  while (str.length < numLists.length) {
+    str = "0" + str;
+  }
+  if (num < 100) numLists[0].style.display = "none";
+  if (num < 10) numLists[1].style.display = "none";
+  numLists.forEach((ele, i) => {
+    let n = +str[i];
+    let offset = n * fontSize;
+    ele.style.transform = `translateY(-${offset}px)`;
+    Array.from(ele.children).forEach((ele2, i2) => {
+      ele2.className = 'number ' + getClassList(n, i2);
+    });
+  })
+}
 
 let textData = { text: "", sound: "", class: "", definitions: [] };
 let textData1 = { text: "", sound: "", class: "", definitions: [] };

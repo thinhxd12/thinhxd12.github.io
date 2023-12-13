@@ -1183,7 +1183,7 @@ const renderFlashcard = (item, progress) => {
     audioEl.src = `https://myapp-9r5h.onrender.com/hear?lang=vi&text=${meaningTTS}`;
     audioEl.play();
   }, 2500);
-  flipTimer2 = setTimeout(hoverIn, 3500);
+  flipTimer2 = setTimeout(hoverIn, 3200);
   flipTimer3 = setTimeout(hoverOut, 6000);
 };
 

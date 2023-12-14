@@ -547,15 +547,14 @@ const renderHistorySlide = (numb) => {
       }
       </div>`;
   } else historyTable.innerHTML = `
-  <div class="calendarHistoryContent">
     ${historyTableData.map((item, index) => {
     return `
     <div class="historyItem">
       <div class="historyItemDesc ${item.fromD ? ' historyItemDescComplete' : ''}" onclick="commitNewWork(${item.row},${numb})">${item.row} - ${item.row + 199}</div>
       ${item.fromD ? `<div class="historyItemContent">
-      <span>${item.fromD}</span>
-      <span>${item.toD}</span>
-    </div>`
+                        <span>${item.fromD}</span>
+                        <span>${item.toD}</span>
+                      </div>`
         : `<div class="historyItemContent"></div>`
       }
     </div>`;

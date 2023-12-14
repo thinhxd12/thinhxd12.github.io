@@ -1005,7 +1005,7 @@ body {
 }
 
 .calendarHeader:hover .calendarHistory {
-  height: 105px;
+  max-height: 110px;
 }
 
 .calendarHeaderContent {
@@ -1016,9 +1016,9 @@ body {
 }
 
 .calendarHistory {
-  height: 0px;
+  max-height: 0;
   width: 100%;
-  transition: height 0.2s ease;
+  transition: max-height 0.2s ease;
   overflow: hidden;
   background-color: #fffffff6;
 }
@@ -1780,13 +1780,13 @@ span.x::before {
 }
 
 .subEditContainer {
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: height 0.3s ease;
+  transition: max-height 0.3s ease;
 }
 
 .transItem:hover .subEditContainer {
-  height: 90px;
+  max-height: 90px;
 }
 
 .editItemContent {

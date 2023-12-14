@@ -532,7 +532,7 @@ const renderHistorySlide = (numb) => {
   if (numb == dataHistory.length - 1) {
     historyTable.innerHTML = `
         ${historyTableData.map((item, index) => {
-      const check = item.row == todayData.startIndex1 + 1 || item.row == todayData.startIndex1 - 49;
+      const check = item.row == todayData?.startIndex1 + 1 || item.row == todayData?.startIndex1 - 49;
       return `
         <div class="historyItem">
           <div class="historyItemDesc ${item.fromD ? ' historyItemDescComplete' : ''}" onclick="commitNewWork(${item.row},${numb})">${item.row} - ${item.row + 199}</div>

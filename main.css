@@ -478,7 +478,7 @@ body {
   top: 0;
   left: 0;
   background: #070707;
-  transition: top 300ms;
+  transition: top 300ms ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
